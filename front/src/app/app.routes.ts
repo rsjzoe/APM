@@ -8,6 +8,8 @@ import { AdministrationComponent } from './sidebar/administration/administration
 import { LifeCycleTimeComponent } from './sidebar/life-cycle-time/life-cycle-time.component';
 import { PerformanceComponent } from './sidebar/performance/performance.component';
 
+
+
 export const routes: Routes = [
   {
     path: '',
