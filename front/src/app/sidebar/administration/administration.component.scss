@@ -1,0 +1,35 @@
+.table {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table tbody tr {
+  transition: 0.3s ease;
+}
+.table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table .title-col th {
+  color: #fff !important;
+}
+
+.delete-icon,
+.edit-icon {
+  cursor: pointer;
+}
+
+.modal {
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-backdrop.show {
+  opacity: 0 !important;
+}
+
+.input-dropdown .btn:hover {
+  color: black !important;
+}

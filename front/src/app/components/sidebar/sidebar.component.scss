@@ -1,0 +1,66 @@
+.closesidebar {
+  .btn-logout {
+    padding: 6px 0 !important;
+
+    span {
+      display: none;
+    }
+  }
+  .btn-bottom {
+    padding: 0.625rem !important;
+  }
+  .logo {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    left: -11px;
+  }
+  #offcanvasLabel {
+    display: none;
+  }
+  .btn-close-sidebar {
+    display: none;
+  }
+  .btn-show-sidebar {
+    display: block;
+  }
+  .sidebar-container {
+    width: 57px;
+  }
+  .collapse {
+    left: -27px;
+    position: relative;
+    padding-top: 0 !important;
+  }
+  .nav-item.list {
+    width: 35px;
+    left: -7px;
+    position: relative;
+  }
+  .nav-item-text {
+    display: none;
+  }
+  .iconright-category .icon-right {
+    display: none;
+  }
+}
+
+.btn-close:hover,
+.btn-close:active {
+  border: none !important;
+}
+
+.btn-show-sidebar {
+  display: none;
+  position: absolute;
+  cursor: pointer;
+  left: 70px;
+  z-index: 10;
+  top: 27px;
+}
+.btn-close-sidebar {
+  display: block;
+  left: 20px;
+  position: relative;
+  cursor: pointer;
+}

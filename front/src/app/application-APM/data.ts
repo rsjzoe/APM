@@ -1,0 +1,117 @@
+import { Application } from './appType';
+
+export const applications: Application[] = [
+  {
+    id: 1,
+    name: "Budget Tracker",
+    description: "Application de gestion des budgets d'entreprise.",
+    businessValue: 50000, 
+    costBuild: 20000, 
+    costRun: 5000, 
+    userTeam: "Finance",
+    category: "SI",
+    technologies: [
+      { name: "Angular" },
+      { name: "Node.js" },
+      { name: "MongoDB" }
+    ],
+    startDate: new Date("2023-01-15"),
+    lastUpdate: new Date("2024-12-20"),
+    performance: {
+      responseTimeMs: 5 
+    },
+    status: "production",
+    time: "invest",
+    userTotal: 15
+  },
+  {
+    id: 2,
+    name: "Employee Portal",
+    description: "Portail interne pour la gestion des employés.",
+    businessValue: 30000,
+    costBuild: 10000,
+    costRun: 3000,
+    userTeam: "Ressources Humaines",
+    category: "SI",
+    technologies: [
+      { name: "React" },
+      { name: "Spring Boot" }
+    ],
+    startDate: new Date("2021-06-01"),
+    lastUpdate: new Date("2023-11-15"),
+    performance: {
+      responseTimeMs: 10
+    },
+    status: "production",
+    time: "tolerate",
+    userTotal: 24
+  },
+  {
+    id: 3,
+    name: "E-Commerce Platform",
+    description: "Plateforme de vente en ligne pour les clients.",
+    businessValue: 100000,
+    costBuild: 40000,
+    costRun: 12000,
+    userTeam: "Marketing",
+    category: "ODA",
+    technologies: [
+      { name: "Vue.js" },
+      { name: "Django" },
+      { name: "PostgreSQL" }
+    ],
+    startDate: new Date("2020-03-10"),
+    lastUpdate: new Date("2024-08-01"),
+    performance: {
+      responseTimeMs: 3
+    },
+    status: "production",
+    time: "invest",
+    userTotal: 25
+  },
+  {
+    id: 4,
+    name: "Legacy CRM",
+    description: "Système de gestion de la relation client en fin de vie.",
+    businessValue: 15000,
+    costBuild: 25000,
+    costRun: 7000,
+    userTeam: "Ventes",
+    category: "SI",
+    technologies: [
+      { name: "Java" },
+      { name: "Oracle DB" }
+    ],
+    startDate: new Date("2010-05-12"),
+    lastUpdate: new Date("2020-12-01"),
+    performance: {
+      responseTimeMs: 15
+    },
+    status: "deprecated",
+    time: "eliminate",
+    userTotal: 20
+  },
+  {
+    id: 5,
+    name: "Internal Messaging System",
+    description: "Application de messagerie interne utilisée par les employés.",
+    businessValue: 20000,  
+    costBuild: 15000, 
+    costRun: 8000, 
+    userTeam: "Tous les départements",
+    category: "SI",
+    technologies: [
+      { name: "PHP" },
+      { name: "MySQL" }
+    ],
+    startDate: new Date("2015-04-10"),
+    lastUpdate: new Date("2022-06-30"),
+    performance: {
+      responseTimeMs: 12 
+    },
+    status: "production",
+    time: "migrate", 
+    userTotal: 18 
+  }
+];
+

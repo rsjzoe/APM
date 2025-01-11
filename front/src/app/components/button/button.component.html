@@ -1,0 +1,9 @@
+<button type="button" class="btn btn-primary gap-2 {{className}}">
+    <svg class="icon-sidebaritem" *ngIf="iconPath" width="25" height="25" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path [attr.d]="iconPath" fill="currentColor" fill-rule="evenodd" transform="scale(.024)" />
+    </svg>
+    <span>
+        {{text}}
+    </span>
+</button>
