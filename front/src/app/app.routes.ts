@@ -2,11 +2,11 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './sidebar/layout/layout.component';
 import { HomeComponent } from './sidebar/home/home.component';
 import { CategoryComponent } from './sidebar/category/category.component';
-import { UpdatedApplicationComponent } from './sidebar/updated-application/updated-application.component';
 import { CategoryOdaComponent } from './sidebar/category/category-oda/category-oda.component';
 import { CategorySiComponent } from './sidebar/category/category-si/category-si.component';
 import { AdministrationComponent } from './sidebar/administration/administration.component';
 import { LifeCycleTimeComponent } from './sidebar/life-cycle-time/life-cycle-time.component';
+import { PerformanceComponent } from './sidebar/performance/performance.component';
 
 export const routes: Routes = [
   {
@@ -40,8 +40,8 @@ export const routes: Routes = [
         component: LifeCycleTimeComponent,
       },
       {
-        path: 'updateApp',
-        component: UpdatedApplicationComponent,
+        path: 'performance',
+        component: PerformanceComponent,
       },
     ],
   },
