@@ -1,0 +1,143 @@
+.card-hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 1px;
+  position: relative;
+  flex: 1;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+}
+
+.card-hover .content {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  padding: 32px 24px;
+  z-index: 1;
+  color: white;
+  background: white;
+}
+
+.card-hover:hover .content::before {
+  opacity: 1;
+}
+
+.card-hover::before {
+  opacity: 0;
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 80px;
+  height: 360px;
+  background: #ff7900;
+  transition: opacity 300ms;
+  animation: rotation_9018 4000ms infinite linear;
+  animation-play-state: paused;
+}
+
+.card-hover:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.card-hover::after {
+  position: absolute;
+  content: " ";
+  display: block;
+  width: 250px;
+  height: 360px;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes rotation_9018 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.card-hover p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #666;
+}
+
+.card-hover p.small {
+  font-size: 14px;
+}
+.card-hover .logo {
+  width: 60px;
+  height: 60px;
+}
+.card-hover .logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background-color: #ff7900;
+  border-radius: 0 4px 0 40px;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+  font-family: courier, sans;
+}
+
+.card-hover .bottom-section {
+  margin-top: 15px;
+  padding: 0 5px;
+}
+
+.card-hover .bottom-section .title {
+  display: block;
+  font-size: 17px;
+  font-weight: bolder;
+  color: white;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.card-hover .bottom-section .row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.card-hover .bottom-section .row .item {
+  flex: 30%;
+  text-align: center;
+  padding: 5px;
+  color: black;
+}
+
+.card-hover .bottom-section .row .item .big-text {
+  font-size: 12px;
+  display: block;
+}
+
+.card-hover .bottom-section .row .item .regular-text {
+  font-size: 9px;
+}
+
+.card-hover .bottom-section .row .item:nth-child(2) {
+  border-left: 1px solid #80808078;
+  border-right: 1px solid #80808078;
+}
