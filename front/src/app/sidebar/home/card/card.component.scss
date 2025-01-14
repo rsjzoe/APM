@@ -1,3 +1,18 @@
+.action-icon{
+  top: 15px;
+  left: -35px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 5px;
+  transition: .3s ease;
+  border-radius: 3px;
+}
+.action-icon .edit-icon, .action-icon .delete-icon{
+  cursor: pointer;
+  transition: .1s ease;
+}
+.action-icon .edit-icon:hover, .action-icon .delete-icon:hover{
+  transform: scale(1.1);
+}
 .card-hover {
   display: flex;
   justify-content: center;
@@ -24,6 +39,11 @@
   opacity: 1;
 }
 
+.card-hover:hover .action-icon{
+  left: 15px;
+
+}
+
 .card-hover::before {
   opacity: 0;
   content: " ";
@@ -40,6 +60,9 @@
 .card-hover:hover::before {
   opacity: 1;
   animation-play-state: running;
+}
+.card-hover a:hover{
+  color: black;
 }
 
 .card-hover::after {
