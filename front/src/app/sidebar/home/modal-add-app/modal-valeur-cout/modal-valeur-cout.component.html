@@ -1,0 +1,97 @@
+<div
+  class="modal modal-lg fade"
+  id="exampleModalToggle2"
+  aria-hidden="true"
+  data-bs-backdrop="false"
+  aria-labelledby="exampleModalToggleLabel2"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title h5" id="exampleModalToggleLabel2">
+          Valeurs et Coûts
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          data-bs-title="Close"
+        >
+          <span class="visually-hidden">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="costsForm">
+          <div class="mb-3">
+            <label for="businessValue" class="form-label">Valeur métier</label>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                id="businessValue"
+                min="0"
+                step="1"
+                required
+              />
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="costBuild" class="form-label"
+              >Coût de construction</label
+            >
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                id="costBuild"
+                min="0"
+                step="1"
+                required
+              />
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="costRun" class="form-label"
+              >Coût de fonctionnement</label
+            >
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                id="costRun"
+                min="0"
+                step="1"
+                required
+              />
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          class="btn btn-secondary"
+          data-bs-target="#exampleModalToggle"
+          data-bs-toggle="modal"
+        >
+          Précédent
+        </button>
+        <button
+          class="btn btn-primary"
+          data-bs-target="#exampleModalToggle3"
+          data-bs-toggle="modal"
+        >
+          Suivant
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
