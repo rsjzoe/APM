@@ -1,7 +1,7 @@
 package org.acme.user.app.usecase;
 
 import org.acme.user.domain.model.User;
-import org.acme.user.domain.port.EmailService;
+import org.acme.user.domain.port.out.EmailService;
 
 import jakarta.enterprise.context.ApplicationScoped;
 

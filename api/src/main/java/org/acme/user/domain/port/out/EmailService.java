@@ -1,4 +1,4 @@
-package org.acme.user.domain.port;
+package org.acme.user.domain.port.out;
 
 import org.acme.user.domain.model.User;
 

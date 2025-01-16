@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.acme.user.domain.input.CreateUserInput;
 import org.acme.user.domain.input.UpdateUserInput;
 import org.acme.user.domain.model.User;
-import org.acme.user.domain.port.UserRepository;
+import org.acme.user.domain.port.out.UserRepository;
 
 public class UserRepositoryDatabase implements UserRepository {
 
