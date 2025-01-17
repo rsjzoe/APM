@@ -6,6 +6,7 @@ import org.acme.applicationAPM.domain.input.CreateApplicationInput;
 import org.acme.applicationAPM.domain.input.UpdateApplicationInput;
 import org.acme.applicationAPM.domain.model.Application;
 
+//afahana mifandray am domain 
 public interface ApplicationRepository {
     List<Application> listAll();
 

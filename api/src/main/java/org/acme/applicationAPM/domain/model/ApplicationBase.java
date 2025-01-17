@@ -2,7 +2,7 @@ package org.acme.applicationAPM.domain.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+// objet miasa amlai projet
 public class ApplicationBase {
     protected String name;
     protected String description;

@@ -22,7 +22,6 @@ public class ApplicationEntityRepository implements ApplicationRepository {
     public Application findById(Long id) {
         ApplicationEntity data = ApplicationEntity.findById(id);
         return data.toApplication();
-
     }
 
     @Override
