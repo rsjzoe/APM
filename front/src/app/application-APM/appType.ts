@@ -16,6 +16,8 @@ export type Application = {
   userTotal: number;
 };
 
+export type CreateApplication = Omit<Application, "id">
+export type UpdateApplication = Omit<Application, "id">
 export type Category = 'SI' | 'ODA';
 export type Time = 'tolerate' | 'invest' | 'migrate' | 'eliminate';
 export type Status = 'development' | 'production' | 'deprecated';

@@ -4,7 +4,7 @@
     text="Ajouter Application" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"></app-button>
 
   <div class="grid-card-app d-grid gap-4">
-    <app-card *ngFor="let app of apps" [app]="app"></app-card>
+    <app-card *ngFor="let app of apps" [app]="app" [deleteById]="deleteById"></app-card>
   </div>
 
   <app-modal-add-app></app-modal-add-app>

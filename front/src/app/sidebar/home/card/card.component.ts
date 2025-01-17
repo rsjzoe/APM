@@ -5,8 +5,9 @@ import { Application } from '../../../application-APM/appType';
   selector: 'app-card',
   imports: [],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.scss'
+  styleUrl: './card.component.scss',
 })
 export class CardComponent {
   @Input() app!: Application;
+  @Input() deleteById(id: number) {}
 }
