@@ -7,7 +7,6 @@ export type Application = {
   costRun: number;
   userTeam: string;
   category: Category;
-  technologies: Technology[];
   startDate: Date;
   lastUpdate: Date;
   performance: Performance;
@@ -16,12 +15,11 @@ export type Application = {
   userTotal: number;
 };
 
-export type CreateApplication = Omit<Application, "id">
-export type UpdateApplication = Omit<Application, "id">
+export type CreateApplication = Omit<Application, 'id'>;
+export type UpdateApplication = Omit<Application, 'id'>;
 export type Category = 'SI' | 'ODA';
 export type Time = 'tolerate' | 'invest' | 'migrate' | 'eliminate';
 export type Status = 'development' | 'production' | 'deprecated';
-export type Technology = { name: string };
 export type Performance = {
   // KPI (Key Performance Indicators)
 

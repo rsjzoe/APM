@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     });
   };
 
-  ngOnInit() {
+  findAll = () => {
     this.appService.findAll().subscribe({
       next: (data) => {
         this.apps = data;
@@ -37,5 +37,13 @@ export class HomeComponent implements OnInit {
         console.error('Erreur lors de la récupération des tâches :', error);
       },
     });
+  };
+
+  refresh = () => {
+    this.findAll();
+  };
+
+  ngOnInit() {
+    this.findAll();
   }
 }

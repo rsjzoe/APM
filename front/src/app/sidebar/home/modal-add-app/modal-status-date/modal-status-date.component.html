@@ -1,71 +1,49 @@
-<div
-  class="modal modal-lg fade"
-  id="exampleModalToggle4"
-  aria-hidden="true"
-  data-bs-backdrop="false"
-  aria-labelledby="exampleModalToggleLabel4"
-  tabindex="-1"
->
+<div class="modal modal-lg fade" id="exampleModalToggle3" aria-hidden="true" data-bs-backdrop="false"
+  aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title h5" id="exampleModalToggleLabel4">
+        <h1 class="modal-title h5" id="exampleModalToggleLabel3">
           Dates et Statut
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          data-bs-toggle="tooltip"
-          data-bs-placement="bottom"
-          data-bs-title="Close"
-        >
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip"
+          data-bs-placement="bottom" data-bs-title="Close">
           <span class="visually-hidden">Close</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="datesStatusForm">
+        <div id="datesStatusForm">
           <div class="mb-3">
             <label for="startDate" class="form-label">Date de démarrage</label>
-            <input type="date" class="form-control" id="startDate" required />
+            <input type="datetime-local" [(ngModel)]="startDate" class="form-control" id="startDate" required />
           </div>
 
           <div class="mb-3">
-            <label for="lastUpdate" class="form-label"
-              >Dernière mise à jour</label
-            >
-            <input
-              type="datetime-local"
-              class="form-control"
-              id="lastUpdate"
-              required
-            />
+            <label for="lastUpdate" class="form-label">Dernière mise à jour</label>
+            <input type="datetime-local" [(ngModel)]="lastUpdate" class="form-control" id="lastUpdate" required />
           </div>
 
           <div class="mb-3">
             <label for="status" class="form-label">Statut</label>
-            <select class="form-select" id="status" required>
+            <select class="form-select" [(ngModel)]="status" id="status" required>
               <option value="">Sélectionner un statut</option>
-              <option value="development">Développement</option>
-              <option value="production">Production</option>
-              <option value="deprecated">Déprécié</option>
+              <option value="DEVELOPMENT">Développement</option>
+              <option value="PRODUCTION">Production</option>
+              <option value="DEPRECATED">Déprécié</option>
             </select>
             <div id="statusHelp" class="form-text">
               <span class="text-muted">Statut actuel de l'application</span>
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
       <div class="modal-footer">
-        <button
-          class="btn btn-secondary"
-          data-bs-target="#exampleModalToggle3"
-          data-bs-toggle="modal"
-        >
+        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
           Précédent
         </button>
-        <button class="btn btn-primary" data-bs-toggle="modal">
+        <button class="btn btn-primary" (click)="getValueFromStatus({startDate, lastUpdate, status})"
+          data-bs-toggle="modal">
           Enregistrer
         </button>
       </div>

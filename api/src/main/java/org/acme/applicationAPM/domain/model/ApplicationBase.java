@@ -1,7 +1,7 @@
 package org.acme.applicationAPM.domain.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 // objet miasa amlai projet
 public class ApplicationBase {
     protected String name;
@@ -11,7 +11,6 @@ public class ApplicationBase {
     protected double costRun;
     protected String userTeam;
     protected Category category;
-    protected List<Technology> technologies;
     protected LocalDateTime startDate;
     protected LocalDateTime lastUpdate;
     protected Performance performance;
@@ -23,7 +22,7 @@ public class ApplicationBase {
     }
 
     public ApplicationBase(String name, String description, double businessValue, double costBuild, double costRun,
-            String userTeam, Category category, List<Technology> technologies, LocalDateTime startDate,
+            String userTeam, Category category, LocalDateTime startDate,
             LocalDateTime lastUpdate, Performance performance, Status status, Time time, int userTotal) {
         this.name = name;
         this.description = description;
@@ -32,7 +31,6 @@ public class ApplicationBase {
         this.costRun = costRun;
         this.userTeam = userTeam;
         this.category = category;
-        this.technologies = technologies;
         this.startDate = startDate;
         this.lastUpdate = lastUpdate;
         this.performance = performance;
@@ -97,14 +95,6 @@ public class ApplicationBase {
         this.category = category;
     }
 
-    public List<Technology> getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(List<Technology> technologies) {
-        this.technologies = technologies;
-    }
-
     public LocalDateTime getStartDate() {
         return startDate;
     }
@@ -163,7 +153,6 @@ public class ApplicationBase {
                 ", costRun=" + costRun +
                 ", userTeam='" + userTeam + '\'' +
                 ", category=" + category +
-                ", technologies=" + technologies +
                 ", startDate=" + startDate +
                 ", lastUpdate=" + lastUpdate +
                 ", performance=" + performance +
