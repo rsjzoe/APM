@@ -16,6 +16,7 @@ public class UpdateApplicationInput extends ApplicationBase {
             double costRun,
             String userTeam, Category category, List<Technology> technologies, LocalDateTime startDate,
             LocalDateTime lastUpdate, Performance performance, Status status, Time time, int userTotal) {
+        // miantso ny constructeur anlay parent
         super(name, description, businessValue, costBuild, costRun, userTeam, category, technologies, startDate,
                 lastUpdate, performance, status, time, userTotal);
     }
