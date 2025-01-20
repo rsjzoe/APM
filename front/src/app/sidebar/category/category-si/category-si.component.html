@@ -3,7 +3,8 @@
         <div class="app-header">
             <div class="d-flex justify-content-between items-center">
                 <div class="custom-text fs-2 fw-bold">Budget</div>
-                <div class=""><span class="badge bg-success rounded-pill">prod</span> </div>
+                <div class=""><span class="badge text-white rounded-pill"
+                        [ngClass]="getStatusColor(application.status)">production</span> </div>
             </div>
             <div class="custom-muted-text">Système de gestion de la relation client avancé</div>
         </div>
@@ -12,12 +13,12 @@
             <div class="custom-grid">
                 <div class="custom-flex">
                     <svg class="icon text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-dollar-sign">
                         <line x1="12" x2="12" y1="2" y2="22" />
                         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
-                    <span>Valeur commerciale: {{ application.businessValue }}</span>
+                    <span class="fw-semibold">Valeur commerciale:</span> <span>{{ application.businessValue }}</span>
                 </div>
                 <div class="custom-flex">
                     <svg class="icon" [ngClass]="getTimeColor(application.time)" xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +38,7 @@
                         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    <span>Équipe utilisateur: {{ application.userTeam }}</span>
+                    <span class="fw-semibold">Équipe utilisateur: </span><span>{{ application.userTeam }}</span>
                 </div>
                 <div class="custom-flex">
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -47,7 +48,7 @@
                         <line x1="12" x2="12" y1="20" y2="4" />
                         <line x1="6" x2="6" y1="20" y2="14" />
                     </svg>
-                    <span>Catégorie: {{ application.category }}</span>
+                    <span class="fw-semibold">Catégorie:</span><span> {{ application.category }}</span>
                 </div>
             </div>
 
@@ -61,7 +62,7 @@
                             <div class="custom-text fw-">Coût de construction</div>
                         </div>
                         <div class="app-content">
-                            <div class="fs-3 fw-bold">{{application.costBuild}} €</div>
+                            <div class="fs-3 fw-bold">{{application.costBuild}} Ar</div>
                         </div>
                     </div>
                     <div class="custom-card">
@@ -69,7 +70,7 @@
                             <div class="custom-text fw-emibold">Coût d'exploitation</div>
                         </div>
                         <div class="app-content">
-                            <div class="fs-3 fw-bold">{{application.costRun}} €</div>
+                            <div class="fs-3 fw-bold">{{application.costRun}} Ar</div>
                         </div>
                     </div>
                 </div>
@@ -82,13 +83,14 @@
                 <div class="custom-flex-space">
                     <span class="custom-icon text-yellow-500">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-zap">
                             <path
                                 d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
                         </svg>
                     </span>
-                    <span>Temps de réponse: {{ application.performance.responseTimeMs }} ms</span>
+                    <span class="fw-semibold">Temps de réponse: </span><span>{{ application.performance.responseTimeMs
+                        }} ms</span>
                 </div>
                 <div class="custom-progress-bar">
                     <div class="custom-progress-fill" [style.width.%]="80"></div>
