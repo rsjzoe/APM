@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { Application } from '../../../application-APM/appType';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { IconLifecycleComponent } from "../../../components/icons/icon-lifecycle/icon-lifecycle.component";
+import { IconStarComponent } from "../../../components/icons/icon-star/icon-star.component";
 
 @Component({
   selector: 'app-app-details',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, IconLifecycleComponent, IconStarComponent],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',
 })

@@ -34,7 +34,7 @@ export const applications: Application[] = [
     performance: {
       responseTimeMs: 10,
     },
-    status: 'production',
+    status: 'development',
     time: 'tolerate',
     userTotal: 24,
   },
