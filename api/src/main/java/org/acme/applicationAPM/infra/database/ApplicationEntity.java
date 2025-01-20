@@ -47,7 +47,7 @@ public class ApplicationEntity extends PanacheEntity {
         this.userTotal = userTotal;
     }
 
-    public ApplicationEntity(CreateApplicationInput app){
+    public ApplicationEntity(CreateApplicationInput app) {
         this.name = app.getName();
         this.description = app.getDescription();
         this.businessValue = app.getBusinessValue();
@@ -62,11 +62,11 @@ public class ApplicationEntity extends PanacheEntity {
     }
 
     public Application toApplication() {
-        return new Application(id, name, description, businessValue, costBuild, costRun, userTeam, null, null,
+        return new Application(id, name, description, businessValue, costBuild, costRun, userTeam, null,
                 startDate, lastUpdate, null, status, time, userTotal);
     }
 
-    public ApplicationEntity updateData(UpdateApplicationInput app){
+    public ApplicationEntity updateData(UpdateApplicationInput app) {
         this.name = app.getName();
         this.description = app.getDescription();
         this.businessValue = app.getBusinessValue();

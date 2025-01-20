@@ -1,16 +1,18 @@
-.action-icon{
+.action-icon {
   top: 15px;
   left: -35px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 5px;
-  transition: .3s ease;
+  transition: 0.3s ease;
   border-radius: 3px;
 }
-.action-icon .edit-icon, .action-icon .delete-icon{
+.action-icon .edit-icon,
+.action-icon .delete-icon {
   cursor: pointer;
-  transition: .1s ease;
+  transition: 0.1s ease;
 }
-.action-icon .edit-icon:hover, .action-icon .delete-icon:hover{
+.action-icon .edit-icon:hover,
+.action-icon .delete-icon:hover {
   transform: scale(1.1);
 }
 .card-hover {
@@ -39,9 +41,8 @@
   opacity: 1;
 }
 
-.card-hover:hover .action-icon{
+.card-hover:hover .action-icon {
   left: 15px;
-
 }
 
 .card-hover::before {
@@ -50,7 +51,7 @@
   position: absolute;
   display: block;
   width: 80px;
-  height: 360px;
+  height: 460px;
   background: #ff7900;
   transition: opacity 300ms;
   animation: rotation_9018 4000ms infinite linear;
@@ -61,7 +62,7 @@
   opacity: 1;
   animation-play-state: running;
 }
-.card-hover a:hover{
+.card-hover a:hover {
   color: black;
 }
 

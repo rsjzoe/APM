@@ -1,50 +1,31 @@
-<div
-  class="modal fade modal-lg"
-  id="exampleModalToggle"
-  aria-hidden="true"
-  data-bs-backdrop="false"
-  aria-labelledby="exampleModalToggleLabel"
-  tabindex="-1"
->
+<div class="modal fade modal-lg" id="exampleModalToggle" aria-hidden="true" data-bs-backdrop="false"
+  aria-labelledby="exampleModalToggleLabel" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title h5" id="exampleModalToggleLabel">
           Informations Générales
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          data-bs-toggle="tooltip"
-          data-bs-placement="bottom"
-          data-bs-title="Close"
-        >
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip"
+          data-bs-placement="bottom" data-bs-title="Close">
           <span class="visually-hidden">Close</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="appInfoForm">
+        <div id="appInfoForm">
           <div class="mb-3">
             <label for="name" class="form-label">Nom de l'application</label>
-            <input type="text" class="form-control" id="name" required />
+            <input type="text" class="form-control" id="name" [(ngModel)]="appName" required />
           </div>
 
           <div class="mb-3">
-            <label for="description" class="form-label"
-              >Description de l'application</label
-            >
-            <textarea
-              class="form-control"
-              id="description"
-              rows="3"
-              required
-            ></textarea>
+            <label for="description" class="form-label">Description de l'application</label>
+            <textarea class="form-control" id="description" rows="3" required></textarea>
           </div>
 
           <div class="mb-3">
             <label for="category" class="form-label">Catégorie</label>
-            <select class="form-select" id="category" required>
+            <select class="form-select" id="category" [(ngModel)]="category" required>
               <option value="">Sélectionner une catégorie</option>
               <option value="SI">SI</option>
               <option value="ODA">ODA</option>
@@ -52,22 +33,19 @@
           </div>
           <div class="mb-3">
             <label for="name" class="form-label">Logo de l'application</label>
-            <input type="file" class="form-control" id="name"  />
+            <input type="file" class="form-control" id="name" />
           </div>
 
           <div class="mb-3">
             <label for="userTeam" class="form-label">Équipe responsable</label>
-            <input type="text" class="form-control" id="userTeam" required />
+            <input type="text" class="form-control" id="userTeam" [(ngModel)]="userTeam" required />
           </div>
-        </form>
+        </div>
       </div>
 
       <div class="modal-footer">
-        <button
-          class="btn btn-primary"
-          data-bs-target="#exampleModalToggle2"
-          data-bs-toggle="modal"
-        >
+        <button class="btn btn-primary" (click)="getValueFromGeneral({name:appName,description,category,userTeam })"
+          data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
           Suivant
         </button>
       </div>
