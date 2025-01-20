@@ -7,8 +7,7 @@ import { CategorySiComponent } from './sidebar/category/category-si/category-si.
 import { AdministrationComponent } from './sidebar/administration/administration.component';
 import { LifeCycleTimeComponent } from './sidebar/life-cycle-time/life-cycle-time.component';
 import { PerformanceComponent } from './sidebar/performance/performance.component';
-
-
+import { AppDetailsComponent } from './sidebar/home/app-details/app-details.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +17,10 @@ export const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+      },
+      {
+        path: 'app-details',
+        component: AppDetailsComponent,
       },
       {
         path: 'administration',

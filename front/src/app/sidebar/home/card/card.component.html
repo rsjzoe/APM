@@ -2,37 +2,16 @@
   <div class="content">
     <div class="action-icon d-grid gap-2 position-absolute">
       <span class="edit-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#4170D8"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-pencil"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4170D8"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
           <path
-            d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
-          />
+            d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
           <path d="m15 5 4 4" />
         </svg>
       </span>
       <span class="delete-icon" (click)="deleteById(app.id)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#CD3C14"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-trash-2"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CD3C14"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2">
           <path d="M3 6h18" />
           <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
           <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
@@ -41,7 +20,7 @@
         </svg>
       </span>
     </div>
-    <a class="" href="#">
+    <a class="" [routerLink]="route" routerLinkActive="router-link-active">
       <div class="d-grid gap-3">
         <div class="d-flex justify-content-center">
           <div class="logo">
