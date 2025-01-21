@@ -32,10 +32,13 @@ export class HomeComponent implements OnInit {
     this.appService.findAll().subscribe({
       next: (data) => {
         this.apps = data;
+        console.log(data);
+        
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des tâches :', error);
       },
+
     });
   };
 

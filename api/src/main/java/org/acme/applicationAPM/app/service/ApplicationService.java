@@ -2,6 +2,7 @@ package org.acme.applicationAPM.app.service;
 
 import java.util.List;
 
+import org.acme.applicationAPM.app.usecase.CalculateTime;
 import org.acme.applicationAPM.domain.input.CreateApplicationInput;
 import org.acme.applicationAPM.domain.input.UpdateApplicationInput;
 import org.acme.applicationAPM.domain.model.Application;
@@ -15,6 +16,9 @@ public class ApplicationService {
     @Inject
     ApplicationRepository applicationRepository;
 
+    @Inject
+    CalculateTime calculateTime;
+
     public List<Application> listAll() {
         return applicationRepository.listAll();
     };
@@ -24,6 +28,8 @@ public class ApplicationService {
     };
 
     public Application create(CreateApplicationInput newApplication) {
+        newApplication.setTime(calculateTime.calcul(newApplication.getBusinessValue(),
+                newApplication.getCostBuild() + newApplication.getCostRun()));
         return applicationRepository.create(newApplication);
     };
 

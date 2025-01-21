@@ -2,7 +2,13 @@
   <div class="custom-card">
     <div class="app-header">
       <div class="d-flex justify-content-between items-center">
-        <div class="custom-text fs-2 fw-bold">{{ application.name }}</div>
+        <div class="d-flex gap-2 align-items-center">
+          <img src="/image/om.png" alt="logo" class="app-detail-logo" />
+          <div class="">
+            <div class="custom-text fs-2 fw-bold">{{ application.name }}</div>
+            <div class="custom-muted-text">{{ application.description }}</div>
+          </div>
+        </div>
         <div class="">
           <span
             class="badge text-white rounded-pill"
@@ -11,7 +17,6 @@
           >
         </div>
       </div>
-      <div class="custom-muted-text">{{ application.description }}</div>
     </div>
 
     <div class="app-content p-6 pt-0">
@@ -114,13 +119,16 @@
 
       <div class="custom-space-y">
         <h3 class="custom-font-semibold">Performance</h3>
-        <div class="stars">
+        <div class="d-flex justify-content-between">
+          <div class="stars">
             <span>Note : </span>
-          <app-icon-star style="color: #fecc00"></app-icon-star>
-          <app-icon-star style="color: #fecc00"></app-icon-star>
-          <app-icon-star style="color: #fecc00"></app-icon-star>
-          <app-icon-star></app-icon-star>
-          <app-icon-star></app-icon-star>
+            <app-icon-star style="color: #fecc00"></app-icon-star>
+            <app-icon-star style="color: #fecc00"></app-icon-star>
+            <app-icon-star style="color: #fecc00"></app-icon-star>
+            <app-icon-star style="color: #d1d5db"></app-icon-star>
+            <app-icon-star style="color: #d1d5db"></app-icon-star>
+          </div>
+          <a routerLink="#" class="text-primary">Noter l'application</a>
         </div>
       </div>
 

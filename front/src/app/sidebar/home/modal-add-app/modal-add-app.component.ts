@@ -24,8 +24,6 @@ export class ModalAddAppComponent {
   constructor(private appService: HomeService) {}
 
   getValueFromGeneral = (value: ValueFromGeneral) => {
-    console.log('voantso');
-    console.log(value);
 
     this.application = { ...this.application, ...value };
     // this.application = {
@@ -50,8 +48,6 @@ export class ModalAddAppComponent {
   };
 
   getValueFromCost = (value: ValueFromCost) => {
-    console.log('madneh');
-
     this.application = { ...this.application, ...value };
   };
 
@@ -61,6 +57,8 @@ export class ModalAddAppComponent {
   };
 
   save() {
+    console.log(this.application);
+    
     this.appService.add(this.application).subscribe({
       next: (app) => {
         this.refresh();
