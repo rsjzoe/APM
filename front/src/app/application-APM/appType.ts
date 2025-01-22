@@ -25,3 +25,8 @@ export type Performance = {
 
   responseTimeMs: number; //en ms 2ms par ex
 };
+
+export type Question = {
+  id: number;
+  text: string;
+};
