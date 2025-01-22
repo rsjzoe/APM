@@ -8,6 +8,7 @@ import { AdministrationComponent } from './sidebar/administration/administration
 import { LifeCycleTimeComponent } from './sidebar/life-cycle-time/life-cycle-time.component';
 import { PerformanceComponent } from './sidebar/performance/performance.component';
 import { AppDetailsComponent } from './sidebar/home/app-details/app-details.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 export const routes: Routes = [
   {
@@ -19,7 +20,7 @@ export const routes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'app-details',
+        path: 'app-details/:id',
         component: AppDetailsComponent,
       },
       {
@@ -40,6 +41,7 @@ export const routes: Routes = [
           },
         ],
       },
+
       {
         path: 'life-cycle',
         component: LifeCycleTimeComponent,
@@ -48,6 +50,14 @@ export const routes: Routes = [
         path: 'performance',
         component: PerformanceComponent,
       },
+      {
+        path: '404',
+        component: NotfoundComponent,
+      },
+      {
+        path: '**',
+        component: NotfoundComponent,
+      }
     ],
   },
 ];
