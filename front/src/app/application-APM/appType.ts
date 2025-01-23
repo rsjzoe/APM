@@ -30,3 +30,5 @@ export type Question = {
   id: number;
   text: string;
 };
+export type CreateQuestion = Omit<Question, 'id'>;
+export type UpdateQuestion = Omit<Question, 'id'>;
