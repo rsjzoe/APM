@@ -1,9 +1,15 @@
 <div class="question-card">
   <div class="question-content">
-    <p class="question-text">question ??</p>
+    <p class="question-text">{{ question.text }}</p>
   </div>
   <div class="question-footer">
-    <button class="icon-button" data-action="edit">
+    <button
+      class="icon-button"
+      data-action="edit"
+      (click)="editQuestion(question)"
+      data-bs-toggle="modal"
+      data-bs-target="#quesitionModalForm"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -20,7 +26,7 @@
         ></path>
       </svg>
     </button>
-    <button class="icon-button destructive" data-action="delete">
+    <button class="icon-button destructive" data-action="delete" (click)="deleteQuestion(question.id)">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

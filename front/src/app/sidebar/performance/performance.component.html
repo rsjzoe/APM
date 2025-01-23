@@ -11,7 +11,19 @@
     </button>
   </div>
   <div class="questionsList">
-    <app-question-card></app-question-card>
+    <div class="">
+      <app-question-card
+        *ngFor="let question of questions"
+        [question]="question"
+        [deleteQuestion]="deleteQuestion"
+        [editQuestion]="editQuestion"
+      ></app-question-card>
+    </div>
   </div>
 </div>
-<app-modal-question-form></app-modal-question-form>
+<app-modal-question-form
+  [isEditingId]="isEditingId"
+  [addQuestion]="addQuestion"
+  [updateQuestion]="updateQuetion"
+  [questionEditing]="questionEditing"
+></app-modal-question-form>
