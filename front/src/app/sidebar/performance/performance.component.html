@@ -1,1 +1,17 @@
-<p>performance works!</p>
+<div class="question-container">
+  <div class="question-header">
+    <h3 class="question-title">Gestionnaire de Questions</h3>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#quesitionModalForm"
+    >
+      Ajouter
+    </button>
+  </div>
+  <div class="questionsList">
+    <app-question-card></app-question-card>
+  </div>
+</div>
+<app-modal-question-form></app-modal-question-form>

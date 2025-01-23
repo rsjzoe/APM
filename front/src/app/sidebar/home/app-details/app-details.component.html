@@ -1,4 +1,4 @@
-<div class="app-detail mx-auto p-6">
+<div class="app-detail mx-auto p-6" *ngIf="application!=null">
   <div class="custom-card">
     <div class="app-header">
       <div class="d-flex justify-content-between items-center">
@@ -96,7 +96,7 @@
       <div class="custom-space-y">
         <h3 class="custom-font-semibold">Coûts</h3>
         <div class="custom-grid-cols">
-          <div class="custom-card">
+          <div class="custom-card costbuild">
             <div class="app-header pb-2">
               <div class="custom-text fw-">Coût de construction</div>
             </div>
@@ -104,7 +104,7 @@
               <div class="fs-3 fw-bold">{{ application.costBuild }} Ar</div>
             </div>
           </div>
-          <div class="custom-card">
+          <div class="custom-card costrun">
             <div class="app-header pb-2">
               <div class="custom-text fw-emibold">Coût d'exploitation</div>
             </div>
@@ -245,4 +245,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="" *ngIf="application == null">
+  chargement...
 </div>

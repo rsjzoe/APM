@@ -41,6 +41,14 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
+.costbuild{
+  background: #004080;
+  color: white;
+}
+
+.costrun{
+  background: #e6e6e6;
+}
 
 .custom-flex {
   display: flex;
