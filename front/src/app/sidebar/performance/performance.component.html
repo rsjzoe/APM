@@ -1,29 +1,16 @@
 <div class="question-container">
   <div class="question-header">
     <h3 class="question-title">Gestionnaire de Questions</h3>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#quesitionModalForm"
-    >
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quesitionModalForm">
       Ajouter
     </button>
   </div>
   <div class="questionsList">
-    <div class="">
-      <app-question-card
-        *ngFor="let question of questions"
-        [question]="question"
-        [deleteQuestion]="deleteQuestion"
-        [editQuestion]="editQuestion"
-      ></app-question-card>
-    </div>
+
+    <app-question-card *ngFor="let question of questions" [question]="question" [deleteQuestion]="deleteQuestion"
+      [editQuestion]="editQuestion"></app-question-card>
+
   </div>
 </div>
-<app-modal-question-form
-  [isEditingId]="isEditingId"
-  [addQuestion]="addQuestion"
-  [updateQuestion]="updateQuetion"
-  [questionEditing]="questionEditing"
-></app-modal-question-form>
+<app-modal-question-form [isEditingId]="isEditingId" [addQuestion]="addQuestion" [updateQuestion]="updateQuetion"
+  [questionEditing]="questionEditing"></app-modal-question-form>

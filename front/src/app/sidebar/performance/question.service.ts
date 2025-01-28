@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuestionService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/application';
+  private apiUrl = 'http://localhost:8080/question';
 
   constructor() {}
 
