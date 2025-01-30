@@ -26,6 +26,7 @@ public class ApplicationEntity extends PanacheEntity {
     // public Performance performance;
     public Status status;
     public Time time;
+    public double note;
     public int userTotal;
 
     public ApplicationEntity() {
@@ -33,7 +34,7 @@ public class ApplicationEntity extends PanacheEntity {
 
     public ApplicationEntity(String name, String description, double businessValue, double costBuild, double costRun,
             String userTeam, LocalDateTime startDate, LocalDateTime lastUpdate, Status status,
-            Time time, int userTotal) {
+            Time time, int userTotal, double note) {
         this.name = name;
         this.description = description;
         this.businessValue = businessValue;
@@ -45,6 +46,7 @@ public class ApplicationEntity extends PanacheEntity {
         this.status = status;
         this.time = time;
         this.userTotal = userTotal;
+        this.note = note;
     }
 
     public ApplicationEntity(CreateApplicationInput app) {
@@ -59,11 +61,12 @@ public class ApplicationEntity extends PanacheEntity {
         this.status = app.getStatus();
         this.time = app.getTime();
         this.userTotal = app.getUserTotal();
+        this.note = 0;
     }
 
     public Application toApplication() {
         return new Application(id, name, description, businessValue, costBuild, costRun, userTeam, null,
-                startDate, lastUpdate, null, status, time, userTotal);
+                startDate, lastUpdate, null, status, time, userTotal, note);
     }
 
     public ApplicationEntity updateData(UpdateApplicationInput app) {
@@ -78,6 +81,7 @@ public class ApplicationEntity extends PanacheEntity {
         this.status = app.getStatus();
         this.time = app.getTime();
         this.userTotal = app.getUserTotal();
+        this.note = app.getNote();
         return this;
     }
 

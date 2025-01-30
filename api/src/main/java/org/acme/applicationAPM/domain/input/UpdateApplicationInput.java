@@ -10,12 +10,22 @@ import org.acme.applicationAPM.domain.model.Time;
 
 public class UpdateApplicationInput extends ApplicationBase {
 
+    private double note;
     public UpdateApplicationInput(String name, String description, double businessValue, double costBuild,
             double costRun,
             String userTeam, Category category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Performance performance, Status status, Time time, int userTotal) {
+            LocalDateTime lastUpdate, Performance performance, Status status, Time time, int userTotal, double note) {
         // miantso ny constructeur anlay parent
         super(name, description, businessValue, costBuild, costRun, userTeam, category, startDate,
                 lastUpdate, performance, status, time, userTotal);
+                this.note = note;
+    }
+
+    public double getNote() {
+        return note;
+    }
+
+    public void setNote(double note) {
+        this.note = note;
     }
 }

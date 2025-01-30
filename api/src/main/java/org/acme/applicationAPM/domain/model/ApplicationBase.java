@@ -143,6 +143,10 @@ public class ApplicationBase {
         this.userTotal = userTotal;
     }
 
+
+
+    
+
     @Override
     public String toString() {
         return "Application{" +
