@@ -5,6 +5,7 @@ import { Question } from '../../application-APM/appType';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { QuestionService } from './question.service';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
   selector: 'app-performance',
@@ -13,6 +14,7 @@ import { QuestionService } from './question.service';
     FormsModule,
     CommonModule,
     ModalQuestionFormComponent,
+    ButtonComponent,
   ],
   templateUrl: './performance.component.html',
   styleUrl: './performance.component.scss',
@@ -24,15 +26,29 @@ export class PerformanceComponent {
 
   constructor(private questionService: QuestionService) {}
 
+  generateRandomColor(): string {
+    const colors = [
+      '#ff7900',
+      '#4bb4e6',
+      '#ff8ad4',
+      '#492191',
+      '#ffb400',
+      '#27a971',
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
   addQuestion = (question: string) => {
-    this.questionService.add({ text: question }).subscribe({
-      next: (newQuestion) => {
-        this.questions.push(newQuestion);
-      },
-      error: (error) => {
-        console.log("erreur de l'ajout : " + error);
-      },
-    });
+    this.questionService
+      .add({ text: question, borderColor: this.generateRandomColor() })
+      .subscribe({
+        next: (newQuestion) => {
+          this.questions.push(newQuestion);
+        },
+        error: (error) => {
+          console.log("erreur de l'ajout : " + error);
+        },
+      });
   };
 
   deleteQuestion = (id: number) => {
@@ -56,7 +72,10 @@ export class PerformanceComponent {
   updateQuetion = (questionText: string) => {
     if (this.isEditingId == null) return;
     this.questionService
-      .update(this.isEditingId, { text: questionText })
+      .update(this.isEditingId, {
+        text: questionText,
+        borderColor: this.generateRandomColor(),
+      })
       .subscribe({
         next: (val) => {
           for (let question of this.questions) {
@@ -74,6 +93,7 @@ export class PerformanceComponent {
   };
 
   findAll = () => {
+    
     this.questionService.findAll().subscribe({
       next: (data) => {
         this.questions = data;
@@ -82,7 +102,8 @@ export class PerformanceComponent {
         console.error('Erreur lors de la récupération des questions :', error);
       },
     });
-  }
+
+  };
 
   ngOnInit() {
     this.findAll();

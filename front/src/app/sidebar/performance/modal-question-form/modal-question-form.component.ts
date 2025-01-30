@@ -17,7 +17,6 @@ export class ModalQuestionFormComponent {
   @Input() updateQuestion = (question: string) => {};
 
   add() {
-    console.log(this.valueQuestion);
     
     if (this.valueQuestion.length == 0) return;
     this.addQuestion(this.valueQuestion);
@@ -32,7 +31,7 @@ export class ModalQuestionFormComponent {
 
   ngOnChanges(changes: any) {
     //  anstoina ity isakin miova ny props rai 
-    console.log(changes);
+  
     const currentQuestionEditing: Question | null = changes['questionEditing'].currentValue;
     if (currentQuestionEditing == null) {
       return;
