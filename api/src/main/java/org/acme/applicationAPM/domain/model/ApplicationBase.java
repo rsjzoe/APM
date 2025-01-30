@@ -10,10 +10,8 @@ public class ApplicationBase {
     protected double costBuild;
     protected double costRun;
     protected String userTeam;
-    protected Category category;
     protected LocalDateTime startDate;
     protected LocalDateTime lastUpdate;
-    protected Performance performance;
     protected Status status;
     protected Time time;
     protected int userTotal;
@@ -22,18 +20,16 @@ public class ApplicationBase {
     }
 
     public ApplicationBase(String name, String description, double businessValue, double costBuild, double costRun,
-            String userTeam, Category category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Performance performance, Status status, Time time, int userTotal) {
+            String userTeam, LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal) {
         this.name = name;
         this.description = description;
         this.businessValue = businessValue;
         this.costBuild = costBuild;
         this.costRun = costRun;
         this.userTeam = userTeam;
-        this.category = category;
         this.startDate = startDate;
         this.lastUpdate = lastUpdate;
-        this.performance = performance;
         this.status = status;
         this.time = time;
         this.userTotal = userTotal;
@@ -87,13 +83,7 @@ public class ApplicationBase {
         this.userTeam = userTeam;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    
 
     public LocalDateTime getStartDate() {
         return startDate;
@@ -111,13 +101,7 @@ public class ApplicationBase {
         this.lastUpdate = lastUpdate;
     }
 
-    public Performance getPerformance() {
-        return performance;
-    }
 
-    public void setPerformance(Performance performance) {
-        this.performance = performance;
-    }
 
     public Status getStatus() {
         return status;
@@ -156,10 +140,8 @@ public class ApplicationBase {
                 ", costBuild=" + costBuild +
                 ", costRun=" + costRun +
                 ", userTeam='" + userTeam + '\'' +
-                ", category=" + category +
                 ", startDate=" + startDate +
                 ", lastUpdate=" + lastUpdate +
-                ", performance=" + performance +
                 ", status=" + status +
                 ", time=" + time +
                 ", userTotal=" + userTotal +

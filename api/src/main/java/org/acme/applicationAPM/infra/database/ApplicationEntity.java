@@ -7,9 +7,13 @@ import org.acme.applicationAPM.domain.input.UpdateApplicationInput;
 import org.acme.applicationAPM.domain.model.Application;
 import org.acme.applicationAPM.domain.model.Status;
 import org.acme.applicationAPM.domain.model.Time;
+import org.acme.category.CategoryEntity;
+import org.acme.category.CategoryEntityHelper;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ApplicationEntity extends PanacheEntity {
@@ -19,7 +23,8 @@ public class ApplicationEntity extends PanacheEntity {
     public double costBuild;
     public double costRun;
     public String userTeam;
-    // public Category category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public CategoryEntity category;
     // public List<Technology> technologies;
     public LocalDateTime startDate;
     public LocalDateTime lastUpdate;
@@ -50,6 +55,7 @@ public class ApplicationEntity extends PanacheEntity {
     }
 
     public ApplicationEntity(CreateApplicationInput app) {
+
         this.name = app.getName();
         this.description = app.getDescription();
         this.businessValue = app.getBusinessValue();
@@ -62,11 +68,16 @@ public class ApplicationEntity extends PanacheEntity {
         this.time = app.getTime();
         this.userTotal = app.getUserTotal();
         this.note = 0;
+
+        // mapfandray application sy category
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.id = app.getCategoryId();
+        this.category = categoryEntity;
     }
 
     public Application toApplication() {
-        return new Application(id, name, description, businessValue, costBuild, costRun, userTeam, null,
-                startDate, lastUpdate, null, status, time, userTotal, note);
+        return new Application(id, name, description, businessValue, costBuild, costRun, userTeam, category.toCategory(),
+                startDate, lastUpdate, status, time, userTotal, note);
     }
 
     public ApplicationEntity updateData(UpdateApplicationInput app) {
@@ -82,6 +93,8 @@ public class ApplicationEntity extends PanacheEntity {
         this.time = app.getTime();
         this.userTotal = app.getUserTotal();
         this.note = app.getNote();
+        
+        this.category = CategoryEntityHelper.entityFromId(app.getCategoryId());
         return this;
     }
 
