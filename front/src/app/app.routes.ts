@@ -9,6 +9,7 @@ import { LifeCycleTimeComponent } from './sidebar/life-cycle-time/life-cycle-tim
 import { PerformanceComponent } from './sidebar/performance/performance.component';
 import { AppDetailsComponent } from './sidebar/home/app-details/app-details.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { RateApplicationComponent } from './sidebar/home/app-details/rate-application/rate-application.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
       {
         path: 'app-details/:id',
         component: AppDetailsComponent,
+      },
+      {
+        path: 'rate-application',
+        component: RateApplicationComponent,
       },
       {
         path: 'administration',

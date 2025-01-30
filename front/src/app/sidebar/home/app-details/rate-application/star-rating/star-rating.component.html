@@ -1,0 +1,8 @@
+<div class="star-rating">
+    <app-star
+      *ngFor="let star of [1, 2, 3, 4, 5]"
+      [filled]="star <= rating"
+      [value]="star"
+      [onRating]="handleRating"
+    ></app-star>
+  </div>

@@ -1,0 +1,19 @@
+svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  svg:hover {
+    color: #FCD34D;
+  }
+  
+  .filled {
+    color: #FBBF24;
+    fill: currentColor;
+  }
+  
+  .empty {
+    color: #D1D5DB;
+  }

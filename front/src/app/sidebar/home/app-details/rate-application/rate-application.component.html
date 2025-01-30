@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Noter l'application</h2>
+      <p class="card-description">Votre avis nous est précieux</p>
+    </div>
+
+    <div class="card-content">
+      <div>
+        <div class="progress-container">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              [style.width.%]="(getCurrentPage() / getTotalPages()) * 100"
+            ></div>
+          </div>
+          <p class="progress-text">
+            Page {{ getCurrentPage() }} sur {{ getTotalPages() }}
+          </p>
+        </div>
+
+        <div class="questions-group">
+          <div
+            *ngFor="let index of getCurrentQuestionIndexes()"
+            class="question-container"
+          >
+            <div class="question">
+              {{ questions[index].text }}
+            </div>
+
+            <app-star-rating
+              [rating]="ratings[index]"
+              [questionIndex]="index"
+              [handleRatingWithIndex]="handleRating"
+            ></app-star-rating>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button
+            type="button"
+            class="btn btn-outline"
+            (click)="handlePrevious()"
+            [disabled]="currentPage === 0"
+          >
+            Précédent
+          </button>
+
+          <button
+            *ngIf="!isLastPage()"
+            type="button"
+            class="btn btn-primary"
+            (click)="handleNext()"
+            [disabled]="!canProceed()"
+          >
+            Suivant
+          </button>
+
+          <button
+            *ngIf="isLastPage()"
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!canSubmit()"
+            (click)="handleSubmit()"
+          >
+            Soumettre
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

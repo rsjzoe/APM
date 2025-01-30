@@ -29,6 +29,7 @@ export type Performance = {
 export type Question = {
   id: number;
   text: string;
+  borderColor: string;
 };
 export type CreateQuestion = Omit<Question, 'id'>;
 export type UpdateQuestion = Omit<Question, 'id'>;
