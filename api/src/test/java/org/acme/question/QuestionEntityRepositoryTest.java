@@ -31,7 +31,7 @@ public class QuestionEntityRepositoryTest {
     @Test
     @Transactional
     public void testSave() {
-        CreateQuestion newQuestion = new CreateQuestion("What is Java?");
+        CreateQuestion newQuestion = new CreateQuestion("What is Java?","green");
         Question savedQuestion = questionEntityRepository.save(newQuestion);
         assertNotNull(savedQuestion);
         assertNotNull(savedQuestion.getId());
@@ -41,7 +41,7 @@ public class QuestionEntityRepositoryTest {
     @Test
     @Transactional
     public void testFindById() {
-        CreateQuestion newQuestion = new CreateQuestion("What is Python?");
+        CreateQuestion newQuestion = new CreateQuestion("What is Python?", "red");
         Question savedQuestion = questionEntityRepository.save(newQuestion);
 
         Question foundQuestion = questionEntityRepository.findById(savedQuestion.getId());
@@ -53,10 +53,10 @@ public class QuestionEntityRepositoryTest {
     @Test
     @Transactional
     public void testUpdate() {
-        CreateQuestion newQuestion = new CreateQuestion("What is java?");
+        CreateQuestion newQuestion = new CreateQuestion("What is java?", "black");
         Question savedQuestion = questionEntityRepository.save(newQuestion);
 
-        UpdateQuestion updateQuestion = new UpdateQuestion("What is Quarkus?");
+        UpdateQuestion updateQuestion = new UpdateQuestion("What is Quarkus?", "red");
         Question updatedQuestion = questionEntityRepository.update(savedQuestion.getId(), updateQuestion);
 
         assertNotNull(updatedQuestion);
@@ -66,7 +66,7 @@ public class QuestionEntityRepositoryTest {
     @Test
     @Transactional
     public void testDeleteById() {
-        CreateQuestion newQuestion = new CreateQuestion("What is Hibernate?");
+        CreateQuestion newQuestion = new CreateQuestion("What is Hibernate?", "yellow");
         Question savedQuestion = questionEntityRepository.save(newQuestion);
 
         Question deletedQuestion = questionEntityRepository.deleteById(savedQuestion.getId());
@@ -79,8 +79,8 @@ public class QuestionEntityRepositoryTest {
     @Test
     @Transactional
     public void testFindAll() {
-        CreateQuestion newQuestion1 = new CreateQuestion("What is Java?");
-        CreateQuestion newQuestion2 = new CreateQuestion("What is quarkus?");
+        CreateQuestion newQuestion1 = new CreateQuestion("What is Java?", "yellow");
+        CreateQuestion newQuestion2 = new CreateQuestion("What is quarkus?", "yellow");
 
         questionEntityRepository.save(newQuestion1);
         questionEntityRepository.save(newQuestion2);

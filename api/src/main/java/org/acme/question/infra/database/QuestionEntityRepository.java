@@ -8,6 +8,7 @@ import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.model.Question;
 import org.acme.question.domain.port.out.QuestionRepository;
 
+
 public class QuestionEntityRepository implements QuestionRepository {
 
     @Override

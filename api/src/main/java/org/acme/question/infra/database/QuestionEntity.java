@@ -11,25 +11,29 @@ import jakarta.persistence.Entity;
 public class QuestionEntity extends PanacheEntity {
     private Long id;
     private String text;
+    private String borderColor;
 
     public QuestionEntity() {
     }
 
-    public QuestionEntity(Long id, String text) {
+    public QuestionEntity(Long id, String text,String borderColor) {
         this.id = id;
         this.text = text;
+        this.borderColor = borderColor;
     }
 
     public QuestionEntity(CreateQuestion question) {
         this.text = question.getText();
+        this.borderColor = question.getBorderColor();
     }
 
     public Question toQuestion() {
-        return new Question(id, text);
+        return new Question(id, text,borderColor);
     }
 
     public QuestionEntity updateQuestion(UpdateQuestion question) {
         this.text = question.getText();
+        this.borderColor = question.getBorderColor();
         return this;
     }
 
@@ -47,6 +51,14 @@ public class QuestionEntity extends PanacheEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getBorderColor() {
+        return borderColor;
+    }
+
+    public void setBorderColor(String borderColor) {
+        this.borderColor = borderColor;
     }
 
     @Override

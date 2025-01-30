@@ -27,6 +27,7 @@ public class QuestionController implements QuestionRest {
     @Transactional
     @Override
     public Question create(CreateQuestion question) {
+        System.out.println(question);
         return questionService.save(question);
     }
 

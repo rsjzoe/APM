@@ -3,13 +3,23 @@ package org.acme.question.domain.model;
 public class Question {
     private Long id;
     private String text;
+    private String borderColor;
 
     public Question() {
     }
 
-    public Question(Long id, String text) {
+    public Question(Long id, String text, String borderColor) {
         this.id = id;
         this.text = text;
+        this.borderColor = borderColor;
+    }
+    
+    public String getBorderColor() {
+        return borderColor;
+    }
+
+    public void setBorderColor(String borderColor) {
+        this.borderColor = borderColor;
     }
 
     public Long getId() {
