@@ -9,7 +9,6 @@ public class ApplicationBase {
     protected double businessValue; // vola napidirin'ilay app
     protected double costBuild;
     protected double costRun;
-    protected String userTeam;
     protected LocalDateTime startDate;
     protected LocalDateTime lastUpdate;
     protected Status status;
@@ -19,15 +18,13 @@ public class ApplicationBase {
     public ApplicationBase() {
     }
 
-    public ApplicationBase(String name, String description, double businessValue, double costBuild, double costRun,
-            String userTeam, LocalDateTime startDate,
+    public ApplicationBase(String name, String description, double businessValue, double costBuild, double costRun, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal) {
         this.name = name;
         this.description = description;
         this.businessValue = businessValue;
         this.costBuild = costBuild;
         this.costRun = costRun;
-        this.userTeam = userTeam;
         this.startDate = startDate;
         this.lastUpdate = lastUpdate;
         this.status = status;
@@ -75,15 +72,6 @@ public class ApplicationBase {
         this.costRun = costRun;
     }
 
-    public String getUserTeam() {
-        return userTeam;
-    }
-
-    public void setUserTeam(String userTeam) {
-        this.userTeam = userTeam;
-    }
-
-    
 
     public LocalDateTime getStartDate() {
         return startDate;
@@ -127,8 +115,7 @@ public class ApplicationBase {
         this.userTotal = userTotal;
     }
 
-
-
+    
     
 
     @Override
@@ -139,7 +126,6 @@ public class ApplicationBase {
                 ", businessValue=" + businessValue +
                 ", costBuild=" + costBuild +
                 ", costRun=" + costRun +
-                ", userTeam='" + userTeam + '\'' +
                 ", startDate=" + startDate +
                 ", lastUpdate=" + lastUpdate +
                 ", status=" + status +

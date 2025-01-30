@@ -3,25 +3,27 @@ package org.acme.applicationAPM.domain.model;
 import java.time.LocalDateTime;
 
 import org.acme.category.Category;
+import org.acme.departement.Departement;
 
 public class Application extends ApplicationBase {
     private Long id;
     private double note;
     private Category category;
+    protected Departement departement;
 
     public Application() {
 
     }
 
-
     public Application(Long id, String name, String description, double businessValue, double costBuild, double costRun,
-            String userTeam, Category category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal,double note) {
-        super(name, description, businessValue, costBuild, costRun, userTeam, startDate,
+            Category category, LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement) {
+        super(name, description, businessValue, costBuild, costRun, startDate,
                 lastUpdate, status, time, userTotal);
         this.id = id;
         this.note = note;
         this.category = category;
+        this.departement = departement;
     }
 
     public Long getId() {
@@ -47,4 +49,13 @@ public class Application extends ApplicationBase {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public Departement getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
+    }
+
 }

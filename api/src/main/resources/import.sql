@@ -6,4 +6,8 @@
 -- alter sequence myentity_seq restart with 4;
 
 INSERT INTO categoryentity (id, name) VALUES (1, 'SI');
-INSERT INTO categoryentity (id, name) VALUES (3, 'ODA');
+INSERT INTO categoryentity (id, name) VALUES (2, 'ODA');
+
+INSERT INTO departemententity (id, name) VALUES (1, 'DSI');
+INSERT INTO departemententity (id, name) VALUES (2, 'DMCC');
+INSERT INTO departemententity (id, name) VALUES (3, 'OMM');

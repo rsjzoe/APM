@@ -9,6 +9,8 @@ import org.acme.applicationAPM.domain.model.Status;
 import org.acme.applicationAPM.domain.model.Time;
 import org.acme.category.CategoryEntity;
 import org.acme.category.CategoryEntityHelper;
+import org.acme.departement.DepartementEntity;
+import org.acme.departement.DepartementEntityHelper;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
@@ -33,19 +35,20 @@ public class ApplicationEntity extends PanacheEntity {
     public Time time;
     public double note;
     public int userTotal;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public DepartementEntity departement;
 
     public ApplicationEntity() {
     }
 
-    public ApplicationEntity(String name, String description, double businessValue, double costBuild, double costRun,
-            String userTeam, LocalDateTime startDate, LocalDateTime lastUpdate, Status status,
+    public ApplicationEntity(String name, String description, double businessValue, double costBuild, double costRun
+            , LocalDateTime startDate, LocalDateTime lastUpdate, Status status,
             Time time, int userTotal, double note) {
         this.name = name;
         this.description = description;
         this.businessValue = businessValue;
         this.costBuild = costBuild;
         this.costRun = costRun;
-        this.userTeam = userTeam;
         this.startDate = startDate;
         this.lastUpdate = lastUpdate;
         this.status = status;
@@ -61,14 +64,13 @@ public class ApplicationEntity extends PanacheEntity {
         this.businessValue = app.getBusinessValue();
         this.costBuild = app.getCostBuild();
         this.costRun = app.getCostRun();
-        this.userTeam = app.getUserTeam();
         this.startDate = app.getStartDate();
         this.lastUpdate = app.getLastUpdate();
         this.status = app.getStatus();
         this.time = app.getTime();
         this.userTotal = app.getUserTotal();
         this.note = 0;
-
+        this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
         // mapfandray application sy category
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.id = app.getCategoryId();
@@ -76,8 +78,8 @@ public class ApplicationEntity extends PanacheEntity {
     }
 
     public Application toApplication() {
-        return new Application(id, name, description, businessValue, costBuild, costRun, userTeam, category.toCategory(),
-                startDate, lastUpdate, status, time, userTotal, note);
+        return new Application(id, name, description, businessValue, costBuild, costRun, category.toCategory(),
+                startDate, lastUpdate, status, time, userTotal, note,departement.toDepartement());
     }
 
     public ApplicationEntity updateData(UpdateApplicationInput app) {
@@ -86,14 +88,13 @@ public class ApplicationEntity extends PanacheEntity {
         this.businessValue = app.getBusinessValue();
         this.costBuild = app.getCostBuild();
         this.costRun = app.getCostRun();
-        this.userTeam = app.getUserTeam();
         this.startDate = app.getStartDate();
         this.lastUpdate = app.getLastUpdate();
         this.status = app.getStatus();
         this.time = app.getTime();
         this.userTotal = app.getUserTotal();
         this.note = app.getNote();
-        
+        this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
         this.category = CategoryEntityHelper.entityFromId(app.getCategoryId());
         return this;
     }

@@ -8,17 +8,20 @@ import org.acme.applicationAPM.domain.model.Time;
 
 public class UpdateApplicationInput extends ApplicationBase {
     private Long categoryId;
+    private Long departementId;
+
 
     private double note;
     public UpdateApplicationInput(String name, String description, double businessValue, double costBuild,
-            double costRun,
-            String userTeam, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Long categoryId) {
+            double costRun
+            , LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Long categoryId, Long departementId) {
         // miantso ny constructeur anlay parent
-        super(name, description, businessValue, costBuild, costRun, userTeam, startDate,
+        super(name, description, businessValue, costBuild, costRun, startDate,
                 lastUpdate, status, time, userTotal);
                 this.note = note;
                 this.categoryId = categoryId;
+                this.departementId = departementId;
     }
 
     public double getNote() {
@@ -35,5 +38,13 @@ public class UpdateApplicationInput extends ApplicationBase {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Long getDepartementId() {
+        return this.departementId;
+    }
+
+    public void setDepartementId(Long departementId) {
+        this.departementId = departementId;
     }
 }
