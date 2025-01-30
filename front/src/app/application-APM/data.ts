@@ -19,6 +19,7 @@ export const applications: Application[] = [
     status: 'production',
     time: 'invest',
     userTotal: 15,
+    note:1
   },
   {
     id: 2,
@@ -37,6 +38,8 @@ export const applications: Application[] = [
     status: 'development',
     time: 'tolerate',
     userTotal: 24,
+    note:1
+
   },
   {
     id: 3,
@@ -55,6 +58,8 @@ export const applications: Application[] = [
     status: 'production',
     time: 'invest',
     userTotal: 25,
+    note:1
+
   },
   {
     id: 4,
@@ -73,6 +78,8 @@ export const applications: Application[] = [
     status: 'deprecated',
     time: 'eliminate',
     userTotal: 20,
+    note:1
+
   },
   {
     id: 5,
@@ -91,5 +98,7 @@ export const applications: Application[] = [
     status: 'production',
     time: 'migrate',
     userTotal: 18,
+    note:1
+
   },
 ];

@@ -25,7 +25,7 @@ export const routes: Routes = [
         component: AppDetailsComponent,
       },
       {
-        path: 'rate-application',
+        path: 'rate-application/:id',
         component: RateApplicationComponent,
       },
       {

@@ -1,4 +1,4 @@
-<div class="app-detail mx-auto p-6" *ngIf="application!=null">
+<div class="app-detail mx-auto p-6" *ngIf="application != null">
   <div class="custom-card">
     <div class="app-header">
       <div class="d-flex justify-content-between items-center">
@@ -120,13 +120,10 @@
       <div class="custom-space-y">
         <h3 class="custom-font-semibold">Performance</h3>
         <div class="d-flex justify-content-between">
-          <div class="stars">
-            <span>Note : </span>
+          <div class="stars d-flex align-items-end">
+            <span>Note : <span class="fw-bold">{{ application.note }}</span>/5</span>
+
             <app-icon-star style="color: #fecc00"></app-icon-star>
-            <app-icon-star style="color: #fecc00"></app-icon-star>
-            <app-icon-star style="color: #fecc00"></app-icon-star>
-            <app-icon-star style="color: #d1d5db"></app-icon-star>
-            <app-icon-star style="color: #d1d5db"></app-icon-star>
           </div>
           <div class="d-flex gap-1 align-items-center text-primary">
             <svg
@@ -147,7 +144,11 @@
               <path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3" />
               <path d="M12 17h.01" />
             </svg>
-            <a routerLink="/rate-application" class="text-primary">Noter l'application</a>
+            <a
+              [routerLink]="'/rate-application/' + application.id"
+              class="text-primary"
+              >Noter l'application</a
+            >
           </div>
         </div>
       </div>
@@ -247,6 +248,4 @@
   </div>
 </div>
 
-<div class="" *ngIf="application == null">
-  chargement...
-</div>
+<div class="" *ngIf="application == null">chargement...</div>

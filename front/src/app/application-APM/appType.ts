@@ -13,9 +13,10 @@ export type Application = {
   status: Status;
   time: Time;
   userTotal: number;
+  note: number;
 };
 
-export type CreateApplication = Omit<Application, 'id'>;
+export type CreateApplication = Omit<Application, 'id' | 'note'>;
 export type UpdateApplication = Omit<Application, 'id'>;
 export type Category = 'SI' | 'ODA';
 export type Time = 'tolerate' | 'invest' | 'migrate' | 'eliminate';

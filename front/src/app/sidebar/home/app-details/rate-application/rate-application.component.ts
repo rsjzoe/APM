@@ -2,7 +2,13 @@ import { Component } from '@angular/core';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { CommonModule } from '@angular/common';
 import { QuestionService } from '../../../performance/question.service';
-import { Question } from '../../../../application-APM/appType';
+import {
+  Application,
+  Question,
+  UpdateApplication,
+} from '../../../../application-APM/appType';
+import { HomeService } from '../../home.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-rate-application',
@@ -12,8 +18,15 @@ import { Question } from '../../../../application-APM/appType';
 })
 export class RateApplicationComponent {
   questions: Question[] = [];
+  application: Application | null = null;
+  appId: number | null = null;
 
-  constructor(private questionService: QuestionService) {}
+  constructor(
+    private questionService: QuestionService,
+    private appService: HomeService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   questionsPerPage = 3;
   currentPage = 0;
@@ -77,16 +90,19 @@ export class RateApplicationComponent {
   handleSubmit() {
     console.log('Submitting ratings:', this.ratings);
     console.log(this.averageRatings());
-    
-    // Here you would typically send the ratings to your backend
+    if (this.application == null || this.appId == null) return;
+    const { id, ...rest } = this.application; // rest lasa application tsy misy id
+    let updateApplication: UpdateApplication = rest;
+    updateApplication.note = this.averageRatings();
+    this.updateApplication(this.appId, updateApplication);
   }
 
-  averageRatings(){
+  averageRatings() {
     let sum = 0;
-    for(let rating of this.ratings){
+    for (let rating of this.ratings) {
       sum += rating;
     }
-    return sum / 5;
+    return sum / this.questions.length;
   }
 
   findAll = () => {
@@ -101,7 +117,29 @@ export class RateApplicationComponent {
     });
   };
 
+  updateApplication(id: number, updateApp: UpdateApplication) {
+    this.appService.update(id, updateApp).subscribe({
+      next: (val) => {
+        this.router.navigate(['/app-details/' + id]);
+      },
+    });
+  }
+
+  findById(id: number) {
+    this.appService.findById(id).subscribe({
+      next: (val) => {
+        if (val == null) {
+          this.router.navigate(['/404']);
+        } else {
+          this.application = val;
+        }
+      },
+    });
+  }
+
   ngOnInit() {
+    this.appId = Number(this.route.snapshot.paramMap.get('id'));
+    this.findById(this.appId);
     this.findAll();
   }
 }
