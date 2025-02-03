@@ -6,9 +6,9 @@ import org.acme.category.Category;
 import org.acme.departement.Departement;
 
 public class Application extends ApplicationBase {
-    private Long id;
-    private double note;
-    private Category category;
+    protected Long id;
+    protected double note;
+    protected Category category;
     protected Departement departement;
 
     public Application() {
