@@ -105,7 +105,7 @@ export class RateApplicationComponent {
     return sum / this.questions.length;
   }
 
-  findAll = () => {
+  findAllQuestions = () => {
     this.questionService.findAll().subscribe({
       next: (data) => {
         this.questions = data;
@@ -125,7 +125,7 @@ export class RateApplicationComponent {
     });
   }
 
-  findById(id: number) {
+  findApplicationById(id: number) {
     this.appService.findById(id).subscribe({
       next: (val) => {
         if (val == null) {
@@ -139,7 +139,7 @@ export class RateApplicationComponent {
 
   ngOnInit() {
     this.appId = Number(this.route.snapshot.paramMap.get('id'));
-    this.findById(this.appId);
-    this.findAll();
+    this.findApplicationById(this.appId);
+    this.findAllQuestions();
   }
 }
