@@ -1,10 +1,10 @@
-import { Category, CreateApplication } from '../../../application-APM/appType';
+import {  CreateApplication } from '../../../application-APM/appType';
 
 export type ValueFromGeneral = {
   name: string;
   description: string;
-  category: Category;
-  userTeam: string;
+  categorieId: number;
+  departementId: number;
 };
 
 export type ValueFromCost = Pick<

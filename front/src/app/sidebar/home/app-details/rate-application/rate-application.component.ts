@@ -91,9 +91,22 @@ export class RateApplicationComponent {
     console.log('Submitting ratings:', this.ratings);
     console.log(this.averageRatings());
     if (this.application == null || this.appId == null) return;
-    const { id, ...rest } = this.application; // rest lasa application tsy misy id
-    let updateApplication: UpdateApplication = rest;
-    updateApplication.note = this.averageRatings();
+    const { id } = this.application;
+    let updateApplication: UpdateApplication = {
+      name: this.application.name,
+      businessValue: this.application.businessValue,
+      costBuild: this.application.costBuild,
+      costRun: this.application.costRun,
+      categorieId: this.application.category.id,
+      departementId: this.application.departement.id,
+      description: this.application.description,
+      lastUpdate: this.application.lastUpdate,
+      startDate: this.application.startDate,
+      status: this.application.status,
+      time: this.application.time,
+      userTotal: this.application.userTotal,
+      note: this.averageRatings(),
+    };
     this.updateApplication(this.appId, updateApplication);
   }
 
