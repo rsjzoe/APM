@@ -1,0 +1,28 @@
+
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: APM_orange
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mariadb
+      ADMINER_DESIGN: "pepa-linha"
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:
