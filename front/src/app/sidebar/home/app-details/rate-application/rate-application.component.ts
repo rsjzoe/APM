@@ -7,7 +7,7 @@ import {
   Question,
   UpdateApplication,
 } from '../../../../application-APM/appType';
-import { HomeService } from '../../home.service';
+import { ApplicationService } from '../../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -23,7 +23,7 @@ export class RateApplicationComponent {
 
   constructor(
     private questionService: QuestionService,
-    private appService: HomeService,
+    private appService: ApplicationService,
     private router: Router,
     private route: ActivatedRoute
   ) {}

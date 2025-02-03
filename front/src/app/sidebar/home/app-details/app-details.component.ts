@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { IconLifecycleComponent } from '../../../components/icons/icon-lifecycle/icon-lifecycle.component';
 import { IconStarComponent } from '../../../components/icons/icon-star/icon-star.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HomeService } from '../home.service';
+import { ApplicationService } from '../home.service';
 
 @Component({
   selector: 'app-app-details',
@@ -24,7 +24,7 @@ export class AppDetailsComponent implements OnInit {
   appId: number | null = null;
 
   constructor(
-    private appService: HomeService,
+    private appService: ApplicationService,
     private route: ActivatedRoute,
     private router: Router
   ) {}

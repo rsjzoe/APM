@@ -4,7 +4,7 @@ import { applications } from '../../application-APM/data';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
-import { HomeService } from './home.service';
+import { ApplicationService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,7 @@ import { HomeService } from './home.service';
 export class HomeComponent implements OnInit {
   apps = applications;
 
-  constructor(private appService: HomeService) {}
+  constructor(private appService: ApplicationService) {}
 
   deleteById = (id: number) => {
     this.appService.delete(id).subscribe({

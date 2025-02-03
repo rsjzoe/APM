@@ -4,7 +4,7 @@ import { ModalStatusDateComponent } from './modal-status-date/modal-status-date.
 import { ModalValeurCoutComponent } from './modal-valeur-cout/modal-valeur-cout.component';
 import { Category, CreateApplication } from '../../../application-APM/appType';
 import { ValueFromCost, ValueFromGeneral, ValueFromStatus } from './modal-type';
-import { HomeService } from '../home.service';
+import { ApplicationService } from '../home.service';
 
 @Component({
   selector: 'app-modal-add-app',
@@ -21,7 +21,7 @@ export class ModalAddAppComponent {
   application!: CreateApplication;
   @Input() refresh = () => {};
 
-  constructor(private appService: HomeService) {}
+  constructor(private appService: ApplicationService) {}
 
   getValueFromGeneral = (value: ValueFromGeneral) => {
 

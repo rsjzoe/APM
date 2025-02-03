@@ -9,7 +9,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class HomeService {
+export class ApplicationService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/application';
 
