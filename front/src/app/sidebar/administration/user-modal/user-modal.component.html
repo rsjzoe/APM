@@ -1,57 +1,29 @@
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  data-bs-backdrop="false"
-  aria-hidden="true"
->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title h5" id="exampleModalLabel">
           Nouveau Utilisateur
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          data-bs-toggle="tooltip"
-          data-bs-placement="bottom"
-          data-bs-title="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip"
+          data-bs-placement="bottom" data-bs-title="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Nom:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="recipient-name"
-              [(ngModel)]="newUserName"
-              name="name"
-              placeholder="ici le nom..."
-            />
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newUserName" name="name"
+              placeholder="ici le nom..." />
           </div>
           <div class="mb-3">
-            <label for="email" class="col-form-label">Email:</label>
-            <input
-              type="email"
-              class="form-control"
-              [(ngModel)]="newUserEmail"
-              name="email"
-              id="email"
-              placeholder="exemple@gmail.com"
-            />
+            <label for="email" class="col-form-label">Trigramme:</label>
+            <input type="text" class="form-control" [(ngModel)]="newUserTrigramme" name="text" id="text"
+              placeholder="HJ_STG" />
           </div>
           <div class="mb-3">
             <label class="col-form-label" for="inputGroupSelect01">Rôle</label>
-            <select
-              [(ngModel)]="newUserRole"
-              [ngModelOptions]="{ standalone: true }"
-              class="form-select"
-              id="inputGroupSelect01"
-            >
+            <select [(ngModel)]="newUserRole" [ngModelOptions]="{ standalone: true }" class="form-select"
+              id="inputGroupSelect01">
               <option value="user">user</option>
               <option value="admin">admin</option>
             </select>
@@ -59,29 +31,13 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-secondary"
-          data-bs-dismiss="modal"
-        >
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
           Annuler
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="add()"
-          data-bs-dismiss="modal"
-          *ngIf="!isEditing"
-        >
+        <button type="button" class="btn btn-primary" (click)="add()" data-bs-dismiss="modal" *ngIf="!isEditing">
           Ajouter
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-dismiss="modal"
-          (click)="update()"
-          *ngIf="isEditing"
-        >
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="update()" *ngIf="isEditing">
           Mettre à jour
         </button>
       </div>

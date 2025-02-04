@@ -33,7 +33,7 @@
       <tbody>
         <tr *ngFor="let user of users">
           <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
+          <td>{{ user.trigramme }}</td>
           <td>
             <span class="badge rounded-pill" [ngClass]="user.role == 'admin' ? 'text-bg-secondary' : 'text-bg-warning'">
               {{ user.role }}

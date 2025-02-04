@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Role, User } from './user.type';
-import { UserModalComponent } from "./user-modal/user-modal.component";
+import { UserModalComponent } from './user-modal/user-modal.component';
 
 @Component({
   selector: 'app-administration',
@@ -17,11 +17,11 @@ export class AdministrationComponent {
   isEditing: number | null = null;
   userEditing: User | null = null;
 
-  addUser = (name: string, email: string, role: Role) => {
+  addUser = (name: string, trigramme: string, role: Role) => {
     this.users.push({
       id: Date.now(),
       name: name,
-      email: email,
+      trigramme: trigramme,
       role,
     });
   };
@@ -35,19 +35,19 @@ export class AdministrationComponent {
     this.userEditing = user;
   }
 
-  updateUser = (name: string, email: string, role: Role) => {
+  updateUser = (name: string, trigramme: string, role: Role) => {
     if (this.isEditing == null) return;
     const updatedUser: User = {
       id: this.isEditing,
       name: name,
-      email: email,
+      trigramme: trigramme,
       role,
     };
 
     for (let user of this.users) {
       if (user.id == updatedUser.id) {
         user.name = updatedUser.name;
-        user.email = updatedUser.email;
+        user.trigramme = updatedUser.trigramme;
         user.role = updatedUser.role;
       }
     }
