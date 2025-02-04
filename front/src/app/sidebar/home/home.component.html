@@ -7,5 +7,5 @@
     <app-card *ngFor="let app of apps" [app]="app" [deleteById]="deleteById" [route]="'/app-details/'+app.id"></app-card>
   </div>
 
-  <app-modal-add-app [refresh]="refresh"></app-modal-add-app>
+  <app-modal-add-app [refresh]="refresh" [appEditing]="appEditing"></app-modal-add-app>
 </div>

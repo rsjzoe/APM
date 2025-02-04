@@ -15,6 +15,7 @@ import { IconStarComponent } from "../../../components/icons/icon-star/icon-star
 export class CardComponent {
   @Input() app!: Application;
   @Input() deleteById(id: number) {}
+  @Input() editById(id: number) {}
   @Input() route: string = '';
 
   getStatusColor(status: Application['status']): string {

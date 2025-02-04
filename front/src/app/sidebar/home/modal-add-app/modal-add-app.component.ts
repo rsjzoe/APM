@@ -2,7 +2,12 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ModalGeneralComponent } from './modal-general/modal-general.component';
 import { ModalStatusDateComponent } from './modal-status-date/modal-status-date.component';
 import { ModalValeurCoutComponent } from './modal-valeur-cout/modal-valeur-cout.component';
-import { Category, CreateApplication } from '../../../application-APM/appType';
+import {
+  Application,
+  Category,
+  CreateApplication,
+  UpdateApplication,
+} from '../../../application-APM/appType';
 import { ValueFromCost, ValueFromGeneral, ValueFromStatus } from './modal-type';
 import { ApplicationService } from '../home.service';
 
@@ -19,12 +24,12 @@ import { ApplicationService } from '../home.service';
 })
 export class ModalAddAppComponent {
   application!: CreateApplication;
+  @Input() appEditing: Application | null = null;
   @Input() refresh = () => {};
 
   constructor(private appService: ApplicationService) {}
 
   getValueFromGeneral = (value: ValueFromGeneral) => {
-
     this.application = { ...this.application, ...value };
     // this.application = {
     //   name: this.application.name,
@@ -58,11 +63,13 @@ export class ModalAddAppComponent {
 
   save() {
     console.log(this.application);
-    
+
     this.appService.add(this.application).subscribe({
       next: (app) => {
         this.refresh();
       },
     });
   }
+
+  updateApplication = (updateApplication: UpdateApplication) => {};
 }

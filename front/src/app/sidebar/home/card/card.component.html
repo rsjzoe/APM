@@ -1,74 +1,81 @@
-<a [routerLink]="route">
-  <div class="card1">
-    <div class="action-icon d-grid gap-2 position-absolute">
-      <span class="edit-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#4170D8"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-pencil"
-        >
-          <path
-            d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
-          />
-          <path d="m15 5 4 4" />
-        </svg>
-      </span>
-      <span class="delete-icon" (click)="deleteById(app.id)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#CD3C14"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-trash-2"
-        >
-          <path d="M3 6h18" />
-          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-          <line x1="10" x2="10" y1="11" y2="17" />
-          <line x1="14" x2="14" y1="11" y2="17" />
-        </svg>
-      </span>
-    </div>
-    <div class="card1-header">
-      <img src="/image/om.png" alt="Description" class="image" />
-    </div>
-    <div class="card1-content">
-      <div class="card1-title">{{ app.name }}</div>
-      <p class="card1-description">{{ app.description }}</p>
-      <div class="badge-container">
-        <span class="badge rounded-pill bg-outline-dark">{{
-          app.category.name
-        }}</span>
-        <span
-          class="badge text-white rounded-pill"
-          [ngClass]="getStatusColor(app.status)"
-          >{{ app.status }}</span
-        >
-      </div>
-      <div class="card1-footer">
-        <div class="icon-value">
-          <app-icon-star style="color: #fecc00"></app-icon-star>
-          <span>{{ app.note }}/<span style="font-size: 12px;">5</span></span>
-        </div>
-        <div class="icon-value">
-          <app-icon-lifecycle
-            [ngStyle]="{ color: getTimeColor(app.time) }"
-          ></app-icon-lifecycle>
-          <span>{{ app.time }}</span>
-        </div>
-      </div>
-    </div>
+<div class="card-app">
+  <div class="action-icon d-grid gap-2 position-absolute">
+    <span
+      class="edit-icon"
+      (click)="editById(app.id)"
+      data-bs-target="#exampleModalToggle"
+      data-bs-toggle="modal"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#4170D8"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-pencil"
+      >
+        <path
+          d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+        />
+        <path d="m15 5 4 4" />
+      </svg>
+    </span>
+    <span class="delete-icon" (click)="deleteById(app.id)">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#CD3C14"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-trash-2"
+      >
+        <path d="M3 6h18" />
+        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+        <line x1="10" x2="10" y1="11" y2="17" />
+        <line x1="14" x2="14" y1="11" y2="17" />
+      </svg>
+    </span>
   </div>
-</a>
+  <a [routerLink]="route">
+    <div class="card1">
+      <div class="card1-header">
+        <img src="/image/om.png" alt="Description" class="image" />
+      </div>
+      <div class="card1-content">
+        <div class="card1-title">{{ app.name }}</div>
+        <p class="card1-description">{{ app.description }}</p>
+        <div class="badge-container">
+          <span class="badge rounded-pill bg-outline-dark">{{
+            app.category.name
+          }}</span>
+          <span
+            class="badge text-white rounded-pill"
+            [ngClass]="getStatusColor(app.status)"
+            >{{ app.status }}</span
+          >
+        </div>
+        <div class="card1-footer">
+          <div class="icon-value">
+            <app-icon-star style="color: #fecc00"></app-icon-star>
+            <span>{{ app.note }}/<span style="font-size: 12px">5</span></span>
+          </div>
+          <div class="icon-value">
+            <app-icon-lifecycle
+              [ngStyle]="{ color: getTimeColor(app.time) }"
+            ></app-icon-lifecycle>
+            <span>{{ app.time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
