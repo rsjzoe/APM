@@ -1,4 +1,6 @@
-package org.acme.category;
+package org.acme.category.infra.out;
+
+import org.acme.category.domain.Category;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;

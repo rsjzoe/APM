@@ -1,13 +1,13 @@
-package org.acme.category;
+package org.acme.departement.domain;
 
-public class Category {
+public class Departement {
     private Long id;
     private String name;
 
-    public Category() {
+    public Departement() {
     }
 
-    public Category(Long id, String name) {
+    public Departement(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -30,7 +30,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "Departement{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

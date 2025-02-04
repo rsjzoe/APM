@@ -1,4 +1,4 @@
-package org.acme.category;
+package org.acme.category.infra.out;
 
 public class CategoryEntityHelper {
     public static CategoryEntity entityFromId(Long id) {

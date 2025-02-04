@@ -6,10 +6,10 @@ import org.acme.applicationAPM.domain.input.CreateApplicationHistoryInput;
 import org.acme.applicationAPM.domain.model.ApplicationHistory;
 import org.acme.applicationAPM.domain.model.Status;
 import org.acme.applicationAPM.domain.model.Time;
-import org.acme.category.CategoryEntity;
-import org.acme.category.CategoryEntityHelper;
-import org.acme.departement.DepartementEntity;
-import org.acme.departement.DepartementEntityHelper;
+import org.acme.category.infra.out.CategoryEntity;
+import org.acme.category.infra.out.CategoryEntityHelper;
+import org.acme.departement.infra.out.DepartementEntity;
+import org.acme.departement.infra.out.DepartementEntityHelper;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
