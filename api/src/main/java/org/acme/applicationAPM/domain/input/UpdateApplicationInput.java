@@ -10,18 +10,18 @@ public class UpdateApplicationInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
 
-
     private double note;
+
     public UpdateApplicationInput(String name, String description, double businessValue, double costBuild,
-            double costRun
-            , LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Long categoryId, Long departementId) {
+            double costRun, LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Long categoryId,
+            Long departementId) {
         // miantso ny constructeur anlay parent
         super(name, description, businessValue, costBuild, costRun, startDate,
                 lastUpdate, status, time, userTotal);
-                this.note = note;
-                this.categoryId = categoryId;
-                this.departementId = departementId;
+        this.note = note;
+        this.categoryId = categoryId;
+        this.departementId = departementId;
     }
 
     public double getNote() {
@@ -46,5 +46,24 @@ public class UpdateApplicationInput extends ApplicationBase {
 
     public void setDepartementId(Long departementId) {
         this.departementId = departementId;
+    }
+
+    @Override
+    public String toString() {
+        return "UpdateApplicationInput{" +
+                "categoryId=" + categoryId +
+                ", departementId=" + departementId +
+                ", note=" + note +
+                ", name='" + getName() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", businessValue=" + getBusinessValue() +
+                ", costBuild=" + getCostBuild() +
+                ", costRun=" + getCostRun() +
+                ", startDate=" + getStartDate() +
+                ", lastUpdate=" + getLastUpdate() +
+                ", status=" + getStatus() +
+                ", time=" + getTime() +
+                ", userTotal=" + getUserTotal() +
+                '}';
     }
 }

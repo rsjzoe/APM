@@ -15,7 +15,7 @@ import { DepartementService } from '../../../../application-APM/departement.serv
 export class ModalGeneralComponent {
   appName: string = '';
   description = '';
-  categorieId!: number;
+  categoryId!: number;
   categories: Category[] = [];
   departements: Departement[] = [];
   departementId!: number;

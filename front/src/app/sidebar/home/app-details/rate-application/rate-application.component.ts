@@ -97,7 +97,7 @@ export class RateApplicationComponent {
       businessValue: this.application.businessValue,
       costBuild: this.application.costBuild,
       costRun: this.application.costRun,
-      categorieId: this.application.category.id,
+      categoryId: this.application.category.id,
       departementId: this.application.departement.id,
       description: this.application.description,
       lastUpdate: this.application.lastUpdate,
@@ -107,6 +107,8 @@ export class RateApplicationComponent {
       userTotal: this.application.userTotal,
       note: this.averageRatings(),
     };
+    console.log(updateApplication);
+    
     this.updateApplication(this.appId, updateApplication);
   }
 

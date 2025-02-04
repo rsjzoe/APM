@@ -75,8 +75,8 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.note = 0;
         this.departement = DepartementEntityHelper.entityFromId(app.getDepartement().getId());
         // mapfandray application sy category
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.id = app.getCategory().getId();
+        // CategoryEntity categoryEntity = new CategoryEntity();
+        // categoryEntity.id = app.getCategory().getId();
         this.category = CategoryEntityHelper.entityFromId(app.getCategory().getId());
         this.modifiedAt = LocalDateTime.now();
         this.modifiedBy = "system";

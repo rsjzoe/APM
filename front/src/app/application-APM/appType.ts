@@ -36,14 +36,14 @@ export type CreateApplication = Omit<
   Application,
   'id' | 'note' | 'category' | 'departement'
 > & {
-  categorieId: number;
+  categoryId: number;
   departementId: number;
 };
 export type UpdateApplication = Omit<
   Application,
   'id' | 'category' | 'departement'
 > & {
-  categorieId: number;
+  categoryId: number;
   departementId: number;
 };
 
