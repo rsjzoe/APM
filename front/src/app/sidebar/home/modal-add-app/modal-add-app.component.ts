@@ -2,7 +2,12 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ModalGeneralComponent } from './modal-general/modal-general.component';
 import { ModalStatusDateComponent } from './modal-status-date/modal-status-date.component';
 import { ModalValeurCoutComponent } from './modal-valeur-cout/modal-valeur-cout.component';
-import { Category, CreateApplication } from '../../../application-APM/appType';
+import {
+  Application,
+  Category,
+  CreateApplication,
+  UpdateApplication,
+} from '../../../application-APM/appType';
 import { ValueFromCost, ValueFromGeneral, ValueFromStatus } from './modal-type';
 import { ApplicationService } from '../home.service';
 
@@ -18,14 +23,14 @@ import { ApplicationService } from '../home.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class ModalAddAppComponent {
-  application!: CreateApplication;
+  createApplication!: CreateApplication;
+  @Input() appEditing: Application | null = null;
   @Input() refresh = () => {};
 
   constructor(private appService: ApplicationService) {}
 
   getValueFromGeneral = (value: ValueFromGeneral) => {
-
-    this.application = { ...this.application, ...value };
+    this.createApplication = { ...this.createApplication, ...value };
     // this.application = {
     //   name: this.application.name,
     //   description: this.application.description,
@@ -48,21 +53,49 @@ export class ModalAddAppComponent {
   };
 
   getValueFromCost = (value: ValueFromCost) => {
-    this.application = { ...this.application, ...value };
+    this.createApplication = { ...this.createApplication, ...value };
   };
 
   getValueFromStatus = (value: ValueFromStatus) => {
-    this.application = { ...this.application, ...value };
-    this.save();
+    this.createApplication = { ...this.createApplication, ...value };
+    if (this.appEditing == null) {
+      this.save();
+    } else {
+      this.updateApplication();
+    }
   };
 
   save() {
-    console.log(this.application);
-    
-    this.appService.add(this.application).subscribe({
+    console.log(this.createApplication);
+
+    this.appService.add(this.createApplication).subscribe({
       next: (app) => {
         this.refresh();
       },
     });
   }
+
+  updateApplication = () => {
+    if (this.appEditing == null) return;
+    let updatedApp: UpdateApplication = {
+      name: this.createApplication.name,
+      description: this.createApplication.description,
+      businessValue: this.createApplication.businessValue,
+      costBuild: this.createApplication.costBuild,
+      costRun: this.createApplication.costRun,
+      startDate: this.createApplication.startDate,
+      lastUpdate: this.createApplication.lastUpdate,
+      status: this.createApplication.status,
+      time: this.createApplication.time,
+      userTotal: this.createApplication.userTotal,
+      categoryId: this.createApplication.categoryId,
+      departementId: this.createApplication.departementId,
+      note: this.appEditing.note
+    };
+    this.appService.update(this.appEditing.id, updatedApp).subscribe({
+      next: (app) => {
+        this.refresh();
+      },
+    });
+  };
 }

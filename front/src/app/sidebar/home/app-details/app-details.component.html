@@ -121,7 +121,10 @@
         <h3 class="custom-font-semibold">Performance</h3>
         <div class="d-flex justify-content-between">
           <div class="stars d-flex align-items-end">
-            <span>Note : <span class="fw-bold">{{ application.note }}</span>/5</span>
+            <span
+              >Note : <span class="fw-bold">{{ application.note }}</span
+              >/5</span
+            >
 
             <app-icon-star style="color: #fecc00"></app-icon-star>
           </div>
@@ -201,6 +204,7 @@
       </div>
 
       <div class="separator horizontal"></div>
+
       <div class="grid grid-cols-2 gap-4">
         <div class="flex items-center space-x-2">
           <svg
@@ -244,6 +248,84 @@
           <span>Voir Document</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button
+      [class.active]="activeTab === 'dashboard'"
+      (click)="setActiveTab('dashboard')"
+    >
+      Dashboard
+    </button>
+    <button
+      [class.active]="activeTab === 'history'"
+      (click)="setActiveTab('history')"
+    >
+      Historique
+    </button>
+    <button
+      [class.active]="activeTab === 'documentation'"
+      (click)="setActiveTab('documentation')"
+    >
+      Documentation
+    </button>
+  </div>
+
+  <div class="card-tab" *ngIf="activeTab === 'dashboard'">
+    <div class="card-tab-header">
+      <h2>Dashboard</h2>
+      <p>Aperçu des métriques clés de l'application</p>
+    </div>
+    <div class="card-tab-content">
+      <p>à venir</p>
+    </div>
+  </div>
+
+  <div class="card-tab" *ngIf="activeTab === 'history'">
+    <div class="card-tab-header">
+      <h2>Historique</h2>
+      <p>Historique des modifications de l'application</p>
+    </div>
+    <div class="card-tab-content">
+      <app-timeline>
+        <app-timeline-history *ngFor="let event of historyData">
+          <span icon class="icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 12L11 15L16 9"
+                stroke="black"
+                stroke-width="2"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <div class="event-content">
+            <p class="description">{{ event.description }}</p>
+            <div class="event-meta">
+              <span>{{ formatDate(event.date) }}</span>
+              <span>•</span>
+              <span>{{ event.author }}</span>
+            </div>
+          </div>
+        </app-timeline-history>
+      </app-timeline>
+    </div>
+  </div>
+
+  <div class="card-tab" *ngIf="activeTab === 'documentation'">
+    <div class="card-tab-header">
+      <h2>Documentation</h2>
+      <p>Documentation de l'application</p>
+    </div>
+    <div class="card-tab-content">
+      <p>Documentation à venir...</p>
     </div>
   </div>
 </div>

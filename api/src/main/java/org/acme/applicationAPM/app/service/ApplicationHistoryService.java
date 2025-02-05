@@ -15,8 +15,8 @@ public class ApplicationHistoryService {
     @Inject
     ApplicationHistoryRepository repository;
 
-    public List<ApplicationHistory> listAll() {
-        return repository.listAll();
+    public List<ApplicationHistory> listAllByApplicationId(Long applicationId) {
+        return repository.listAllByApplicationId(applicationId);
     };
 
     public ApplicationHistory findById(Long id) {

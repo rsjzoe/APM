@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import org.acme.applicationAPM.domain.model.ApplicationBase;
 import org.acme.applicationAPM.domain.model.Status;
 import org.acme.applicationAPM.domain.model.Time;
-import org.acme.category.Category;
-import org.acme.departement.Departement;
+import org.acme.category.domain.Category;
+import org.acme.departement.domain.Departement;
 
 public class CreateApplicationHistoryInput extends ApplicationBase{
     private  String modifiedBy;

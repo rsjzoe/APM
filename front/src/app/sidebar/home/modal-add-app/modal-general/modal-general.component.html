@@ -31,7 +31,7 @@
 
           <div class="mb-3">
             <label for="category" class="form-label">Catégorie</label>
-            <select class="form-select" id="category" [(ngModel)]="categorieId" required>
+            <select class="form-select" id="category" [(ngModel)]="categoryId" required>
                 <option value="" selected>Sélectionner une catégorie</option>
                 <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
 
@@ -50,7 +50,7 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-primary" (click)="getValueFromGeneral({name:appName,description,categorieId, departementId})"
+        <button class="btn btn-primary" (click)="getValueFromGeneral({name:appName,description,categoryId, departementId})"
           data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
           Suivant
         </button>

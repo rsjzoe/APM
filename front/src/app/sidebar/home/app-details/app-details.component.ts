@@ -6,6 +6,8 @@ import { IconLifecycleComponent } from '../../../components/icons/icon-lifecycle
 import { IconStarComponent } from '../../../components/icons/icon-star/icon-star.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApplicationService } from '../home.service';
+import { TimelineComponent } from "../../../components/timeline/timeline.component";
+import { TimelineHistoryComponent } from "./timeline-history/timeline-history.component";
 
 @Component({
   selector: 'app-app-details',
@@ -15,7 +17,9 @@ import { ApplicationService } from '../home.service';
     IconLifecycleComponent,
     IconStarComponent,
     RouterLink,
-  ],
+    TimelineComponent,
+    TimelineHistoryComponent
+],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',
 })
@@ -71,5 +75,52 @@ export class AppDetailsComponent implements OnInit {
       default:
         return 'text-secondary';
     }
+  }
+
+  activeTab: string = 'dashboard';
+
+  historyData = [
+    {
+      date: "2023-06-01",
+      type: "update",
+      description: "Mise à jour des fonctionnalités de reporting",
+      author: "Sophie Martin",
+    },
+    {
+      date: "2023-05-15",
+      type: "cost",
+      description: "Augmentation du coût d'exploitation à 5000€",
+      author: "Lucas Dubois",
+    },
+    {
+      date: "2023-04-22",
+      type: "feature",
+      description: "Ajout d'une nouvelle fonctionnalité de chat en temps réel",
+      author: "Emma Lefebvre",
+    },
+    {
+      date: "2023-03-10",
+      type: "delete",
+      description: "Suppression du module de gestion des stocks obsolète",
+      author: "Thomas Petit",
+    },
+    {
+      date: "2023-02-05",
+      type: "update",
+      description: "Optimisation des performances du tableau de bord",
+      author: "Camille Roux",
+    },
+  ];
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+  }
+
+  formatDate(date: string) {
+    return new Date(date).toLocaleDateString("fr-FR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   }
 }

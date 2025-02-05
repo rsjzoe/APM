@@ -1,4 +1,6 @@
-package org.acme.departement;
+package org.acme.departement.infra.out;
+
+import org.acme.departement.domain.Departement;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;

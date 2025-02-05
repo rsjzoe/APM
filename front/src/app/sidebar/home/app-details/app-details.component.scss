@@ -41,12 +41,12 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
-.costbuild{
+.costbuild {
   background: #004080;
   color: white;
 }
 
-.costrun{
+.costrun {
   background: #e6e6e6;
 }
 
@@ -168,4 +168,76 @@
 
 .pb-2 {
   padding-bottom: 0.5rem;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 6px;
+  background: #eeeeee;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.tabs button {
+  padding: 0.75rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tabs button.active {
+  border-radius: 6px;
+  background: #fff;
+}
+
+.card-tab {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-tab-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card-tab-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.card-tab-header p {
+  margin: 0.5rem 0 0;
+  color: #6b7280;
+}
+
+.card-tab-content {
+  padding: 1.5rem;
+}
+
+.event-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.description {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.event-meta {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.icon {
+  font-size: 0.875rem;
+  background-color: #dceafe;
+  border-radius: 50%;
 }

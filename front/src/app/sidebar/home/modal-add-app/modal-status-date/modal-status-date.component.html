@@ -44,7 +44,7 @@
         </button>
         <button class="btn btn-primary" (click)="getValueFromStatus({startDate, lastUpdate, status})"
           data-bs-toggle="modal">
-          Enregistrer
+          {{appEditing ? "Mettre à jour" : "Ajouter"}}
         </button>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
 import { ApplicationService } from './home.service';
+import { Application } from '../../application-APM/appType';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { ApplicationService } from './home.service';
 })
 export class HomeComponent implements OnInit {
   apps = applications;
+  appEditing: Application | null = null;
 
   constructor(private appService: ApplicationService) {}
 
@@ -28,17 +30,21 @@ export class HomeComponent implements OnInit {
     });
   };
 
+  editApp = (app: Application) => {
+    this.appEditing = app;
+  };
+
+
+
   findAll = () => {
     this.appService.findAll().subscribe({
       next: (data) => {
         this.apps = data;
         console.log(data);
-        
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des tâches :', error);
       },
-
     });
   };
 

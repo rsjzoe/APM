@@ -1,5 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { Category, Departement } from '../../../../application-APM/appType';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import {
+  Application,
+  Category,
+  Departement,
+} from '../../../../application-APM/appType';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ValueFromGeneral } from '../modal-type';
@@ -15,10 +19,11 @@ import { DepartementService } from '../../../../application-APM/departement.serv
 export class ModalGeneralComponent {
   appName: string = '';
   description = '';
-  categorieId!: number;
+  categoryId!: number;
   categories: Category[] = [];
   departements: Departement[] = [];
   departementId!: number;
+  @Input() appEditing: Application | null = null;
 
   @Input() getValueFromGeneral(value: ValueFromGeneral) {}
 
@@ -48,6 +53,18 @@ export class ModalGeneralComponent {
       },
     });
   };
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    const currenAppEditing: Application | null = changes['appEditing'].currentValue;
+    if (currenAppEditing == null) {
+      return;
+    }
+    this.appName = currenAppEditing.name;
+    this.description = currenAppEditing.description;
+    this.categoryId = currenAppEditing.category.id;
+    this.departementId = currenAppEditing.departement.id;
+  }
 
   ngOnInit() {
     this.findAllCategory();

@@ -7,7 +7,7 @@ import org.acme.applicationAPM.domain.model.ApplicationHistory;
 
 public interface ApplicationHistoryRepository {
 
-    List<ApplicationHistory> listAll();
+    List<ApplicationHistory> listAllByApplicationId(Long applicationId);
 
     ApplicationHistory findById(Long id);
 

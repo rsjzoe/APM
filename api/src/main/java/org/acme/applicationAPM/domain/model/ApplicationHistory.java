@@ -3,8 +3,8 @@ package org.acme.applicationAPM.domain.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.acme.category.Category;
-import org.acme.departement.Departement;
+import org.acme.category.domain.Category;
+import org.acme.departement.domain.Departement;
 
 public class ApplicationHistory extends Application{
     private LocalDate modifiedAt;

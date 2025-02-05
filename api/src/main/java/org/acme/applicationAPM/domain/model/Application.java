@@ -2,8 +2,8 @@ package org.acme.applicationAPM.domain.model;
 
 import java.time.LocalDateTime;
 
-import org.acme.category.Category;
-import org.acme.departement.Departement;
+import org.acme.category.domain.Category;
+import org.acme.departement.domain.Departement;
 
 public class Application extends ApplicationBase {
     protected Long id;

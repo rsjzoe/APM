@@ -1,4 +1,4 @@
-package org.acme.departement;
+package org.acme.departement.infra.out;
 
 
 public class DepartementEntityHelper {

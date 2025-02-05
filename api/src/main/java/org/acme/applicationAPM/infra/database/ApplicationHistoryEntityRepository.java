@@ -12,8 +12,8 @@ import jakarta.transaction.Transactional;
 public class ApplicationHistoryEntityRepository implements ApplicationHistoryRepository {
 
     @Override
-    public List<ApplicationHistory> listAll() {
-        List<ApplicationHistoryEntity> data = ApplicationHistoryEntity.findAll().list();
+    public List<ApplicationHistory> listAllByApplicationId(Long applicationId) {
+        List<ApplicationHistoryEntity> data = ApplicationHistoryEntity.list("applicationEntity.id", applicationId);
         return data.stream()
                 .map(ApplicationHistoryEntity::toApplicationHistory)
                 .toList();
