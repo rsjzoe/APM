@@ -7,7 +7,7 @@ import {
   Question,
   UpdateApplication,
 } from '../../../../application-APM/appType';
-import { ApplicationService } from '../../application.service';
+import { ApplicationService } from '../../home.service';
 import { Router } from '@angular/router';
 
 @Component({

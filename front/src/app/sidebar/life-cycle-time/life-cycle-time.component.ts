@@ -4,7 +4,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { timeColor } from './color';
 import { Application } from '../../application-APM/appType';
 import { applications } from '../../application-APM/data';
-import { ApplicationService } from '../home/application.service';
+import { ApplicationService } from '../home/home.service';
 
 @Component({
   selector: 'app-life-cycle-time',

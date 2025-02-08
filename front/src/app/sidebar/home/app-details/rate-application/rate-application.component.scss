@@ -1,34 +1,5 @@
 .container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1rem;
-}
-
-.card {
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 64rem;
-}
-
-.card-header {
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #4338ca;
-  margin: 0;
-}
-
-.card-description {
-  color: #6366f1;
-  margin: 0.5rem 0 0;
 }
 
 .card-content {
@@ -49,7 +20,7 @@
 
 .progress-bar {
   height: 100%;
-  background: #6366f1;
+  background: #ff7900;
   transition: width 0.3s ease;
 }
 

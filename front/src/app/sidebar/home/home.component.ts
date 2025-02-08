@@ -4,7 +4,7 @@ import { applications } from '../../application-APM/data';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
-import { ApplicationService } from './application.service';
+import { ApplicationService } from './home.service';
 import { Application } from '../../application-APM/appType';
 import { ModalStateService } from './modal-add-app/modal-state.service';
 
