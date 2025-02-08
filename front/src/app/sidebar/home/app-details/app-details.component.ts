@@ -13,6 +13,7 @@ import { Chart, ChartConfiguration } from 'chart.js/auto';
 import { ChartData } from './appDetailType';
 import { DateFormater } from '../../../lib/dateFormater';
 import { RateApplicationComponent } from "./rate-application/rate-application.component";
+import { IconLayerComponent } from "../../../components/icons/icon-layer/icon-layer.component";
 
 @Component({
   selector: 'app-app-details',
@@ -24,7 +25,8 @@ import { RateApplicationComponent } from "./rate-application/rate-application.co
     RouterLink,
     TimelineComponent,
     TimelineHistoryComponent,
-    RateApplicationComponent
+    RateApplicationComponent,
+    IconLayerComponent
 ],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',

@@ -174,13 +174,15 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding: 6px;
-  background: #eeeeee;
-  margin-bottom: 1rem;
+  background: rgba(255, 121, 0, 0.2);
   border-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .tabs button {
   padding: 0.75rem;
+  background: transparent;
   border: 1px solid transparent;
   cursor: pointer;
   transition: all 0.2s;
@@ -188,13 +190,17 @@
 
 .tabs button.active {
   border-radius: 6px;
-  background: rgba(255, 121, 0, 0.2);
+  background: #fff;
 }
 
 .card-tab {
   background: white;
   border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border: 1px solid #d1d5db;
+  border-top: none;
+  // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .card-tab-header {
@@ -232,7 +238,6 @@
   border-radius: 0.5rem;
   padding: 1rem;
 }
-
 
 .description {
   font-size: 0.875rem;

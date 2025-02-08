@@ -16,7 +16,7 @@ export class LifeCycleTimeComponent {
   public apps: Application[] = applications;
 
   constructor(private appService: ApplicationService) {}
-  
+
   public bubbleChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -98,18 +98,31 @@ export class LifeCycleTimeComponent {
   };
 
   public bubbleChartType: ChartType = 'bubble';
-  public bubbleChartData: ChartDataset<'bubble'>[] = this.generateDataSet()
+  public bubbleChartData: ChartDataset<'bubble'>[] = this.generateDataSet();
 
   generateDataSet() {
     let dataInvest = [];
     let dataTolerate = [];
     let dataMigrate = [];
     let dataEliminate = [];
+
+    const userTotals = this.apps.map((app) => app.userTotal);
+    const minUserTotal = Math.min(...userTotals);
+    const maxUserTotal = Math.max(...userTotals);
+
     for (let app of this.apps) {
+      let normalizedR = 0;
+      if (maxUserTotal > minUserTotal) {
+        normalizedR =
+          ((app.userTotal - minUserTotal) * 45) /
+            (maxUserTotal - minUserTotal) +
+          5;
+      }
+
       const item = {
         x: app.businessValue,
         y: app.costBuild + app.costRun,
-        r: app.userTotal,
+        r: normalizedR,
       };
 
       if (app.time == 'invest') {
@@ -122,6 +135,8 @@ export class LifeCycleTimeComponent {
         dataEliminate.push(item);
       }
     }
+    console.log(this.apps);
+
     const bubbleChartData: ChartDataset<'bubble'>[] = [
       {
         label: 'Tolerate',
@@ -144,21 +159,34 @@ export class LifeCycleTimeComponent {
         backgroundColor: timeColor.eliminate,
       },
     ];
-    return bubbleChartData
-  }
+    console.log(bubbleChartData);
 
+    return bubbleChartData;
+  }
 
   private bubbleDataMap: Map<string, Application> = this.appsToMap();
 
   public appsToMap() {
     let rep2: Map<string, Application> = new Map();
 
+    const userTotals = this.apps.map((app) => app.userTotal);
+    const minUserTotal = Math.min(...userTotals);
+    const maxUserTotal = Math.max(...userTotals);
+
     for (let element of this.apps) {
+      let normalizedR = 0;
+      if (maxUserTotal > minUserTotal) {
+        normalizedR =
+          ((element.userTotal - minUserTotal) * 45) /
+            (maxUserTotal - minUserTotal) +
+          5;
+      }
+
       rep2.set(
         JSON.stringify({
           x: element.businessValue,
           y: element.costBuild + element.costRun,
-          r: element.userTotal,
+          r: normalizedR,
         }),
         element
       );
@@ -171,7 +199,7 @@ export class LifeCycleTimeComponent {
       next: (data) => {
         this.apps = data;
         this.bubbleChartData = this.generateDataSet();
-        this.bubbleDataMap = this.appsToMap()
+        this.bubbleDataMap = this.appsToMap();
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des tâches :', error);
