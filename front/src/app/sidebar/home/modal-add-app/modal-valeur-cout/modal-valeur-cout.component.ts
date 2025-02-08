@@ -19,7 +19,6 @@ export class ModalValeurCoutComponent {
   @Input() getValueFromCost(value: ValueFromCost) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     const currenAppEditing: Application | null =
       changes['appEditing'].currentValue;
     if (currenAppEditing == null) {

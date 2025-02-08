@@ -66,8 +66,6 @@ export class ModalAddAppComponent {
   };
 
   save() {
-    console.log(this.createApplication);
-
     this.appService.add(this.createApplication).subscribe({
       next: (app) => {
         this.refresh();

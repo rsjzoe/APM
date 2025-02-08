@@ -37,7 +37,6 @@ export class UserModalComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     const currentUserEditing: User | null = changes['userEditing'].currentValue;
     if (currentUserEditing == null) {
       return;

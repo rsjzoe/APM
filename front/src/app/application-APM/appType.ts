@@ -47,5 +47,12 @@ export type UpdateApplication = Omit<
   departementId: number;
 };
 
+export type AppHistory = Application & {
+  modifiedAt: Date;
+  modifiedBy: string;
+  applicationId:number
+};
+
+
 export type CreateQuestion = Omit<Question, 'id'>;
 export type UpdateQuestion = Omit<Question, 'id'>;

@@ -14,7 +14,6 @@ import { SidebarLinkComponent } from './sidebar-link/sidebar-link.component';
 export class SidebarComponent {
   showCategory = false;
   @Input() toggleSidebar = () => {
-    console.log('ok');
   };
 
   toggleShowCategory() {

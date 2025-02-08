@@ -18,7 +18,6 @@ export class ModalStatusDateComponent {
   @Input() getValueFromStatus(value: ValueFromStatus) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     const currenAppEditing: Application | null =
       changes['appEditing'].currentValue;
     if (currenAppEditing == null) {

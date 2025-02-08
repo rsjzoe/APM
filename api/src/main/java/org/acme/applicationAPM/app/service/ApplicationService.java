@@ -57,6 +57,8 @@ public class ApplicationService {
     };
 
     public Application update(Long id, UpdateApplicationInput updateApplication) {
+        updateApplication.setTime(calculateTime.calcul(updateApplication.getBusinessValue(),
+                updateApplication.getCostBuild() + updateApplication.getCostRun()));
         Application updated = applicationRepository.update(id, updateApplication);
         applicationHistoryService.create(new CreateApplicationHistoryInput(
                 updated.getName(),

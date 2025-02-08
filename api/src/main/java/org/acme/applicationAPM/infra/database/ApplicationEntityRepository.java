@@ -45,6 +45,8 @@ public class ApplicationEntityRepository implements ApplicationRepository {
     public Application delete(Long id) {
         ApplicationEntity data = ApplicationEntity.findById(id);
         if(data == null) return null;
+        // Supprimer les historiques liés
+        ApplicationHistoryEntity.delete("applicationEntity = ?1", data);
         data.delete();
         return data.toApplication();
     }

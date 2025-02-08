@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { CommonModule } from '@angular/common';
 import { QuestionService } from '../../../performance/question.service';
@@ -8,7 +8,7 @@ import {
   UpdateApplication,
 } from '../../../../application-APM/appType';
 import { ApplicationService } from '../../home.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rate-application',
@@ -18,14 +18,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RateApplicationComponent {
   questions: Question[] = [];
-  application: Application | null = null;
-  appId: number | null = null;
+  @Input() application!: Application;
 
   constructor(
     private questionService: QuestionService,
     private appService: ApplicationService,
     private router: Router,
-    private route: ActivatedRoute
   ) {}
 
   questionsPerPage = 3;
@@ -88,9 +86,6 @@ export class RateApplicationComponent {
   }
 
   handleSubmit() {
-    console.log('Submitting ratings:', this.ratings);
-    console.log(this.averageRatings());
-    if (this.application == null || this.appId == null) return;
     const { id } = this.application;
     let updateApplication: UpdateApplication = {
       name: this.application.name,
@@ -107,9 +102,8 @@ export class RateApplicationComponent {
       userTotal: this.application.userTotal,
       note: this.averageRatings(),
     };
-    console.log(updateApplication);
-    
-    this.updateApplication(this.appId, updateApplication);
+
+    this.updateApplication(this.application.id, updateApplication);
   }
 
   averageRatings() {
@@ -135,26 +129,12 @@ export class RateApplicationComponent {
   updateApplication(id: number, updateApp: UpdateApplication) {
     this.appService.update(id, updateApp).subscribe({
       next: (val) => {
-        this.router.navigate(['/app-details/' + id]);
-      },
-    });
-  }
-
-  findApplicationById(id: number) {
-    this.appService.findById(id).subscribe({
-      next: (val) => {
-        if (val == null) {
-          this.router.navigate(['/404']);
-        } else {
-          this.application = val;
-        }
+        window.location.reload();
       },
     });
   }
 
   ngOnInit() {
-    this.appId = Number(this.route.snapshot.paramMap.get('id'));
-    this.findApplicationById(this.appId);
     this.findAllQuestions();
   }
 }

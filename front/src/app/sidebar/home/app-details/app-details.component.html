@@ -128,7 +128,12 @@
 
             <app-icon-star style="color: #fecc00"></app-icon-star>
           </div>
-          <div class="d-flex gap-1 align-items-center text-primary">
+          <a
+            [routerLink]="[]"
+            [fragment]="'note'"
+            class="d-flex gap-1 align-items-center text-primary"
+            (click)="setActiveTab('note')"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -147,12 +152,8 @@
               <path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3" />
               <path d="M12 17h.01" />
             </svg>
-            <a
-              [routerLink]="'/rate-application/' + application.id"
-              class="text-primary"
-              >Noter l'application</a
-            >
-          </div>
+            <span class="text-primary">Noter l'application</span>
+          </a>
         </div>
       </div>
 
@@ -265,10 +266,10 @@
       Historique
     </button>
     <button
-      [class.active]="activeTab === 'documentation'"
-      (click)="setActiveTab('documentation')"
+      [class.active]="activeTab === 'note'"
+      (click)="setActiveTab('note')"
     >
-      Documentation
+      Note
     </button>
   </div>
 
@@ -278,7 +279,9 @@
       <p>Aperçu des métriques clés de l'application</p>
     </div>
     <div class="card-tab-content">
-      <p>à venir</p>
+      <div class="chart-container">
+        <canvas #chartCanvas></canvas>
+      </div>
     </div>
   </div>
 
@@ -289,7 +292,7 @@
     </div>
     <div class="card-tab-content">
       <app-timeline>
-        <app-timeline-history *ngFor="let event of historyData">
+        <app-timeline-history *ngFor="let event of appHistory">
           <span icon class="icon">
             <svg
               width="24"
@@ -309,9 +312,9 @@
           <div class="event-content">
             <p class="description">{{ event.description }}</p>
             <div class="event-meta">
-              <span>{{ formatDate(event.date) }}</span>
+              <span>{{ formatDate(event.modifiedAt) }}</span>
               <span>•</span>
-              <span>{{ event.author }}</span>
+              <span>{{ event.modifiedBy }}</span>
             </div>
           </div>
         </app-timeline-history>
@@ -319,13 +322,13 @@
     </div>
   </div>
 
-  <div class="card-tab" *ngIf="activeTab === 'documentation'">
+  <div class="card-tab" *ngIf="activeTab === 'note'" id="note">
     <div class="card-tab-header">
-      <h2>Documentation</h2>
-      <p>Documentation de l'application</p>
+      <h2>Noter l'application</h2>
+      <p>Votre avis nous est précieux</p>
     </div>
     <div class="card-tab-content">
-      <p>Documentation à venir...</p>
+      <app-rate-application [application]="application"></app-rate-application>
     </div>
   </div>
 </div>

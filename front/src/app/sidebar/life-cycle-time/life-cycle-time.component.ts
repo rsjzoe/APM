@@ -4,6 +4,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { timeColor } from './color';
 import { Application } from '../../application-APM/appType';
 import { applications } from '../../application-APM/data';
+import { ApplicationService } from '../home/home.service';
 
 @Component({
   selector: 'app-life-cycle-time',
@@ -13,6 +14,8 @@ import { applications } from '../../application-APM/data';
 })
 export class LifeCycleTimeComponent {
   public apps: Application[] = applications;
+
+  constructor(private appService: ApplicationService) {}
   
   public bubbleChartOptions: ChartOptions = {
     responsive: true,
@@ -31,9 +34,6 @@ export class LifeCycleTimeComponent {
       },
     },
     onHover: (event, elements, chart) => {
-      // console.log(event);
-      // console.log(elements);
-      // console.log(chart);
       const bubbleInfo = document.getElementById('bubble-info');
       if (event.native == null) {
         return;
@@ -53,8 +53,6 @@ export class LifeCycleTimeComponent {
         const datasetIndex = element.datasetIndex;
         const index = element.index;
         const data = this.bubbleChartData[datasetIndex].data[index];
-        // console.log(data);
-        // console.log(this.bubbleDataMap.get(JSON.stringify(data)));
         const currentApp = this.bubbleDataMap.get(JSON.stringify(data));
         if (currentApp == undefined) return;
 
@@ -75,7 +73,6 @@ export class LifeCycleTimeComponent {
         if (left + 400 > screenWidth) {
           left = left - bubbleInfoWidth - 70;
         }
-        console.log(left, screenWidth, bubbleInfoWidth);
 
         if (top + 300 > screenHeight) {
           top = top - bubbleInfoHeight - 10;
@@ -167,5 +164,22 @@ export class LifeCycleTimeComponent {
       );
     }
     return rep2;
+  }
+
+  findAllApplication = () => {
+    this.appService.findAll().subscribe({
+      next: (data) => {
+        this.apps = data;
+        this.bubbleChartData = this.generateDataSet();
+        this.bubbleDataMap = this.appsToMap()
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des tâches :', error);
+      },
+    });
+  };
+
+  ngOnInit() {
+    this.findAllApplication();
   }
 }

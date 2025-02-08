@@ -55,7 +55,6 @@ export class ModalGeneralComponent {
   };
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     const currenAppEditing: Application | null = changes['appEditing'].currentValue;
     if (currenAppEditing == null) {
       return;
