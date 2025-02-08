@@ -15,6 +15,7 @@ import { DateFormater } from '../../../lib/dateFormater';
 import { RateApplicationComponent } from './rate-application/rate-application.component';
 import { IconLayerComponent } from '../../../components/icons/icon-layer/icon-layer.component';
 import { DocumentationComponent } from './documentation/documentation.component';
+import { NumberFormat } from '../../../lib/numberFormat';
 
 @Component({
   selector: 'app-app-details',
@@ -40,6 +41,9 @@ export class AppDetailsComponent implements OnInit {
   appHistory: AppHistory[] = [];
   activeTab: string = 'dashboard';
   chart: Chart | null = null;
+  numberFormat = (value: number) => {
+    return NumberFormat.formatDevise(value);
+  };
 
   constructor(
     private appService: ApplicationService,

@@ -26,7 +26,7 @@
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
           </svg>
           <span class="">Valeur commerciale:</span>
-          <span>{{ application.businessValue }}</span>
+          <span>{{numberFormat( application.businessValue) }}</span>
         </div>
         <div class="custom-flex">
           <app-icon-lifecycle [ngClass]="getTimeColor(application.time)"></app-icon-lifecycle>
@@ -62,7 +62,7 @@
               <div class="custom-text fw-">Coût de construction</div>
             </div>
             <div class="app-content">
-              <div class="fs-3 fw-bold">{{ application.costBuild }} Ar</div>
+              <div class="fs-3 fw-bold">{{numberFormat( application.costBuild) }} Ar</div>
             </div>
           </div>
           <div class="custom-card costrun">
@@ -70,7 +70,7 @@
               <div class="custom-text fw-emibold">Coût d'exploitation</div>
             </div>
             <div class="app-content">
-              <div class="fs-3 fw-bold">{{ application.costRun }} Ar</div>
+              <div class="fs-3 fw-bold">{{numberFormat( application.costRun) }} Ar</div>
             </div>
           </div>
         </div>
