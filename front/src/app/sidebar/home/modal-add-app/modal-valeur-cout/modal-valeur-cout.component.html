@@ -1,13 +1,26 @@
-<div class="modal modal-lg fade" id="exampleModalToggle2" aria-hidden="true" data-bs-backdrop="false"
-  aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div
+  class="modal modal-lg fade"
+  id="exampleModalToggle2"
+  aria-hidden="true"
+  data-bs-backdrop="false"
+  aria-labelledby="exampleModalToggleLabel2"
+  tabindex="-1"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title h5" id="exampleModalToggleLabel2">
           Valeurs et Coûts
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip"
-          data-bs-placement="bottom" data-bs-title="Close">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          data-bs-title="Close"
+          (click)="modalStateService.resetData()"
+        >
           <span class="visually-hidden">Close</span>
         </button>
       </div>
@@ -16,25 +29,51 @@
           <div class="mb-3">
             <label for="businessValue" class="form-label">Valeur métier</label>
             <div class="input-group">
-              <input type="number" class="form-control" id="businessValue" [(ngModel)]="businessValue" min="0" step="1"
-                required />
+              <input
+                type="number"
+                class="form-control"
+                id="businessValue"
+                [(ngModel)]="modalStateService.createApplication.businessValue"
+                min="0"
+                step="1"
+                required
+              />
               <span class="input-group-text">€</span>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="costBuild" class="form-label">Coût de construction</label>
+            <label for="costBuild" class="form-label"
+              >Coût de construction</label
+            >
             <div class="input-group">
-              <input type="number" class="form-control" id="costBuild" [(ngModel)]="costBuild" min="0" step="1"
-                required />
+              <input
+                type="number"
+                class="form-control"
+                id="costBuild"
+                [(ngModel)]="modalStateService.createApplication.costBuild"
+                min="0"
+                step="1"
+                required
+              />
               <span class="input-group-text">€</span>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="costRun" class="form-label">Coût de fonctionnement</label>
+            <label for="costRun" class="form-label"
+              >Coût de fonctionnement</label
+            >
             <div class="input-group">
-              <input type="number" class="form-control" [(ngModel)]="costRun" id="costRun" min="0" step="1" required />
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="modalStateService.createApplication.costRun"
+                id="costRun"
+                min="0"
+                step="1"
+                required
+              />
               <span class="input-group-text">€</span>
             </div>
           </div>
@@ -42,18 +81,31 @@
           <div class="mb-3">
             <label class="form-label">Nombre total d'utilisateurs</label>
             <div class="input-group">
-              <input type="number" class="form-control" [(ngModel)]="userTotal" id="userTotal" required />
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="modalStateService.createApplication.userTotal"
+                id="userTotal"
+                required
+              />
             </div>
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+        <button
+          class="btn btn-secondary"
+          data-bs-target="#exampleModalToggle"
+          data-bs-toggle="modal"
+        >
           Précédent
         </button>
-        <button class="btn btn-primary" (click)="getValueFromCost({businessValue,costBuild,costRun,userTotal})"
-          data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">
+        <button
+          class="btn btn-primary"
+          data-bs-target="#exampleModalToggle3"
+          data-bs-toggle="modal"
+        >
           Suivant
         </button>
       </div>

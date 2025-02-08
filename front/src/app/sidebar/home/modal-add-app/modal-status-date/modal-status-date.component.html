@@ -1,13 +1,26 @@
-<div class="modal modal-lg fade" id="exampleModalToggle3" aria-hidden="true" data-bs-backdrop="false"
-  aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+<div
+  class="modal modal-lg fade"
+  id="exampleModalToggle3"
+  aria-hidden="true"
+  data-bs-backdrop="false"
+  aria-labelledby="exampleModalToggleLabel3"
+  tabindex="-1"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title h5" id="exampleModalToggleLabel3">
           Dates et Statut
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip"
-          data-bs-placement="bottom" data-bs-title="Close">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          data-bs-title="Close"
+          (click)="modalStateService.resetData()"
+        >
           <span class="visually-hidden">Close</span>
         </button>
       </div>
@@ -15,17 +28,36 @@
         <div id="datesStatusForm">
           <div class="mb-3">
             <label for="startDate" class="form-label">Date de démarrage</label>
-            <input type="datetime-local" [(ngModel)]="startDate" class="form-control" id="startDate" required />
+            <input
+              type="datetime-local"
+              [(ngModel)]="modalStateService.createApplication.startDate"
+              class="form-control"
+              id="startDate"
+              required
+            />
           </div>
 
           <div class="mb-3">
-            <label for="lastUpdate" class="form-label">Dernière mise à jour</label>
-            <input type="datetime-local" [(ngModel)]="lastUpdate" class="form-control" id="lastUpdate" required />
+            <label for="lastUpdate" class="form-label"
+              >Dernière mise à jour</label
+            >
+            <input
+              type="datetime-local"
+              [(ngModel)]="modalStateService.createApplication.lastUpdate"
+              class="form-control"
+              id="lastUpdate"
+              required
+            />
           </div>
 
           <div class="mb-3">
             <label for="status" class="form-label">Statut</label>
-            <select class="form-select" [(ngModel)]="status" id="status" required>
+            <select
+              class="form-select"
+              [(ngModel)]="modalStateService.createApplication.status"
+              id="status"
+              required
+            >
               <option value="">Sélectionner un statut</option>
               <option value="development">Développement</option>
               <option value="production">Production</option>
@@ -39,12 +71,19 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+        <button
+          class="btn btn-secondary"
+          data-bs-target="#exampleModalToggle2"
+          data-bs-toggle="modal"
+        >
           Précédent
         </button>
-        <button class="btn btn-primary" (click)="getValueFromStatus({startDate, lastUpdate, status})"
-          data-bs-toggle="modal">
-          {{appEditing ? "Mettre à jour" : "Ajouter"}}
+        <button
+          class="btn btn-primary"
+          (click)="modalStateService.submit()"
+          data-bs-toggle="modal"
+        >
+          {{ modalStateService.appEditing ? "Mettre à jour" : "Ajouter" }}
         </button>
       </div>
     </div>

@@ -1,14 +1,10 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
-import {
-  Application,
-  Category,
-  Departement,
-} from '../../../../application-APM/appType';
+import { Component } from '@angular/core';
+import { Category, Departement } from '../../../../application-APM/appType';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ValueFromGeneral } from '../modal-type';
 import { CategoryService } from '../../../category/category.service';
 import { DepartementService } from '../../../../application-APM/departement.service';
+import { ModalStateService } from '../modal-state.service';
 
 @Component({
   selector: 'app-modal-general',
@@ -17,19 +13,13 @@ import { DepartementService } from '../../../../application-APM/departement.serv
   styleUrl: './modal-general.component.scss',
 })
 export class ModalGeneralComponent {
-  appName: string = '';
-  description = '';
-  categoryId!: number;
   categories: Category[] = [];
   departements: Departement[] = [];
-  departementId!: number;
-  @Input() appEditing: Application | null = null;
-
-  @Input() getValueFromGeneral(value: ValueFromGeneral) {}
 
   constructor(
     private categoryService: CategoryService,
-    private departementService: DepartementService
+    private departementService: DepartementService,
+    public modalStateService: ModalStateService
   ) {}
 
   findAllCategory = () => {
@@ -53,17 +43,6 @@ export class ModalGeneralComponent {
       },
     });
   };
-
-  ngOnChanges(changes: SimpleChanges) {
-    const currenAppEditing: Application | null = changes['appEditing'].currentValue;
-    if (currenAppEditing == null) {
-      return;
-    }
-    this.appName = currenAppEditing.name;
-    this.description = currenAppEditing.description;
-    this.categoryId = currenAppEditing.category.id;
-    this.departementId = currenAppEditing.departement.id;
-  }
 
   ngOnInit() {
     this.findAllCategory();

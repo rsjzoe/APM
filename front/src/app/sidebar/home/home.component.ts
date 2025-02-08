@@ -4,8 +4,9 @@ import { applications } from '../../application-APM/data';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
-import { ApplicationService } from './home.service';
+import { ApplicationService } from './application.service';
 import { Application } from '../../application-APM/appType';
+import { ModalStateService } from './modal-add-app/modal-state.service';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +16,13 @@ import { Application } from '../../application-APM/appType';
 })
 export class HomeComponent implements OnInit {
   apps = applications;
-  appEditing: Application | null = null;
 
-  constructor(private appService: ApplicationService) {}
+  constructor(
+    private appService: ApplicationService,
+    private modalStateService: ModalStateService
+  ) {
+    modalStateService.subscribeOnsubmit(this.refresh);
+  }
 
   deleteById = (id: number) => {
     this.appService.delete(id).subscribe({
@@ -31,10 +36,8 @@ export class HomeComponent implements OnInit {
   };
 
   editApp = (app: Application) => {
-    this.appEditing = app;
+    this.modalStateService.editApp(app);
   };
-
-
 
   findAll = () => {
     this.appService.findAll().subscribe({

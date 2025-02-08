@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { IconLifecycleComponent } from '../../../components/icons/icon-lifecycle/icon-lifecycle.component';
 import { IconStarComponent } from '../../../components/icons/icon-star/icon-star.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ApplicationService } from '../home.service';
+import { ApplicationService } from '../application.service';
 import { TimelineComponent } from '../../../components/timeline/timeline.component';
 import { TimelineHistoryComponent } from './timeline-history/timeline-history.component';
 import { AppHistoryService } from '../../../application-APM/app-history.service';
