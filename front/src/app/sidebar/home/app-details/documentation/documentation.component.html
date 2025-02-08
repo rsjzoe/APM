@@ -1,58 +1,105 @@
 <div class="popover-container">
-    <button class="button" (click)="togglePopover()">
-        Documentation
-    </button>
+  <div class="flex items-center space-x-2 button" (click)="togglePopover()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-book-open"
+    >
+      <path d="M12 7v14" />
+      <path
+        d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+      />
+    </svg>
+    <span>Voir Document</span>
+  </div>
 
-    <div class="popover-content" *ngIf="isOpen">
-        <div>
-            <h4>Documentation</h4>
-            <p>Liste des documents disponibles</p>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="document-list">
-            <div class="document-group" *ngFor="let group of groupedDocuments | keyvalue">
-                <h5>
-                    <span class="badge" [class]="getDocumentTypeClass(group.key)">
-                        {{group.key}}
-                    </span>
-                </h5>
-
-                <div class="document-item" *ngFor="let doc of group.value">
-                    <div class="document-info">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                        <span>{{doc.name}}</span>
-                    </div>
-
-                    <div class="document-actions">
-                        <button class="button-icon" (click)="handleView(doc)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                        </button>
-                        <button class="button-icon" (click)="handleDownload(doc)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="popover-content" *ngIf="isOpen">
+    <div>
+      <h4>Documentation</h4>
+      <p>Liste des documents disponibles</p>
     </div>
+
+    <div class="separator"></div>
+
+    <div class="document-list" *ngIf="groupedDocuments != null">
+      <div
+        class="document-group"
+        *ngFor="let group of groupedDocuments | keyvalue"
+      >
+        <h5>
+          <span class="badge" [class]="getDocumentTypeClass(group.key)">
+            {{ group.key }}
+          </span>
+        </h5>
+
+        <div class="document-item" *ngFor="let doc of group.value">
+          <div class="document-info">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>{{ doc.name }}</span>
+          </div>
+
+          <div class="document-actions">
+            <button class="button-icon" (click)="handleView(doc)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+            <button class="button-icon" (click)="handleDownload(doc)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
