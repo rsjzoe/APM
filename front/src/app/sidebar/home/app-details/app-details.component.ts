@@ -12,8 +12,9 @@ import { AppHistoryService } from '../../../application-APM/app-history.service'
 import { Chart, ChartConfiguration } from 'chart.js/auto';
 import { ChartData } from './appDetailType';
 import { DateFormater } from '../../../lib/dateFormater';
-import { RateApplicationComponent } from "./rate-application/rate-application.component";
-import { IconLayerComponent } from "../../../components/icons/icon-layer/icon-layer.component";
+import { RateApplicationComponent } from './rate-application/rate-application.component';
+import { IconLayerComponent } from '../../../components/icons/icon-layer/icon-layer.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 @Component({
   selector: 'app-app-details',
@@ -26,8 +27,9 @@ import { IconLayerComponent } from "../../../components/icons/icon-layer/icon-la
     TimelineComponent,
     TimelineHistoryComponent,
     RateApplicationComponent,
-    IconLayerComponent
-],
+    IconLayerComponent,
+    DocumentationComponent,
+  ],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',
 })
@@ -98,7 +100,6 @@ export class AppDetailsComponent implements OnInit {
 
     return Object.values(monthlyData);
   }
-
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
