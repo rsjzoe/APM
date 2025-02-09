@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { Document, DocumentType } from './document-type';
 import { CommonModule } from '@angular/common';
 
@@ -53,8 +53,11 @@ export class DocumentationComponent {
       size: '1.5 MB',
     },
   ];
+  groupedDocuments: Record<DocumentType, Document[]> | null = null;
 
-  get groupedDocuments(): Record<DocumentType, Document[]> {
+  constructor(private eRef: ElementRef) {}
+
+  getGroupedDocuments(): Record<DocumentType, Document[]> {
     return this.documents.reduce((acc, doc) => {
       if (!acc[doc.type]) {
         acc[doc.type] = [];
@@ -88,5 +91,16 @@ export class DocumentationComponent {
 
   handleDownload(document: Document): void {
     console.log('Downloading document:', document.name);
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event): void {
+    if (this.isOpen && !this.eRef.nativeElement.contains(event.target)) {
+      this.isOpen = false;
+    }
+  }
+
+  ngOnInit() {
+    this.groupedDocuments = this.getGroupedDocuments();
   }
 }

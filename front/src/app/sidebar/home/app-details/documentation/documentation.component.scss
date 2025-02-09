@@ -91,3 +91,16 @@
   display: flex;
   gap: 0.5rem;
 }
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.space-x-2 > :not(:last-child) {
+  margin-right: 0.5rem;
+}
