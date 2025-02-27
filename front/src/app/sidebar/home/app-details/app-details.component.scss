@@ -233,6 +233,12 @@
   padding: 1rem;
 }
 
+canvas {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
 .description {
   font-size: 0.875rem;
   font-weight: 500;
