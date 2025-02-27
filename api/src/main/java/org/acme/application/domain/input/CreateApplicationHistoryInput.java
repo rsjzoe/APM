@@ -6,24 +6,30 @@ import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.category.domain.Category;
+import org.acme.cost.Cost;
 import org.acme.departement.domain.Departement;
+import org.acme.techBusinessValue.TechBusinessValue;
 
-public class CreateApplicationHistoryInput extends ApplicationBase{
-    private  String modifiedBy;
+public class CreateApplicationHistoryInput extends ApplicationBase {
+    private String modifiedBy;
     private Long applicationId;
     protected double note;
     protected Category category;
     protected Departement departement;
+    protected Cost cost;
+    protected TechBusinessValue techBusinessValue;
 
-    
-    public CreateApplicationHistoryInput(String name, String description, double businessValue, double costBuild, double costRun, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, String modifiedBy, Long applicationId, double note, Category category, Departement departement) {
-        super(name, description, businessValue, costBuild, costRun, startDate, lastUpdate, status, time, userTotal);
+    public CreateApplicationHistoryInput(String name, String description, LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, String modifiedBy, Long applicationId,
+            double note, Category category, Departement departement, Cost cost, TechBusinessValue techBusinessValue) {
+        super(name, description, startDate, lastUpdate, status, time, userTotal);
         this.modifiedBy = modifiedBy;
         this.applicationId = applicationId;
         this.note = note;
         this.category = category;
         this.departement = departement;
+        this.cost = cost;
+        this.techBusinessValue = techBusinessValue;
     }
 
     public String getModifiedBy() {
@@ -66,4 +72,19 @@ public class CreateApplicationHistoryInput extends ApplicationBase{
         this.departement = departement;
     }
 
+    public Cost getCost() {
+        return cost;
+    }
+
+    public void setCost(Cost cost) {
+        this.cost = cost;
+    }
+
+    public TechBusinessValue getTechBusinessValue() {
+        return techBusinessValue;
+    }
+
+    public void setTechBusinessValue(TechBusinessValue techBusinessValue) {
+        this.techBusinessValue = techBusinessValue;
+    }
 }

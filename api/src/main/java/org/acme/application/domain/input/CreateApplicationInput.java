@@ -9,14 +9,17 @@ import org.acme.application.domain.model.Time;
 public class CreateApplicationInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
+    private Long costId;
+    private Long techBusinessValueId;
 
-    public CreateApplicationInput(String name, String description, double businessValue, double costBuild,
-            double costRun, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long categoryId, Long departementId) {
-        super(name, description, businessValue, costBuild, costRun, startDate,
+    public CreateApplicationInput(String name, String description, LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long categoryId, Long departementId, Long costId, Long techBusinessValueId) {
+        super(name, description, startDate,
                 lastUpdate, status, time, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
+        this.costId = costId;
+        this.techBusinessValueId = techBusinessValueId;
     }
 
     public Long getCategoryId() {
@@ -33,5 +36,21 @@ public class CreateApplicationInput extends ApplicationBase {
 
     public void setDepartementId(Long departementId) {
         this.departementId = departementId;
+    }
+
+    public Long getCostId() {
+        return this.costId;
+    }
+
+    public void setCostId(Long costId) {
+        this.costId = costId;
+    }
+
+    public Long getTechBusinessValueId() {
+        return this.techBusinessValueId;
+    }
+
+    public void setTechBusinessValueId(Long techBusinessValueId) {
+        this.techBusinessValueId = techBusinessValueId;
     }
 }

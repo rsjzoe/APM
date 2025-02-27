@@ -8,8 +8,10 @@ import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.category.infra.out.CategoryEntity;
 import org.acme.category.infra.out.CategoryEntityHelper;
+import org.acme.cost.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.departement.infra.out.DepartementEntityHelper;
+import org.acme.techBusinessValue.TechBusinessValueEntity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
@@ -20,9 +22,7 @@ import jakarta.persistence.ManyToOne;
 public class ApplicationHistoryEntity extends PanacheEntity {
     public String name;
     public String description;
-    public double businessValue; // vola napidirin'ilay app
-    public double costBuild;
-    public double costRun;
+
     public String userTeam;
     @ManyToOne(fetch = FetchType.LAZY)
     public CategoryEntity category;
@@ -38,18 +38,19 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     public DepartementEntity departement;
     @ManyToOne(fetch = FetchType.LAZY)
     public ApplicationEntity applicationEntity;
+    @ManyToOne
+    public CostEntity costEntity;
+    @ManyToOne
+    public TechBusinessValueEntity techBusinessValueEntity;
 
     public ApplicationHistoryEntity() {
     }
 
-    public ApplicationHistoryEntity(String name, String description, double businessValue, double costBuild,
-            double costRun, LocalDateTime startDate, LocalDateTime lastUpdate, Status status,
+    public ApplicationHistoryEntity(String name, String description, LocalDateTime startDate, LocalDateTime lastUpdate,
+            Status status,
             Time time, int userTotal, double note, LocalDateTime modifiedAt, String modifiedBy) {
         this.name = name;
         this.description = description;
-        this.businessValue = businessValue;
-        this.costBuild = costBuild;
-        this.costRun = costRun;
         this.startDate = startDate;
         this.lastUpdate = lastUpdate;
         this.status = status;
@@ -64,9 +65,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
 
         this.name = app.getName();
         this.description = app.getDescription();
-        this.businessValue = app.getBusinessValue();
-        this.costBuild = app.getCostBuild();
-        this.costRun = app.getCostRun();
+
         this.startDate = app.getStartDate();
         this.lastUpdate = app.getLastUpdate();
         this.status = app.getStatus();
@@ -90,9 +89,6 @@ public class ApplicationHistoryEntity extends PanacheEntity {
                 this.id,
                 this.name,
                 this.description,
-                this.businessValue,
-                this.costBuild,
-                this.costRun,
                 this.category.toCategory(),
                 this.startDate,
                 this.lastUpdate,
@@ -103,7 +99,9 @@ public class ApplicationHistoryEntity extends PanacheEntity {
                 this.departement.toDepartement(),
                 this.modifiedAt.toLocalDate(),
                 this.modifiedBy,
-                this.applicationEntity.id);
+                this.applicationEntity.id,
+                this.costEntity.toCost(),
+                this.techBusinessValueEntity.toTechBusinessValue());
     }
 
 }

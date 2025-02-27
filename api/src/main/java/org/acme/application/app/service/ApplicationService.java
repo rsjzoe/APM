@@ -32,16 +32,13 @@ public class ApplicationService {
     };
 
     public Application create(CreateApplicationInput newApplication) {
-        newApplication.setTime(calculateTime.calcul(newApplication.getBusinessValue(),
-                newApplication.getCostBuild() + newApplication.getCostRun()));
+        // newApplication.setTime(calculateTime.calcul(newApplication.getBusinessValue(),
+        // newApplication.getCostBuild() + newApplication.getCostRun()));
 
         Application created = applicationRepository.create(newApplication);
         applicationHistoryService.create(new CreateApplicationHistoryInput(
                 created.getName(),
                 created.getDescription(),
-                created.getBusinessValue(),
-                created.getCostBuild(),
-                created.getCostRun(),
                 created.getStartDate(),
                 created.getLastUpdate(),
                 created.getStatus(),
@@ -51,21 +48,20 @@ public class ApplicationService {
                 created.getId(),
                 created.getNote(),
                 created.getCategory(),
-                created.getDepartement()));
+                created.getDepartement(),
+                created.getCost(),
+                created.getTechBusinessValue()));
 
         return created;
     };
 
     public Application update(Long id, UpdateApplicationInput updateApplication) {
-        updateApplication.setTime(calculateTime.calcul(updateApplication.getBusinessValue(),
-                updateApplication.getCostBuild() + updateApplication.getCostRun()));
+        // updateApplication.setTime(calculateTime.calcul(updateApplication.getBusinessValue(),
+        // updateApplication.getCostBuild() + updateApplication.getCostRun()));
         Application updated = applicationRepository.update(id, updateApplication);
         applicationHistoryService.create(new CreateApplicationHistoryInput(
                 updated.getName(),
                 updated.getDescription(),
-                updated.getBusinessValue(),
-                updated.getCostBuild(),
-                updated.getCostRun(),
                 updated.getStartDate(),
                 updated.getLastUpdate(),
                 updated.getStatus(),
@@ -75,7 +71,9 @@ public class ApplicationService {
                 updated.getId(),
                 updated.getNote(),
                 updated.getCategory(),
-                updated.getDepartement()));
+                updated.getDepartement(),
+                updated.getCost(),
+                updated.getTechBusinessValue()));
         return updated;
     };
 
