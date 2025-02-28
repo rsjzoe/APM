@@ -1,4 +1,4 @@
-package org.acme.techBusinessValue;
+package org.acme.techBusinessValue.infra.database;
 
 public class TechBusinessValueEntityHelper {
     public static TechBusinessValueEntity entityFromId(Long id) {

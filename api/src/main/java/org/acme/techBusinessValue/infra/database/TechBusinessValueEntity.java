@@ -1,15 +1,21 @@
-package org.acme.techBusinessValue;
+package org.acme.techBusinessValue.infra.database;
 
 import java.time.LocalDate;
 
+import org.acme.application.infra.database.ApplicationEntity;
+import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "tech_business_value")
 public class TechBusinessValueEntity extends PanacheEntity {
     private double businessValue;
     private double technicalDebt;
     private LocalDate createdAt;
+    @ManyToOne
+    private ApplicationEntity application;
 
     public TechBusinessValueEntity() {
     }
@@ -20,8 +26,8 @@ public class TechBusinessValueEntity extends PanacheEntity {
         this.createdAt = createdAt;
     }
 
-    public TechBusinessValue toTechBusinessValue() {
-        return new TechBusinessValue(id, businessValue, technicalDebt, createdAt);
+    public TechBusinessValueOutput toTechBusinessValueOutput() {
+        return new TechBusinessValueOutput(id, businessValue, technicalDebt, createdAt, application.id);
     }
 
     public double getBusinessValue() {

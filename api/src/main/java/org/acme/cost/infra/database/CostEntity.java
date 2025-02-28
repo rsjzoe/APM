@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.cost.domain.model.output.CostOutput;
 
-
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -18,7 +17,6 @@ public class CostEntity extends PanacheEntity {
     @ManyToOne
     private ApplicationEntity application;
 
-
     public CostEntity() {
     }
 
@@ -28,7 +26,7 @@ public class CostEntity extends PanacheEntity {
         this.createdAt = createdAt;
     }
 
-    public CostOutput toCost() {
+    public CostOutput toCostOutput() {
         return new CostOutput(id, application.id, costBuild, costRun, createdAt);
     }
 

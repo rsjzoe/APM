@@ -11,7 +11,7 @@ import org.acme.category.infra.out.CategoryEntityHelper;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.departement.infra.out.DepartementEntityHelper;
-import org.acme.techBusinessValue.TechBusinessValueEntity;
+import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;

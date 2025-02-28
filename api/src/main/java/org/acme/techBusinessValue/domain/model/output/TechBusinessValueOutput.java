@@ -1,18 +1,20 @@
-package org.acme.techBusinessValue;
+package org.acme.techBusinessValue.domain.model.output;
 
 import java.time.LocalDate;
 
-public class TechBusinessValue {
+public class TechBusinessValueOutput {
     private Long id;
     private double businessValue;
     private double technicalDebt;
     private LocalDate createdAt;
+    private Long applicationId;
 
-    public TechBusinessValue(Long id, double businessValue, double technicalDebt, LocalDate createdAt) {
+    public TechBusinessValueOutput(Long id, double businessValue, double technicalDebt, LocalDate createdAt, Long applicationId) {
         this.id = id;
         this.businessValue = businessValue;
         this.technicalDebt = technicalDebt;
         this.createdAt = createdAt;
+        this.applicationId = applicationId;
     }
 
     public Long getId() {
@@ -29,6 +31,10 @@ public class TechBusinessValue {
 
     public LocalDate getCreatedAt() {
         return createdAt;
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
     }
 
     // Setters
@@ -48,14 +54,7 @@ public class TechBusinessValue {
         this.createdAt = createdAt;
     }
 
-    // toString method
-    @Override
-    public String toString() {
-        return "TechBusinessValue{" +
-                "id=" + id +
-                ", businessValue=" + businessValue +
-                ", technicalDebt=" + technicalDebt +
-                ", createdAt=" + createdAt +
-                '}';
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 }

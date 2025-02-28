@@ -8,7 +8,7 @@ import org.acme.application.domain.model.Time;
 import org.acme.category.domain.Category;
 import org.acme.cost.domain.model.Cost;
 import org.acme.departement.domain.Departement;
-import org.acme.techBusinessValue.TechBusinessValue;
+import org.acme.techBusinessValue.domain.model.TechBusinessValue;
 
 public class CreateApplicationHistoryInput extends ApplicationBase {
     private String modifiedBy;
