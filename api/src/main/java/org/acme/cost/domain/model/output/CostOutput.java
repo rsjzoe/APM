@@ -1,27 +1,37 @@
-package org.acme.cost;
+package org.acme.cost.domain.model.output;
 
 import java.time.LocalDate;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Entity;
 
-@Entity(name = "cost")
-public class CostEntity extends PanacheEntity {
+public class CostOutput {
+    private Long id;
+    private Long applicationId;
     private double costBuild;
     private double costRun;
     private LocalDate createdAt;
 
-    public CostEntity() {
-    }
-
-    public CostEntity(double costBuild, double costRun, LocalDate createdAt) {
+    public CostOutput(Long id, Long applicationId, double costBuild, double costRun, LocalDate createdAt) {
+        this.id = id;
+        this.applicationId = applicationId;
         this.costBuild = costBuild;
         this.costRun = costRun;
         this.createdAt = createdAt;
     }
 
-    public Cost toCost() {
-        return new Cost(id, costBuild, costRun, createdAt);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public double getCostBuild() {
@@ -48,12 +58,4 @@ public class CostEntity extends PanacheEntity {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "CostEntity{" +
-                "costBuild=" + costBuild +
-                ", costRun=" + costRun +
-                ", createdAt=" + createdAt +
-                '}';
-    }
 }

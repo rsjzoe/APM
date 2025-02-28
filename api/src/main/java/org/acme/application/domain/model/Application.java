@@ -3,7 +3,7 @@ package org.acme.application.domain.model;
 import java.time.LocalDateTime;
 
 import org.acme.category.domain.Category;
-import org.acme.cost.Cost;
+import org.acme.cost.domain.model.Cost;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.TechBusinessValue;
 

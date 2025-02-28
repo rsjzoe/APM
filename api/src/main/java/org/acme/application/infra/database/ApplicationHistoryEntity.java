@@ -8,7 +8,7 @@ import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.category.infra.out.CategoryEntity;
 import org.acme.category.infra.out.CategoryEntityHelper;
-import org.acme.cost.CostEntity;
+import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.departement.infra.out.DepartementEntityHelper;
 import org.acme.techBusinessValue.TechBusinessValueEntity;

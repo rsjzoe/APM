@@ -1,18 +1,22 @@
-package org.acme.cost;
+package org.acme.cost.domain.model;
 
 import java.time.LocalDate;
+
+import org.acme.application.domain.model.Application;
 
 public class Cost {
     private Long id;
     private double costBuild;
     private double costRun;
     private LocalDate createdAt;
+    private Application application;
 
-    public Cost(Long id, double costBuild, double costRun, LocalDate createdAt) {
+    public Cost(Long id, double costBuild, double costRun, LocalDate createdAt, Application application) {
         this.id = id;
         this.costBuild = costBuild;
         this.costRun = costRun;
         this.createdAt = createdAt;
+        this.application = application;
     }
 
     public Long getId() {
@@ -31,6 +35,10 @@ public class Cost {
         return createdAt;
     }
 
+    public Application getApplication() {
+        return application;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -47,6 +55,10 @@ public class Cost {
         this.createdAt = createdAt;
     }
 
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
     @Override
     public String toString() {
         return "Cost{" +
@@ -54,6 +66,7 @@ public class Cost {
                 ", costBuild=" + costBuild +
                 ", costRun=" + costRun +
                 ", createdAt=" + createdAt +
+                ", application=" + application +
                 '}';
     }
 }

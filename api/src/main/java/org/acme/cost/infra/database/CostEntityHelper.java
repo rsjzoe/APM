@@ -1,4 +1,4 @@
-package org.acme.cost;
+package org.acme.cost.infra.database;
 
 public class CostEntityHelper {
     public static CostEntity entityFromId(Long id) {
