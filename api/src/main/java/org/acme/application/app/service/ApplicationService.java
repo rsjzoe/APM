@@ -3,10 +3,10 @@ package org.acme.application.app.service;
 import java.util.List;
 
 import org.acme.application.app.usecase.CalculateTime;
-import org.acme.application.domain.input.CreateApplicationHistoryInput;
-import org.acme.application.domain.input.CreateApplicationInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
 import org.acme.application.domain.model.Application;
+import org.acme.application.domain.model.input.CreateApplicationHistoryInput;
+import org.acme.application.domain.model.input.CreateApplicationInput;
+import org.acme.application.domain.model.input.UpdateApplicationInput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;

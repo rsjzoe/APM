@@ -2,9 +2,9 @@ package org.acme.application.domain.port.out;
 
 import java.util.List;
 
-import org.acme.application.domain.input.CreateApplicationInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
 import org.acme.application.domain.model.Application;
+import org.acme.application.domain.model.input.CreateApplicationInput;
+import org.acme.application.domain.model.input.UpdateApplicationInput;
 
 //afahana mifandray am domain 
 public interface ApplicationRepository {

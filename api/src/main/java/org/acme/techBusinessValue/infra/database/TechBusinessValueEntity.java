@@ -3,6 +3,8 @@ package org.acme.techBusinessValue.infra.database;
 import java.time.LocalDate;
 
 import org.acme.application.infra.database.ApplicationEntity;
+import org.acme.application.infra.database.ApplicationEntityHelper;
+import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -24,6 +26,13 @@ public class TechBusinessValueEntity extends PanacheEntity {
         this.businessValue = businessValue;
         this.technicalDebt = technicalDebt;
         this.createdAt = createdAt;
+    }
+
+    public TechBusinessValueEntity(CreateTechBusinessValue data){
+        this.businessValue = data.getBusinessValue();
+        this.technicalDebt = data.getTechnicalDebt();
+        this.application = ApplicationEntityHelper.entityFromId(data.getAppId());
+        this.createdAt = LocalDate.now();
     }
 
     public TechBusinessValueOutput toTechBusinessValueOutput() {

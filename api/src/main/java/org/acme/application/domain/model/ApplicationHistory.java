@@ -1,36 +1,23 @@
 package org.acme.application.domain.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import org.acme.category.domain.Category;
 import org.acme.cost.domain.model.Cost;
-import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.TechBusinessValue;
 
-public class ApplicationHistory extends Application {
+public class ApplicationHistory {
     private LocalDate modifiedAt;
     private String modifiedBy;
-    private Long applicationId;
+    private Cost cost;
+    private TechBusinessValue techBusinessValue;
+    private Application application;
 
-    public ApplicationHistory(Long id, String name, String description,
-            Category category, LocalDateTime startDate, LocalDateTime lastUpdate, Status status, Time time,
-            int userTotal,
-            double note, Departement departement, LocalDate modifiedAt, String modifiedBy, Long applicationId,
-            Cost cost, TechBusinessValue techBusinessValue) {
-        super(applicationId, name, description, category, startDate, lastUpdate, status, time, userTotal, note,
-                departement, cost, techBusinessValue);
+    public ApplicationHistory( LocalDate modifiedAt, String modifiedBy,
+            Cost cost, TechBusinessValue techBusinessValue, Application application) {
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
-        this.applicationId = applicationId;
-    }
-
-    public Long getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
+        this.application = application;
+        this.cost = cost;
+        this.techBusinessValue = techBusinessValue;
     }
 
     public LocalDate getModifiedAt() {
@@ -47,5 +34,29 @@ public class ApplicationHistory extends Application {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public Cost getCost() {
+        return cost;
+    }
+
+    public void setCost(Cost cost) {
+        this.cost = cost;
+    }
+
+    public TechBusinessValue getTechBusinessValue() {
+        return techBusinessValue;
+    }
+
+    public void setTechBusinessValue(TechBusinessValue techBusinessValue) {
+        this.techBusinessValue = techBusinessValue;
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
     }
 }

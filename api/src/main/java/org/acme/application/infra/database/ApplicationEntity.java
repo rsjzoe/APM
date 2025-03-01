@@ -1,12 +1,15 @@
 package org.acme.application.infra.database;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.acme.application.domain.input.CreateApplicationInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
 import org.acme.application.domain.model.Application;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
+import org.acme.application.domain.model.input.CreateApplicationInput;
+import org.acme.application.domain.model.input.UpdateApplicationInput;
+import org.acme.application.domain.model.output.ApplicationOutput;
 import org.acme.category.infra.out.CategoryEntity;
 import org.acme.category.infra.out.CategoryEntityHelper;
 import org.acme.cost.infra.database.CostEntity;
@@ -14,12 +17,12 @@ import org.acme.cost.infra.database.CostEntityHelper;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.departement.infra.out.DepartementEntityHelper;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
-import org.acme.techBusinessValue.infra.database.TechBusinessValueEntityHelper;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class ApplicationEntity extends PanacheEntity {
@@ -35,10 +38,10 @@ public class ApplicationEntity extends PanacheEntity {
     private int userTotal;
     @ManyToOne(fetch = FetchType.LAZY)
     private DepartementEntity departement;
-    @ManyToOne
-    private CostEntity costEntity;
-    @ManyToOne
-    private TechBusinessValueEntity techBusinessValueEntity;
+    @OneToMany
+    private List<CostEntity> costEntity = new ArrayList<>();
+    @OneToMany
+    private List<TechBusinessValueEntity> techBusinessValueEntity = new ArrayList<>();
 
     public ApplicationEntity() {
     }
@@ -56,8 +59,6 @@ public class ApplicationEntity extends PanacheEntity {
         this.time = time;
         this.userTotal = userTotal;
         this.note = note;
-        this.costEntity = costEntity;
-        this.techBusinessValueEntity = techBusinessValueEntity;
     }
 
     public ApplicationEntity(CreateApplicationInput app) {
@@ -75,13 +76,21 @@ public class ApplicationEntity extends PanacheEntity {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.id = app.getCategoryId();
         this.category = categoryEntity;
-        this.costEntity = CostEntityHelper.entityFromId(app.getCostId());
-        this.techBusinessValueEntity = TechBusinessValueEntityHelper.entityFromId(app.getTechBusinessValueId());
     }
 
-    public Application toApplication() {
-        return new Application(id, name, description, category.toCategory(), startDate, lastUpdate, status, time,
-                userTotal, note, departement.toDepartement(), costEntity.toCost(), techBusinessValueEntity.toTechBusinessValue());
+    public ApplicationOutput toApplicationOutput(){
+
+        CostEntity latestCostEntity = CostEntity.find("application", this)
+        .stream()
+        .map(entity -> (CostEntity) entity)
+        .sorted((b1, b2) -> b2.getCreatedAt().compareTo(b1.getCreatedAt()))
+        .findFirst()
+        .orElse(null);
+
+        CostEntity latestCost = latestCostEntity != null ? latestCostEntity.toCostOutputWithoutApp() : null;
+
+        return new ApplicationOutput(id, name, description, category.toCategory(),
+         startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), null, costEntity.toCostOutput(),null);
     }
 
     public ApplicationEntity updateData(UpdateApplicationInput app) {
@@ -96,8 +105,6 @@ public class ApplicationEntity extends PanacheEntity {
         this.note = app.getNote();
         this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
         this.category = CategoryEntityHelper.entityFromId(app.getCategoryId());
-        this.costEntity = CostEntityHelper.entityFromId(app.getCostId());
-        this.techBusinessValueEntity = TechBusinessValueEntityHelper.entityFromId(app.getTechBusinessValueId());
         return this;
     }
 

@@ -1,5 +1,6 @@
 package org.acme.cost.app;
 
+import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.domain.port.out.CostRepository;
 
@@ -11,5 +12,9 @@ public class CostService {
 
     public CostOutput findCostByAppId(Long appId) {
         return costRepository.findCostByAppId(appId);
+    }
+
+    public CostOutput createCost(CreateCostInput cost) {
+        return costRepository.createCost(cost);
     }
 }

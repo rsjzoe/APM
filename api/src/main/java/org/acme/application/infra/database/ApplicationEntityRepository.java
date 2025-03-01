@@ -3,9 +3,9 @@ package org.acme.application.infra.database;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.acme.application.domain.input.CreateApplicationInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
 import org.acme.application.domain.model.Application;
+import org.acme.application.domain.model.input.CreateApplicationInput;
+import org.acme.application.domain.model.input.UpdateApplicationInput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 
 public class ApplicationEntityRepository implements ApplicationRepository {

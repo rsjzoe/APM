@@ -2,8 +2,8 @@ package org.acme.application.app.service;
 
 import java.util.List;
 
-import org.acme.application.domain.input.CreateApplicationHistoryInput;
 import org.acme.application.domain.model.ApplicationHistory;
+import org.acme.application.domain.model.input.CreateApplicationHistoryInput;
 import org.acme.application.domain.port.out.ApplicationHistoryRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;

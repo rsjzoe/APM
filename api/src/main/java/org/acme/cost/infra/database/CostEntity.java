@@ -3,6 +3,9 @@ package org.acme.cost.infra.database;
 import java.time.LocalDate;
 
 import org.acme.application.infra.database.ApplicationEntity;
+import org.acme.application.infra.database.ApplicationEntityHelper;
+import org.acme.cost.domain.model.Cost;
+import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -26,8 +29,19 @@ public class CostEntity extends PanacheEntity {
         this.createdAt = createdAt;
     }
 
+    public CostEntity(CreateCostInput data){
+        this.costBuild = data.getCostBuild();
+        this.costRun = data.getCostRun();
+        this.createdAt = LocalDate.now();
+        this.application = ApplicationEntityHelper.entityFromId(data.getApplicationId());
+    }
+
     public CostOutput toCostOutput() {
         return new CostOutput(id, application.id, costBuild, costRun, createdAt);
+    }
+
+    public CostOutput toCostOutputWithoutApp(){
+        return new CostOutput(id, null, costBuild, costRun, createdAt);
     }
 
     public double getCostBuild() {

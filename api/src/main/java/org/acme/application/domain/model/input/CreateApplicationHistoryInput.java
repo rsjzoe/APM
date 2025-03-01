@@ -1,4 +1,4 @@
-package org.acme.application.domain.input;
+package org.acme.application.domain.model.input;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +11,7 @@ import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.TechBusinessValue;
 
 public class CreateApplicationHistoryInput extends ApplicationBase {
+    private Long appId;
     private String modifiedBy;
     private Long applicationId;
     protected double note;
@@ -19,10 +20,11 @@ public class CreateApplicationHistoryInput extends ApplicationBase {
     protected Cost cost;
     protected TechBusinessValue techBusinessValue;
 
-    public CreateApplicationHistoryInput(String name, String description, LocalDateTime startDate,
+    public CreateApplicationHistoryInput(Long appId, String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, String modifiedBy, Long applicationId,
             double note, Category category, Departement departement, Cost cost, TechBusinessValue techBusinessValue) {
         super(name, description, startDate, lastUpdate, status, time, userTotal);
+        this.appId = appId;
         this.modifiedBy = modifiedBy;
         this.applicationId = applicationId;
         this.note = note;
@@ -30,6 +32,14 @@ public class CreateApplicationHistoryInput extends ApplicationBase {
         this.departement = departement;
         this.cost = cost;
         this.techBusinessValue = techBusinessValue;
+    }
+
+    public Long getAppId(){
+        return appId;
+    }
+
+    public void setAppId(Long appId){
+        this.appId = appId;
     }
 
     public String getModifiedBy() {

@@ -3,9 +3,9 @@ package org.acme.application.infra.controller;
 import java.util.List;
 
 import org.acme.application.app.service.ApplicationService;
-import org.acme.application.domain.input.CreateApplicationInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
 import org.acme.application.domain.model.Application;
+import org.acme.application.domain.model.input.CreateApplicationInput;
+import org.acme.application.domain.model.input.UpdateApplicationInput;
 import org.acme.application.domain.port.in.ApplicationRest;
 
 import jakarta.inject.Inject;
