@@ -3,15 +3,7 @@ package org.acme.application.infra.database;
 import java.time.LocalDateTime;
 
 import org.acme.application.domain.model.ApplicationHistory;
-import org.acme.application.domain.model.Status;
-import org.acme.application.domain.model.Time;
 import org.acme.application.domain.model.input.CreateApplicationHistoryInput;
-import org.acme.category.infra.out.CategoryEntity;
-import org.acme.category.infra.out.CategoryEntityHelper;
-import org.acme.cost.infra.database.CostEntity;
-import org.acme.departement.infra.out.DepartementEntity;
-import org.acme.departement.infra.out.DepartementEntityHelper;
-import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
@@ -20,88 +12,62 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ApplicationHistoryEntity extends PanacheEntity {
-    public String name;
-    public String description;
-
-    public String userTeam;
+    private String description;
+    private LocalDateTime modifiedAt;
+    private String modifiedBy;
     @ManyToOne(fetch = FetchType.LAZY)
-    public CategoryEntity category;
-    public LocalDateTime startDate;
-    public LocalDateTime lastUpdate;
-    public Status status;
-    public Time time;
-    public double note;
-    public int userTotal;
-    public LocalDateTime modifiedAt;
-    public String modifiedBy;
-    @ManyToOne(fetch = FetchType.LAZY)
-    public DepartementEntity departement;
-    @ManyToOne(fetch = FetchType.LAZY)
-    public ApplicationEntity applicationEntity;
-    @ManyToOne
-    public CostEntity costEntity;
-    @ManyToOne
-    public TechBusinessValueEntity techBusinessValueEntity;
+    private ApplicationEntity applicationEntity;
 
     public ApplicationHistoryEntity() {
     }
 
-    public ApplicationHistoryEntity(String name, String description, LocalDateTime startDate, LocalDateTime lastUpdate,
-            Status status,
-            Time time, int userTotal, double note, LocalDateTime modifiedAt, String modifiedBy) {
-        this.name = name;
+    public ApplicationHistoryEntity( LocalDateTime modifiedAt, String modifiedBy,String description, ApplicationEntity applicationEntity) {
         this.description = description;
-        this.startDate = startDate;
-        this.lastUpdate = lastUpdate;
-        this.status = status;
-        this.time = time;
-        this.userTotal = userTotal;
-        this.note = note;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
+        this.applicationEntity = applicationEntity;
     }
 
     public ApplicationHistoryEntity(CreateApplicationHistoryInput app) {
-
-        this.name = app.getName();
         this.description = app.getDescription();
-
-        this.startDate = app.getStartDate();
-        this.lastUpdate = app.getLastUpdate();
-        this.status = app.getStatus();
-        this.time = app.getTime();
-        this.userTotal = app.getUserTotal();
-        this.note = 0;
-        this.departement = DepartementEntityHelper.entityFromId(app.getDepartement().getId());
-        // mapfandray application sy category
-        // CategoryEntity categoryEntity = new CategoryEntity();
-        // categoryEntity.id = app.getCategory().getId();
-        this.category = CategoryEntityHelper.entityFromId(app.getCategory().getId());
         this.modifiedAt = LocalDateTime.now();
         this.modifiedBy = "system";
-
         this.applicationEntity = ApplicationEntityHelper.entityFromId(app.getApplicationId());
-
     }
 
     public ApplicationHistory toApplicationHistory() {
-        return new ApplicationHistory(
-                this.id,
-                this.name,
-                this.description,
-                this.category.toCategory(),
-                this.startDate,
-                this.lastUpdate,
-                this.status,
-                this.time,
-                this.userTotal,
-                this.note,
-                this.departement.toDepartement(),
-                this.modifiedAt.toLocalDate(),
-                this.modifiedBy,
-                this.applicationEntity.id,
-                this.costEntity.toCost(),
-                this.techBusinessValueEntity.toTechBusinessValue());
+        return new ApplicationHistory(this.getModifiedAt().toLocalDate(), this.getModifiedBy(), this.getDescription(), applicationEntity.toApplicationOutput());
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(LocalDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public ApplicationEntity getApplicationEntity() {
+        return applicationEntity;
+    }
+
+    public void setApplicationEntity(ApplicationEntity applicationEntity) {
+        this.applicationEntity = applicationEntity;
+    }
 }

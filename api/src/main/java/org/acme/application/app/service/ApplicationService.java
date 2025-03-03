@@ -7,6 +7,7 @@ import org.acme.application.domain.model.Application;
 import org.acme.application.domain.model.input.CreateApplicationHistoryInput;
 import org.acme.application.domain.model.input.CreateApplicationInput;
 import org.acme.application.domain.model.input.UpdateApplicationInput;
+import org.acme.application.domain.model.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -23,42 +24,28 @@ public class ApplicationService {
     @Inject
     CalculateTime calculateTime;
 
-    public List<Application> listAll() {
+    public List<ApplicationOutput> listAll() {
         return applicationRepository.listAll();
     };
 
-    public Application findById(Long id) {
+    public ApplicationOutput findById(Long id) {
         return applicationRepository.findById(id);
     };
 
-    public Application create(CreateApplicationInput newApplication) {
+    public ApplicationOutput create(CreateApplicationInput newApplication) {
         // newApplication.setTime(calculateTime.calcul(newApplication.getBusinessValue(),
         // newApplication.getCostBuild() + newApplication.getCostRun()));
 
-        Application created = applicationRepository.create(newApplication);
-        applicationHistoryService.create(new CreateApplicationHistoryInput(
-                created.getName(),
-                created.getDescription(),
-                created.getStartDate(),
-                created.getLastUpdate(),
-                created.getStatus(),
-                created.getTime(),
-                created.getUserTotal(),
-                "system",
-                created.getId(),
-                created.getNote(),
-                created.getCategory(),
-                created.getDepartement(),
-                created.getCost(),
-                created.getTechBusinessValue()));
+        ApplicationOutput created = applicationRepository.create(newApplication);
+        applicationHistoryService.create(new CreateApplicationHistoryInput(null, null, null));
 
         return created;
     };
 
-    public Application update(Long id, UpdateApplicationInput updateApplication) {
+    public ApplicationOutput update(Long id, UpdateApplicationInput updateApplication) {
         // updateApplication.setTime(calculateTime.calcul(updateApplication.getBusinessValue(),
         // updateApplication.getCostBuild() + updateApplication.getCostRun()));
-        Application updated = applicationRepository.update(id, updateApplication);
+        ApplicationOutput updated = applicationRepository.update(id, updateApplication);
         applicationHistoryService.create(new CreateApplicationHistoryInput(
                 updated.getName(),
                 updated.getDescription(),
@@ -77,7 +64,7 @@ public class ApplicationService {
         return updated;
     };
 
-    public Application delete(Long id) {
+    public ApplicationOutput delete(Long id) {
         return applicationRepository.delete(id);
     };
 }

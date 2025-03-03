@@ -7,7 +7,6 @@ import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.category.domain.Category;
-import org.acme.cost.domain.model.Cost;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
@@ -17,7 +16,7 @@ public class ApplicationOutput extends ApplicationBase {
     protected double note;
     protected Category category;
     protected Departement departement;
-    protected Cost currentCost;
+    protected CostOutput currentCost;
     protected List<CostOutput> costs;
     protected List<TechBusinessValueOutput> techBusinessValues;
 
@@ -27,7 +26,7 @@ public class ApplicationOutput extends ApplicationBase {
 
     public ApplicationOutput(Long id, String name, String description,
             Category category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,Cost currentCost, List<CostOutput> costs, List<TechBusinessValueOutput> techBusinessValues) {
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,CostOutput currentCost, List<CostOutput> costs, List<TechBusinessValueOutput> techBusinessValues) {
         super(name, description, startDate,
                 lastUpdate, status, time, userTotal);
         this.id = id;
@@ -71,11 +70,11 @@ public class ApplicationOutput extends ApplicationBase {
         this.departement = departement;
     }
 
-     public Cost getCurrentCost(){
+     public CostOutput getCurrentCost(){
         return currentCost;
     }
 
-    public void setCurrentCost(Cost currentCost){
+    public void setCurrentCost(CostOutput currentCost){
         this.currentCost= currentCost;
     }
 

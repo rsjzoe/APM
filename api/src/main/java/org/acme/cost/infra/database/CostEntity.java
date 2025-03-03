@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationEntityHelper;
-import org.acme.cost.domain.model.Cost;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
 

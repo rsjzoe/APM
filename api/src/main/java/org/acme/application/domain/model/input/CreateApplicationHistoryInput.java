@@ -1,53 +1,20 @@
 package org.acme.application.domain.model.input;
 
-import java.time.LocalDateTime;
 
 import org.acme.application.domain.model.ApplicationBase;
-import org.acme.application.domain.model.Status;
-import org.acme.application.domain.model.Time;
-import org.acme.category.domain.Category;
-import org.acme.cost.domain.model.Cost;
-import org.acme.departement.domain.Departement;
-import org.acme.techBusinessValue.domain.model.TechBusinessValue;
 
 public class CreateApplicationHistoryInput extends ApplicationBase {
-    private Long appId;
-    private String modifiedBy;
     private Long applicationId;
-    protected double note;
-    protected Category category;
-    protected Departement departement;
-    protected Cost cost;
-    protected TechBusinessValue techBusinessValue;
+    private String modifiedBy;
+    private String description;
 
-    public CreateApplicationHistoryInput(Long appId, String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, String modifiedBy, Long applicationId,
-            double note, Category category, Departement departement, Cost cost, TechBusinessValue techBusinessValue) {
-        super(name, description, startDate, lastUpdate, status, time, userTotal);
-        this.appId = appId;
-        this.modifiedBy = modifiedBy;
+    public CreateApplicationHistoryInput() {
+    }
+
+    public CreateApplicationHistoryInput(Long applicationId, String modifiedBy, String description) {
         this.applicationId = applicationId;
-        this.note = note;
-        this.category = category;
-        this.departement = departement;
-        this.cost = cost;
-        this.techBusinessValue = techBusinessValue;
-    }
-
-    public Long getAppId(){
-        return appId;
-    }
-
-    public void setAppId(Long appId){
-        this.appId = appId;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+        this.description = description;
     }
 
     public Long getApplicationId() {
@@ -58,43 +25,19 @@ public class CreateApplicationHistoryInput extends ApplicationBase {
         this.applicationId = applicationId;
     }
 
-    public double getNote() {
-        return note;
+    public String getModifiedBy() {
+        return modifiedBy;
     }
 
-    public void setNote(double note) {
-        this.note = note;
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Departement getDepartement() {
-        return departement;
-    }
-
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
-
-    public Cost getCost() {
-        return cost;
-    }
-
-    public void setCost(Cost cost) {
-        this.cost = cost;
-    }
-
-    public TechBusinessValue getTechBusinessValue() {
-        return techBusinessValue;
-    }
-
-    public void setTechBusinessValue(TechBusinessValue techBusinessValue) {
-        this.techBusinessValue = techBusinessValue;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

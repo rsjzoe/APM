@@ -3,8 +3,6 @@ package org.acme.application.infra.database;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.acme.application.domain.model.Application;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.model.input.CreateApplicationInput;
@@ -12,8 +10,8 @@ import org.acme.application.domain.model.input.UpdateApplicationInput;
 import org.acme.application.domain.model.output.ApplicationOutput;
 import org.acme.category.infra.out.CategoryEntity;
 import org.acme.category.infra.out.CategoryEntityHelper;
+import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.infra.database.CostEntity;
-import org.acme.cost.infra.database.CostEntityHelper;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.departement.infra.out.DepartementEntityHelper;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
@@ -78,19 +76,21 @@ public class ApplicationEntity extends PanacheEntity {
         this.category = categoryEntity;
     }
 
-    public ApplicationOutput toApplicationOutput(){
+    public ApplicationOutput toApplicationOutput() {
 
         CostEntity latestCostEntity = CostEntity.find("application", this)
-        .stream()
-        .map(entity -> (CostEntity) entity)
-        .sorted((b1, b2) -> b2.getCreatedAt().compareTo(b1.getCreatedAt()))
-        .findFirst()
-        .orElse(null);
+                .stream()
+                .map(entity -> (CostEntity) entity)
+                .sorted((b1, b2) -> b2.getCreatedAt().compareTo(b1.getCreatedAt()))
+                .findFirst()
+                .orElse(null);
 
-        CostEntity latestCost = latestCostEntity != null ? latestCostEntity.toCostOutputWithoutApp() : null;
+        CostOutput latestCost = latestCostEntity != null ? latestCostEntity.toCostOutputWithoutApp() : null;
 
         return new ApplicationOutput(id, name, description, category.toCategory(),
-         startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), null, costEntity.toCostOutput(),null);
+                startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), latestCost,
+                costEntity.stream().map(CostEntity::toCostOutput).toList(),
+                techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList());
     }
 
     public ApplicationEntity updateData(UpdateApplicationInput app) {
