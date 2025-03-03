@@ -4,8 +4,10 @@ import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.domain.port.out.CostRepository;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class CostService {
     @Inject
     CostRepository costRepository;
@@ -16,5 +18,9 @@ public class CostService {
 
     public CostOutput createCost(CreateCostInput cost) {
         return costRepository.createCost(cost);
+    }
+
+    public CostOutput updateCost(Long idCost, Long appId) {
+        return costRepository.update(idCost, appId);
     }
 }

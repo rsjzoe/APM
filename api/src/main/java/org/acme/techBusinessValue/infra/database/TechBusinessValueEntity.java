@@ -28,15 +28,18 @@ public class TechBusinessValueEntity extends PanacheEntity {
         this.createdAt = createdAt;
     }
 
-    public TechBusinessValueEntity(CreateTechBusinessValue data){
+    public TechBusinessValueEntity(CreateTechBusinessValue data) {
         this.businessValue = data.getBusinessValue();
         this.technicalDebt = data.getTechnicalDebt();
-        this.application = ApplicationEntityHelper.entityFromId(data.getAppId());
+        if (data.getAppId() != null) {
+            this.application = ApplicationEntityHelper.entityFromId(data.getAppId());
+        }
         this.createdAt = LocalDate.now();
     }
 
     public TechBusinessValueOutput toTechBusinessValueOutput() {
-        return new TechBusinessValueOutput(id, businessValue, technicalDebt, createdAt, application.id);
+        return new TechBusinessValueOutput(id, businessValue, technicalDebt, createdAt,
+                application == null ? null : application.id);
     }
 
     public double getBusinessValue() {
@@ -61,6 +64,14 @@ public class TechBusinessValueEntity extends PanacheEntity {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public ApplicationEntity getApplication() {
+        return application;
+    }
+
+    public void setApplication(ApplicationEntity application) {
+        this.application = application;
     }
 
     @Override

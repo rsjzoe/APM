@@ -74,6 +74,7 @@ public class ApplicationEntity extends PanacheEntity {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.id = app.getCategoryId();
         this.category = categoryEntity;
+        
     }
 
     public ApplicationOutput toApplicationOutput() {
@@ -85,7 +86,7 @@ public class ApplicationEntity extends PanacheEntity {
                 .findFirst()
                 .orElse(null);
 
-        CostOutput latestCost = latestCostEntity != null ? latestCostEntity.toCostOutputWithoutApp() : null;
+        CostOutput latestCost = latestCostEntity != null ? latestCostEntity.toCostOutput() : null;
 
         return new ApplicationOutput(id, name, description, category.toCategory(),
                 startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), latestCost,

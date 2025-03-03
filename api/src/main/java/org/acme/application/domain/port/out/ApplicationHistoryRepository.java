@@ -2,16 +2,16 @@ package org.acme.application.domain.port.out;
 
 import java.util.List;
 
-import org.acme.application.domain.model.ApplicationHistory;
-import org.acme.application.domain.model.input.CreateApplicationHistoryInput;
+import org.acme.application.domain.model.input.CreateApplicationHistoryRepository;
+import org.acme.application.domain.model.output.ApplicationHistoryOutput;
 
 public interface ApplicationHistoryRepository {
 
-    List<ApplicationHistory> listAllByApplicationId(Long applicationId);
+    List<ApplicationHistoryOutput> listAllByApplicationId(Long applicationId);
 
-    ApplicationHistory findById(Long id);
+    ApplicationHistoryOutput findById(Long id);
 
-    ApplicationHistory create(CreateApplicationHistoryInput newApplication);
+    ApplicationHistoryOutput create(CreateApplicationHistoryRepository newApplication);
 
-    ApplicationHistory delete(Long id);
+    ApplicationHistoryOutput delete(Long id);
 }

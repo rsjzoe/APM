@@ -14,6 +14,7 @@ public class Application extends ApplicationBase {
     protected Category category;
     protected Departement departement;
     protected Cost currentCost;
+    protected TechBusinessValue currentTechBusinessValue;
     protected List<Cost> costs;
     protected List<TechBusinessValue> techBusinessValues;
 
@@ -23,13 +24,15 @@ public class Application extends ApplicationBase {
 
     public Application(Long id, String name, String description,
             Category category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement, List<Cost> costs, List<TechBusinessValue> techBusinessValues) {
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs, List<TechBusinessValue> techBusinessValues) {
         super(name, description, startDate,
                 lastUpdate, status, time, userTotal);
         this.id = id;
         this.note = note;
         this.category = category;
         this.departement = departement;
+        this.currentCost = currentCost;
+        this.currentTechBusinessValue = currentTechBusinessValue;
         this.costs = costs;
         this.techBusinessValues = techBusinessValues;
     }
@@ -72,6 +75,14 @@ public class Application extends ApplicationBase {
 
     public void setCurrentCost(Cost currentCost){
         this.currentCost= currentCost;
+    }
+
+    public TechBusinessValue getCurrentTechBusinessValue() {
+        return currentTechBusinessValue;
+    }
+
+    public void setCurrentTechBusinessValue(TechBusinessValue currentTechBusinessValue) {
+        this.currentTechBusinessValue = currentTechBusinessValue;
     }
 
     public List<Cost> getCosts() {

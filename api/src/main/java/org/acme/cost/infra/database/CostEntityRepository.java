@@ -1,5 +1,6 @@
 package org.acme.cost.infra.database;
 
+import org.acme.application.infra.database.ApplicationEntityHelper;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.domain.port.out.CostRepository;
@@ -19,6 +20,18 @@ public class CostEntityRepository implements CostRepository {
         CostEntity data = new CostEntity(cost);
         data.persist();
         return data.toCostOutput();
+    }
+
+    @Override
+    public CostOutput update(Long idCost, Long appId) {
+        CostEntity data = CostEntity.findById(idCost);
+        if (data == null) {
+            return null;
+        }
+        data.setApplication(ApplicationEntityHelper.entityFromId(appId));
+        data.persist();
+        return data.toCostOutput();
+
     }
 
 }

@@ -8,4 +8,6 @@ public interface TechBusinessValueRepository {
     TechBusinessValueOutput findTechBusinessValueByAppId(Long appId);
 
     TechBusinessValueOutput createTechBusinessValue(CreateTechBusinessValue techBusinessValue);
+
+    TechBusinessValueOutput update(Long idTech, Long appId);
 }

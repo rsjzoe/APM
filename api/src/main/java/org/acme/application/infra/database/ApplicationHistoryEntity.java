@@ -1,9 +1,19 @@
 package org.acme.application.infra.database;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.acme.application.domain.model.ApplicationHistory;
-import org.acme.application.domain.model.input.CreateApplicationHistoryInput;
+import org.acme.application.domain.model.Status;
+import org.acme.application.domain.model.Time;
+import org.acme.application.domain.model.input.CreateApplicationHistoryRepository;
+import org.acme.application.domain.model.output.ApplicationHistoryOutput;
+import org.acme.category.infra.out.CategoryEntity;
+import org.acme.cost.infra.database.CostEntity;
+import org.acme.cost.infra.database.CostEntityHelper;
+import org.acme.departement.infra.out.DepartementEntity;
+import org.acme.departement.infra.out.DepartementEntityHelper;
+import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
+import org.acme.techBusinessValue.infra.database.TechBusinessValueEntityHelper;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
@@ -12,46 +22,70 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ApplicationHistoryEntity extends PanacheEntity {
-    private String description;
-    private LocalDateTime modifiedAt;
+    private Long appId;
+
+    private LocalDate modifiedAt;
     private String modifiedBy;
+    private String descriptionHistory;
+    private String description;
+    private String name;
     @ManyToOne(fetch = FetchType.LAZY)
-    private ApplicationEntity applicationEntity;
+    private CategoryEntity category;
+    private LocalDateTime startDate;
+    private LocalDateTime lastUpdate;
+    private Status status;
+    private Time time;
+    private double note;
+    private int userTotal;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private DepartementEntity departement;
+    @ManyToOne
+    protected CostEntity costEntity;
+    @ManyToOne
+    protected TechBusinessValueEntity techBusinessValueEntity;
 
     public ApplicationHistoryEntity() {
     }
 
-    public ApplicationHistoryEntity( LocalDateTime modifiedAt, String modifiedBy,String description, ApplicationEntity applicationEntity) {
-        this.description = description;
-        this.modifiedAt = modifiedAt;
-        this.modifiedBy = modifiedBy;
-        this.applicationEntity = applicationEntity;
+    public ApplicationHistoryEntity(CreateApplicationHistoryRepository data) {
+        this.appId = data.getAppId();
+        this.note = data.getNote();
+        this.category = new CategoryEntity();
+        this.category.id = data.getCategoryId();
+        this.departement = DepartementEntityHelper.entityFromId(data.getDepartementId());
+        this.modifiedAt = LocalDate.now();
+        this.modifiedBy = data.getModifiedBy();
+        this.descriptionHistory = data.getDescriptionHistory();
+        this.description = data.getDescription();
+        this.costEntity = CostEntityHelper.entityFromId(data.getCostId());
+        this.techBusinessValueEntity = TechBusinessValueEntityHelper.entityFromId(data.getTechBusinessValueId());
+        this.name = data.getName();
+        this.startDate = data.getStartDate();
+        this.lastUpdate = data.getLastUpdate();
+        this.status = data.getStatus();
+        this.time = data.getTime();
+        this.userTotal = data.getUserTotal();
     }
 
-    public ApplicationHistoryEntity(CreateApplicationHistoryInput app) {
-        this.description = app.getDescription();
-        this.modifiedAt = LocalDateTime.now();
-        this.modifiedBy = "system";
-        this.applicationEntity = ApplicationEntityHelper.entityFromId(app.getApplicationId());
+    public ApplicationHistoryOutput toOutput() {
+        return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
+                userTotal, note, category.toCategory(), departement.toDepartement(), modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
+                techBusinessValueEntity.toTechBusinessValueOutput());
     }
 
-    public ApplicationHistory toApplicationHistory() {
-        return new ApplicationHistory(this.getModifiedAt().toLocalDate(), this.getModifiedBy(), this.getDescription(), applicationEntity.toApplicationOutput());
+    public Long getAppId() {
+        return appId;
     }
 
-    public String getDescription() {
-        return description;
+    public void setAppId(Long appId) {
+        this.appId = appId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getModifiedAt() {
+    public LocalDate getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(LocalDateTime modifiedAt) {
+    public void setModifiedAt(LocalDate modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 
@@ -63,11 +97,107 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.modifiedBy = modifiedBy;
     }
 
-    public ApplicationEntity getApplicationEntity() {
-        return applicationEntity;
+    public String getDescriptionHistory() {
+        return descriptionHistory;
     }
 
-    public void setApplicationEntity(ApplicationEntity applicationEntity) {
-        this.applicationEntity = applicationEntity;
+    public void setDescriptionHistory(String descriptionHistory) {
+        this.descriptionHistory = descriptionHistory;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public double getNote() {
+        return note;
+    }
+
+    public void setNote(double note) {
+        this.note = note;
+    }
+
+    public int getUserTotal() {
+        return userTotal;
+    }
+
+    public void setUserTotal(int userTotal) {
+        this.userTotal = userTotal;
+    }
+
+    public DepartementEntity getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(DepartementEntity departement) {
+        this.departement = departement;
+    }
+
+    public CostEntity getCostEntity() {
+        return costEntity;
+    }
+
+    public void setCostEntity(CostEntity costEntity) {
+        this.costEntity = costEntity;
+    }
+
+    public TechBusinessValueEntity getTechBusinessValueEntity() {
+        return techBusinessValueEntity;
+    }
+
+    public void setTechBusinessValueEntity(TechBusinessValueEntity techBusinessValueEntity) {
+        this.techBusinessValueEntity = techBusinessValueEntity;
     }
 }

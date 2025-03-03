@@ -1,14 +1,17 @@
-package org.acme.application.domain.model;
+package org.acme.application.domain.model.output;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.acme.application.domain.model.ApplicationBase;
+import org.acme.application.domain.model.Status;
+import org.acme.application.domain.model.Time;
 import org.acme.category.domain.Category;
-import org.acme.cost.domain.model.Cost;
+import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
-import org.acme.techBusinessValue.domain.model.TechBusinessValue;
+import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 
-public class ApplicationHistory extends ApplicationBase {
+public class ApplicationHistoryOutput extends ApplicationBase {
     private Long id;
     private Long appId;
     protected double note;
@@ -16,17 +19,18 @@ public class ApplicationHistory extends ApplicationBase {
     protected Departement departement;
     private LocalDate modifiedAt;
     private String modifiedBy;
+    private String description;
     private String descriptionHistory;
-    protected Cost cost;
-    protected TechBusinessValue techBusinessValue;
+    protected CostOutput cost;
+    protected TechBusinessValueOutput techBusinessValue;
 
-    public ApplicationHistory() { 
+    public ApplicationHistoryOutput() {
     }
 
-    public ApplicationHistory(Long id, Long appId, String name, String description, LocalDateTime startDate,
-        LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Category category,
-        Departement departement, LocalDate modifiedAt, String modifiedBy, String descriptionHistory, Cost cost,
-        TechBusinessValue techBusinessValue) {
+    public ApplicationHistoryOutput(Long id, Long appId, String name, String description, LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Category category,
+            Departement departement, LocalDate modifiedAt, String modifiedBy, String descriptionHistory, CostOutput cost,
+            TechBusinessValueOutput techBusinessValue) {
         super(name, description, startDate, lastUpdate, status, time, userTotal);
         this.id = id;
         this.appId = appId;
@@ -96,6 +100,14 @@ public class ApplicationHistory extends ApplicationBase {
         this.modifiedBy = modifiedBy;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getDescriptionHistory() {
         return descriptionHistory;
     }
@@ -104,19 +116,19 @@ public class ApplicationHistory extends ApplicationBase {
         this.descriptionHistory = descriptionHistory;
     }
 
-    public Cost getCost() {
+    public CostOutput getCost() {
         return cost;
     }
 
-    public void setCost(Cost cost) {
+    public void setCost(CostOutput cost) {
         this.cost = cost;
     }
 
-    public TechBusinessValue getTechBusinessValue() {
+    public TechBusinessValueOutput getTechBusinessValue() {
         return techBusinessValue;
     }
 
-    public void setTechBusinessValue(TechBusinessValue techBusinessValue) {
+    public void setTechBusinessValue(TechBusinessValueOutput techBusinessValue) {
         this.techBusinessValue = techBusinessValue;
     }
 }

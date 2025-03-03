@@ -4,8 +4,10 @@ import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.domain.port.out.TechBusinessValueRepository;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class TechBusinessValueService {
     @Inject
     TechBusinessValueRepository techBusinessValueRepository;
@@ -16,5 +18,9 @@ public class TechBusinessValueService {
 
     public TechBusinessValueOutput createTechBusinessValueOutput(CreateTechBusinessValue techBusinessValue) {
         return techBusinessValueRepository.createTechBusinessValue(techBusinessValue);
+    }
+
+    public TechBusinessValueOutput updateTechBusinessValueOutput(Long idTech, Long appId) {
+        return techBusinessValueRepository.update(idTech, appId);
     }
 }

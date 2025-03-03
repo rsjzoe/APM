@@ -1,5 +1,6 @@
 package org.acme.techBusinessValue.infra.database;
 
+import org.acme.application.infra.database.ApplicationEntityHelper;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.domain.port.out.TechBusinessValueRepository;
@@ -19,6 +20,19 @@ public class TechBusinessValueEntityRepository implements TechBusinessValueRepos
         TechBusinessValueEntity data = new TechBusinessValueEntity(techBusinessValue);
         data.persist();
         return data.toTechBusinessValueOutput();
+    }
+
+    @Override
+    public TechBusinessValueOutput update(Long idTech, Long appId) {
+
+        TechBusinessValueEntity data = TechBusinessValueEntity.findById(idTech);
+        if (data == null) {
+            return null;
+        }
+        data.setApplication(ApplicationEntityHelper.entityFromId(appId));
+        data.persist();
+        return data.toTechBusinessValueOutput();
+
     }
 
 }

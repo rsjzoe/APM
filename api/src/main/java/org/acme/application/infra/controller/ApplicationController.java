@@ -3,9 +3,9 @@ package org.acme.application.infra.controller;
 import java.util.List;
 
 import org.acme.application.app.service.ApplicationService;
-import org.acme.application.domain.model.Application;
 import org.acme.application.domain.model.input.CreateApplicationInput;
 import org.acme.application.domain.model.input.UpdateApplicationInput;
+import org.acme.application.domain.model.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
 
 import jakarta.inject.Inject;
@@ -25,21 +25,21 @@ public class ApplicationController implements ApplicationRest {
 
     @GET
     @Override
-    public List<Application> listAll() {
+    public List<ApplicationOutput> listAll() {
         return applicationService.listAll();
     }
 
     @GET
     @Path("/{id}")
     @Override
-    public Application findById(@PathParam("id") Long id) {
+    public ApplicationOutput findById(@PathParam("id") Long id) {
         return applicationService.findById(id);
     }
 
     @POST
     @Transactional
     @Override
-    public Application create(CreateApplicationInput newApplication) {
+    public ApplicationOutput create(CreateApplicationInput newApplication) {
         return applicationService.create(newApplication);
     }
 
@@ -47,7 +47,7 @@ public class ApplicationController implements ApplicationRest {
     @Path("/{id}")
     @Transactional
     @Override
-    public Application update(@PathParam("id") Long id, UpdateApplicationInput updateApplication) {
+    public ApplicationOutput update(@PathParam("id") Long id, UpdateApplicationInput updateApplication) {
         return applicationService.update(id, updateApplication);
     }
 
@@ -55,7 +55,7 @@ public class ApplicationController implements ApplicationRest {
     @Path("/{id}")
     @Transactional
     @Override
-    public Application delete(@PathParam("id") Long id) {
+    public ApplicationOutput delete(@PathParam("id") Long id) {
         return applicationService.delete(id);
     }
 

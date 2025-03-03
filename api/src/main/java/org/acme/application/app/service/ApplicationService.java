@@ -3,12 +3,14 @@ package org.acme.application.app.service;
 import java.util.List;
 
 import org.acme.application.app.usecase.CalculateTime;
-import org.acme.application.domain.model.Application;
-import org.acme.application.domain.model.input.CreateApplicationHistoryInput;
+import org.acme.application.domain.model.input.CreateApplicationHistoryService;
 import org.acme.application.domain.model.input.CreateApplicationInput;
 import org.acme.application.domain.model.input.UpdateApplicationInput;
 import org.acme.application.domain.model.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
+import org.acme.cost.app.CostService;
+import org.acme.cost.domain.port.out.CostRepository;
+import org.acme.techBusinessValue.app.TechBusinessValueService;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -20,6 +22,12 @@ public class ApplicationService {
 
     @Inject
     ApplicationHistoryService applicationHistoryService;
+
+    @Inject
+    CostService costService;
+
+    @Inject
+    TechBusinessValueService techBusinessValueService;
 
     @Inject
     CalculateTime calculateTime;
@@ -37,7 +45,10 @@ public class ApplicationService {
         // newApplication.getCostBuild() + newApplication.getCostRun()));
 
         ApplicationOutput created = applicationRepository.create(newApplication);
-        applicationHistoryService.create(new CreateApplicationHistoryInput(null, null, null));
+        costService.updateCost(newApplication.getCostId(), created.getId());
+        techBusinessValueService.updateTechBusinessValueOutput(newApplication.getTechBusinessValueId(), created.getId());
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(created.getId());
+        applicationHistoryService.create(data);
 
         return created;
     };
@@ -46,21 +57,10 @@ public class ApplicationService {
         // updateApplication.setTime(calculateTime.calcul(updateApplication.getBusinessValue(),
         // updateApplication.getCostBuild() + updateApplication.getCostRun()));
         ApplicationOutput updated = applicationRepository.update(id, updateApplication);
-        applicationHistoryService.create(new CreateApplicationHistoryInput(
-                updated.getName(),
-                updated.getDescription(),
-                updated.getStartDate(),
-                updated.getLastUpdate(),
-                updated.getStatus(),
-                updated.getTime(),
-                updated.getUserTotal(),
-                "system",
-                updated.getId(),
-                updated.getNote(),
-                updated.getCategory(),
-                updated.getDepartement(),
-                updated.getCost(),
-                updated.getTechBusinessValue()));
+        // costService.updateCost(updated.getCostId(), created.getId());
+        // techBusinessValueService.updateTechBusinessValueOutput(newApplication.getTechBusinessValueId(), created.getId());
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(id);
+        applicationHistoryService.create(data);
         return updated;
     };
 

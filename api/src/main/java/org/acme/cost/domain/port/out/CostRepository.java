@@ -8,4 +8,6 @@ public interface CostRepository {
 
     CostOutput createCost(CreateCostInput cost);
 
+    CostOutput update(Long idCost, Long appId);
+
 }
