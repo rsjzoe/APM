@@ -17,6 +17,7 @@ public class ApplicationOutput extends ApplicationBase {
     protected Category category;
     protected Departement departement;
     protected CostOutput currentCost;
+    protected TechBusinessValueOutput currentTechBusinessValue;
     protected List<CostOutput> costs;
     protected List<TechBusinessValueOutput> techBusinessValues;
 
@@ -26,7 +27,9 @@ public class ApplicationOutput extends ApplicationBase {
 
     public ApplicationOutput(Long id, String name, String description,
             Category category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,CostOutput currentCost, List<CostOutput> costs, List<TechBusinessValueOutput> techBusinessValues) {
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,
+            CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue, List<CostOutput> costs,
+            List<TechBusinessValueOutput> techBusinessValues) {
         super(name, description, startDate,
                 lastUpdate, status, time, userTotal);
         this.id = id;
@@ -34,6 +37,7 @@ public class ApplicationOutput extends ApplicationBase {
         this.category = category;
         this.departement = departement;
         this.currentCost = currentCost;
+        this.currentTechBusinessValue = currentTechBusinessValue;
         this.costs = costs;
         this.techBusinessValues = techBusinessValues;
     }
@@ -70,12 +74,20 @@ public class ApplicationOutput extends ApplicationBase {
         this.departement = departement;
     }
 
-     public CostOutput getCurrentCost(){
+    public CostOutput getCurrentCost() {
         return currentCost;
     }
 
-    public void setCurrentCost(CostOutput currentCost){
-        this.currentCost= currentCost;
+    public void setCurrentCost(CostOutput currentCost) {
+        this.currentCost = currentCost;
+    }
+
+    public TechBusinessValueOutput getCurrentTechBusinessValue() {
+        return currentTechBusinessValue;
+    }
+
+    public void setCurrentTechBusinessValue(TechBusinessValueOutput currentTechBusinessValue) {
+        this.currentTechBusinessValue = currentTechBusinessValue;
     }
 
     public List<CostOutput> getCosts() {
@@ -93,6 +105,4 @@ public class ApplicationOutput extends ApplicationBase {
     public void setTechBusinessValues(List<TechBusinessValueOutput> techBusinessValues) {
         this.techBusinessValues = techBusinessValues;
     }
-
-
 }

@@ -1,6 +1,6 @@
 package org.acme.techBusinessValue.domain.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.acme.application.domain.model.Application;
 
@@ -8,10 +8,10 @@ public class TechBusinessValue {
     private Long id;
     private double businessValue;
     private double technicalDebt;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private Application application;
 
-    public TechBusinessValue(Long id, double businessValue, double technicalDebt, LocalDate createdAt, Application application) {
+    public TechBusinessValue(Long id, double businessValue, double technicalDebt, LocalDateTime createdAt, Application application) {
         this.id = id;
         this.businessValue = businessValue;
         this.technicalDebt = technicalDebt;
@@ -31,7 +31,7 @@ public class TechBusinessValue {
         return technicalDebt;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
@@ -51,7 +51,7 @@ public class TechBusinessValue {
         this.technicalDebt = technicalDebt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

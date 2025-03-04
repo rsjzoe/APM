@@ -11,6 +11,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import java.util.List;
+
 
 @Path("techBusinessvalue")
 public class TechBusinessValueController implements TechBusinessValueRest {
@@ -21,7 +23,7 @@ public class TechBusinessValueController implements TechBusinessValueRest {
     @Transactional
     @GET
     @Path("/{appId}")
-    public TechBusinessValueOutput findTechBusinessValueByAppId(@PathParam("appId") Long appId) {
+    public List<TechBusinessValueOutput> findTechBusinessValueByAppId(@PathParam("appId") Long appId) {
         return techBusinessValueService.findTechBusinessValueOutputByAppId(appId);
     }
 

@@ -9,7 +9,6 @@ import org.acme.application.domain.model.input.UpdateApplicationInput;
 import org.acme.application.domain.model.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 import org.acme.cost.app.CostService;
-import org.acme.cost.domain.port.out.CostRepository;
 import org.acme.techBusinessValue.app.TechBusinessValueService;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -46,7 +45,8 @@ public class ApplicationService {
 
         ApplicationOutput created = applicationRepository.create(newApplication);
         costService.updateCost(newApplication.getCostId(), created.getId());
-        techBusinessValueService.updateTechBusinessValueOutput(newApplication.getTechBusinessValueId(), created.getId());
+        techBusinessValueService.updateTechBusinessValueOutput(newApplication.getTechBusinessValueId(),
+                created.getId());
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(created.getId());
         applicationHistoryService.create(data);
 
@@ -54,11 +54,7 @@ public class ApplicationService {
     };
 
     public ApplicationOutput update(Long id, UpdateApplicationInput updateApplication) {
-        // updateApplication.setTime(calculateTime.calcul(updateApplication.getBusinessValue(),
-        // updateApplication.getCostBuild() + updateApplication.getCostRun()));
         ApplicationOutput updated = applicationRepository.update(id, updateApplication);
-        // costService.updateCost(updated.getCostId(), created.getId());
-        // techBusinessValueService.updateTechBusinessValueOutput(newApplication.getTechBusinessValueId(), created.getId());
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(id);
         applicationHistoryService.create(data);
         return updated;

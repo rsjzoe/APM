@@ -11,6 +11,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import java.util.List;
+
 
 @Path("/cost")
 public class CostController implements CostRest {
@@ -21,7 +23,7 @@ public class CostController implements CostRest {
     @Transactional
     @Path("/{appId}")
     @GET
-    public CostOutput findCostByAppId(@PathParam("appId") Long appId) {
+    public List<CostOutput> findCostByAppId(@PathParam("appId") Long appId) {
         return costService.findCostByAppId(appId);
     }
 

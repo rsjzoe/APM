@@ -1,6 +1,5 @@
 package org.acme.application.domain.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.acme.category.domain.Category;
@@ -14,7 +13,7 @@ public class ApplicationHistory extends ApplicationBase {
     protected double note;
     protected Category category;
     protected Departement departement;
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
     private String modifiedBy;
     private String descriptionHistory;
     protected Cost cost;
@@ -25,7 +24,7 @@ public class ApplicationHistory extends ApplicationBase {
 
     public ApplicationHistory(Long id, Long appId, String name, String description, LocalDateTime startDate,
         LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Category category,
-        Departement departement, LocalDate modifiedAt, String modifiedBy, String descriptionHistory, Cost cost,
+        Departement departement, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory, Cost cost,
         TechBusinessValue techBusinessValue) {
         super(name, description, startDate, lastUpdate, status, time, userTotal);
         this.id = id;
@@ -80,11 +79,11 @@ public class ApplicationHistory extends ApplicationBase {
         this.departement = departement;
     }
 
-    public LocalDate getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(LocalDate modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 

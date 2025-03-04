@@ -4,15 +4,14 @@ import org.acme.application.infra.database.ApplicationEntityHelper;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.domain.port.out.CostRepository;
+import java.util.List;
 
 public class CostEntityRepository implements CostRepository {
 
     @Override
-    public CostOutput findCostByAppId(Long appId) {
-        CostEntity data = CostEntity.findById(appId);
-        if (data == null)
-            return null;
-        return data.toCostOutput();
+    public List<CostOutput> findCostByAppId(Long appId) {
+        List<CostEntity> data = CostEntity.list("application.id", appId);
+        return data.stream().map(CostEntity::toCostOutput).toList();
     }
 
     @Override

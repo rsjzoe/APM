@@ -1,6 +1,6 @@
 package org.acme.techBusinessValue.infra.database;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationEntityHelper;
@@ -15,14 +15,14 @@ import jakarta.persistence.ManyToOne;
 public class TechBusinessValueEntity extends PanacheEntity {
     private double businessValue;
     private double technicalDebt;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @ManyToOne
     private ApplicationEntity application;
 
     public TechBusinessValueEntity() {
     }
 
-    public TechBusinessValueEntity(double businessValue, double technicalDebt, LocalDate createdAt) {
+    public TechBusinessValueEntity(double businessValue, double technicalDebt, LocalDateTime createdAt) {
         this.businessValue = businessValue;
         this.technicalDebt = technicalDebt;
         this.createdAt = createdAt;
@@ -34,7 +34,7 @@ public class TechBusinessValueEntity extends PanacheEntity {
         if (data.getAppId() != null) {
             this.application = ApplicationEntityHelper.entityFromId(data.getAppId());
         }
-        this.createdAt = LocalDate.now();
+        this.createdAt = LocalDateTime.now();
     }
 
     public TechBusinessValueOutput toTechBusinessValueOutput() {
@@ -58,11 +58,11 @@ public class TechBusinessValueEntity extends PanacheEntity {
         this.technicalDebt = technicalDebt;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

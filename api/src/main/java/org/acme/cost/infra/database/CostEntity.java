@@ -1,6 +1,6 @@
 package org.acme.cost.infra.database;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationEntityHelper;
@@ -15,14 +15,14 @@ import jakarta.persistence.ManyToOne;
 public class CostEntity extends PanacheEntity {
     private double costBuild;
     private double costRun;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @ManyToOne
     private ApplicationEntity application;
 
     public CostEntity() {
     }
 
-    public CostEntity(double costBuild, double costRun, LocalDate createdAt) {
+    public CostEntity(double costBuild, double costRun, LocalDateTime createdAt) {
         this.costBuild = costBuild;
         this.costRun = costRun;
         this.createdAt = createdAt;
@@ -31,7 +31,7 @@ public class CostEntity extends PanacheEntity {
     public CostEntity(CreateCostInput data){
         this.costBuild = data.getCostBuild();
         this.costRun = data.getCostRun();
-        this.createdAt = LocalDate.now();
+        this.createdAt = LocalDateTime.now();
         if (data.getApplicationId() != null) {
             
             this.application = ApplicationEntityHelper.entityFromId(data.getApplicationId());
@@ -62,11 +62,11 @@ public class CostEntity extends PanacheEntity {
         this.costRun = costRun;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

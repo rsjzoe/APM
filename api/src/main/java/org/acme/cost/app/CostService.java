@@ -6,13 +6,15 @@ import org.acme.cost.domain.port.out.CostRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.util.List;
+
 
 @ApplicationScoped
 public class CostService {
     @Inject
     CostRepository costRepository;
 
-    public CostOutput findCostByAppId(Long appId) {
+    public List<CostOutput> findCostByAppId(Long appId) {
         return costRepository.findCostByAppId(appId);
     }
 

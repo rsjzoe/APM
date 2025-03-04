@@ -1,6 +1,5 @@
 package org.acme.application.domain.model.input;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.acme.application.domain.model.ApplicationBase;
@@ -13,7 +12,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     protected double note;
     protected Long categoryId;
     protected Long departementId;
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
     private String modifiedBy;
     private String descriptionHistory;
     protected Long costId;
@@ -25,7 +24,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
 
     public CreateApplicationHistoryRepository(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long appId, double note,
-            Long categoryId, Long departementId, LocalDate modifiedAt, String modifiedBy, String descriptionHistory,
+            Long categoryId, Long departementId, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory,
             Long costId, Long techBusinessValueId) {
         super(name, description, startDate, lastUpdate, status, time, userTotal);
         this.appId = appId;
@@ -42,8 +41,8 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     public CreateApplicationHistoryRepository(ApplicationOutput app, String modifiedBy, String descriptionHistory) {
         this(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(),
                 app.getTime(), app.getUserTotal(), app.getId(), app.getNote(), app.getCategory().getId(),
-                app.getDepartement().getId(), LocalDate.now(), modifiedBy, descriptionHistory,
-                app.getCurrentCost().getId(), app.getTechBusinessValues().get(0).getId());
+                app.getDepartement().getId(), LocalDateTime.now(), modifiedBy, descriptionHistory,
+                app.getCurrentCost().getId(), app.getCurrentTechBusinessValue().getId());
     }
 
     public Long getAppId() {
@@ -78,11 +77,11 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
         this.departementId = departementId;
     }
 
-    public LocalDate getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(LocalDate modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 

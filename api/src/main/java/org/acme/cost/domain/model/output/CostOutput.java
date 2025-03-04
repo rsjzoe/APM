@@ -1,6 +1,6 @@
 package org.acme.cost.domain.model.output;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class CostOutput {
@@ -8,9 +8,9 @@ public class CostOutput {
     private Long applicationId;
     private double costBuild;
     private double costRun;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
-    public CostOutput(Long id, Long applicationId, double costBuild, double costRun, LocalDate createdAt) {
+    public CostOutput(Long id, Long applicationId, double costBuild, double costRun, LocalDateTime createdAt) {
         this.id = id;
         this.applicationId = applicationId;
         this.costBuild = costBuild;
@@ -50,11 +50,11 @@ public class CostOutput {
         this.costRun = costRun;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

@@ -1,15 +1,15 @@
 package org.acme.techBusinessValue.domain.model.output;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TechBusinessValueOutput {
     private Long id;
     private double businessValue;
     private double technicalDebt;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private Long applicationId;
 
-    public TechBusinessValueOutput(Long id, double businessValue, double technicalDebt, LocalDate createdAt, Long applicationId) {
+    public TechBusinessValueOutput(Long id, double businessValue, double technicalDebt, LocalDateTime createdAt, Long applicationId) {
         this.id = id;
         this.businessValue = businessValue;
         this.technicalDebt = technicalDebt;
@@ -29,7 +29,7 @@ public class TechBusinessValueOutput {
         return technicalDebt;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
@@ -50,7 +50,7 @@ public class TechBusinessValueOutput {
         this.technicalDebt = technicalDebt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

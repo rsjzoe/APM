@@ -6,13 +6,15 @@ import org.acme.techBusinessValue.domain.port.out.TechBusinessValueRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.util.List;
+
 
 @ApplicationScoped
 public class TechBusinessValueService {
     @Inject
     TechBusinessValueRepository techBusinessValueRepository;
 
-    public TechBusinessValueOutput findTechBusinessValueOutputByAppId(Long appId) {
+    public List<TechBusinessValueOutput> findTechBusinessValueOutputByAppId(Long appId) {
         return techBusinessValueRepository.findTechBusinessValueByAppId(appId);
     }
 

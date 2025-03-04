@@ -14,6 +14,7 @@ import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.departement.infra.out.DepartementEntityHelper;
+import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -36,9 +37,9 @@ public class ApplicationEntity extends PanacheEntity {
     private int userTotal;
     @ManyToOne(fetch = FetchType.LAZY)
     private DepartementEntity departement;
-    @OneToMany
+    @OneToMany(mappedBy = "application")
     private List<CostEntity> costEntity = new ArrayList<>();
-    @OneToMany
+    @OneToMany(mappedBy = "application")
     private List<TechBusinessValueEntity> techBusinessValueEntity = new ArrayList<>();
 
     public ApplicationEntity() {
@@ -74,7 +75,7 @@ public class ApplicationEntity extends PanacheEntity {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.id = app.getCategoryId();
         this.category = categoryEntity;
-        
+
     }
 
     public ApplicationOutput toApplicationOutput() {
@@ -88,8 +89,18 @@ public class ApplicationEntity extends PanacheEntity {
 
         CostOutput latestCost = latestCostEntity != null ? latestCostEntity.toCostOutput() : null;
 
+        TechBusinessValueEntity latestTechEntity = TechBusinessValueEntity.find("application", this)
+                .stream()
+                .map(entity -> (TechBusinessValueEntity) entity)
+                .sorted((b1, b2) -> b2.getCreatedAt().compareTo(b1.getCreatedAt()))
+                .findFirst()
+                .orElse(null);
+
+        TechBusinessValueOutput latestTech = latestTechEntity != null ? latestTechEntity.toTechBusinessValueOutput()
+                : null;
         return new ApplicationOutput(id, name, description, category.toCategory(),
                 startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), latestCost,
+                latestTech,
                 costEntity.stream().map(CostEntity::toCostOutput).toList(),
                 techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList());
     }
@@ -97,7 +108,6 @@ public class ApplicationEntity extends PanacheEntity {
     public ApplicationEntity updateData(UpdateApplicationInput app) {
         this.name = app.getName();
         this.description = app.getDescription();
-
         this.startDate = app.getStartDate();
         this.lastUpdate = app.getLastUpdate();
         this.status = app.getStatus();

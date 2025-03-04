@@ -4,15 +4,15 @@ import org.acme.application.infra.database.ApplicationEntityHelper;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.domain.port.out.TechBusinessValueRepository;
+import java.util.List;
+
 
 public class TechBusinessValueEntityRepository implements TechBusinessValueRepository {
 
     @Override
-    public TechBusinessValueOutput findTechBusinessValueByAppId(Long appId) {
-        TechBusinessValueEntity data = TechBusinessValueEntity.findById(appId);
-        if (data == null)
-            return null;
-        return data.toTechBusinessValueOutput();
+    public List<TechBusinessValueOutput> findTechBusinessValueByAppId(Long appId) {
+        List<TechBusinessValueEntity> data = TechBusinessValueEntity.list("application.id", appId);
+        return data.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList();
     }
 
     @Override

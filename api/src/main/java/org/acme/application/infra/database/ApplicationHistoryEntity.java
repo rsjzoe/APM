@@ -1,6 +1,5 @@
 package org.acme.application.infra.database;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.acme.application.domain.model.Status;
@@ -23,8 +22,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class ApplicationHistoryEntity extends PanacheEntity {
     private Long appId;
-
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
     private String modifiedBy;
     private String descriptionHistory;
     private String description;
@@ -53,7 +51,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.category = new CategoryEntity();
         this.category.id = data.getCategoryId();
         this.departement = DepartementEntityHelper.entityFromId(data.getDepartementId());
-        this.modifiedAt = LocalDate.now();
+        this.modifiedAt = LocalDateTime.now();
         this.modifiedBy = data.getModifiedBy();
         this.descriptionHistory = data.getDescriptionHistory();
         this.description = data.getDescription();
@@ -81,11 +79,11 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.appId = appId;
     }
 
-    public LocalDate getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(LocalDate modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 
