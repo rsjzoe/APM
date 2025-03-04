@@ -11,6 +11,7 @@ public class CreateApplicationInput extends ApplicationBase {
     private Long departementId;
     private Long costId;
     private Long techBusinessValueId;
+    
 
     public CreateApplicationInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long categoryId, Long departementId, Long costId, Long techBusinessValueId) {

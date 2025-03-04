@@ -8,8 +8,8 @@ import org.acme.application.domain.model.Time;
 import org.acme.application.domain.model.input.CreateApplicationInput;
 import org.acme.application.domain.model.input.UpdateApplicationInput;
 import org.acme.application.domain.model.output.ApplicationOutput;
-import org.acme.category.infra.out.CategoryEntity;
-import org.acme.category.infra.out.CategoryEntityHelper;
+import org.acme.category.adapters.out.Entity.CategoryODAChildEntity;
+import org.acme.category.adapters.out.Entity.CategoryODAChildHelper;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
@@ -28,7 +28,7 @@ public class ApplicationEntity extends PanacheEntity {
     private String name;
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
-    private CategoryEntity category;
+    private CategoryODAChildEntity category;
     private LocalDateTime startDate;
     private LocalDateTime lastUpdate;
     private Status status;
@@ -72,7 +72,7 @@ public class ApplicationEntity extends PanacheEntity {
         this.note = 0;
         this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
         // mapfandray application sy category
-        CategoryEntity categoryEntity = new CategoryEntity();
+        CategoryODAChildEntity categoryEntity = new CategoryODAChildEntity();
         categoryEntity.id = app.getCategoryId();
         this.category = categoryEntity;
 
@@ -98,7 +98,7 @@ public class ApplicationEntity extends PanacheEntity {
 
         TechBusinessValueOutput latestTech = latestTechEntity != null ? latestTechEntity.toTechBusinessValueOutput()
                 : null;
-        return new ApplicationOutput(id, name, description, category.toCategory(),
+        return new ApplicationOutput(id, name, description, category.toCategoryODAChildOutput(),
                 startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), latestCost,
                 latestTech,
                 costEntity.stream().map(CostEntity::toCostOutput).toList(),
@@ -115,7 +115,7 @@ public class ApplicationEntity extends PanacheEntity {
         this.userTotal = app.getUserTotal();
         this.note = app.getNote();
         this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
-        this.category = CategoryEntityHelper.entityFromId(app.getCategoryId());
+        this.category = CategoryODAChildHelper.entityFromId(app.getCategoryId());
         return this;
     }
 

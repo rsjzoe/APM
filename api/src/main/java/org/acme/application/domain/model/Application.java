@@ -3,28 +3,30 @@ package org.acme.application.domain.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.acme.category.domain.Category;
+import org.acme.category.domain.CategoryODAChild;
 import org.acme.cost.domain.model.Cost;
 import org.acme.departement.domain.Departement;
+import org.acme.documentation.domain.Documentation;
 import org.acme.techBusinessValue.domain.model.TechBusinessValue;
 
 public class Application extends ApplicationBase {
     protected Long id;
     protected double note;
-    protected Category category;
+    protected CategoryODAChild category;
     protected Departement departement;
     protected Cost currentCost;
     protected TechBusinessValue currentTechBusinessValue;
     protected List<Cost> costs;
     protected List<TechBusinessValue> techBusinessValues;
+    protected List<Documentation> documentations;
 
     public Application() {
 
     }
 
     public Application(Long id, String name, String description,
-            Category category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs, List<TechBusinessValue> techBusinessValues) {
+            CategoryODAChild category, LocalDateTime startDate,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs, List<TechBusinessValue> techBusinessValues, List<Documentation> documentations) {
         super(name, description, startDate,
                 lastUpdate, status, time, userTotal);
         this.id = id;
@@ -35,6 +37,7 @@ public class Application extends ApplicationBase {
         this.currentTechBusinessValue = currentTechBusinessValue;
         this.costs = costs;
         this.techBusinessValues = techBusinessValues;
+        this.documentations = documentations;
     }
 
     public Long getId() {
@@ -53,11 +56,11 @@ public class Application extends ApplicationBase {
         this.note = note;
     }
 
-    public Category getCategory() {
+    public CategoryODAChild getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryODAChild category) {
         this.category = category;
     }
 
@@ -101,4 +104,11 @@ public class Application extends ApplicationBase {
         this.techBusinessValues = techBusinessValues;
     }
 
+    public List<Documentation> getDocumentations() {
+        return documentations;
+    }
+
+    public void setDocumentations(List<Documentation> documentations) {
+        this.documentations = documentations;
+    }
 }

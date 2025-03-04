@@ -6,7 +6,7 @@ import java.util.List;
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
-import org.acme.category.domain.Category;
+import org.acme.category.domain.output.CategoryODAChildOutput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
@@ -14,7 +14,7 @@ import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 public class ApplicationOutput extends ApplicationBase {
     protected Long id;
     protected double note;
-    protected Category category;
+    protected CategoryODAChildOutput category;
     protected Departement departement;
     protected CostOutput currentCost;
     protected TechBusinessValueOutput currentTechBusinessValue;
@@ -26,7 +26,7 @@ public class ApplicationOutput extends ApplicationBase {
     }
 
     public ApplicationOutput(Long id, String name, String description,
-            Category category, LocalDateTime startDate,
+    CategoryODAChildOutput category, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,
             CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue, List<CostOutput> costs,
             List<TechBusinessValueOutput> techBusinessValues) {
@@ -58,11 +58,11 @@ public class ApplicationOutput extends ApplicationBase {
         this.note = note;
     }
 
-    public Category getCategory() {
+    public CategoryODAChildOutput getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryODAChildOutput category) {
         this.category = category;
     }
 

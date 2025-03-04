@@ -6,7 +6,7 @@ import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.model.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.model.output.ApplicationHistoryOutput;
-import org.acme.category.infra.out.CategoryEntity;
+import org.acme.category.adapters.out.Entity.CategoryODAChildEntity;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.cost.infra.database.CostEntityHelper;
 import org.acme.departement.infra.out.DepartementEntity;
@@ -28,7 +28,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     private String description;
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
-    private CategoryEntity category;
+    private CategoryODAChildEntity category;
     private LocalDateTime startDate;
     private LocalDateTime lastUpdate;
     private Status status;
@@ -48,7 +48,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     public ApplicationHistoryEntity(CreateApplicationHistoryRepository data) {
         this.appId = data.getAppId();
         this.note = data.getNote();
-        this.category = new CategoryEntity();
+        this.category = new CategoryODAChildEntity();
         this.category.id = data.getCategoryId();
         this.departement = DepartementEntityHelper.entityFromId(data.getDepartementId());
         this.modifiedAt = LocalDateTime.now();
@@ -67,7 +67,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
 
     public ApplicationHistoryOutput toOutput() {
         return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
-                userTotal, note, category.toCategory(), departement.toDepartement(), modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
+                userTotal, note, category.toCategoryODAChildOutput(), departement.toDepartement(), modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
                 techBusinessValueEntity.toTechBusinessValueOutput());
     }
 
@@ -119,11 +119,11 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.name = name;
     }
 
-    public CategoryEntity getCategory() {
+    public CategoryODAChildEntity getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryEntity category) {
+    public void setCategory(CategoryODAChildEntity category) {
         this.category = category;
     }
 

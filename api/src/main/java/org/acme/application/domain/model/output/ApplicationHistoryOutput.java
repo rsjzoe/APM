@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
-import org.acme.category.domain.Category;
+import org.acme.category.domain.output.CategoryODAChildOutput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
@@ -14,7 +14,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     private Long id;
     private Long appId;
     protected double note;
-    protected Category category;
+    protected CategoryODAChildOutput category;
     protected Departement departement;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
@@ -27,7 +27,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     }
 
     public ApplicationHistoryOutput(Long id, Long appId, String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Category category,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, CategoryODAChildOutput category,
             Departement departement, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory, CostOutput cost,
             TechBusinessValueOutput techBusinessValue) {
         super(name, description, startDate, lastUpdate, status, time, userTotal);
@@ -67,11 +67,11 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         this.note = note;
     }
 
-    public Category getCategory() {
+    public CategoryODAChildOutput getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryODAChildOutput category) {
         this.category = category;
     }
 
