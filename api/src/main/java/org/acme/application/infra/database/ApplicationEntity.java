@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
@@ -106,7 +106,7 @@ public class ApplicationEntity extends PanacheEntity {
                 techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList());
     }
 
-    public ApplicationEntity updateData(UpdateApplicationInput app) {
+    public ApplicationEntity updateData(UpdateApplicationRepositoryInput app) {
         this.name = app.getName();
         this.description = app.getDescription();
         this.startDate = app.getStartDate();

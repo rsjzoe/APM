@@ -7,7 +7,8 @@ import org.acme.application.app.usecase.CalculateTime;
 import org.acme.application.domain.input.CreateApplicationHistoryService;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
+import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 import org.acme.cost.app.CostService;
@@ -76,8 +77,14 @@ public class ApplicationService {
         return created;
     };
 
-    public ApplicationOutput update(Long id, UpdateApplicationInput updateApplication) {
-        ApplicationOutput updated = applicationRepository.update(id, updateApplication);
+    public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication) {
+        ApplicationOutput updated = applicationRepository.update(id,
+                new UpdateApplicationRepositoryInput(updateApplication));
+        costService.createCost(new CreateCostInput(updateApplication.getCostWithoutApp().getCostBuild(),
+                updateApplication.getCostWithoutApp().getCostRun(), updated.getId()));
+        var techBusinessValue = updateApplication.getTechBusinessValueWithoutApp();
+        techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
+                techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), updated.getId()));
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(id);
         applicationHistoryService.create(data);
         return updated;

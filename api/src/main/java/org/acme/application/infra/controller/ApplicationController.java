@@ -6,7 +6,7 @@ import java.util.List;
 import org.acme.application.app.service.ApplicationService;
 import org.acme.application.domain.input.CreateApplicationRest;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
-import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
 import org.acme.documentation.domain.DocumentationType;
@@ -68,7 +68,7 @@ public class ApplicationController implements ApplicationRest {
     @Path("/{id}")
     @Transactional
     @Override
-    public ApplicationOutput update(@PathParam("id") Long id, UpdateApplicationInput updateApplication) {
+    public ApplicationOutput update(@PathParam("id") Long id, UpdateApplicationServiceInput updateApplication) {
         return applicationService.update(id, updateApplication);
     }
 
