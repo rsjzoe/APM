@@ -1,12 +1,20 @@
 package org.acme.application.infra.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.application.app.service.ApplicationService;
-import org.acme.application.domain.model.input.CreateApplicationInput;
-import org.acme.application.domain.model.input.UpdateApplicationInput;
-import org.acme.application.domain.model.output.ApplicationOutput;
+import org.acme.application.domain.input.CreateApplicationRest;
+import org.acme.application.domain.input.CreateApplicationServiceInput;
+import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
+import org.acme.documentation.domain.DocumentationType;
+import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
+import org.acme.storage.FileInput;
+import org.jboss.resteasy.reactive.PartType;
+import org.jboss.resteasy.reactive.RestForm;
+import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,6 +24,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/application")
 public class ApplicationController implements ApplicationRest {
@@ -39,8 +48,18 @@ public class ApplicationController implements ApplicationRest {
     @POST
     @Transactional
     @Override
-    public ApplicationOutput create(CreateApplicationInput newApplication) {
-        return applicationService.create(newApplication);
+    public ApplicationOutput create(@RestForm List<FileUpload> files, @RestForm List<String> types,
+            @RestForm @PartType(MediaType.APPLICATION_JSON) CreateApplicationRest newApplication) {
+
+        List<CreateDocumentationFileWithoutApp> docs = new ArrayList<>();
+        for (int i = 0; i < files.size(); i++) {
+            CreateDocumentationFileWithoutApp doc = new CreateDocumentationFileWithoutApp();
+            doc.setType(DocumentationType.valueOf(types.get(i)));
+            doc.setFileInput(new FileInput(files.get(i).uploadedFile(), files.get(i).fileName()));
+            docs.add(doc);
+        }
+
+        return applicationService.create(new CreateApplicationServiceInput(docs, newApplication));
     }
 
     @PUT

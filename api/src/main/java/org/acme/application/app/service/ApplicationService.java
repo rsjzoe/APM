@@ -1,15 +1,22 @@
 package org.acme.application.app.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.acme.application.app.usecase.CalculateTime;
-import org.acme.application.domain.model.input.CreateApplicationHistoryService;
-import org.acme.application.domain.model.input.CreateApplicationInput;
-import org.acme.application.domain.model.input.UpdateApplicationInput;
-import org.acme.application.domain.model.output.ApplicationOutput;
+import org.acme.application.domain.input.CreateApplicationHistoryService;
+import org.acme.application.domain.input.CreateApplicationRepositoryInput;
+import org.acme.application.domain.input.CreateApplicationServiceInput;
+import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 import org.acme.cost.app.CostService;
+import org.acme.cost.domain.model.input.CreateCostInput;
+import org.acme.documentation.app.DocumentationService;
+import org.acme.documentation.domain.input.CreateDocumentationFile;
+import org.acme.storage.FileNotFound;
 import org.acme.techBusinessValue.app.TechBusinessValueService;
+import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -31,6 +38,9 @@ public class ApplicationService {
     @Inject
     CalculateTime calculateTime;
 
+    @Inject
+    DocumentationService documentationService;
+
     public List<ApplicationOutput> listAll() {
         return applicationRepository.listAll();
     };
@@ -39,14 +49,27 @@ public class ApplicationService {
         return applicationRepository.findById(id);
     };
 
-    public ApplicationOutput create(CreateApplicationInput newApplication) {
+    public ApplicationOutput create(CreateApplicationServiceInput newApplication) {
         // newApplication.setTime(calculateTime.calcul(newApplication.getBusinessValue(),
         // newApplication.getCostBuild() + newApplication.getCostRun()));
 
-        ApplicationOutput created = applicationRepository.create(newApplication);
-        costService.updateCost(newApplication.getCostId(), created.getId());
-        techBusinessValueService.updateTechBusinessValueOutput(newApplication.getTechBusinessValueId(),
-                created.getId());
+        ApplicationOutput created = applicationRepository.create(new CreateApplicationRepositoryInput(newApplication));
+        costService.createCost(new CreateCostInput(newApplication.getCostWithoutApp().getCostBuild(),
+                newApplication.getCostWithoutApp().getCostRun(), created.getId()));
+        var techBusinessValue = newApplication.getTechBusinessValueWithoutApp();
+        techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
+                techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), created.getId()));
+        newApplication.getDocumentationsFileWithoutApp().forEach(
+                documentation -> {
+                    try {
+                        documentationService.createDocumentation(new CreateDocumentationFile(
+                                documentation.getFileInput(), documentation.getType(), created.getId()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFound e) {
+                        e.printStackTrace();
+                    }
+                });
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(created.getId());
         applicationHistoryService.create(data);
 

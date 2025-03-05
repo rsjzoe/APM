@@ -2,10 +2,10 @@ package org.acme.application.infra.database;
 
 import java.time.LocalDateTime;
 
+import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
-import org.acme.application.domain.model.input.CreateApplicationHistoryRepository;
-import org.acme.application.domain.model.output.ApplicationHistoryOutput;
+import org.acme.application.domain.output.ApplicationHistoryOutput;
 import org.acme.category.adapters.out.Entity.CategoryODAChildEntity;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.cost.infra.database.CostEntityHelper;

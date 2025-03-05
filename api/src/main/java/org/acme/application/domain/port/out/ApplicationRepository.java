@@ -2,9 +2,9 @@ package org.acme.application.domain.port.out;
 
 import java.util.List;
 
-import org.acme.application.domain.model.input.CreateApplicationInput;
-import org.acme.application.domain.model.input.UpdateApplicationInput;
-import org.acme.application.domain.model.output.ApplicationOutput;
+import org.acme.application.domain.input.CreateApplicationRepositoryInput;
+import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.output.ApplicationOutput;
 
 //afahana mifandray am domain 
 public interface ApplicationRepository {
@@ -12,7 +12,7 @@ public interface ApplicationRepository {
 
     ApplicationOutput findById(Long id);
 
-    ApplicationOutput create(CreateApplicationInput newApplication);
+    ApplicationOutput create(CreateApplicationRepositoryInput newApplication);
 
     ApplicationOutput update(Long id, UpdateApplicationInput updateApplication);
 

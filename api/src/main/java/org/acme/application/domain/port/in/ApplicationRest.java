@@ -2,16 +2,17 @@ package org.acme.application.domain.port.in;
 
 import java.util.List;
 
-import org.acme.application.domain.model.input.CreateApplicationInput;
-import org.acme.application.domain.model.input.UpdateApplicationInput;
-import org.acme.application.domain.model.output.ApplicationOutput;
+import org.acme.application.domain.input.CreateApplicationRest;
+import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.output.ApplicationOutput;
+import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 public interface ApplicationRest {
     List<ApplicationOutput> listAll();
 
     ApplicationOutput findById(Long id);
 
-    ApplicationOutput create(CreateApplicationInput newApplication);
+    ApplicationOutput create(List<FileUpload> files, List<String> types, CreateApplicationRest newApplication);
 
     ApplicationOutput update(Long id, UpdateApplicationInput updateApplication);
 

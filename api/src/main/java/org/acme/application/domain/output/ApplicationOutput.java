@@ -1,4 +1,4 @@
-package org.acme.application.domain.model.output;
+package org.acme.application.domain.output;
 
 import java.time.LocalDateTime;
 import java.util.List;

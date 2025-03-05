@@ -3,7 +3,7 @@ package org.acme.application.infra.controller;
 import java.util.List;
 
 import org.acme.application.app.service.ApplicationHistoryService;
-import org.acme.application.domain.model.output.ApplicationHistoryOutput;
+import org.acme.application.domain.output.ApplicationHistoryOutput;
 import org.acme.application.domain.port.in.ApplicationHistoryRest;
 
 import jakarta.inject.Inject;

@@ -3,9 +3,9 @@ package org.acme.application.infra.database;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.acme.application.domain.model.input.CreateApplicationInput;
-import org.acme.application.domain.model.input.UpdateApplicationInput;
-import org.acme.application.domain.model.output.ApplicationOutput;
+import org.acme.application.domain.input.CreateApplicationRepositoryInput;
+import org.acme.application.domain.input.UpdateApplicationInput;
+import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 
 public class ApplicationEntityRepository implements ApplicationRepository {
@@ -26,7 +26,7 @@ public class ApplicationEntityRepository implements ApplicationRepository {
     }
 
     @Override
-    public ApplicationOutput create(CreateApplicationInput newApplication) {
+    public ApplicationOutput create(CreateApplicationRepositoryInput newApplication) {
         ApplicationEntity data = new ApplicationEntity(newApplication);
         data.persist();
         return data.toApplicationOutput();

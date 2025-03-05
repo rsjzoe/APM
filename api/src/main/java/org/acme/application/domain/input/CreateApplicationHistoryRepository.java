@@ -1,11 +1,11 @@
-package org.acme.application.domain.model.input;
+package org.acme.application.domain.input;
 
 import java.time.LocalDateTime;
 
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
-import org.acme.application.domain.model.output.ApplicationOutput;
+import org.acme.application.domain.output.ApplicationOutput;
 
 public class CreateApplicationHistoryRepository extends ApplicationBase {
     private Long appId;

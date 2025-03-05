@@ -3,11 +3,12 @@ package org.acme.application.infra.database;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.acme.application.domain.input.CreateApplicationRepositoryInput;
+import org.acme.application.domain.input.UpdateApplicationInput;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
-import org.acme.application.domain.model.input.CreateApplicationInput;
-import org.acme.application.domain.model.input.UpdateApplicationInput;
-import org.acme.application.domain.model.output.ApplicationOutput;
+import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.category.adapters.out.Entity.CategoryODAChildEntity;
 import org.acme.category.adapters.out.Entity.CategoryODAChildHelper;
 import org.acme.cost.domain.model.output.CostOutput;
@@ -60,7 +61,7 @@ public class ApplicationEntity extends PanacheEntity {
         this.note = note;
     }
 
-    public ApplicationEntity(CreateApplicationInput app) {
+    public ApplicationEntity(CreateApplicationRepositoryInput app) {
 
         this.name = app.getName();
         this.description = app.getDescription();
