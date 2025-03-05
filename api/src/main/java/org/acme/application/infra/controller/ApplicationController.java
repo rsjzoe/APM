@@ -18,6 +18,7 @@ import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -48,6 +49,7 @@ public class ApplicationController implements ApplicationRest {
     @POST
     @Transactional
     @Override
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     public ApplicationOutput create(@RestForm List<FileUpload> files, @RestForm List<String> types,
             @RestForm @PartType(MediaType.APPLICATION_JSON) CreateApplicationRest newApplication) {
 

@@ -1,5 +1,15 @@
-
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1.1
+    command: start-dev
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - 8000:8080
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+
   mariadb:
     image: mariadb:11
     restart: always
@@ -24,5 +34,31 @@ services:
     depends_on:
       - mariadb
 
+  ldap:
+    image: osixia/openldap:1.5.0
+    environment:
+      LDAP_ORGANISATION: "Example Inc."
+      LDAP_DOMAIN: "orange.com"
+      LDAP_ADMIN_PASSWORD: admin
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:0.9.0
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: ldap
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "6443:80"
+    depends_on:
+      - ldap
+
 volumes:
+  keycloak_data:
   mariadb_data:
+  ldap_data:
+  ldap_config:
