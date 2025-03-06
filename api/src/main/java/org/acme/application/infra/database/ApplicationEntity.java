@@ -42,6 +42,7 @@ public class ApplicationEntity extends PanacheEntity {
     private List<CostEntity> costEntity = new ArrayList<>();
     @OneToMany(mappedBy = "application")
     private List<TechBusinessValueEntity> techBusinessValueEntity = new ArrayList<>();
+    private boolean isDeleted;
 
     public ApplicationEntity() {
     }
@@ -76,6 +77,7 @@ public class ApplicationEntity extends PanacheEntity {
         CategoryODAChildEntity categoryEntity = new CategoryODAChildEntity();
         categoryEntity.id = app.getCategoryId();
         this.category = categoryEntity;
+        this.isDeleted = false;
 
     }
 
@@ -103,7 +105,7 @@ public class ApplicationEntity extends PanacheEntity {
                 startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), latestCost,
                 latestTech,
                 costEntity.stream().map(CostEntity::toCostOutput).toList(),
-                techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList());
+                techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList(), isDeleted);
     }
 
     public ApplicationEntity updateData(UpdateApplicationRepositoryInput app) {
@@ -139,6 +141,14 @@ public class ApplicationEntity extends PanacheEntity {
             this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
         }
         return this;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 }

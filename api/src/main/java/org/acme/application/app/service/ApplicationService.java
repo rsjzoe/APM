@@ -98,6 +98,13 @@ public class ApplicationService {
     };
 
     public ApplicationOutput delete(Long id) {
-        return applicationRepository.delete(id);
+        ApplicationOutput deleted = applicationRepository.delete(id);
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(id);
+        applicationHistoryService.create(data);
+        return deleted;
+    };
+
+    public List<ApplicationOutput> deletedApplication() {
+        return applicationRepository.deletedApplication();
     };
 }

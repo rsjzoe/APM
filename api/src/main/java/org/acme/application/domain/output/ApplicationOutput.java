@@ -20,6 +20,7 @@ public class ApplicationOutput extends ApplicationBase {
     protected TechBusinessValueOutput currentTechBusinessValue;
     protected List<CostOutput> costs;
     protected List<TechBusinessValueOutput> techBusinessValues;
+    protected boolean isDeleted;
 
     public ApplicationOutput() {
 
@@ -29,7 +30,7 @@ public class ApplicationOutput extends ApplicationBase {
     CategoryODAChildOutput category, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,
             CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue, List<CostOutput> costs,
-            List<TechBusinessValueOutput> techBusinessValues) {
+            List<TechBusinessValueOutput> techBusinessValues, boolean isDeleted) {
         super(name, description, startDate,
                 lastUpdate, status, time, userTotal);
         this.id = id;
@@ -40,6 +41,7 @@ public class ApplicationOutput extends ApplicationBase {
         this.currentTechBusinessValue = currentTechBusinessValue;
         this.costs = costs;
         this.techBusinessValues = techBusinessValues;
+        this.isDeleted = isDeleted;
     }
 
     public Long getId() {
@@ -104,5 +106,13 @@ public class ApplicationOutput extends ApplicationBase {
 
     public void setTechBusinessValues(List<TechBusinessValueOutput> techBusinessValues) {
         this.techBusinessValues = techBusinessValues;
+    }
+
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

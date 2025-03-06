@@ -12,7 +12,7 @@ public class ApplicationEntityRepository implements ApplicationRepository {
 
     @Override
     public List<ApplicationOutput> listAll() {
-        List<ApplicationEntity> data = ApplicationEntity.listAll();
+        List<ApplicationEntity> data = ApplicationEntity.list("isDeleted", false);
         return data.stream()
                 .map(entity -> (entity).toApplicationOutput())
                 .collect(Collectors.toList());
@@ -48,10 +48,17 @@ public class ApplicationEntityRepository implements ApplicationRepository {
         ApplicationEntity data = ApplicationEntity.findById(id);
         if (data == null)
             return null;
-        // Supprimer les historiques liés
-        ApplicationHistoryEntity.delete("applicationEntity = ?1", data);
-        data.delete();
+        data.setDeleted(true);
+        data.persist();
         return data.toApplicationOutput();
+    }
+
+    @Override
+    public List<ApplicationOutput> deletedApplication() {
+        List<ApplicationEntity> data = ApplicationEntity.list("isDeleted", true);
+        return data.stream()
+                .map(entity -> (entity).toApplicationOutput())
+                .collect(Collectors.toList());
     }
 
 }

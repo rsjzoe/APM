@@ -17,4 +17,6 @@ public interface ApplicationRepository {
     ApplicationOutput update(Long id, UpdateApplicationRepositoryInput updateApplication);
 
     ApplicationOutput delete(Long id);
+
+    List<ApplicationOutput> deletedApplication();
 }

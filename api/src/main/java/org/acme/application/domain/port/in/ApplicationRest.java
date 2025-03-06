@@ -17,4 +17,7 @@ public interface ApplicationRest {
     ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication);
 
     ApplicationOutput delete(Long id);
+
+    List<ApplicationOutput> deletedApplication();
+
 }

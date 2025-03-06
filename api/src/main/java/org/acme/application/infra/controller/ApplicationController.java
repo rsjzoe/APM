@@ -80,4 +80,12 @@ public class ApplicationController implements ApplicationRest {
         return applicationService.delete(id);
     }
 
+    @Override
+    @GET
+    @Transactional
+    @Path("/deleted/list")
+    public List<ApplicationOutput> deletedApplication() {
+        return applicationService.deletedApplication();
+    }
+
 }

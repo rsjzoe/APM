@@ -22,6 +22,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     private String descriptionHistory;
     protected CostOutput cost;
     protected TechBusinessValueOutput techBusinessValue;
+    protected boolean isDeleted;
 
     public ApplicationHistoryOutput() {
     }
@@ -29,7 +30,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     public ApplicationHistoryOutput(Long id, Long appId, String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, CategoryODAChildOutput category,
             Departement departement, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory, CostOutput cost,
-            TechBusinessValueOutput techBusinessValue) {
+            TechBusinessValueOutput techBusinessValue, boolean isDeleted) {
         super(name, description, startDate, lastUpdate, status, time, userTotal);
         this.id = id;
         this.appId = appId;
@@ -41,6 +42,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         this.descriptionHistory = descriptionHistory;
         this.cost = cost;
         this.techBusinessValue = techBusinessValue;
+        this.isDeleted = isDeleted;
     }
 
     public Long getId() {
@@ -129,5 +131,13 @@ public class ApplicationHistoryOutput extends ApplicationBase {
 
     public void setTechBusinessValue(TechBusinessValueOutput techBusinessValue) {
         this.techBusinessValue = techBusinessValue;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

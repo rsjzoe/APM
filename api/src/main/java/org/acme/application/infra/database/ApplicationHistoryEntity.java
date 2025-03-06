@@ -41,6 +41,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     protected CostEntity costEntity;
     @ManyToOne
     protected TechBusinessValueEntity techBusinessValueEntity;
+    protected boolean isDeleted;
 
     public ApplicationHistoryEntity() {
     }
@@ -68,7 +69,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     public ApplicationHistoryOutput toOutput() {
         return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
                 userTotal, note, category.toCategoryODAChildOutput(), departement.toDepartement(), modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
-                techBusinessValueEntity.toTechBusinessValueOutput());
+                techBusinessValueEntity.toTechBusinessValueOutput(), isDeleted);
     }
 
     public Long getAppId() {
