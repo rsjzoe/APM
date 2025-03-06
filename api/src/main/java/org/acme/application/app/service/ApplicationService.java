@@ -80,14 +80,21 @@ public class ApplicationService {
     public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication) {
         ApplicationOutput updated = applicationRepository.update(id,
                 new UpdateApplicationRepositoryInput(updateApplication));
-        costService.createCost(new CreateCostInput(updateApplication.getCostWithoutApp().getCostBuild(),
-                updateApplication.getCostWithoutApp().getCostRun(), updated.getId()));
-        var techBusinessValue = updateApplication.getTechBusinessValueWithoutApp();
-        techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
-                techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), updated.getId()));
+        if (updateApplication.getCostWithoutApp() != null) {
+            costService.createCost(new CreateCostInput(updateApplication.getCostWithoutApp().getCostBuild(),
+                    updateApplication.getCostWithoutApp().getCostRun(), updated.getId()));
+        }
+        if (updateApplication.getTechBusinessValueWithoutApp() != null) {
+            var techBusinessValue = updateApplication.getTechBusinessValueWithoutApp();
+            techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
+                    techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), updated.getId()));
+
+        }
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(id);
         applicationHistoryService.create(data);
-        return updated;
+        // maka anlay app updated miarakam curreent cost any vaovao
+        ApplicationOutput appFound = findById(id);
+        return appFound;
     };
 
     public ApplicationOutput delete(Long id) {

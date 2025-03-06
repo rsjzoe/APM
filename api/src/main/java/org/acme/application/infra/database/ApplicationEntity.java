@@ -107,17 +107,37 @@ public class ApplicationEntity extends PanacheEntity {
     }
 
     public ApplicationEntity updateData(UpdateApplicationRepositoryInput app) {
-        this.name = app.getName();
-        this.description = app.getDescription();
-        this.startDate = app.getStartDate();
-        this.lastUpdate = app.getLastUpdate();
-        this.status = app.getStatus();
-        this.time = app.getTime();
-        this.userTotal = app.getUserTotal();
-        this.note = app.getNote();
-        this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
-        this.category = CategoryODAChildHelper.entityFromId(app.getCategoryId());
-
+        // null izi raha tsy passe avy any amin front
+        if (app.getName() != null) {
+            this.name = app.getName();
+        }
+        if (app.getDescription() != null) {
+            this.description = app.getDescription();
+        }
+        if (app.getStartDate() != null) {
+            this.startDate = app.getStartDate();
+        }
+        if (app.getLastUpdate() != null) {
+            this.lastUpdate = app.getLastUpdate();
+        }
+        if (app.getStatus() != null) {
+            this.status = app.getStatus();
+        }
+        if (app.getTime() != null) {
+            this.time = app.getTime();
+        }
+        if (app.getUserTotal() != 0) {
+            this.userTotal = app.getUserTotal();
+        }
+        if (app.getNote() != 0) {
+            this.note = app.getNote();
+        }
+        if (app.getCategoryId() != null) {
+            this.category = CategoryODAChildHelper.entityFromId(app.getCategoryId());
+        }
+        if (app.getDepartementId() != null) {
+            this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
+        }
         return this;
     }
 
