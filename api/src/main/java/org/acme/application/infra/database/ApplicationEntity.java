@@ -117,6 +117,7 @@ public class ApplicationEntity extends PanacheEntity {
         this.note = app.getNote();
         this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
         this.category = CategoryODAChildHelper.entityFromId(app.getCategoryId());
+
         return this;
     }
 
