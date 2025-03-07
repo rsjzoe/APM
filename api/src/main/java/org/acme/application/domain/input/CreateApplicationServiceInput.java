@@ -8,7 +8,6 @@ import org.acme.cost.domain.model.input.CreateCostWithoutApp;
 import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWithoutApp;
 import org.acme.application.domain.model.Status;
-import org.acme.application.domain.model.Time;
 
 public class CreateApplicationServiceInput extends ApplicationBase {
     private Long categoryId;
@@ -22,10 +21,10 @@ public class CreateApplicationServiceInput extends ApplicationBase {
     }
 
     public CreateApplicationServiceInput(String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long categoryId, Long departementId,
+            LocalDateTime lastUpdate, Status status, int userTotal, Long categoryId, Long departementId,
             CreateCostWithoutApp costWithoutApp, CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp,
             List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp) {
-        super(name, description, startDate, lastUpdate, status, time, userTotal);
+        super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.costWithoutApp = costWithoutApp;
@@ -34,7 +33,7 @@ public class CreateApplicationServiceInput extends ApplicationBase {
     }
 
     public CreateApplicationServiceInput(List<CreateDocumentationFileWithoutApp> doc, CreateApplicationRest app) {
-        super(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(), app.getTime(), app.getUserTotal());
+        super(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(), app.getUserTotal());
         this.categoryId = app.getCategoryId();
         this.departementId = app.getDepartementId();
         this.costWithoutApp = app.getCostWithoutApp();
@@ -81,4 +80,6 @@ public class CreateApplicationServiceInput extends ApplicationBase {
     public void setDocumentationsFileWithoutApp(List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp) {
         this.documentationsFileWithoutApp = documentationsFileWithoutApp;
     }
+
+  
 }

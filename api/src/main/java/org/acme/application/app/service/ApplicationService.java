@@ -51,15 +51,20 @@ public class ApplicationService {
     };
 
     public ApplicationOutput create(CreateApplicationServiceInput newApplication) {
-        // newApplication.setTime(calculateTime.calcul(newApplication.getBusinessValue(),
-        // newApplication.getCostBuild() + newApplication.getCostRun()));
 
-        ApplicationOutput created = applicationRepository.create(new CreateApplicationRepositoryInput(newApplication));
+        var time = calculateTime.calcul(newApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
+                newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
+
+        ApplicationOutput created = applicationRepository
+                .create(new CreateApplicationRepositoryInput(newApplication, time));
+
         costService.createCost(new CreateCostInput(newApplication.getCostWithoutApp().getCostBuild(),
                 newApplication.getCostWithoutApp().getCostRun(), created.getId()));
+
         var techBusinessValue = newApplication.getTechBusinessValueWithoutApp();
         techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
                 techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), created.getId()));
+
         newApplication.getDocumentationsFileWithoutApp().forEach(
                 documentation -> {
                     try {
@@ -71,6 +76,7 @@ public class ApplicationService {
                         e.printStackTrace();
                     }
                 });
+                
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(created.getId());
         applicationHistoryService.create(data);
 

@@ -17,17 +17,18 @@ public class ApplicationHistory extends ApplicationBase {
     private String modifiedBy;
     private String descriptionHistory;
     protected Cost cost;
+    protected Time time;
     protected TechBusinessValue techBusinessValue;
     protected boolean isDeleted;
 
-    public ApplicationHistory() { 
+    public ApplicationHistory() {
     }
 
     public ApplicationHistory(Long id, Long appId, String name, String description, LocalDateTime startDate,
-        LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, CategoryODAChild category,
-        Departement departement, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory, Cost cost,
-        TechBusinessValue techBusinessValue, boolean isDeleted) {
-        super(name, description, startDate, lastUpdate, status, time, userTotal);
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, CategoryODAChild category,
+            Departement departement, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory, Cost cost,
+            TechBusinessValue techBusinessValue, boolean isDeleted) {
+        super(name, description, startDate, lastUpdate, status, userTotal);
         this.id = id;
         this.appId = appId;
         this.note = note;
@@ -37,6 +38,7 @@ public class ApplicationHistory extends ApplicationBase {
         this.modifiedBy = modifiedBy;
         this.descriptionHistory = descriptionHistory;
         this.cost = cost;
+        this.time = time;
         this.techBusinessValue = techBusinessValue;
         this.isDeleted = isDeleted;
     }
@@ -111,6 +113,14 @@ public class ApplicationHistory extends ApplicationBase {
 
     public void setCost(Cost cost) {
         this.cost = cost;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public TechBusinessValue getTechBusinessValue() {

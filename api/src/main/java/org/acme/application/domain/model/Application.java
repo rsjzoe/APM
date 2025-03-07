@@ -19,6 +19,7 @@ public class Application extends ApplicationBase {
     protected List<Cost> costs;
     protected List<TechBusinessValue> techBusinessValues;
     protected List<Documentation> documentations;
+    protected Time time;
     protected boolean isDeleted;
 
     public Application() {
@@ -27,9 +28,12 @@ public class Application extends ApplicationBase {
 
     public Application(Long id, String name, String description,
             CategoryODAChild category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs, List<TechBusinessValue> techBusinessValues, List<Documentation> documentations, boolean isDeleted) {
+            LocalDateTime lastUpdate, Status status, int userTotal, double note, Departement departement,
+            Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs,
+            List<TechBusinessValue> techBusinessValues, List<Documentation> documentations, Time time,
+            boolean isDeleted) {
         super(name, description, startDate,
-                lastUpdate, status, time, userTotal);
+                lastUpdate, status, userTotal);
         this.id = id;
         this.note = note;
         this.category = category;
@@ -39,6 +43,7 @@ public class Application extends ApplicationBase {
         this.costs = costs;
         this.techBusinessValues = techBusinessValues;
         this.documentations = documentations;
+        this.time = time;
         this.isDeleted = isDeleted;
     }
 
@@ -74,12 +79,12 @@ public class Application extends ApplicationBase {
         this.departement = departement;
     }
 
-    public Cost getCurrentCost(){
+    public Cost getCurrentCost() {
         return currentCost;
     }
 
-    public void setCurrentCost(Cost currentCost){
-        this.currentCost= currentCost;
+    public void setCurrentCost(Cost currentCost) {
+        this.currentCost = currentCost;
     }
 
     public TechBusinessValue getCurrentTechBusinessValue() {
@@ -112,6 +117,14 @@ public class Application extends ApplicationBase {
 
     public void setDocumentations(List<Documentation> documentations) {
         this.documentations = documentations;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public boolean isDeleted() {

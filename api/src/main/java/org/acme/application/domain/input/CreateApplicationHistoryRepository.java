@@ -17,6 +17,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     private String descriptionHistory;
     protected Long costId;
     protected Long techBusinessValueId;
+    protected Time time;
 
     public CreateApplicationHistoryRepository() {
         super();
@@ -26,7 +27,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long appId, double note,
             Long categoryId, Long departementId, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory,
             Long costId, Long techBusinessValueId) {
-        super(name, description, startDate, lastUpdate, status, time, userTotal);
+        super(name, description, startDate, lastUpdate, status, userTotal);
         this.appId = appId;
         this.note = note;
         this.categoryId = categoryId;
@@ -36,6 +37,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
         this.descriptionHistory = descriptionHistory;
         this.costId = costId;
         this.techBusinessValueId = techBusinessValueId;
+        this.time = time;
     }
 
     public CreateApplicationHistoryRepository(ApplicationOutput app, String modifiedBy, String descriptionHistory) {
@@ -93,12 +95,12 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
         this.modifiedBy = modifiedBy;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionHistory() {
+        return descriptionHistory;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionHistory(String descriptionHistory) {
+        this.descriptionHistory = descriptionHistory;
     }
 
     public Long getCostId() {
@@ -117,11 +119,11 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
         this.techBusinessValueId = techBusinessValueId;
     }
 
-    public String getDescriptionHistory() {
-        return descriptionHistory;
+    public Time getTime() {
+        return time;
     }
 
-    public void setDescriptionHistory(String descriptionHistory) {
-        this.descriptionHistory = descriptionHistory;
+    public void setTime(Time time) {
+        this.time = time;
     }
 }

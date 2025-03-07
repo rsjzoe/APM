@@ -9,6 +9,7 @@ public class UpdateApplicationRepositoryInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
     private Double note;
+    protected Time time;
 
     public UpdateApplicationRepositoryInput() {
         super();
@@ -17,18 +18,20 @@ public class UpdateApplicationRepositoryInput extends ApplicationBase {
     public UpdateApplicationRepositoryInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal,
             Long categoryId, Long departementId, Double note) {
-        super(name, description, startDate, lastUpdate, status, time, userTotal);
+        super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.note = note;
+        this.time = time;
     }
 
     public UpdateApplicationRepositoryInput(UpdateApplicationServiceInput updated) {
         super(updated.getName(), updated.getDescription(), updated.getStartDate(), updated.getLastUpdate(),
-                updated.getStatus(), updated.getTime(), updated.getUserTotal());
+                updated.getStatus(), updated.getUserTotal());
         this.categoryId = updated.getCategoryId();
         this.departementId = updated.getDepartementId();
         this.note = updated.getNote();
+        this.time = updated.getTime();
     }
 
     public Long getCategoryId() {
@@ -53,5 +56,13 @@ public class UpdateApplicationRepositoryInput extends ApplicationBase {
 
     public void setNote(Double note) {
         this.note = note;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 }

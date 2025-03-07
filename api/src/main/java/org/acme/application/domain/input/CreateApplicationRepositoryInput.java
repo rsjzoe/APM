@@ -9,26 +9,29 @@ import org.acme.application.domain.model.Time;
 public class CreateApplicationRepositoryInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
+    protected Time time;
 
     public CreateApplicationRepositoryInput() {
         super();
     }
 
     public CreateApplicationRepositoryInput(String name, String description, LocalDateTime startDate,
-                                       LocalDateTime lastUpdate, Status status, Time time, int userTotal,
-                                       Long categoryId, Long departementId) {
-        super(name, description, startDate, lastUpdate, status, time, userTotal);
+                                            LocalDateTime lastUpdate, Status status, Time time, int userTotal,
+                                            Long categoryId, Long departementId) {
+        super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
+        this.time = time;
     }
 
-    public CreateApplicationRepositoryInput(CreateApplicationServiceInput createApplicationServiceInput) {
+    public CreateApplicationRepositoryInput(CreateApplicationServiceInput createApplicationServiceInput, Time time) {
         super(createApplicationServiceInput.getName(), createApplicationServiceInput.getDescription(),
                 createApplicationServiceInput.getStartDate(), createApplicationServiceInput.getLastUpdate(),
-                createApplicationServiceInput.getStatus(), createApplicationServiceInput.getTime(),
+                createApplicationServiceInput.getStatus(),
                 createApplicationServiceInput.getUserTotal());
         this.categoryId = createApplicationServiceInput.getCategoryId();
         this.departementId = createApplicationServiceInput.getDepartementId();
+        this.time = time;
     }
 
     public Long getCategoryId() {
@@ -45,5 +48,13 @@ public class CreateApplicationRepositoryInput extends ApplicationBase {
 
     public void setDepartementId(Long departementId) {
         this.departementId = departementId;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 }

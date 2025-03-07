@@ -14,18 +14,19 @@ public class UpdateApplicationServiceInput extends ApplicationBase {
     private double note;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
+    protected Time time;
 
     public UpdateApplicationServiceInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Long categoryId,
             Long departementId, CreateCostWithoutApp costWithoutApp,
             CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
-        super(name, description, startDate,
-                lastUpdate, status, time, userTotal);
+        super(name, description, startDate, lastUpdate, status, userTotal);
         this.note = note;
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.costWithoutApp = costWithoutApp;
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
+        this.time = time;
     }
 
     public double getNote() {
@@ -68,4 +69,11 @@ public class UpdateApplicationServiceInput extends ApplicationBase {
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
     }
 
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
 }

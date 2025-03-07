@@ -9,21 +9,18 @@ public class ApplicationBase {
     protected LocalDateTime startDate;
     protected LocalDateTime lastUpdate;
     protected Status status;
-    protected Time time;
     protected int userTotal;
-    
 
     public ApplicationBase() {
     }
 
     public ApplicationBase(String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal) {
+            LocalDateTime lastUpdate, Status status, int userTotal) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.lastUpdate = lastUpdate;
         this.status = status;
-        this.time = time;
         this.userTotal = userTotal;
     }
 
@@ -67,14 +64,6 @@ public class ApplicationBase {
         this.status = status;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
     public int getUserTotal() {
         return userTotal;
     }
@@ -91,7 +80,6 @@ public class ApplicationBase {
                 ", startDate=" + startDate +
                 ", lastUpdate=" + lastUpdate +
                 ", status=" + status +
-                ", time=" + time +
                 ", userTotal=" + userTotal +
                 '}';
     }
