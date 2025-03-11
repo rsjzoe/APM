@@ -10,6 +10,7 @@ import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWith
 public class CreateApplicationRest extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
+    private Long classeId;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
 
@@ -17,10 +18,13 @@ public class CreateApplicationRest extends ApplicationBase {
         super();
     }
 
-    public CreateApplicationRest(String name, String description, LocalDateTime startDate, LocalDateTime lastUpdate, Status status, int userTotal, Long categoryId, Long departementId, CreateCostWithoutApp costWithoutApp, CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
+    public CreateApplicationRest(String name, String description, LocalDateTime startDate, LocalDateTime lastUpdate,
+            Status status, int userTotal, Long categoryId, Long departementId, Long classeId,
+            CreateCostWithoutApp costWithoutApp, CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
+        this.classeId = classeId;
         this.costWithoutApp = costWithoutApp;
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
     }
@@ -41,6 +45,14 @@ public class CreateApplicationRest extends ApplicationBase {
         this.departementId = departementId;
     }
 
+    public Long getClasseId() {
+        return classeId;
+    }
+
+    public void setClasseId(Long classeId) {
+        this.classeId = classeId;
+    }
+
     public CreateCostWithoutApp getCostWithoutApp() {
         return costWithoutApp;
     }
@@ -56,6 +68,5 @@ public class CreateApplicationRest extends ApplicationBase {
     public void setTechBusinessValueWithoutApp(CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
     }
-
 
 }

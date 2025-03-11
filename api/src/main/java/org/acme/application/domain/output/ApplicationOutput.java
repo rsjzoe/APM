@@ -7,6 +7,7 @@ import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.category.domain.output.CategoryODAChildOutput;
+import org.acme.classe.domain.output.ClasseOutput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
@@ -16,6 +17,7 @@ public class ApplicationOutput extends ApplicationBase {
     protected double note;
     protected CategoryODAChildOutput category;
     protected Departement departement;
+    protected ClasseOutput classe;
     protected CostOutput currentCost;
     protected TechBusinessValueOutput currentTechBusinessValue;
     protected List<CostOutput> costs;
@@ -28,9 +30,10 @@ public class ApplicationOutput extends ApplicationBase {
     }
 
     public ApplicationOutput(Long id, String name, String description,
-    CategoryODAChildOutput category, LocalDateTime startDate,
+            CategoryODAChildOutput category, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,
-            CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue, List<CostOutput> costs,
+            ClasseOutput classe, CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue,
+            List<CostOutput> costs,
             List<TechBusinessValueOutput> techBusinessValues, boolean isDeleted) {
         super(name, description, startDate,
                 lastUpdate, status, userTotal);
@@ -38,6 +41,7 @@ public class ApplicationOutput extends ApplicationBase {
         this.note = note;
         this.category = category;
         this.departement = departement;
+        this.classe = classe;
         this.currentCost = currentCost;
         this.currentTechBusinessValue = currentTechBusinessValue;
         this.costs = costs;
@@ -76,6 +80,14 @@ public class ApplicationOutput extends ApplicationBase {
 
     public void setDepartement(Departement departement) {
         this.departement = departement;
+    }
+
+    public ClasseOutput getClasse() {
+        return classe;
+    }
+
+    public void setClasse(ClasseOutput classe) {
+        this.classe = classe;
     }
 
     public CostOutput getCurrentCost() {

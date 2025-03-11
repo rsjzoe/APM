@@ -28,12 +28,11 @@ public class CostEntity extends PanacheEntity {
         this.createdAt = createdAt;
     }
 
-    public CostEntity(CreateCostInput data){
+    public CostEntity(CreateCostInput data) {
         this.costBuild = data.getCostBuild();
         this.costRun = data.getCostRun();
         this.createdAt = LocalDateTime.now();
         if (data.getApplicationId() != null) {
-            
             this.application = ApplicationEntityHelper.entityFromId(data.getApplicationId());
         }
     }
@@ -42,7 +41,7 @@ public class CostEntity extends PanacheEntity {
         return new CostOutput(id, application == null ? null : application.id, costBuild, costRun, createdAt);
     }
 
-    public CostOutput toCostOutputWithoutApp(){
+    public CostOutput toCostOutputWithoutApp() {
         return new CostOutput(id, null, costBuild, costRun, createdAt);
     }
 

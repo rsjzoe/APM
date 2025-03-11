@@ -6,7 +6,9 @@ import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationHistoryOutput;
-import org.acme.category.adapters.out.Entity.CategoryODAChildEntity;
+import org.acme.category.adapter.out.Entity.CategoryODAChildEntity;
+import org.acme.classe.infra.database.ClasseEntity;
+import org.acme.classe.infra.database.ClasseEntityHelper;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.cost.infra.database.CostEntityHelper;
 import org.acme.departement.infra.out.DepartementEntity;
@@ -37,6 +39,8 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     private int userTotal;
     @ManyToOne(fetch = FetchType.LAZY)
     private DepartementEntity departement;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ClasseEntity classe;
     @ManyToOne
     protected CostEntity costEntity;
     @ManyToOne
@@ -52,6 +56,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.category = new CategoryODAChildEntity();
         this.category.id = data.getCategoryId();
         this.departement = DepartementEntityHelper.entityFromId(data.getDepartementId());
+        this.classe = ClasseEntityHelper.entityFromId(data.getClasseId());
         this.modifiedAt = LocalDateTime.now();
         this.modifiedBy = data.getModifiedBy();
         this.descriptionHistory = data.getDescriptionHistory();
@@ -68,7 +73,8 @@ public class ApplicationHistoryEntity extends PanacheEntity {
 
     public ApplicationHistoryOutput toOutput() {
         return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
-                userTotal, note, category.toCategoryODAChildOutput(), departement.toDepartement(), modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
+                userTotal, note, category.toCategoryODAChildOutput(), departement.toDepartement(), classe.toOutput(),
+                modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
                 techBusinessValueEntity.toTechBusinessValueOutput(), isDeleted);
     }
 
@@ -182,6 +188,14 @@ public class ApplicationHistoryEntity extends PanacheEntity {
 
     public void setDepartement(DepartementEntity departement) {
         this.departement = departement;
+    }
+
+    public ClasseEntity getClasseEntity() {
+        return classe;
+    }
+
+    public void seClasseEntity(ClasseEntity classe) {
+        this.classe = classe;
     }
 
     public CostEntity getCostEntity() {

@@ -5,8 +5,8 @@ import java.util.List;
 import org.acme.category.domain.input.CreateCategoryODAParent;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
 import org.acme.category.domain.output.CategoryODAParentOutput;
-import org.acme.category.ports.CategoryODAParentService;
-import org.acme.category.ports.out.CategoryODAParentRepository;
+import org.acme.category.domain.port.CategoryODAParentService;
+import org.acme.category.domain.port.out.CategoryODAParentRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;

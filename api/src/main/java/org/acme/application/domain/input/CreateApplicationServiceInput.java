@@ -12,6 +12,7 @@ import org.acme.application.domain.model.Status;
 public class CreateApplicationServiceInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
+    private Long classeId;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
     private List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp;
@@ -21,21 +22,24 @@ public class CreateApplicationServiceInput extends ApplicationBase {
     }
 
     public CreateApplicationServiceInput(String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, int userTotal, Long categoryId, Long departementId,
+            LocalDateTime lastUpdate, Status status, int userTotal, Long categoryId, Long departementId, Long classeId,
             CreateCostWithoutApp costWithoutApp, CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp,
             List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
+        this.classeId = classeId;
         this.costWithoutApp = costWithoutApp;
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
         this.documentationsFileWithoutApp = documentationsFileWithoutApp;
     }
 
     public CreateApplicationServiceInput(List<CreateDocumentationFileWithoutApp> doc, CreateApplicationRest app) {
-        super(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(), app.getUserTotal());
+        super(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(),
+                app.getUserTotal());
         this.categoryId = app.getCategoryId();
         this.departementId = app.getDepartementId();
+        this.classeId = app.getClasseId();
         this.costWithoutApp = app.getCostWithoutApp();
         this.techBusinessValueWithoutApp = app.getTechBusinessValueWithoutApp();
         this.documentationsFileWithoutApp = doc;
@@ -55,6 +59,14 @@ public class CreateApplicationServiceInput extends ApplicationBase {
 
     public void setDepartementId(Long departementId) {
         this.departementId = departementId;
+    }
+
+    public Long getClasseId() {
+        return classeId;
+    }
+
+    public void setClasseId(Long classeId) {
+        this.classeId = classeId;
     }
 
     public CreateCostWithoutApp getCostWithoutApp() {
@@ -81,5 +93,4 @@ public class CreateApplicationServiceInput extends ApplicationBase {
         this.documentationsFileWithoutApp = documentationsFileWithoutApp;
     }
 
-  
 }

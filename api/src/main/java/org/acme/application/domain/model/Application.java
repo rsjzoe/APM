@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.acme.category.domain.CategoryODAChild;
+import org.acme.classe.domain.Classe;
 import org.acme.cost.domain.model.Cost;
 import org.acme.departement.domain.Departement;
 import org.acme.documentation.domain.Documentation;
@@ -14,6 +15,7 @@ public class Application extends ApplicationBase {
     protected double note;
     protected CategoryODAChild category;
     protected Departement departement;
+    protected Classe classe;
     protected Cost currentCost;
     protected TechBusinessValue currentTechBusinessValue;
     protected List<Cost> costs;
@@ -29,7 +31,7 @@ public class Application extends ApplicationBase {
     public Application(Long id, String name, String description,
             CategoryODAChild category, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, int userTotal, double note, Departement departement,
-            Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs,
+            Classe classe, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs,
             List<TechBusinessValue> techBusinessValues, List<Documentation> documentations, Time time,
             boolean isDeleted) {
         super(name, description, startDate,
@@ -38,6 +40,7 @@ public class Application extends ApplicationBase {
         this.note = note;
         this.category = category;
         this.departement = departement;
+        this.classe = classe;
         this.currentCost = currentCost;
         this.currentTechBusinessValue = currentTechBusinessValue;
         this.costs = costs;
@@ -77,6 +80,14 @@ public class Application extends ApplicationBase {
 
     public void setDepartement(Departement departement) {
         this.departement = departement;
+    }
+
+    public Classe getClasse() {
+        return classe;
+    }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
     }
 
     public Cost getCurrentCost() {

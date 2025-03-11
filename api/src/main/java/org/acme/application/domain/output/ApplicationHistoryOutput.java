@@ -6,6 +6,7 @@ import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.category.domain.output.CategoryODAChildOutput;
+import org.acme.classe.domain.output.ClasseOutput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
@@ -16,6 +17,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     protected double note;
     protected CategoryODAChildOutput category;
     protected Departement departement;
+    protected ClasseOutput classe;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
     private String description;
@@ -31,7 +33,8 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     public ApplicationHistoryOutput(Long id, Long appId, String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note,
             CategoryODAChildOutput category,
-            Departement departement, LocalDateTime modifiedAt, String modifiedBy, String descriptionHistory,
+            Departement departement, ClasseOutput classe, LocalDateTime modifiedAt, String modifiedBy,
+            String descriptionHistory,
             CostOutput cost,
             TechBusinessValueOutput techBusinessValue, boolean isDeleted) {
         super(name, description, startDate, lastUpdate, status, userTotal);
@@ -40,6 +43,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         this.note = note;
         this.category = category;
         this.departement = departement;
+        this.classe = classe;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
         this.descriptionHistory = descriptionHistory;
@@ -87,6 +91,14 @@ public class ApplicationHistoryOutput extends ApplicationBase {
 
     public void setDepartement(Departement departement) {
         this.departement = departement;
+    }
+
+    public ClasseOutput getClasse() {
+        return classe;
+    }
+
+    public void setClasse(ClasseOutput classe) {
+        this.classe = classe;
     }
 
     public LocalDateTime getModifiedAt() {

@@ -9,6 +9,7 @@ import org.acme.application.domain.model.Time;
 public class CreateApplicationRepositoryInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
+    private Long classeId;
     protected Time time;
 
     public CreateApplicationRepositoryInput() {
@@ -16,11 +17,12 @@ public class CreateApplicationRepositoryInput extends ApplicationBase {
     }
 
     public CreateApplicationRepositoryInput(String name, String description, LocalDateTime startDate,
-                                            LocalDateTime lastUpdate, Status status, Time time, int userTotal,
-                                            Long categoryId, Long departementId) {
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal,
+            Long categoryId, Long departementId, Long classeId) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
+        this.classeId = classeId;
         this.time = time;
     }
 
@@ -31,6 +33,7 @@ public class CreateApplicationRepositoryInput extends ApplicationBase {
                 createApplicationServiceInput.getUserTotal());
         this.categoryId = createApplicationServiceInput.getCategoryId();
         this.departementId = createApplicationServiceInput.getDepartementId();
+        this.classeId = createApplicationServiceInput.getClasseId();
         this.time = time;
     }
 
@@ -48,6 +51,14 @@ public class CreateApplicationRepositoryInput extends ApplicationBase {
 
     public void setDepartementId(Long departementId) {
         this.departementId = departementId;
+    }
+
+    public Long getClasseId() {
+        return classeId;
+    }
+
+    public void setClasseId(Long classeId) {
+        this.classeId = classeId;
     }
 
     public Time getTime() {

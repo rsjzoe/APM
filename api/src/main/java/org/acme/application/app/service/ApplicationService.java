@@ -76,7 +76,7 @@ public class ApplicationService {
                         e.printStackTrace();
                     }
                 });
-                
+
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(created.getId());
         applicationHistoryService.create(data);
 
@@ -84,8 +84,12 @@ public class ApplicationService {
     };
 
     public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication) {
+        var time = calculateTime.calcul(updateApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
+                updateApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
+
         ApplicationOutput updated = applicationRepository.update(id,
-                new UpdateApplicationRepositoryInput(updateApplication));
+                new UpdateApplicationRepositoryInput(updateApplication, time));
+
         if (updateApplication.getCostWithoutApp() != null) {
             costService.createCost(new CreateCostInput(updateApplication.getCostWithoutApp().getCostBuild(),
                     updateApplication.getCostWithoutApp().getCostRun(), updated.getId()));

@@ -9,8 +9,10 @@ import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
-import org.acme.category.adapters.out.Entity.CategoryODAChildEntity;
-import org.acme.category.adapters.out.Entity.CategoryODAChildHelper;
+import org.acme.category.adapter.out.Entity.CategoryODAChildEntity;
+import org.acme.category.adapter.out.Entity.CategoryODAChildHelper;
+import org.acme.classe.infra.database.ClasseEntity;
+import org.acme.classe.infra.database.ClasseEntityHelper;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
@@ -38,6 +40,8 @@ public class ApplicationEntity extends PanacheEntity {
     private int userTotal;
     @ManyToOne(fetch = FetchType.LAZY)
     private DepartementEntity departement;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ClasseEntity classe;
     @OneToMany(mappedBy = "application")
     private List<CostEntity> costEntity = new ArrayList<>();
     @OneToMany(mappedBy = "application")
@@ -63,7 +67,6 @@ public class ApplicationEntity extends PanacheEntity {
     }
 
     public ApplicationEntity(CreateApplicationRepositoryInput app) {
-
         this.name = app.getName();
         this.description = app.getDescription();
         this.startDate = app.getStartDate();
@@ -77,6 +80,7 @@ public class ApplicationEntity extends PanacheEntity {
         CategoryODAChildEntity categoryEntity = new CategoryODAChildEntity();
         categoryEntity.id = app.getCategoryId();
         this.category = categoryEntity;
+        this.classe = ClasseEntityHelper.entityFromId(app.getCategoryId());
         this.isDeleted = false;
 
     }
@@ -102,10 +106,12 @@ public class ApplicationEntity extends PanacheEntity {
         TechBusinessValueOutput latestTech = latestTechEntity != null ? latestTechEntity.toTechBusinessValueOutput()
                 : null;
         return new ApplicationOutput(id, name, description, category.toCategoryODAChildOutput(),
-                startDate, lastUpdate, status, time, userTotal, note, departement.toDepartement(), latestCost,
+                startDate, lastUpdate, status, time, userTotal, note,
+                departement.toDepartement(), classe.toOutput(), latestCost,
                 latestTech,
                 costEntity.stream().map(CostEntity::toCostOutput).toList(),
-                techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList(), isDeleted);
+                techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList(),
+                isDeleted);
     }
 
     public ApplicationEntity updateData(UpdateApplicationRepositoryInput app) {
@@ -139,6 +145,9 @@ public class ApplicationEntity extends PanacheEntity {
         }
         if (app.getDepartementId() != null) {
             this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
+        }
+        if (app.getClasseId() != null) {
+            this.classe = ClasseEntityHelper.entityFromId(app.getClasseId());
         }
         return this;
     }
