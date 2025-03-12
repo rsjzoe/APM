@@ -11,6 +11,15 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class DocumentationEntity extends PanacheEntity {
     private String name;
@@ -20,9 +29,7 @@ public class DocumentationEntity extends PanacheEntity {
     @ManyToOne
     private ApplicationEntity applicationEntity;
 
-    public DocumentationEntity() {
-    }
-
+    
     public DocumentationEntity(CreateDocumentation create) {
         this.name = create.getName();
         this.url = create.getUrl();
@@ -56,54 +63,5 @@ public class DocumentationEntity extends PanacheEntity {
         this.type = update.getType();
         this.url = update.getUrl();
         return this;
-    }
-
-    public DocumentationType getType() {
-        return type;
-    }
-
-    public void setType(DocumentationType type) {
-        this.type = type;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public ApplicationEntity getApplicationEntity() {
-        return applicationEntity;
-    }
-
-    public void setApplicationEntity(ApplicationEntity applicationEntity) {
-        this.applicationEntity = applicationEntity;
-    }
-
-    @Override
-    public String toString() {
-        return "DocumentationEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                '}';
     }
 }

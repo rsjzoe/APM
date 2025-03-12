@@ -1,39 +1,13 @@
 package org.acme.question.domain.input;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateQuestion {
     private String text;
-    private String borderColor;
-
-    public CreateQuestion() {
-    }
-
-    public CreateQuestion(String text, String borderColor) {
-        this.text = text;
-        this.borderColor = borderColor;
-    }
-
-    public String getBorderColor() {
-        return borderColor;
-    }
-
-    public void setBorderColor(String borderColor) {
-        this.borderColor = borderColor;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public String toString() {
-        return "CreateQuestion{" +
-
-                ", text='" + text + '\'' +
-                ", borderColor='" + borderColor + '\'' +
-                '}';
-    }
+    private Long questionGroupId;
 }

@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class CategoryODAChildUseCase implements CategoryODAChildService {
-    
+
     private CategoryODAChildRepository categoryODAChildRepository;
 
     public CategoryODAChildUseCase(CategoryODAChildRepository categoryODAChildRepository) {

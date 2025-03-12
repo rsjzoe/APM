@@ -1,30 +1,14 @@
 package org.acme.auth.domain.input;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Login {
     private String trigramme;
     private String password;
 
-    public Login() {
-    }
-
-    public Login(String trigramme, String password) {
-        this.trigramme = trigramme;
-        this.password = password;
-    }
-
-    public String getTrigramme() {
-        return trigramme;
-    }
-
-    public void setTrigramme(String trigramme) {
-        this.trigramme = trigramme;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

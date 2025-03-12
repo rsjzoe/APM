@@ -12,6 +12,15 @@ import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApplicationOutput extends ApplicationBase {
     protected Long id;
     protected double note;
@@ -24,10 +33,6 @@ public class ApplicationOutput extends ApplicationBase {
     protected List<TechBusinessValueOutput> techBusinessValues;
     protected Time time;
     protected boolean isDeleted;
-
-    public ApplicationOutput() {
-
-    }
 
     public ApplicationOutput(Long id, String name, String description,
             CategoryODAChildOutput category, LocalDateTime startDate,
@@ -50,91 +55,4 @@ public class ApplicationOutput extends ApplicationBase {
         this.isDeleted = isDeleted;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getNote() {
-        return note;
-    }
-
-    public void setNote(double note) {
-        this.note = note;
-    }
-
-    public CategoryODAChildOutput getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryODAChildOutput category) {
-        this.category = category;
-    }
-
-    public Departement getDepartement() {
-        return departement;
-    }
-
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
-
-    public ClasseOutput getClasse() {
-        return classe;
-    }
-
-    public void setClasse(ClasseOutput classe) {
-        this.classe = classe;
-    }
-
-    public CostOutput getCurrentCost() {
-        return currentCost;
-    }
-
-    public void setCurrentCost(CostOutput currentCost) {
-        this.currentCost = currentCost;
-    }
-
-    public TechBusinessValueOutput getCurrentTechBusinessValue() {
-        return currentTechBusinessValue;
-    }
-
-    public void setCurrentTechBusinessValue(TechBusinessValueOutput currentTechBusinessValue) {
-        this.currentTechBusinessValue = currentTechBusinessValue;
-    }
-
-    public List<CostOutput> getCosts() {
-        return costs;
-    }
-
-    public void setCosts(List<CostOutput> costs) {
-        this.costs = costs;
-    }
-
-    public List<TechBusinessValueOutput> getTechBusinessValues() {
-        return techBusinessValues;
-    }
-
-    public void setTechBusinessValues(List<TechBusinessValueOutput> techBusinessValues) {
-        this.techBusinessValues = techBusinessValues;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
-    public boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
 }

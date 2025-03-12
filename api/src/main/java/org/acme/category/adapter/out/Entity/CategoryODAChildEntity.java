@@ -8,6 +8,15 @@ import org.acme.category.domain.output.CategoryODAChildOutput;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class CategoryODAChildEntity extends PanacheEntity {
     private String name;
@@ -15,9 +24,6 @@ public class CategoryODAChildEntity extends PanacheEntity {
 
     @ManyToOne
     private CategoryODAParentEntity categoryODAParentEntity;
-
-    public CategoryODAChildEntity() {
-    }
 
     public CategoryODAChildEntity(String name) {
         this.name = name;
@@ -35,14 +41,6 @@ public class CategoryODAChildEntity extends PanacheEntity {
     public void update(UpdateCategoryODAChild data) {
         this.name = data.getName();
         this.categoryODAParentEntity = CategoryODAParentEntityHelper.entityFromId(data.getParentId());
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public CategoryODAChildOutput toCategoryODAChildOutput() {
@@ -64,18 +62,4 @@ public class CategoryODAChildEntity extends PanacheEntity {
         this.categoryODAParentEntity = categoryODAParentEntity;
     }
 
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    @Override
-    public String toString() {
-        return "CategoryODAChildEntity{" +
-                "name='" + name + '\'' +
-                '}';
-    }
 }

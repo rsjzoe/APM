@@ -11,6 +11,15 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class ClasseEntity extends PanacheEntity {
     public String name;
@@ -19,9 +28,7 @@ public class ClasseEntity extends PanacheEntity {
     public List<ApplicationEntity> application;
     public boolean isDeleted;
 
-    public ClasseEntity() {
-    }
-
+   
     public ClasseEntity(String name, String description, List<ApplicationEntity> application) {
         this.name = name;
         this.description = description;
@@ -42,38 +49,6 @@ public class ClasseEntity extends PanacheEntity {
         this.name = data.getName();
         this.description = data.getDescription();
 
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<ApplicationEntity> getApplication() {
-        return application;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setApplication(List<ApplicationEntity> application) {
-        this.application = application;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
     }
 
 }

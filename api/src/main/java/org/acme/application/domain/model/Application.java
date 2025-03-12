@@ -10,6 +10,15 @@ import org.acme.departement.domain.Departement;
 import org.acme.documentation.domain.Documentation;
 import org.acme.techBusinessValue.domain.model.TechBusinessValue;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Application extends ApplicationBase {
     protected Long id;
     protected double note;
@@ -23,10 +32,6 @@ public class Application extends ApplicationBase {
     protected List<Documentation> documentations;
     protected Time time;
     protected boolean isDeleted;
-
-    public Application() {
-
-    }
 
     public Application(Long id, String name, String description,
             CategoryODAChild category, LocalDateTime startDate,
@@ -50,99 +55,4 @@ public class Application extends ApplicationBase {
         this.isDeleted = isDeleted;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getNote() {
-        return note;
-    }
-
-    public void setNote(double note) {
-        this.note = note;
-    }
-
-    public CategoryODAChild getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryODAChild category) {
-        this.category = category;
-    }
-
-    public Departement getDepartement() {
-        return departement;
-    }
-
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
-
-    public Classe getClasse() {
-        return classe;
-    }
-
-    public void setClasse(Classe classe) {
-        this.classe = classe;
-    }
-
-    public Cost getCurrentCost() {
-        return currentCost;
-    }
-
-    public void setCurrentCost(Cost currentCost) {
-        this.currentCost = currentCost;
-    }
-
-    public TechBusinessValue getCurrentTechBusinessValue() {
-        return currentTechBusinessValue;
-    }
-
-    public void setCurrentTechBusinessValue(TechBusinessValue currentTechBusinessValue) {
-        this.currentTechBusinessValue = currentTechBusinessValue;
-    }
-
-    public List<Cost> getCosts() {
-        return costs;
-    }
-
-    public void setCosts(List<Cost> costs) {
-        this.costs = costs;
-    }
-
-    public List<TechBusinessValue> getTechBusinessValues() {
-        return techBusinessValues;
-    }
-
-    public void setTechBusinessValues(List<TechBusinessValue> techBusinessValues) {
-        this.techBusinessValues = techBusinessValues;
-    }
-
-    public List<Documentation> getDocumentations() {
-        return documentations;
-    }
-
-    public void setDocumentations(List<Documentation> documentations) {
-        this.documentations = documentations;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
 }

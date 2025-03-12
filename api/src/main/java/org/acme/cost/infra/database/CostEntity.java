@@ -11,6 +11,15 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "cost")
 public class CostEntity extends PanacheEntity {
     private double costBuild;
@@ -19,9 +28,7 @@ public class CostEntity extends PanacheEntity {
     @ManyToOne
     private ApplicationEntity application;
 
-    public CostEntity() {
-    }
-
+   
     public CostEntity(double costBuild, double costRun, LocalDateTime createdAt) {
         this.costBuild = costBuild;
         this.costRun = costRun;
@@ -43,46 +50,5 @@ public class CostEntity extends PanacheEntity {
 
     public CostOutput toCostOutputWithoutApp() {
         return new CostOutput(id, null, costBuild, costRun, createdAt);
-    }
-
-    public double getCostBuild() {
-        return costBuild;
-    }
-
-    public void setCostBuild(double costBuild) {
-        this.costBuild = costBuild;
-    }
-
-    public double getCostRun() {
-        return costRun;
-    }
-
-    public void setCostRun(double costRun) {
-        this.costRun = costRun;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ApplicationEntity getApplication() {
-        return application;
-    }
-
-    public void setApplication(ApplicationEntity application) {
-        this.application = application;
-    }
-
-    @Override
-    public String toString() {
-        return "CostEntity{" +
-                "costBuild=" + costBuild +
-                ", costRun=" + costRun +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }

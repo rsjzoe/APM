@@ -8,22 +8,21 @@ import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.model.Question;
 import org.acme.question.domain.port.out.QuestionRepository;
 
-
 public class QuestionEntityRepository implements QuestionRepository {
 
     @Override
-    public Question save(CreateQuestion newQuestion) {
-        QuestionEntity data = new QuestionEntity(newQuestion);
+    public Question save(CreateQuestion question) {
+        QuestionEntity data = new QuestionEntity(question);
         data.persist();
         return data.toQuestion();
     }
 
     @Override
-    public Question update(Long id, UpdateQuestion updateQuestion) {
+    public Question update(Long id, UpdateQuestion question) {
         QuestionEntity data = QuestionEntity.findById(id);
         if (data == null)
             return null;
-        data.updateQuestion(updateQuestion);
+        data.updateQuestion(question);
         return data.toQuestion();
     }
 

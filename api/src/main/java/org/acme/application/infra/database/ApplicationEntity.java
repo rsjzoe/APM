@@ -25,7 +25,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class ApplicationEntity extends PanacheEntity {
     private String name;
@@ -47,24 +55,6 @@ public class ApplicationEntity extends PanacheEntity {
     @OneToMany(mappedBy = "application")
     private List<TechBusinessValueEntity> techBusinessValueEntity = new ArrayList<>();
     private boolean isDeleted;
-
-    public ApplicationEntity() {
-    }
-
-    public ApplicationEntity(String name, String description, LocalDateTime startDate, LocalDateTime lastUpdate,
-            Status status,
-            Time time, int userTotal, double note, CostEntity costEntity,
-            TechBusinessValueEntity techBusinessValueEntity) {
-        this.name = name;
-        this.description = description;
-
-        this.startDate = startDate;
-        this.lastUpdate = lastUpdate;
-        this.status = status;
-        this.time = time;
-        this.userTotal = userTotal;
-        this.note = note;
-    }
 
     public ApplicationEntity(CreateApplicationRepositoryInput app) {
         this.name = app.getName();
@@ -150,14 +140,6 @@ public class ApplicationEntity extends PanacheEntity {
             this.classe = ClasseEntityHelper.entityFromId(app.getClasseId());
         }
         return this;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
     }
 
 }

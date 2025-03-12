@@ -16,5 +16,4 @@ public interface QuestionRepository {
     Question deleteById(Long id);
 
     List<Question> findAll();
-
 }

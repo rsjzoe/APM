@@ -1,0 +1,58 @@
+package org.acme.question.infra.controller;
+
+import java.util.List;
+
+import org.acme.question.app.service.QuestionGroupService;
+import org.acme.question.domain.input.CreateQuestionGroup;
+import org.acme.question.domain.input.UpdateQuestionGroup;
+import org.acme.question.domain.model.QuestionGroup;
+import org.acme.question.domain.port.in.QuestionGroupRest;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+
+@Path("/question_group")
+public class QuestionGroupController implements QuestionGroupRest {
+
+    @Inject
+    QuestionGroupService questionGroupService;
+
+    @POST
+    @Override
+    public QuestionGroup create(CreateQuestionGroup questionGroup) {
+        return questionGroupService.save(questionGroup);
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Override
+    public QuestionGroup update(@PathParam("id") Long id, UpdateQuestionGroup questionGroup) {
+        return questionGroupService.update(id, questionGroup);
+    }
+
+    @GET
+    @Path("/{id}")
+    @Override
+    public QuestionGroup findById(@PathParam("id") Long id) {
+        return questionGroupService.findById(id);
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Override
+    public QuestionGroup deleteById(@PathParam("id") Long id) {
+        return questionGroupService.deleteById(id);
+    }
+
+    @GET
+    @Override
+    public List<QuestionGroup> findAll() {
+        return questionGroupService.findAll();
+    }
+
+}

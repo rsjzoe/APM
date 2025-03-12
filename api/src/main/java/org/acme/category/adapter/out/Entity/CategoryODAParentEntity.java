@@ -13,6 +13,15 @@ import org.acme.category.domain.output.CategoryODAParentOutput;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class CategoryODAParentEntity extends PanacheEntity {
     private String name;
@@ -21,9 +30,6 @@ public class CategoryODAParentEntity extends PanacheEntity {
 
     @OneToMany(mappedBy = "categoryODAParentEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<CategoryODAChildEntity> categoryODAChildEntities;
-
-    public CategoryODAParentEntity() {
-    }
 
     public CategoryODAParentEntity(String name, String bgColor) {
         this.name = name;
@@ -57,30 +63,6 @@ public class CategoryODAParentEntity extends PanacheEntity {
         this.bgColor = data.getBgColor();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBgColor() {
-        return bgColor;
-    }
-
-    public void setBgColor(String bgColor) {
-        this.bgColor = bgColor;
-    }
-
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean isDelete) {
-        this.isDelete = isDelete;
-    }
-
     public List<CategoryODAChildEntity> getCategoryODAChildEntities() {
         return categoryODAChildEntities != null ? categoryODAChildEntities : new ArrayList<>();
     }
@@ -89,13 +71,4 @@ public class CategoryODAParentEntity extends PanacheEntity {
         this.categoryODAChildEntities = categoryODAChildEntities;
     }
 
-    @Override
-    public String toString() {
-        return "CategoryODAEntity{" +
-                "name='" + name + '\'' +
-                ", bgColor='" + bgColor + '\'' +
-                ", isDelete=" + isDelete +
-                ", categoryODAChildEntities=" + categoryODAChildEntities +
-                '}';
-    }
 }

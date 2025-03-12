@@ -11,6 +11,16 @@ import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class ApplicationHistoryOutput extends ApplicationBase {
     private Long id;
     private Long appId;
@@ -26,9 +36,6 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     protected TechBusinessValueOutput techBusinessValue;
     protected Time time;
     protected boolean isDeleted;
-
-    public ApplicationHistoryOutput() {
-    }
 
     public ApplicationHistoryOutput(Long id, Long appId, String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note,
@@ -53,107 +60,4 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         this.isDeleted = isDeleted;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getAppId() {
-        return appId;
-    }
-
-    public void setAppId(Long appId) {
-        this.appId = appId;
-    }
-
-    public double getNote() {
-        return note;
-    }
-
-    public void setNote(double note) {
-        this.note = note;
-    }
-
-    public CategoryODAChildOutput getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryODAChildOutput category) {
-        this.category = category;
-    }
-
-    public Departement getDepartement() {
-        return departement;
-    }
-
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
-
-    public ClasseOutput getClasse() {
-        return classe;
-    }
-
-    public void setClasse(ClasseOutput classe) {
-        this.classe = classe;
-    }
-
-    public LocalDateTime getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(LocalDateTime modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDescriptionHistory() {
-        return descriptionHistory;
-    }
-
-    public void setDescriptionHistory(String descriptionHistory) {
-        this.descriptionHistory = descriptionHistory;
-    }
-
-    public CostOutput getCost() {
-        return cost;
-    }
-
-    public void setCost(CostOutput cost) {
-        this.cost = cost;
-    }
-
-    public TechBusinessValueOutput getTechBusinessValue() {
-        return techBusinessValue;
-    }
-
-    public void setTechBusinessValue(TechBusinessValueOutput techBusinessValue) {
-        this.techBusinessValue = techBusinessValue;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
 }
