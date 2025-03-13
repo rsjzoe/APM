@@ -3,6 +3,7 @@ package org.acme.classe.infra.database;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.classe.domain.input.CreateClasseInput;
 import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
@@ -24,8 +25,10 @@ public class ClasseEntityRepository implements ClasseRepository {
     }
 
     @Override
-    public ClasseOutput findById(Long id) {
+    public ClasseOutput findById(Long id) throws ClasseNotFoundException {
         ClasseEntity entity = ClasseEntity.findById(id);
+        if (entity == null)
+            throw new ClasseNotFoundException();
         return entity.toOutput();
     }
 

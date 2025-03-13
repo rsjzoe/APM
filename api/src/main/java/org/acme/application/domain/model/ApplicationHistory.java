@@ -8,23 +8,23 @@ import org.acme.cost.domain.model.Cost;
 import org.acme.departement.domain.Departement;
 import org.acme.techBusinessValue.domain.model.TechBusinessValue;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApplicationHistory extends ApplicationBase {
     private Long id;
     private Long appId;
-    protected double note;
     protected CategoryODAChild category;
     protected Departement departement;
     protected Classe classe;
+    protected double noteCost;
+    protected double noteTechBusiness;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
     private String descriptionHistory;
@@ -33,20 +33,20 @@ public class ApplicationHistory extends ApplicationBase {
     protected TechBusinessValue techBusinessValue;
     protected boolean isDeleted;
 
-  
-
     public ApplicationHistory(Long id, Long appId, String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, CategoryODAChild category,
-            Departement departement, Classe classe, LocalDateTime modifiedAt, String modifiedBy,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, CategoryODAChild category,
+            Departement departement, double noteCost,
+            double noteTechBusiness, Classe classe, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory, Cost cost,
             TechBusinessValue techBusinessValue, boolean isDeleted) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.id = id;
         this.appId = appId;
-        this.note = note;
         this.category = category;
         this.departement = departement;
         this.classe = classe;
+        this.noteCost = noteCost;
+        this.noteTechBusiness = noteTechBusiness;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
         this.descriptionHistory = descriptionHistory;

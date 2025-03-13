@@ -7,9 +7,11 @@ import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.model.Question;
 import org.acme.question.domain.port.out.QuestionRepository;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+@ApplicationScoped
 public class QuestionService {
     @Inject
     QuestionRepository questionRepository;

@@ -9,18 +9,22 @@ import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
+import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.documentation.domain.DocumentationType;
 import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
 import org.acme.storage.FileInput;
+import org.acme.techBusinessValue.domain.exception.TechBusinessValueNotValidException;
 import org.jboss.resteasy.reactive.PartType;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -61,7 +65,13 @@ public class ApplicationController implements ApplicationRest {
             docs.add(doc);
         }
 
-        return applicationService.create(new CreateApplicationServiceInput(docs, newApplication));
+        try {
+            return applicationService.create(new CreateApplicationServiceInput(docs, newApplication));
+        } catch (TechBusinessValueNotValidException e) {
+            throw new BadRequestException(e);
+        } catch (ClasseNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @PUT

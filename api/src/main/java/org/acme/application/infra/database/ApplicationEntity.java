@@ -44,7 +44,8 @@ public class ApplicationEntity extends PanacheEntity {
     private LocalDateTime lastUpdate;
     private Status status;
     private Time time;
-    private double note;
+    private double noteCost;
+    private double noteTechBusiness;
     private int userTotal;
     @ManyToOne(fetch = FetchType.LAZY)
     private DepartementEntity departement;
@@ -64,7 +65,8 @@ public class ApplicationEntity extends PanacheEntity {
         this.status = app.getStatus();
         this.time = app.getTime();
         this.userTotal = app.getUserTotal();
-        this.note = 0;
+        this.noteCost = 0;
+        this.noteTechBusiness = 0;
         this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
         // mapfandray application sy category
         CategoryODAChildEntity categoryEntity = new CategoryODAChildEntity();
@@ -96,7 +98,7 @@ public class ApplicationEntity extends PanacheEntity {
         TechBusinessValueOutput latestTech = latestTechEntity != null ? latestTechEntity.toTechBusinessValueOutput()
                 : null;
         return new ApplicationOutput(id, name, description, category.toCategoryODAChildOutput(),
-                startDate, lastUpdate, status, time, userTotal, note,
+                startDate, lastUpdate, status, time, userTotal, noteCost, noteTechBusiness,
                 departement.toDepartement(), classe.toOutput(), latestCost,
                 latestTech,
                 costEntity.stream().map(CostEntity::toCostOutput).toList(),
@@ -127,8 +129,11 @@ public class ApplicationEntity extends PanacheEntity {
         if (app.getUserTotal() != 0) {
             this.userTotal = app.getUserTotal();
         }
-        if (app.getNote() != 0) {
-            this.note = app.getNote();
+        if (app.getNoteCost() != 0) {
+            this.noteCost = app.getNoteCost();
+        }
+        if (app.getNoteTechBusiness() != 0) {
+            this.noteTechBusiness = app.getNoteTechBusiness();
         }
         if (app.getCategoryId() != null) {
             this.category = CategoryODAChildHelper.entityFromId(app.getCategoryId());

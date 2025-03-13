@@ -7,73 +7,36 @@ import org.acme.application.domain.model.Status;
 import org.acme.cost.domain.model.input.CreateCostWithoutApp;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWithoutApp;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateApplicationServiceInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
     private Long classeId;
-    private double note;
+    protected double noteCost;
+    protected double noteTechBusiness;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
 
     public UpdateApplicationServiceInput(String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, int userTotal, double note, Long categoryId,
+            LocalDateTime lastUpdate, Status status, int userTotal, double noteCost,
+            double noteTechBusiness, Long categoryId,
             Long departementId, Long classeId, CreateCostWithoutApp costWithoutApp,
             CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
-        this.note = note;
+        this.noteCost = noteCost;
+        this.noteTechBusiness = noteTechBusiness;
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.classeId = classeId;
         this.costWithoutApp = costWithoutApp;
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
     }
-
-    public double getNote() {
-        return note;
-    }
-
-    public void setNote(double note) {
-        this.note = note;
-    }
-
-    public Long getCategoryId() {
-        return this.categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Long getDepartementId() {
-        return this.departementId;
-    }
-
-    public Long getClasseId() {
-        return classeId;
-    }
-
-    public void setClasseId(Long classeId) {
-        this.classeId = classeId;
-    }
-
-    public void setDepartementId(Long departementId) {
-        this.departementId = departementId;
-    }
-
-    public CreateCostWithoutApp getCostWithoutApp() {
-        return costWithoutApp;
-    }
-
-    public void setCostWithoutApp(CreateCostWithoutApp costWithoutApp) {
-        this.costWithoutApp = costWithoutApp;
-    }
-
-    public CreateTechBusinessValueWithoutApp getTechBusinessValueWithoutApp() {
-        return techBusinessValueWithoutApp;
-    }
-
-    public void setTechBusinessValueWithoutApp(CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
-        this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
-    }
-
 }

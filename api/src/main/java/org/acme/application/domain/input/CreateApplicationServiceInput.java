@@ -9,6 +9,15 @@ import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWithoutApp;
 import org.acme.application.domain.model.Status;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateApplicationServiceInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
@@ -16,10 +25,6 @@ public class CreateApplicationServiceInput extends ApplicationBase {
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
     private List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp;
-
-    public CreateApplicationServiceInput() {
-        super();
-    }
 
     public CreateApplicationServiceInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, int userTotal, Long categoryId, Long departementId, Long classeId,
@@ -44,53 +49,4 @@ public class CreateApplicationServiceInput extends ApplicationBase {
         this.techBusinessValueWithoutApp = app.getTechBusinessValueWithoutApp();
         this.documentationsFileWithoutApp = doc;
     }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Long getDepartementId() {
-        return departementId;
-    }
-
-    public void setDepartementId(Long departementId) {
-        this.departementId = departementId;
-    }
-
-    public Long getClasseId() {
-        return classeId;
-    }
-
-    public void setClasseId(Long classeId) {
-        this.classeId = classeId;
-    }
-
-    public CreateCostWithoutApp getCostWithoutApp() {
-        return costWithoutApp;
-    }
-
-    public void setCostWithoutApp(CreateCostWithoutApp costWithoutApp) {
-        this.costWithoutApp = costWithoutApp;
-    }
-
-    public CreateTechBusinessValueWithoutApp getTechBusinessValueWithoutApp() {
-        return techBusinessValueWithoutApp;
-    }
-
-    public void setTechBusinessValueWithoutApp(CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
-        this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
-    }
-
-    public List<CreateDocumentationFileWithoutApp> getDocumentationsFileWithoutApp() {
-        return documentationsFileWithoutApp;
-    }
-
-    public void setDocumentationsFileWithoutApp(List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp) {
-        this.documentationsFileWithoutApp = documentationsFileWithoutApp;
-    }
-
 }

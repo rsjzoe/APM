@@ -7,7 +7,7 @@ import jakarta.enterprise.inject.Produces;
 
 public class QuestionGroupConfig {
     @Produces
-    public QuestionGroupRepository questionRepository() {
+    public QuestionGroupRepository questionGroupRepository() {
         return new QuestionGroupEntityRepository();
     }
 }

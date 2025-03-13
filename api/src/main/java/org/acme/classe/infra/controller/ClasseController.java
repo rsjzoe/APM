@@ -3,6 +3,7 @@ package org.acme.classe.infra.controller;
 import java.util.List;
 
 import org.acme.classe.app.ClasseService;
+import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.classe.domain.input.CreateClasseInput;
 import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
@@ -11,6 +12,7 @@ import org.acme.classe.domain.port.in.ClasseRest;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -44,7 +46,11 @@ public class ClasseController implements ClasseRest {
     @GET
     @Path("/{id}")
     public ClasseOutput findById(@PathParam("id") Long id) {
-        return classeService.findById(id);
+        try {
+            return classeService.findById(id);
+        } catch (ClasseNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.acme.classe.app;
 
 import java.util.List;
 
+import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.classe.domain.input.CreateClasseInput;
 import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
@@ -31,7 +32,7 @@ public class ClasseService {
     }
 
     @Transactional
-    public ClasseOutput findById(Long id) {
+    public ClasseOutput findById(Long id) throws ClasseNotFoundException {
         return classeRepository.findById(id);
     }
 

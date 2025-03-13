@@ -23,7 +23,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApplicationOutput extends ApplicationBase {
     protected Long id;
-    protected double note;
+    protected double noteCost;
+    protected double noteTechBusiness;
     protected CategoryODAChildOutput category;
     protected Departement departement;
     protected ClasseOutput classe;
@@ -36,14 +37,16 @@ public class ApplicationOutput extends ApplicationBase {
 
     public ApplicationOutput(Long id, String name, String description,
             CategoryODAChildOutput category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note, Departement departement,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteCost,
+            double noteTechBusiness, Departement departement,
             ClasseOutput classe, CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue,
             List<CostOutput> costs,
             List<TechBusinessValueOutput> techBusinessValues, boolean isDeleted) {
         super(name, description, startDate,
                 lastUpdate, status, userTotal);
         this.id = id;
-        this.note = note;
+        this.noteCost = noteCost;
+        this.noteTechBusiness = noteTechBusiness;
         this.category = category;
         this.departement = departement;
         this.classe = classe;

@@ -20,11 +20,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class ApplicationHistoryOutput extends ApplicationBase {
     private Long id;
     private Long appId;
-    protected double note;
+    protected double noteCost;
+    protected double noteTechBusiness;
     protected CategoryODAChildOutput category;
     protected Departement departement;
     protected ClasseOutput classe;
@@ -38,7 +38,8 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     protected boolean isDeleted;
 
     public ApplicationHistoryOutput(Long id, Long appId, String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double note,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteCost,
+            double noteTechBusiness,
             CategoryODAChildOutput category,
             Departement departement, ClasseOutput classe, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory,
@@ -47,7 +48,8 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.id = id;
         this.appId = appId;
-        this.note = note;
+        this.noteCost = noteCost;
+        this.noteTechBusiness = noteTechBusiness;
         this.category = category;
         this.departement = departement;
         this.classe = classe;

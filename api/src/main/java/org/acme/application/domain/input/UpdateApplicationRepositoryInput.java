@@ -5,25 +5,33 @@ import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateApplicationRepositoryInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
     private Long classeId;
-    private Double note;
+    protected double noteCost;
+    protected double noteTechBusiness;
     protected Time time;
-
-    public UpdateApplicationRepositoryInput() {
-        super();
-    }
 
     public UpdateApplicationRepositoryInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal,
-            Long categoryId, Long departementId, Long classeId, Double note) {
+            Long categoryId, Long departementId, Long classeId, double noteCost,
+            double noteTechBusiness) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.classeId = classeId;
-        this.note = note;
+        this.noteCost = noteCost;
+        this.noteTechBusiness = noteTechBusiness;
         this.time = time;
     }
 
@@ -33,47 +41,8 @@ public class UpdateApplicationRepositoryInput extends ApplicationBase {
         this.categoryId = updated.getCategoryId();
         this.departementId = updated.getDepartementId();
         this.classeId = updated.getClasseId();
-        this.note = updated.getNote();
-        this.time = time;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Long getDepartementId() {
-        return departementId;
-    }
-
-    public void setDepartementId(Long departementId) {
-        this.departementId = departementId;
-    }
-
-    public Long getClasseId() {
-        return classeId;
-    }
-
-    public void setClasseId(Long classeId) {
-        this.classeId = classeId;
-    }
-
-    public Double getNote() {
-        return note;
-    }
-
-    public void setNote(Double note) {
-        this.note = note;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
+        this.noteCost = updated.getNoteCost();
+        this.noteTechBusiness = updated.getNoteTechBusiness();
         this.time = time;
     }
 }

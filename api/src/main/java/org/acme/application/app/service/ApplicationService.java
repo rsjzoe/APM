@@ -9,14 +9,18 @@ import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
+import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
+import org.acme.classe.app.ClasseService;
+import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.cost.app.CostService;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.documentation.app.DocumentationService;
 import org.acme.documentation.domain.input.CreateDocumentationFile;
 import org.acme.storage.FileNotFound;
 import org.acme.techBusinessValue.app.TechBusinessValueService;
+import org.acme.techBusinessValue.domain.exception.TechBusinessValueNotValidException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -42,6 +46,9 @@ public class ApplicationService {
     @Inject
     DocumentationService documentationService;
 
+    @Inject
+    ClasseService classeService;
+
     public List<ApplicationOutput> listAll() {
         return applicationRepository.listAll();
     };
@@ -50,7 +57,13 @@ public class ApplicationService {
         return applicationRepository.findById(id);
     };
 
-    public ApplicationOutput create(CreateApplicationServiceInput newApplication) {
+    public ApplicationOutput create(CreateApplicationServiceInput newApplication)
+            throws TechBusinessValueNotValidException, ClasseNotFoundException {
+        if (!newApplication.getTechBusinessValueWithoutApp().isValid()) {
+            throw new TechBusinessValueNotValidException();
+        }
+
+        classeService.findById(newApplication.getClasseId());
 
         var time = calculateTime.calcul(newApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
                 newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
@@ -84,8 +97,12 @@ public class ApplicationService {
     };
 
     public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication) {
-        var time = calculateTime.calcul(updateApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
-                updateApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
+        Time time = null;
+        if (updateApplication.getTechBusinessValueWithoutApp() != null) {
+            time = calculateTime.calcul(updateApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
+                    updateApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
+
+        }
 
         ApplicationOutput updated = applicationRepository.update(id,
                 new UpdateApplicationRepositoryInput(updateApplication, time));

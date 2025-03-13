@@ -43,7 +43,8 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     private LocalDateTime lastUpdate;
     private Status status;
     private Time time;
-    private double note;
+    private double noteCost;
+    private double noteTechBusiness;
     private int userTotal;
     @ManyToOne(fetch = FetchType.LAZY)
     private DepartementEntity departement;
@@ -57,7 +58,8 @@ public class ApplicationHistoryEntity extends PanacheEntity {
 
     public ApplicationHistoryEntity(CreateApplicationHistoryRepository data) {
         this.appId = data.getAppId();
-        this.note = data.getNote();
+        this.noteCost = data.getNoteCost();
+        this.noteTechBusiness = data.getNoteTechBusiness();
         this.category = new CategoryODAChildEntity();
         this.category.id = data.getCategoryId();
         this.departement = DepartementEntityHelper.entityFromId(data.getDepartementId());
@@ -78,7 +80,8 @@ public class ApplicationHistoryEntity extends PanacheEntity {
 
     public ApplicationHistoryOutput toOutput() {
         return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
-                userTotal, note, category.toCategoryODAChildOutput(), departement.toDepartement(), classe.toOutput(),
+                userTotal, noteCost, noteTechBusiness, category.toCategoryODAChildOutput(), departement.toDepartement(),
+                classe.toOutput(),
                 modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
                 techBusinessValueEntity.toTechBusinessValueOutput(), isDeleted);
     }

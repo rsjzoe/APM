@@ -1,9 +1,10 @@
 package org.acme.question.infra.database;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import org.acme.question.domain.input.CreateQuestionGroup;
 import org.acme.question.domain.input.UpdateQuestionGroup;
+import org.acme.question.domain.model.Question;
 import org.acme.question.domain.model.QuestionGroup;
 import org.acme.question.domain.model.QuestionGroupeType;
 
@@ -27,18 +28,24 @@ public class QuestionGroupEntity extends PanacheEntity {
     private QuestionGroupeType type;
     private String borderColor;
     @OneToMany(mappedBy = "questionGroup")
-    private List<QuestionEntity> questionEntity;
+    private List<QuestionEntity> questionEntities;
 
     public QuestionGroupEntity(CreateQuestionGroup questionGroup) {
         this.text = questionGroup.getText();
         this.coeff = questionGroup.getCoeff();
         this.type = questionGroup.getType();
         this.borderColor = questionGroup.getBorderColor();
+
     }
 
     public QuestionGroup toQuestionGroup() {
-        return new QuestionGroup(id, text, coeff, type, borderColor,
-                questionEntity.stream().map(QuestionEntity::toQuestion).toList());
+        return new QuestionGroup(id, text, coeff, type, borderColor, questions());
+    }
+
+    public List<Question> questions() {
+        if (questionEntities == null)
+            return new ArrayList<>();
+        return questionEntities.stream().map(QuestionEntity::toQuestion).toList();
     }
 
     public QuestionGroupEntity updateQuestion(UpdateQuestionGroup question) {
