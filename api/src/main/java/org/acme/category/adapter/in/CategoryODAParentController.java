@@ -2,21 +2,22 @@ package org.acme.category.adapter.in;
 
 import java.util.List;
 
+import org.acme.category.domain.exception.CategoryParentNotFoundException;
 import org.acme.category.domain.input.*;
 import org.acme.category.domain.output.CategoryODAParentOutput;
 import org.acme.category.domain.port.in.CategoryODAParentRest;
 import org.acme.roleGuard.RoleAllowedCustom;
-import org.acme.category.app.CategoryODAParentUseCase;
+import org.acme.category.app.CategoryODAParentService;
 
 import jakarta.ws.rs.*;
 import jakarta.inject.Inject;
 
 @Path("/category-oda-parent")
-@RoleAllowedCustom({"admin"})
+@RoleAllowedCustom({ "admin" })
 public class CategoryODAParentController implements CategoryODAParentRest {
 
     @Inject
-    CategoryODAParentUseCase categoryODAParentUsecase;
+    CategoryODAParentService categoryODAParentUsecase;
 
     @POST
     public CategoryODAParentOutput save(CreateCategoryODAParent categoryParent) {
@@ -31,7 +32,11 @@ public class CategoryODAParentController implements CategoryODAParentRest {
     @GET
     @Path("/{id}")
     public CategoryODAParentOutput findById(@PathParam("id") Long id) {
-        return categoryODAParentUsecase.findById(id);
+        try {
+            return categoryODAParentUsecase.findById(id);
+        } catch (CategoryParentNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @DELETE
@@ -43,7 +48,11 @@ public class CategoryODAParentController implements CategoryODAParentRest {
     @PUT
     @Path("/{id}")
     public CategoryODAParentOutput updateById(@PathParam("id") Long id, UpdateCategoryODAParent categoryParent) {
-        return categoryODAParentUsecase.updateById(id, categoryParent);
+        try {
+            return categoryODAParentUsecase.updateById(id, categoryParent);
+        } catch (CategoryParentNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
 }

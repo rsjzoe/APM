@@ -11,7 +11,7 @@ public class CreateTechBusinessValueWithoutApp {
     private double businessValue;
     private double technicalDebt;
 
-    public boolean isValid() {
+    public boolean checkIfValid() {
         if (businessValue < 0 || businessValue > 5)
             return false;
         if (technicalDebt < 0 || technicalDebt > 5)

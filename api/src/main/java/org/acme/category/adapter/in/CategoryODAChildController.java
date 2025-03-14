@@ -2,16 +2,17 @@ package org.acme.category.adapter.in;
 
 import java.util.List;
 
+import org.acme.category.domain.exception.CategoryChildNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAChild;
 import org.acme.category.domain.input.UpdateCategoryODAChild;
 import org.acme.category.domain.output.CategoryODAChildOutput;
 import org.acme.category.domain.port.in.CategoryODAChildRest;
 import org.acme.roleGuard.RoleAllowedCustom;
-// import org.acme.category.ports.CategoryODAChildService;
-import org.acme.category.app.CategoryODAChildUseCase;
+import org.acme.category.app.CategoryODAChildService;
 
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -23,7 +24,7 @@ import jakarta.inject.Inject;
 public class CategoryODAChildController implements CategoryODAChildRest {
 
     @Inject
-    CategoryODAChildUseCase categoryODAChildUsecase;
+    CategoryODAChildService categoryODAChildUsecase;
 
     @POST
     public CategoryODAChildOutput save(CreateCategoryODAChild categoryChild) {
@@ -38,7 +39,11 @@ public class CategoryODAChildController implements CategoryODAChildRest {
     @GET
     @Path("/{id}")
     public CategoryODAChildOutput findById(@PathParam("id") Long id) {
-        return categoryODAChildUsecase.findById(id);
+        try {
+            return categoryODAChildUsecase.findById(id);
+        } catch (CategoryChildNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @DELETE
@@ -50,6 +55,10 @@ public class CategoryODAChildController implements CategoryODAChildRest {
     @PUT
     @Path("/{id}")
     public CategoryODAChildOutput updateById(@PathParam("id") Long id, UpdateCategoryODAChild categoryParent) {
-        return categoryODAChildUsecase.updateById(id, categoryParent);
+        try {
+            return categoryODAChildUsecase.updateById(id, categoryParent);
+        } catch (CategoryChildNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 }

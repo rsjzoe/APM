@@ -2,26 +2,26 @@ package org.acme.category.app;
 
 import java.util.List;
 
+import org.acme.category.domain.exception.CategoryChildNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAChild;
 import org.acme.category.domain.input.UpdateCategoryODAChild;
 import org.acme.category.domain.output.CategoryODAChildOutput;
-import org.acme.category.domain.port.CategoryODAChildService;
 import org.acme.category.domain.port.out.CategoryODAChildRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class CategoryODAChildUseCase implements CategoryODAChildService {
+public class CategoryODAChildService {
 
     private CategoryODAChildRepository categoryODAChildRepository;
 
-    public CategoryODAChildUseCase(CategoryODAChildRepository categoryODAChildRepository) {
+    public CategoryODAChildService(CategoryODAChildRepository categoryODAChildRepository) {
         this.categoryODAChildRepository = categoryODAChildRepository;
     }
 
     @Transactional
-    public CategoryODAChildOutput findById(Long id) {
+    public CategoryODAChildOutput findById(Long id) throws CategoryChildNotFoundException {
         return categoryODAChildRepository.findById(id);
     }
 
@@ -31,7 +31,8 @@ public class CategoryODAChildUseCase implements CategoryODAChildService {
     }
 
     @Transactional
-    public CategoryODAChildOutput updateById(Long id, UpdateCategoryODAChild categoryChild) {
+    public CategoryODAChildOutput updateById(Long id, UpdateCategoryODAChild categoryChild)
+            throws CategoryChildNotFoundException {
         return categoryODAChildRepository.updateById(id, categoryChild);
     }
 

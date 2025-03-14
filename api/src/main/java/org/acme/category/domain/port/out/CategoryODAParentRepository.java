@@ -2,6 +2,7 @@ package org.acme.category.domain.port.out;
 
 import java.util.List;
 
+import org.acme.category.domain.exception.CategoryParentNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAParent;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
 import org.acme.category.domain.output.CategoryODAParentOutput;
@@ -11,9 +12,10 @@ public interface CategoryODAParentRepository {
 
     List<CategoryODAParentOutput> findAll();
 
-    CategoryODAParentOutput findById(Long id);
+    CategoryODAParentOutput findById(Long id) throws CategoryParentNotFoundException;
 
     CategoryODAParentOutput deleteById(Long id);
 
-    CategoryODAParentOutput updateById(Long id, UpdateCategoryODAParent categoryParent);
+    CategoryODAParentOutput updateById(Long id, UpdateCategoryODAParent categoryParent)
+            throws CategoryParentNotFoundException;
 }

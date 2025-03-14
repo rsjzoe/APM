@@ -3,6 +3,7 @@ package org.acme.category.adapter.out.repositoryImpl;
 import java.util.List;
 
 import org.acme.category.adapter.out.Entity.CategoryODAChildEntity;
+import org.acme.category.domain.exception.CategoryChildNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAChild;
 import org.acme.category.domain.input.UpdateCategoryODAChild;
 import org.acme.category.domain.output.CategoryODAChildOutput;
@@ -27,8 +28,10 @@ public class CategoryODAChildEntityRepository implements CategoryODAChildReposit
     }
 
     @Override
-    public CategoryODAChildOutput findById(Long id) {
+    public CategoryODAChildOutput findById(Long id) throws CategoryChildNotFoundException {
         CategoryODAChildEntity entity = CategoryODAChildEntity.findById(id);
+        if (entity == null)
+            throw new CategoryChildNotFoundException();
         return entity.toCategoryODAChildOutput();
     }
 
@@ -42,8 +45,11 @@ public class CategoryODAChildEntityRepository implements CategoryODAChildReposit
     }
 
     @Override
-    public CategoryODAChildOutput updateById(Long id, UpdateCategoryODAChild categoryChild) {
+    public CategoryODAChildOutput updateById(Long id, UpdateCategoryODAChild categoryChild)
+            throws CategoryChildNotFoundException {
         CategoryODAChildEntity entity = CategoryODAChildEntity.findById(id);
+        if (entity == null)
+            throw new CategoryChildNotFoundException();
         entity.update(categoryChild);
         entity.persist();
         return entity.toCategoryODAChildOutput();
