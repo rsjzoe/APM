@@ -13,7 +13,7 @@ import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 import org.acme.category.app.CategoryODAChildService;
-import org.acme.category.domain.exception.CategoryChildNotFoundException;
+import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.classe.app.ClasseService;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.cost.app.CostService;
@@ -63,7 +63,7 @@ public class ApplicationService {
     };
 
     public ApplicationOutput create(CreateApplicationServiceInput newApplication)
-            throws TechBusinessValueNotValidException, ClasseNotFoundException, CategoryChildNotFoundException {
+            throws TechBusinessValueNotValidException, ClasseNotFoundException, CategoryODAChildNotFoundException {
         if (!newApplication.getTechBusinessValueWithoutApp().checkIfValid()) {
             throw new TechBusinessValueNotValidException();
         }

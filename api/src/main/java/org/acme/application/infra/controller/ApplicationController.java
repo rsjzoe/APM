@@ -9,7 +9,7 @@ import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
-import org.acme.category.domain.exception.CategoryChildNotFoundException;
+import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.documentation.domain.DocumentationType;
 import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
@@ -72,7 +72,7 @@ public class ApplicationController implements ApplicationRest {
             throw new BadRequestException(e);
         } catch (ClasseNotFoundException e) {
             throw new NotFoundException(e);
-        } catch (CategoryChildNotFoundException e) {
+        } catch (CategoryODAChildNotFoundException e) {
             throw new NotFoundException(e);
         }
     }

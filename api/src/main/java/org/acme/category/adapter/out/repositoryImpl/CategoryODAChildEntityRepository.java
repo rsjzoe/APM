@@ -3,7 +3,7 @@ package org.acme.category.adapter.out.repositoryImpl;
 import java.util.List;
 
 import org.acme.category.adapter.out.Entity.CategoryODAChildEntity;
-import org.acme.category.domain.exception.CategoryChildNotFoundException;
+import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAChild;
 import org.acme.category.domain.input.UpdateCategoryODAChild;
 import org.acme.category.domain.output.CategoryODAChildOutput;
@@ -28,18 +28,18 @@ public class CategoryODAChildEntityRepository implements CategoryODAChildReposit
     }
 
     @Override
-    public CategoryODAChildOutput findById(Long id) throws CategoryChildNotFoundException {
+    public CategoryODAChildOutput findById(Long id) throws CategoryODAChildNotFoundException {
         CategoryODAChildEntity entity = CategoryODAChildEntity.findById(id);
         if (entity == null)
-            throw new CategoryChildNotFoundException();
+            throw new CategoryODAChildNotFoundException();
         return entity.toCategoryODAChildOutput();
     }
 
     @Override
-    public CategoryODAChildOutput deleteById(Long id) throws CategoryChildNotFoundException {
+    public CategoryODAChildOutput deleteById(Long id) throws CategoryODAChildNotFoundException {
         CategoryODAChildEntity entity = CategoryODAChildEntity.findById(id);
         if (entity == null)
-            throw new CategoryChildNotFoundException();
+            throw new CategoryODAChildNotFoundException();
         entity.setDelete(true);
         entity.persist();
         return entity.toCategoryODAChildOutput();
@@ -47,10 +47,10 @@ public class CategoryODAChildEntityRepository implements CategoryODAChildReposit
 
     @Override
     public CategoryODAChildOutput updateById(Long id, UpdateCategoryODAChild categoryChild)
-            throws CategoryChildNotFoundException {
+            throws CategoryODAChildNotFoundException {
         CategoryODAChildEntity entity = CategoryODAChildEntity.findById(id);
         if (entity == null)
-            throw new CategoryChildNotFoundException();
+            throw new CategoryODAChildNotFoundException();
         entity.update(categoryChild);
         entity.persist();
         return entity.toCategoryODAChildOutput();

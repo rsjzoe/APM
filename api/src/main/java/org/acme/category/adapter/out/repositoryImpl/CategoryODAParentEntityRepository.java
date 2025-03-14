@@ -3,7 +3,7 @@ package org.acme.category.adapter.out.repositoryImpl;
 import java.util.List;
 
 import org.acme.category.adapter.out.Entity.CategoryODAParentEntity;
-import org.acme.category.domain.exception.CategoryParentNotFoundException;
+import org.acme.category.domain.exception.CategoryODAParentNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAParent;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
 import org.acme.category.domain.output.CategoryODAParentOutput;
@@ -33,18 +33,18 @@ public class CategoryODAParentEntityRepository implements CategoryODAParentRepos
     }
 
     @Override
-    public CategoryODAParentOutput findById(Long id) throws CategoryParentNotFoundException {
+    public CategoryODAParentOutput findById(Long id) throws CategoryODAParentNotFoundException {
         CategoryODAParentEntity entity = CategoryODAParentEntity.findById(id);
         if (entity == null)
-            throw new CategoryParentNotFoundException();
+            throw new CategoryODAParentNotFoundException();
         return entity.toCategoryODAParentOutput();
     }
 
     @Override
-    public CategoryODAParentOutput deleteById(Long id) throws CategoryParentNotFoundException {
+    public CategoryODAParentOutput deleteById(Long id) throws CategoryODAParentNotFoundException {
         CategoryODAParentEntity entity = CategoryODAParentEntity.findById(id);
         if (entity == null)
-            throw new CategoryParentNotFoundException();
+            throw new CategoryODAParentNotFoundException();
         entity.getCategoryODAChildEntities().forEach(child -> {
             child.setDelete(true);
             child.persist();
@@ -56,10 +56,10 @@ public class CategoryODAParentEntityRepository implements CategoryODAParentRepos
 
     @Override
     public CategoryODAParentOutput updateById(Long id, UpdateCategoryODAParent categoryParent)
-            throws CategoryParentNotFoundException {
+            throws CategoryODAParentNotFoundException {
         CategoryODAParentEntity entity = CategoryODAParentEntity.findById(id);
         if (entity == null)
-            throw new CategoryParentNotFoundException();
+            throw new CategoryODAParentNotFoundException();
         entity.update(categoryParent);
         entity.persist();
         return entity.toCategoryODAParentOutput();

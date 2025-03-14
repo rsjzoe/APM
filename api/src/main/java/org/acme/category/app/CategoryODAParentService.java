@@ -2,7 +2,7 @@ package org.acme.category.app;
 
 import java.util.List;
 
-import org.acme.category.domain.exception.CategoryParentNotFoundException;
+import org.acme.category.domain.exception.CategoryODAParentNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAParent;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
 import org.acme.category.domain.output.CategoryODAParentOutput;
@@ -29,18 +29,18 @@ public class CategoryODAParentService {
     }
 
     @Transactional
-    public CategoryODAParentOutput findById(Long id) throws CategoryParentNotFoundException {
+    public CategoryODAParentOutput findById(Long id) throws CategoryODAParentNotFoundException {
         return repository.findById(id);
     }
 
     @Transactional
-    public CategoryODAParentOutput deleteById(Long id) throws CategoryParentNotFoundException {
+    public CategoryODAParentOutput deleteById(Long id) throws CategoryODAParentNotFoundException {
         return repository.deleteById(id);
     }
 
     @Transactional
     public CategoryODAParentOutput updateById(Long id, UpdateCategoryODAParent categoryParent)
-            throws CategoryParentNotFoundException {
+            throws CategoryODAParentNotFoundException {
         return repository.updateById(id, categoryParent);
     }
 

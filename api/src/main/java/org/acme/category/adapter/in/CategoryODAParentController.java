@@ -2,7 +2,7 @@ package org.acme.category.adapter.in;
 
 import java.util.List;
 
-import org.acme.category.domain.exception.CategoryParentNotFoundException;
+import org.acme.category.domain.exception.CategoryODAParentNotFoundException;
 import org.acme.category.domain.input.*;
 import org.acme.category.domain.output.CategoryODAParentOutput;
 import org.acme.category.domain.port.in.CategoryODAParentRest;
@@ -34,7 +34,7 @@ public class CategoryODAParentController implements CategoryODAParentRest {
     public CategoryODAParentOutput findById(@PathParam("id") Long id) {
         try {
             return categoryODAParentUsecase.findById(id);
-        } catch (CategoryParentNotFoundException e) {
+        } catch (CategoryODAParentNotFoundException e) {
             throw new NotFoundException(e);
         }
     }
@@ -44,7 +44,7 @@ public class CategoryODAParentController implements CategoryODAParentRest {
     public CategoryODAParentOutput deleteById(@PathParam("id") Long id) {
         try {
             return categoryODAParentUsecase.deleteById(id);
-        } catch (CategoryParentNotFoundException e) {
+        } catch (CategoryODAParentNotFoundException e) {
             throw new NotFoundException(e);
         }
     }
@@ -54,7 +54,7 @@ public class CategoryODAParentController implements CategoryODAParentRest {
     public CategoryODAParentOutput updateById(@PathParam("id") Long id, UpdateCategoryODAParent categoryParent) {
         try {
             return categoryODAParentUsecase.updateById(id, categoryParent);
-        } catch (CategoryParentNotFoundException e) {
+        } catch (CategoryODAParentNotFoundException e) {
             throw new NotFoundException(e);
         }
     }
