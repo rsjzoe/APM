@@ -14,7 +14,7 @@ public interface CategoryODAParentRepository {
 
     CategoryODAParentOutput findById(Long id) throws CategoryParentNotFoundException;
 
-    CategoryODAParentOutput deleteById(Long id);
+    CategoryODAParentOutput deleteById(Long id) throws CategoryParentNotFoundException;
 
     CategoryODAParentOutput updateById(Long id, UpdateCategoryODAParent categoryParent)
             throws CategoryParentNotFoundException;

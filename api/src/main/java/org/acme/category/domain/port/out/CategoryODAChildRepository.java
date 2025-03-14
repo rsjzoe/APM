@@ -12,7 +12,7 @@ public interface CategoryODAChildRepository {
 
     CategoryODAChildOutput findById(Long id) throws CategoryChildNotFoundException;
 
-    CategoryODAChildOutput deleteById(Long id);
+    CategoryODAChildOutput deleteById(Long id) throws CategoryChildNotFoundException;
 
     CategoryODAChildOutput updateById(Long id, UpdateCategoryODAChild categoryChild)
             throws CategoryChildNotFoundException;

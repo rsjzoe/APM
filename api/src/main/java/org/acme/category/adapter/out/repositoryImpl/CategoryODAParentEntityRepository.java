@@ -41,8 +41,10 @@ public class CategoryODAParentEntityRepository implements CategoryODAParentRepos
     }
 
     @Override
-    public CategoryODAParentOutput deleteById(Long id) {
+    public CategoryODAParentOutput deleteById(Long id) throws CategoryParentNotFoundException {
         CategoryODAParentEntity entity = CategoryODAParentEntity.findById(id);
+        if (entity == null)
+            throw new CategoryParentNotFoundException();
         entity.getCategoryODAChildEntities().forEach(child -> {
             child.setDelete(true);
             child.persist();

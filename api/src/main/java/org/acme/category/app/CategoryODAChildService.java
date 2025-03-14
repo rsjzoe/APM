@@ -37,7 +37,7 @@ public class CategoryODAChildService {
     }
 
     @Transactional
-    public CategoryODAChildOutput deleteById(Long id) {
+    public CategoryODAChildOutput deleteById(Long id) throws CategoryChildNotFoundException {
         return categoryODAChildRepository.deleteById(id);
     }
 

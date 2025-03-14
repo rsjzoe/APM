@@ -42,7 +42,11 @@ public class CategoryODAParentController implements CategoryODAParentRest {
     @DELETE
     @Path("/{id}")
     public CategoryODAParentOutput deleteById(@PathParam("id") Long id) {
-        return categoryODAParentUsecase.deleteById(id);
+        try {
+            return categoryODAParentUsecase.deleteById(id);
+        } catch (CategoryParentNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @PUT
