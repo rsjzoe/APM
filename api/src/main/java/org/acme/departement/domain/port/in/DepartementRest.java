@@ -8,5 +8,5 @@ public interface DepartementRest {
 
     List<Departement> listDepartement();
 
-    Departement findByDepartementId(int id);
+    Departement findByDepartementId(Long id);
 }

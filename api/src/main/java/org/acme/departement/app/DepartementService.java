@@ -3,6 +3,7 @@ package org.acme.departement.app;
 import java.util.List;
 
 import org.acme.departement.domain.Departement;
+import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.departement.domain.port.out.DepartementRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -22,7 +23,7 @@ public class DepartementService {
         }
 
         @Transactional
-        public Departement findByDepartementId(int id) {
+        public Departement findByDepartementId(Long id) throws DepartementNotFoundException {
                 return departementRepository.findById(id);
         }
 

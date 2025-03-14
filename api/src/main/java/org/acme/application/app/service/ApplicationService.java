@@ -18,6 +18,8 @@ import org.acme.classe.app.ClasseService;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.cost.app.CostService;
 import org.acme.cost.domain.model.input.CreateCostInput;
+import org.acme.departement.app.DepartementService;
+import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.documentation.app.DocumentationService;
 import org.acme.documentation.domain.input.CreateDocumentationFile;
 import org.acme.storage.FileNotFound;
@@ -54,6 +56,9 @@ public class ApplicationService {
     @Inject
     CategoryODAChildService categoryODAChildService;
 
+    @Inject
+    DepartementService departementService;
+
     public List<ApplicationOutput> listAll() {
         return applicationRepository.listAll();
     };
@@ -63,13 +68,15 @@ public class ApplicationService {
     };
 
     public ApplicationOutput create(CreateApplicationServiceInput newApplication)
-            throws TechBusinessValueNotValidException, ClasseNotFoundException, CategoryODAChildNotFoundException {
+            throws TechBusinessValueNotValidException, ClasseNotFoundException, CategoryODAChildNotFoundException,
+            DepartementNotFoundException {
         if (!newApplication.getTechBusinessValueWithoutApp().checkIfValid()) {
             throw new TechBusinessValueNotValidException();
         }
 
         classeService.findById(newApplication.getClasseId());
         categoryODAChildService.findById(newApplication.getCategoryId());
+        departementService.findByDepartementId(newApplication.getDepartementId());
 
         var time = calculateTime.calcul(newApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
                 newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());

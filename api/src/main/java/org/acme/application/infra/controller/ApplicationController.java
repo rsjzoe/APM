@@ -11,6 +11,7 @@ import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
 import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
+import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.documentation.domain.DocumentationType;
 import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
 import org.acme.storage.FileInput;
@@ -73,6 +74,8 @@ public class ApplicationController implements ApplicationRest {
         } catch (ClasseNotFoundException e) {
             throw new NotFoundException(e);
         } catch (CategoryODAChildNotFoundException e) {
+            throw new NotFoundException(e);
+        } catch (DepartementNotFoundException e) {
             throw new NotFoundException(e);
         }
     }

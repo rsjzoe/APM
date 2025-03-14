@@ -1,6 +1,7 @@
 package org.acme.departement.infra.out;
 
 import org.acme.departement.domain.Departement;
+import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.departement.domain.port.out.DepartementRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,8 +22,10 @@ public class DepartementRepositoryImpl implements DepartementRepository {
 
     @Transactional
     @Override
-    public Departement findById(int id) {
+    public Departement findById(Long id) throws DepartementNotFoundException {
         DepartementEntity departements = DepartementEntity.findById(id);
+        if (departements == null)
+            throw new DepartementNotFoundException();
         return departements.toDepartement();
     }
 }
