@@ -2,6 +2,7 @@ package org.acme.application.app.service;
 
 import java.util.List;
 
+import org.acme.application.domain.exception.ApplicationHistoryNotFoundException;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.input.CreateApplicationHistoryService;
@@ -25,7 +26,7 @@ public class ApplicationHistoryService {
         return repository.listAllByApplicationId(applicationId);
     };
 
-    public ApplicationHistoryOutput findById(Long id) {
+    public ApplicationHistoryOutput findById(Long id) throws ApplicationHistoryNotFoundException {
         return repository.findById(id);
     };
 
@@ -36,7 +37,5 @@ public class ApplicationHistoryService {
         return repository.create(data);
     };
 
-    public ApplicationHistoryOutput delete(Long id) {
-        return repository.delete(id);
-    };
+  
 }

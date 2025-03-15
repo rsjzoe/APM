@@ -2,6 +2,7 @@ package org.acme.application.infra.database;
 
 import java.util.List;
 
+import org.acme.application.domain.exception.ApplicationHistoryNotFoundException;
 import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.output.ApplicationHistoryOutput;
 import org.acme.application.domain.port.out.ApplicationHistoryRepository;
@@ -21,10 +22,10 @@ public class ApplicationHistoryEntityRepository implements ApplicationHistoryRep
     }
 
     @Override
-    public ApplicationHistoryOutput findById(Long id) {
+    public ApplicationHistoryOutput findById(Long id) throws ApplicationHistoryNotFoundException {
         ApplicationHistoryEntity entity = ApplicationHistoryEntity.findById(id);
         if (entity == null) {
-            return null;
+            throw new ApplicationHistoryNotFoundException();
         }
         return entity.toOutput();
     }
@@ -37,14 +38,4 @@ public class ApplicationHistoryEntityRepository implements ApplicationHistoryRep
         return entity.toOutput();
     }
 
-    @Override
-    @Transactional
-    public ApplicationHistoryOutput delete(Long id) {
-        ApplicationHistoryEntity entity = ApplicationHistoryEntity.findById(id);
-        if (entity != null) {
-            entity.delete();
-            return entity.toOutput();
-        }
-        return null;
-    }
 }
