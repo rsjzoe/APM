@@ -115,6 +115,12 @@ public class ApplicationController implements ApplicationRest {
 
         } catch (ApplicationNotFoundException e) {
             throw new NotFoundException();
+        } catch (ClasseNotFoundException e) {
+            throw new NotFoundException();
+        } catch (CategoryODAChildNotFoundException e) {
+            throw new NotFoundException();
+        } catch (DepartementNotFoundException e) {
+            throw new NotFoundException();
         }
     }
 

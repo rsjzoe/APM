@@ -128,12 +128,24 @@ public class ApplicationService {
     };
 
     public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication)
-            throws InvalidCostException, InvalidTechBusinessValueException, ApplicationNotFoundException {
+            throws InvalidCostException, InvalidTechBusinessValueException, ApplicationNotFoundException,
+            ClasseNotFoundException, CategoryODAChildNotFoundException, DepartementNotFoundException {
+
         Time time = null;
         if (updateApplication.getTechBusinessValueWithoutApp() != null) {
             time = calculateTime.calcul(updateApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
                     updateApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
 
+        }
+
+        if (updateApplication.getClasseId() != null) {
+            classeService.findById(updateApplication.getClasseId());
+        }
+        if (updateApplication.getCategoryId() != null) {
+            categoryODAChildService.findById(updateApplication.getCategoryId());
+        }
+        if (updateApplication.getDepartementId() != null) {
+            departementService.findByDepartementId(updateApplication.getDepartementId());
         }
 
         ApplicationOutput updated = applicationRepository.update(id,
