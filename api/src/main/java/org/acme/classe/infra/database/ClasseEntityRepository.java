@@ -33,16 +33,20 @@ public class ClasseEntityRepository implements ClasseRepository {
     }
 
     @Override
-    public ClasseOutput update(Long id, UpdateClasse classe) {
+    public ClasseOutput update(Long id, UpdateClasse classe) throws ClasseNotFoundException {
         ClasseEntity entity = ClasseEntity.findById(id);
+        if (entity == null)
+            throw new ClasseNotFoundException();
         entity.update(classe);
         entity.persist();
         return entity.toOutput();
     }
 
     @Override
-    public ClasseOutput deleteById(Long id) {
+    public ClasseOutput deleteById(Long id) throws ClasseNotFoundException {
         ClasseEntity entity = ClasseEntity.findById(id);
+        if (entity == null)
+            throw new ClasseNotFoundException();
         entity.setDeleted(true);
         entity.persist();
         return entity.toOutput();

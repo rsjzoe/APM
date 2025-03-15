@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class UpdateClasse {
     private String name;
     private String description;
-
-   
 }

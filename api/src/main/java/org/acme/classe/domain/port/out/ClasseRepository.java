@@ -12,9 +12,9 @@ public interface ClasseRepository {
 
     ClasseOutput create(CreateClasseInput classe);
 
-    ClasseOutput update(Long id, UpdateClasse classe);
+    ClasseOutput update(Long id, UpdateClasse classe) throws ClasseNotFoundException;;
 
     ClasseOutput findById(Long id) throws ClasseNotFoundException;
 
-    ClasseOutput deleteById(Long id);
+    ClasseOutput deleteById(Long id) throws ClasseNotFoundException;
 }

@@ -1,5 +1,6 @@
 package org.acme.cost.app;
 
+import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.domain.port.out.CostRepository;
@@ -7,7 +8,6 @@ import org.acme.cost.domain.port.out.CostRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;
-
 
 @ApplicationScoped
 public class CostService {
@@ -18,7 +18,10 @@ public class CostService {
         return costRepository.findCostByAppId(appId);
     }
 
-    public CostOutput createCost(CreateCostInput cost) {
+    public CostOutput createCost(CreateCostInput cost) throws InvalidCostException {
+        if (!cost.checkIfValid()) {
+            throw new InvalidCostException();
+        }
         return costRepository.createCost(cost);
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.application.app.service.ApplicationService;
+import org.acme.application.domain.exception.InvalidApplicationException;
 import org.acme.application.domain.input.CreateApplicationRest;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
@@ -11,11 +12,12 @@ import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
 import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
+import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.documentation.domain.DocumentationType;
 import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
 import org.acme.storage.FileInput;
-import org.acme.techBusinessValue.domain.exception.TechBusinessValueNotValidException;
+import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.jboss.resteasy.reactive.PartType;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
@@ -59,17 +61,25 @@ public class ApplicationController implements ApplicationRest {
     public ApplicationOutput create(@RestForm List<FileUpload> files, @RestForm List<String> types,
             @RestForm @PartType(MediaType.APPLICATION_JSON) CreateApplicationRest newApplication) {
 
+        if (files.size() != types.size()) {
+            throw new BadRequestException();
+        }
         List<CreateDocumentationFileWithoutApp> docs = new ArrayList<>();
         for (int i = 0; i < files.size(); i++) {
             CreateDocumentationFileWithoutApp doc = new CreateDocumentationFileWithoutApp();
-            doc.setType(DocumentationType.valueOf(types.get(i)));
+
+            try {
+                doc.setType(DocumentationType.valueOf(types.get(i)));
+            } catch (IllegalArgumentException e) {
+                throw new BadRequestException("Invalid documentation type: " + types.get(i), e);
+            }
             doc.setFileInput(new FileInput(files.get(i).uploadedFile(), files.get(i).fileName()));
             docs.add(doc);
         }
 
         try {
             return applicationService.create(new CreateApplicationServiceInput(docs, newApplication));
-        } catch (TechBusinessValueNotValidException e) {
+        } catch (InvalidTechBusinessValueException e) {
             throw new BadRequestException(e);
         } catch (ClasseNotFoundException e) {
             throw new NotFoundException(e);
@@ -77,6 +87,10 @@ public class ApplicationController implements ApplicationRest {
             throw new NotFoundException(e);
         } catch (DepartementNotFoundException e) {
             throw new NotFoundException(e);
+        } catch (InvalidCostException e) {
+            throw new BadRequestException(e);
+        } catch (InvalidApplicationException e) {
+            throw new BadRequestException(e);
         }
     }
 
@@ -85,7 +99,14 @@ public class ApplicationController implements ApplicationRest {
     @Transactional
     @Override
     public ApplicationOutput update(@PathParam("id") Long id, UpdateApplicationServiceInput updateApplication) {
-        return applicationService.update(id, updateApplication);
+        try {
+            return applicationService.update(id, updateApplication);
+        } catch (InvalidCostException e) {
+            throw new BadRequestException(e);
+        } catch (InvalidTechBusinessValueException e) {
+            throw new BadRequestException(e);
+
+        }
     }
 
     @DELETE

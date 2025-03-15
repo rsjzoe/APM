@@ -27,7 +27,7 @@ public class ClasseService {
     }
 
     @Transactional
-    public ClasseOutput update(Long id, UpdateClasse classe) {
+    public ClasseOutput update(Long id, UpdateClasse classe) throws ClasseNotFoundException {
         return classeRepository.update(id, classe);
     }
 
@@ -37,7 +37,7 @@ public class ClasseService {
     }
 
     @Transactional
-    public ClasseOutput deleteById(Long id) {
+    public ClasseOutput deleteById(Long id) throws ClasseNotFoundException {
         return classeRepository.deleteById(id);
     }
 

@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import org.acme.application.app.usecase.CalculateTime;
+import org.acme.application.domain.exception.InvalidApplicationException;
 import org.acme.application.domain.input.CreateApplicationHistoryService;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
+import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
@@ -17,6 +19,7 @@ import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.classe.app.ClasseService;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.cost.app.CostService;
+import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.departement.app.DepartementService;
 import org.acme.departement.domain.exception.DepartementNotFoundException;
@@ -24,7 +27,7 @@ import org.acme.documentation.app.DocumentationService;
 import org.acme.documentation.domain.input.CreateDocumentationFile;
 import org.acme.storage.FileNotFound;
 import org.acme.techBusinessValue.app.TechBusinessValueService;
-import org.acme.techBusinessValue.domain.exception.TechBusinessValueNotValidException;
+import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -68,11 +71,8 @@ public class ApplicationService {
     };
 
     public ApplicationOutput create(CreateApplicationServiceInput newApplication)
-            throws TechBusinessValueNotValidException, ClasseNotFoundException, CategoryODAChildNotFoundException,
-            DepartementNotFoundException {
-        if (!newApplication.getTechBusinessValueWithoutApp().checkIfValid()) {
-            throw new TechBusinessValueNotValidException();
-        }
+            throws InvalidTechBusinessValueException, ClasseNotFoundException, CategoryODAChildNotFoundException,
+            DepartementNotFoundException, InvalidCostException, InvalidApplicationException {
 
         classeService.findById(newApplication.getClasseId());
         categoryODAChildService.findById(newApplication.getCategoryId());
@@ -80,6 +80,22 @@ public class ApplicationService {
 
         var time = calculateTime.calcul(newApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
                 newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
+
+        if (newApplication.getStartDate().isAfter(newApplication.getLastUpdate())) {
+            throw new InvalidApplicationException("Start date cannot be after last update date");
+        }
+
+        boolean isValidStatus = false;
+        for (Status status : Status.values()) {
+            if (status.name().equals(newApplication.getStatus().name())) {
+                isValidStatus = true;
+                break;
+            }
+        }
+
+        if (!isValidStatus) {
+            throw new InvalidApplicationException("Invalid status value");
+        }
 
         ApplicationOutput created = applicationRepository
                 .create(new CreateApplicationRepositoryInput(newApplication, time));
@@ -109,7 +125,8 @@ public class ApplicationService {
         return created;
     };
 
-    public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication) {
+    public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication)
+            throws InvalidCostException, InvalidTechBusinessValueException {
         Time time = null;
         if (updateApplication.getTechBusinessValueWithoutApp() != null) {
             time = calculateTime.calcul(updateApplication.getTechBusinessValueWithoutApp().getBusinessValue(),

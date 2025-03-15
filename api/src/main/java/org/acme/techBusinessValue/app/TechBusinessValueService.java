@@ -1,5 +1,6 @@
 package org.acme.techBusinessValue.app;
 
+import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.domain.port.out.TechBusinessValueRepository;
@@ -18,7 +19,10 @@ public class TechBusinessValueService {
         return techBusinessValueRepository.findTechBusinessValueByAppId(appId);
     }
 
-    public TechBusinessValueOutput createTechBusinessValueOutput(CreateTechBusinessValue techBusinessValue) {
+    public TechBusinessValueOutput createTechBusinessValueOutput(CreateTechBusinessValue techBusinessValue) throws InvalidTechBusinessValueException {
+        if (!techBusinessValue.checkIfValid()) {
+            throw new InvalidTechBusinessValueException();
+        }
         return techBusinessValueRepository.createTechBusinessValue(techBusinessValue);
     }
 

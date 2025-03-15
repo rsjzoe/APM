@@ -12,4 +12,11 @@ public class CreateTechBusinessValue {
     private double technicalDebt;
     private Long appId;
 
+    public boolean checkIfValid() {
+        if (businessValue < 0 || businessValue > 5)
+            return false;
+        if (technicalDebt < 0 || technicalDebt > 5)
+            return false;
+        return true;
+    }
 }

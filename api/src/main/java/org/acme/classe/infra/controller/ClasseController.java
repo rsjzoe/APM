@@ -39,7 +39,11 @@ public class ClasseController implements ClasseRest {
     @Path("/{id}")
     @PUT
     public ClasseOutput update(@PathParam("id") Long id, UpdateClasse classe) {
-        return classeService.update(id, classe);
+        try {
+            return classeService.update(id, classe);
+        } catch (ClasseNotFoundException e) {
+            throw new NotFoundException();
+        }
     }
 
     @Override
@@ -57,7 +61,11 @@ public class ClasseController implements ClasseRest {
     @DELETE
     @Path("/{id}")
     public ClasseOutput deleteById(@PathParam("id") Long id) {
-        return classeService.deleteById(id);
+        try {
+            return classeService.deleteById(id);
+        } catch (ClasseNotFoundException e) {
+            throw new NotFoundException();
+        }
     }
 
 }

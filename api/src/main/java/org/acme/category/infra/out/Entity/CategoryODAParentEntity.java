@@ -1,4 +1,4 @@
-package org.acme.category.adapter.out.Entity;
+package org.acme.category.infra.out.Entity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.acme.category.adapter.in;
+package org.acme.category.infra.in;
 
 import java.util.List;
 

@@ -1,13 +1,13 @@
-package org.acme.category.adapter.out.repositoryImpl;
+package org.acme.category.infra.out.repositoryImpl;
 
 import java.util.List;
 
-import org.acme.category.adapter.out.Entity.CategoryODAParentEntity;
 import org.acme.category.domain.exception.CategoryODAParentNotFoundException;
 import org.acme.category.domain.input.CreateCategoryODAParent;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
 import org.acme.category.domain.output.CategoryODAParentOutput;
 import org.acme.category.domain.port.out.CategoryODAParentRepository;
+import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
