@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.acme.application.app.usecase.CalculateTime;
+import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.exception.InvalidApplicationException;
 import org.acme.application.domain.input.CreateApplicationHistoryService;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
@@ -66,13 +67,14 @@ public class ApplicationService {
         return applicationRepository.listAll();
     };
 
-    public ApplicationOutput findById(Long id) {
+    public ApplicationOutput findById(Long id) throws ApplicationNotFoundException {
         return applicationRepository.findById(id);
     };
 
     public ApplicationOutput create(CreateApplicationServiceInput newApplication)
             throws InvalidTechBusinessValueException, ClasseNotFoundException, CategoryODAChildNotFoundException,
-            DepartementNotFoundException, InvalidCostException, InvalidApplicationException {
+            DepartementNotFoundException, InvalidCostException, InvalidApplicationException,
+            ApplicationNotFoundException {
 
         classeService.findById(newApplication.getClasseId());
         categoryODAChildService.findById(newApplication.getCategoryId());
@@ -126,7 +128,7 @@ public class ApplicationService {
     };
 
     public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication)
-            throws InvalidCostException, InvalidTechBusinessValueException {
+            throws InvalidCostException, InvalidTechBusinessValueException, ApplicationNotFoundException {
         Time time = null;
         if (updateApplication.getTechBusinessValueWithoutApp() != null) {
             time = calculateTime.calcul(updateApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
@@ -154,7 +156,7 @@ public class ApplicationService {
         return appFound;
     };
 
-    public ApplicationOutput delete(Long id) {
+    public ApplicationOutput delete(Long id) throws ApplicationNotFoundException {
         ApplicationOutput deleted = applicationRepository.delete(id);
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(id);
         applicationHistoryService.create(data);

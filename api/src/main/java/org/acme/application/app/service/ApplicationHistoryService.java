@@ -2,6 +2,7 @@ package org.acme.application.app.service;
 
 import java.util.List;
 
+import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.input.CreateApplicationHistoryService;
 import org.acme.application.domain.output.ApplicationHistoryOutput;
@@ -28,9 +29,10 @@ public class ApplicationHistoryService {
         return repository.findById(id);
     };
 
-    public ApplicationHistoryOutput create(CreateApplicationHistoryService newdata) {
+    public ApplicationHistoryOutput create(CreateApplicationHistoryService newdata)
+            throws ApplicationNotFoundException {
         ApplicationOutput app = applicationService.findById(newdata.getAppId());
-        CreateApplicationHistoryRepository data = new CreateApplicationHistoryRepository(app, "systeem", "okokok"); 
+        CreateApplicationHistoryRepository data = new CreateApplicationHistoryRepository(app, "systeem", "okokok");
         return repository.create(data);
     };
 

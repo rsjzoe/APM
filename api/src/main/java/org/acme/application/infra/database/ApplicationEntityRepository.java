@@ -3,6 +3,7 @@ package org.acme.application.infra.database;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
@@ -19,10 +20,11 @@ public class ApplicationEntityRepository implements ApplicationRepository {
     }
 
     @Override
-    public ApplicationOutput findById(Long id) {
+    public ApplicationOutput findById(Long id) throws ApplicationNotFoundException {
         ApplicationEntity data = ApplicationEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new ApplicationNotFoundException();
+        }
         return data.toApplicationOutput();
     }
 
@@ -34,20 +36,23 @@ public class ApplicationEntityRepository implements ApplicationRepository {
     }
 
     @Override
-    public ApplicationOutput update(Long id, UpdateApplicationRepositoryInput updateApplication) {
+    public ApplicationOutput update(Long id, UpdateApplicationRepositoryInput updateApplication)
+            throws ApplicationNotFoundException {
         ApplicationEntity data = ApplicationEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new ApplicationNotFoundException();
+        }
         data.updateData(updateApplication);
         data.persist();
         return data.toApplicationOutput();
     }
 
     @Override
-    public ApplicationOutput delete(Long id) {
+    public ApplicationOutput delete(Long id) throws ApplicationNotFoundException {
         ApplicationEntity data = ApplicationEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new ApplicationNotFoundException();
+        }
         data.setDeleted(true);
         data.persist();
         return data.toApplicationOutput();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.application.app.service.ApplicationService;
+import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.exception.InvalidApplicationException;
 import org.acme.application.domain.input.CreateApplicationRest;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
@@ -51,7 +52,11 @@ public class ApplicationController implements ApplicationRest {
     @Path("/{id}")
     @Override
     public ApplicationOutput findById(@PathParam("id") Long id) {
-        return applicationService.findById(id);
+        try {
+            return applicationService.findById(id);
+        } catch (ApplicationNotFoundException e) {
+            throw new NotFoundException();
+        }
     }
 
     @POST
@@ -91,6 +96,8 @@ public class ApplicationController implements ApplicationRest {
             throw new BadRequestException(e);
         } catch (InvalidApplicationException e) {
             throw new BadRequestException(e);
+        } catch (ApplicationNotFoundException e) {
+            throw new NotFoundException(e);
         }
     }
 
@@ -106,6 +113,8 @@ public class ApplicationController implements ApplicationRest {
         } catch (InvalidTechBusinessValueException e) {
             throw new BadRequestException(e);
 
+        } catch (ApplicationNotFoundException e) {
+            throw new NotFoundException();
         }
     }
 
@@ -114,7 +123,11 @@ public class ApplicationController implements ApplicationRest {
     @Transactional
     @Override
     public ApplicationOutput delete(@PathParam("id") Long id) {
-        return applicationService.delete(id);
+        try {
+            return applicationService.delete(id);
+        } catch (ApplicationNotFoundException e) {
+            throw new NotFoundException();
+        }
     }
 
     @Override
