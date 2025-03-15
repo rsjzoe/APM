@@ -1,0 +1,83 @@
+<!-- Modal - Étape 4 -->
+<div
+  class="modal fade modal-lg"
+  id="applicationEditModalStep4"
+  tabindex="-1"
+  aria-labelledby="applicationEditModalStep4Label"
+  data-bs-backdrop="false"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="applicationEditModalStep4Label">
+          Documentation - Étape 4
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+          (click)="modalStateService.resetData()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div id="datesStatusForm">
+          <div class="mb-3">
+            <label for="Fonctionnelle" class="form-label">Fonctionnelle</label>
+            <input
+              type="file"
+              multiple
+              class="form-control"
+              id="Fonctionnelle"
+              (change)="modalStateService.onChangeFonctionnelle($event)"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="technique" class="form-label">Technique</label>
+            <input
+              type="file"
+              multiple
+              class="form-control"
+              id="technique"
+              (change)="modalStateService.onChangeTechnique($event)"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="exploitation" class="form-label">Exploitation</label>
+            <input
+              type="file"
+              multiple
+              class="form-control"
+              id="exploitation"
+              (change)="modalStateService.onChangeTechnique($event)"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-secondary"
+          data-bs-target="#applicationEditModalStep3"
+          data-bs-toggle="modal"
+          data-bs-dismiss="modal"
+        >
+          Précédent
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="modalStateService.submit()"
+        >
+          {{ modalStateService.appEditing ? "Mettre à jour" : "Ajouter" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

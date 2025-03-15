@@ -1,0 +1,41 @@
+<div id="datesStatusForm">
+  <div class="mb-3" *ngIf="modalStateService.openFields.startDate">
+    <label for="startDate" class="form-label">Date de mise en production</label>
+    <input
+      type="date"
+      class="form-control"
+      id="startDate"
+      [(ngModel)]="modalStateService.createApplication.startDate"
+      required
+    />
+  </div>
+
+  <div class="mb-3" *ngIf="modalStateService.openFields.lastUpdate">
+    <label for="lastUpdate" class="form-label">Dernière mise à jour</label>
+    <input
+      type="date"
+      class="form-control"
+      id="lastUpdate"
+      [(ngModel)]="modalStateService.createApplication.lastUpdate"
+      required
+    />
+  </div>
+
+  <div class="mb-3" *ngIf="modalStateService.openFields.status">
+    <label for="status" class="form-label">Statut</label>
+    <select
+      class="form-select"
+      [(ngModel)]="modalStateService.createApplication.status"
+      id="status"
+      required
+    >
+      <option value="">Sélectionner un statut</option>
+      <option value="development">Développement</option>
+      <option value="production">Production</option>
+      <option value="decommissioned">Decommission</option>
+    </select>
+    <div id="statusHelp" class="form-text">
+      <span class="text-muted">Statut actuel de l'application</span>
+    </div>
+  </div>
+</div>

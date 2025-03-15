@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataset } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { timeColor } from './color';
-import { Application } from '../../application-APM/appType';
-import { applications } from '../../application-APM/data';
-import { ApplicationService } from '../home/home.service';
+import { Application } from '../../application/appType';
+import { applications } from '../../application/data';
+import { ApplicationService } from '../home/application.service';
 
 @Component({
   selector: 'app-life-cycle-time',
@@ -25,15 +25,22 @@ export class LifeCycleTimeComponent {
           display: true,
           text: 'Valeur Métier',
         },
+        min: 1,
+        max: 5,
       },
       y: {
         title: {
           display: true,
-          text: 'Coûts',
+          text: 'Dette Technique',
         },
+        min: 1,
+        max: 5,
       },
     },
     onHover: (event, elements, chart) => {
+      // console.log(event);
+      // console.log(elements);
+      // console.log(chart);
       const bubbleInfo = document.getElementById('bubble-info');
       if (event.native == null) {
         return;
@@ -53,6 +60,8 @@ export class LifeCycleTimeComponent {
         const datasetIndex = element.datasetIndex;
         const index = element.index;
         const data = this.bubbleChartData[datasetIndex].data[index];
+        // console.log(data);
+        // console.log(this.bubbleDataMap.get(JSON.stringify(data)));
         const currentApp = this.bubbleDataMap.get(JSON.stringify(data));
         if (currentApp == undefined) return;
 
@@ -114,14 +123,14 @@ export class LifeCycleTimeComponent {
       let normalizedR = 0;
       if (maxUserTotal > minUserTotal) {
         normalizedR =
-          ((app.userTotal - minUserTotal) * 45) /
+          ((app.userTotal - minUserTotal) * 30) /
             (maxUserTotal - minUserTotal) +
-          5;
+          10;
       }
 
       const item = {
-        x: app.businessValue,
-        y: app.costBuild + app.costRun,
+        x: app.budget.businessValue,
+        y: app.budget.technicalDebt,
         r: normalizedR,
       };
 
@@ -135,8 +144,6 @@ export class LifeCycleTimeComponent {
         dataEliminate.push(item);
       }
     }
-    console.log(this.apps);
-
     const bubbleChartData: ChartDataset<'bubble'>[] = [
       {
         label: 'Tolerate',
@@ -159,8 +166,6 @@ export class LifeCycleTimeComponent {
         backgroundColor: timeColor.eliminate,
       },
     ];
-    console.log(bubbleChartData);
-
     return bubbleChartData;
   }
 
@@ -177,15 +182,15 @@ export class LifeCycleTimeComponent {
       let normalizedR = 0;
       if (maxUserTotal > minUserTotal) {
         normalizedR =
-          ((element.userTotal - minUserTotal) * 45) /
+          ((element.userTotal - minUserTotal) * 30) /
             (maxUserTotal - minUserTotal) +
-          5;
+          10;
       }
 
       rep2.set(
         JSON.stringify({
-          x: element.businessValue,
-          y: element.costBuild + element.costRun,
+          x: element.budget.businessValue,
+          y: element.budget.technicalDebt,
           r: normalizedR,
         }),
         element
@@ -197,8 +202,12 @@ export class LifeCycleTimeComponent {
   findAllApplication = () => {
     this.appService.findAll().subscribe({
       next: (data) => {
+        console.log(data);
+        
         this.apps = data;
         this.bubbleChartData = this.generateDataSet();
+        console.log(this.bubbleChartData);
+        
         this.bubbleDataMap = this.appsToMap();
       },
       error: (error) => {

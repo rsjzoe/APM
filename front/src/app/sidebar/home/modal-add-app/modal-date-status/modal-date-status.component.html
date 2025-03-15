@@ -1,0 +1,48 @@
+<!-- Modal - Étape 3 -->
+<div
+  class="modal fade modal-lg"
+  id="applicationEditModalStep3"
+  tabindex="-1"
+  aria-labelledby="applicationEditModalStep3Label"
+  data-bs-backdrop="false"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="applicationEditModalStep3Label">
+          Date et status - Étape 3
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+          (click)="modalStateService.resetData()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulaire Étape 3 -->
+        <app-form-date-status />
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-secondary"
+          data-bs-target="#applicationEditModalStep2"
+          data-bs-toggle="modal"
+          data-bs-dismiss="modal"
+        >
+          Précédent
+        </button>
+        <button
+          class="btn btn-primary"
+          data-bs-target="#applicationEditModalStep4"
+          data-bs-toggle="modal"
+          data-bs-dismiss="modal"
+        >
+          Suivant
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div id="costsForm">
+  <div class="mb-3" *ngIf="modalStateService.openFields.businessValue">
+    <label for="businessValue" class="form-label"
+      >Valeur métier <span class="text-muted">(échelle de 1 à 5)</span>
+    </label>
+    <div class="input-group">
+      <input
+        type="number"
+        class="form-control"
+        id="businessValue"
+        min="1"
+        max="5"
+        step="1"
+        [(ngModel)]="modalStateService.createApplication.budget.businessValue"
+        required
+      />
+      <!-- <span class="input-group-text">1 à 5</span> -->
+    </div>
+  </div>
+
+  <div class="mb-3" *ngIf="modalStateService.openFields.technicalDebt">
+    <label for="businessValue" class="form-label"
+      >Dette Technique <span class="text-muted">(échelle de 1 à 5)</span></label
+    >
+    <div class="input-group">
+      <input
+        type="number"
+        class="form-control"
+        id="businessValue"
+        min="1"
+        max="5"
+        step="1"
+        [(ngModel)]="modalStateService.createApplication.budget.technicalDebt"
+      />
+      <!-- <span class="input-group-text">1 à 5</span> -->
+    </div>
+  </div>
+
+  <div class="mb-3" *ngIf="modalStateService.openFields.budgetBuild">
+    <label for="costBuild" class="form-label">Coût de construction</label>
+    <div class="input-group">
+      <input
+        type="number"
+        class="form-control"
+        id="costBuild"
+        min="0"
+        step="1"
+        [(ngModel)]="modalStateService.createApplication.budget.budgetBuild"
+        required
+      />
+      <span class="input-group-text">€</span>
+    </div>
+  </div>
+
+  <div class="mb-3" *ngIf="modalStateService.openFields.budgetRun">
+    <label for="costRun" class="form-label">Coût de fonctionnement</label>
+    <div class="input-group">
+      <input
+        type="number"
+        class="form-control"
+        id="costRun"
+        min="0"
+        step="1"
+        [(ngModel)]="modalStateService.createApplication.budget.budgetRun"
+        required
+      />
+      <span class="input-group-text">€</span>
+    </div>
+  </div>
+</div>

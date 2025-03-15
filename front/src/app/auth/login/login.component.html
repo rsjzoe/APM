@@ -1,1 +1,38 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <div class="container-fluid">
+      <div class="row g-0">
+        <div class="col-md-6 p-4 mt-3">
+          <h2 class="login-title text-center mt-3">Se Connecter</h2>
+          <div>
+            <div class="mb-4">
+              <label for="inputEmail4" class="form-label">Trigramme </label>
+              <input type="text" class="form-control" id="trigramme" name="email" (keyup.enter)="login()"
+                [(ngModel)]="trigramme" placeholder="trigramme..." />
+
+            </div>
+            <div class="mb-4">
+              <label for="inputEmail4" class="form-label">Mot de passe</label>
+              <input type="password" class="form-control" id="inputPassword4" name="password" [(ngModel)]="password"
+                (keyup.enter)="login()" placeholder="password" />
+            </div>
+            <div class=" mt-4">
+              <a href="#" class="text-decoration-none">Mot de passe oublié?</a>
+            </div>
+            <div class="alert alert-danger" *ngIf="errorMessage != null" role="alert">
+              <span class="alert-icon"><span class="visually-hidden">Error</span></span>
+              <p>{{errorMessage}}</p>
+            </div>
+            <div class="button mt-3">
+              <button type="button" class="btn btn-primary" style="width: 100%;" (click)="login()">Se connecter</button>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6 illustration">
+          <img src="image/Tablet-login-rafiki.png" alt="Login Illustration" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

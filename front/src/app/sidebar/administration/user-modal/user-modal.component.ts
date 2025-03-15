@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Role, User } from '../user.type';
 import { FormsModule } from '@angular/forms';
+import { Departement } from '../../../application/appType';
+import { DepartementService } from '../../../application/departement.service';
 
 @Component({
   selector: 'app-user-modal',
@@ -10,30 +12,68 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './user-modal.component.scss',
 })
 export class UserModalComponent {
-  @Input() isEditing: number | null = null;
+  @Input() isEditing: string | null = null;
   newUserName = '';
   newUserTrigramme = '';
+  newUserDepartement = '';
+  departements: Departement[] = [];
+
+  constructor(private departementService: DepartementService) {}
+
   @Input() userEditing: User | null = null;
-  newUserRole: Role = 'user';
-  @Input() addUser = (name: string, trigramme: string, role: Role) => {};
-  @Input() updateUser = (name: string, trigramme: string, role: Role) => {};
+  newUserRole: Role = Role.visitor;
+  @Input() addUser = (
+    name: string,
+    trigramme: string,
+    departement: string,
+    role: Role
+  ) => {};
+  @Input() updateUser = (
+    name: string,
+    trigramme: string,
+    departement: string,
+    role: Role
+  ) => {};
+
+  findAllDepartement = () => {
+    this.departementService.findAll().subscribe({
+      next: (data) => {
+        this.departements = data;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des tâches :', error);
+      },
+    });
+  };
 
   add() {
     if (this.newUserName.length == 0 || this.newUserTrigramme.length == 0)
       return;
-    this.addUser(this.newUserName, this.newUserTrigramme, this.newUserRole);
+    this.addUser(
+      this.newUserName,
+      this.newUserTrigramme,
+      this.newUserDepartement,
+      this.newUserRole
+    );
     this.newUserName = '';
     this.newUserTrigramme = '';
-    this.newUserRole = 'user';
+    this.newUserDepartement = '';
+    this.newUserRole = Role.visitor;
   }
 
   update() {
     if (this.newUserName.length == 0 || this.newUserTrigramme.length == 0)
       return;
-    this.updateUser(this.newUserName, this.newUserTrigramme, this.newUserRole);
+    this.updateUser(
+      this.newUserName,
+      this.newUserTrigramme,
+      this.newUserDepartement,
+      this.newUserRole
+    );
     this.newUserName = '';
     this.newUserTrigramme = '';
-    this.newUserRole = 'user';
+    this.newUserDepartement = '';
+    this.newUserRole = Role.visitor;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -43,6 +83,10 @@ export class UserModalComponent {
     }
     this.newUserName = currentUserEditing.name;
     this.newUserTrigramme = currentUserEditing.trigramme;
+    this.newUserDepartement = currentUserEditing.departement;
     this.newUserRole = currentUserEditing.role;
+  }
+  ngOnInit() {
+    this.findAllDepartement();
   }
 }

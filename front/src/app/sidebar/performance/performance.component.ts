@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { QuestionCardComponent } from './question-card/question-card.component';
 import { ModalQuestionFormComponent } from './modal-question-form/modal-question-form.component';
-import { Question } from '../../application-APM/appType';
+import { QuestionGroupe } from '../../application/appType';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { QuestionService } from './question.service';
+import { QuestionGroupeService } from './service/questionGroupe.service';
 import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
@@ -18,13 +18,14 @@ import { ButtonComponent } from '../../components/button/button.component';
   ],
   templateUrl: './performance.component.html',
   styleUrl: './performance.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class PerformanceComponent {
-  questions: Question[] = [];
+  questions: QuestionGroupe[] = [];
   isEditingId: number | null = null;
-  questionEditing: Question | null = null;
+  questionEditing: QuestionGroupe | null = null;
 
-  constructor(private questionService: QuestionService) {}
+  constructor(private questionGroupeService: QuestionGroupeService) {}
 
   generateRandomColor(): string {
     const colors = [
@@ -38,72 +39,20 @@ export class PerformanceComponent {
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
-  addQuestion = (question: string) => {
-    this.questionService
-      .add({ text: question, borderColor: this.generateRandomColor() })
-      .subscribe({
-        next: (newQuestion) => {
-          this.questions.push(newQuestion);
-        },
-        error: (error) => {
-          console.log("erreur de l'ajout : " + error);
-        },
-      });
-  };
+  addQuestion = (question: string, coeff: number) => {};
 
-  deleteQuestion = (id: number) => {
-    this.questionService.delete(id).subscribe({
-      next: () => {
-        this.questions = this.questions.filter(
-          (question) => question.id !== id
-        );
-      },
-      error: (error) => {
-        console.log('erreur de la suppresssion : ' + error);
-      },
-    });
-  };
+  deleteQuestion = (id: number) => {};
 
-  editQuestion = (question: Question) => {
+  editQuestion = (question: QuestionGroupe) => {
     this.isEditingId = question.id;
     this.questionEditing = question;
   };
 
-  updateQuetion = (questionText: string) => {
+  updateQuetion = (questionText: string, coeff: number) => {
     if (this.isEditingId == null) return;
-    this.questionService
-      .update(this.isEditingId, {
-        text: questionText,
-        borderColor: this.generateRandomColor(),
-      })
-      .subscribe({
-        next: (val) => {
-          for (let question of this.questions) {
-            if (question.id == val.id) {
-              question.text = val.text;
-            }
-          }
-          this.isEditingId = null;
-          this.questionEditing = null;
-        },
-        error: (error) => {
-          console.log('erreur de la modification : ' + error);
-        },
-      });
   };
 
-  findAll = () => {
-    
-    this.questionService.findAll().subscribe({
-      next: (data) => {
-        this.questions = data;
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des questions :', error);
-      },
-    });
-
-  };
+  findAll = () => {};
 
   ngOnInit() {
     this.findAll();

@@ -1,40 +1,46 @@
-<div class="rate-application">
-  <div class="">
-    <div class="">
-      <div>
-        <div class="progress-container">
-          <div class="progress">
-            <div class="progress-bar" [style.width.%]="(getCurrentPage() / getTotalPages()) * 100"></div>
-          </div>
-          <p class="progress-text">
-            Page {{ getCurrentPage() }} sur {{ getTotalPages() }}
-          </p>
-        </div>
+<div class="container">
+  <div class="card-question">
+    <div class="card-content">
+      <div class="d-grid gap-4">
 
-        <div class="questions-group">
-          <div *ngFor="let index of getCurrentQuestionIndexes()" class="question-container">
-            <div class="question">
-              {{ questions[index].text }}
+        <div class="accordion" id="questionAccordion">
+          <div class="accordion-item" *ngFor="let group of questionGroups; let i = index">
+            <div class="accordion-header">
+              <button class="accordion-button fs-6 d-flex gap-2 py-3" type="button"
+                [class.collapsed]="!isGroupExpanded(i)" (click)="toggleGroup(i)" [attr.data-bs-target]="'#collapse' + i"
+                [attr.aria-expanded]="isGroupExpanded(i)">
+                {{ group.text }}
+
+              </button>
             </div>
-
-            <app-star-rating [rating]="ratings[index]" [questionIndex]="index"
-              [handleRatingWithIndex]="handleRating"></app-star-rating>
+            <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="isGroupExpanded(i)">
+              <div class="accordion-body d-grid gap-2">
+                <div class="d-grid gap-2 ">
+                  <div class="question-group-coeff ">
+                    <span class=" fs-7 fw-bold text-muted">Type: </span> <span class="text-primary">{{ group.type
+                      }}</span>
+                  </div>
+                  <div class="question-group-coeff">
+                    <span class=" fs-7 fw-bold text-muted">Importance: </span> <span class="text-primary">{{
+                      group.coeff}}</span>
+                  </div>
+                </div>
+                <div *ngFor="let question of group.questions"
+                  class="question-container d-flex align-items-center justify-content-between">
+                  <p class="mb-0">{{ question.text }}</p>
+                  <app-star-rating [rating]="getRatingForQuestion(group.id, question.id)" [questionGroupId]="group.id"
+                    [questionId]="question.id" [handleRatingWithIds]="handleRating.bind(this)">
+                  </app-star-rating>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="button-group">
-          <button type="button" class="btn btn-outline-secondary" (click)="handlePrevious()"
-            [disabled]="currentPage === 0">
-            Précédent
-          </button>
+        <div class=" d-flex justify-content-end">
 
-          <button *ngIf="!isLastPage()" type="button" class="btn btn-primary" (click)="handleNext()"
-            [disabled]="!canProceed()">
-            Suivant
-          </button>
 
-          <button *ngIf="isLastPage()" type="submit" class="btn btn-success" [disabled]="!canSubmit()"
-            (click)="handleSubmit()">
+          <button type="submit" class="btn btn-success " (click)="handleSubmit()">
             Soumettre
           </button>
         </div>

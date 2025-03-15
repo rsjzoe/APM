@@ -1,12 +1,13 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../button/button.component';
-import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
 import { SidebarLinkComponent } from './sidebar-link/sidebar-link.component';
+import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../../sidebar/administration/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [ButtonComponent, SidebarItemComponent, SidebarLinkComponent],
+  imports: [ButtonComponent,CommonModule, SidebarLinkComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -14,9 +15,16 @@ import { SidebarLinkComponent } from './sidebar-link/sidebar-link.component';
 export class SidebarComponent {
   showCategory = false;
   @Input() toggleSidebar = () => {
+
   };
+
+  constructor(private authService : AuthService, public userService: UserService){}
 
   toggleShowCategory() {
     this.showCategory = !this.showCategory;
+  }
+
+  logout(){
+    this.authService.logout()
   }
 }

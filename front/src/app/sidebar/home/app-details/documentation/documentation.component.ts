@@ -1,75 +1,81 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
-import { Document, DocumentType } from './document-type';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IconViewComponent } from '../../../../components/icons/icon-view/icon-view.component';
+import { IconDocumentComponent } from '../../../../components/icons/icon-document/icon-document.component';
+import {
+  DocumentationType,
+  Documentation,
+} from '../../../../application/appType';
+import { DocumentationService } from './documentation.service';
+import { ModalAddDocumentationComponent } from './modal-add-documentation/modal-add-documentation.component';
+import { IconDeleteComponent } from '../../../../components/icons/icon-delete/icon-delete.component';
+import { ModalConfirmComponent } from '../../../../components/modal-confirm/modal-confirm.component';
+import { UserService } from '../../../administration/user.service';
+import { Role } from '../../../administration/user.type';
 
 @Component({
   selector: 'app-documentation',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    IconViewComponent,
+    IconDocumentComponent,
+    ModalAddDocumentationComponent,
+    IconDeleteComponent,
+    ModalConfirmComponent,
+  ],
   templateUrl: './documentation.component.html',
   styleUrl: './documentation.component.scss',
   standalone: true,
 })
 export class DocumentationComponent {
-  isOpen = false;
-  documents: Document[] = [
-    {
-      id: '1',
-      name: 'Guide utilisateur',
-      type: 'Fonctionnelle',
-      format: 'pdf',
-      lastUpdated: new Date('2023-06-15'),
-      size: '2.5 MB',
-    },
-    {
-      id: '2',
-      name: 'Spécifications techniques',
-      type: 'Technique',
-      format: 'docx',
-      lastUpdated: new Date('2023-07-01'),
-      size: '1.8 MB',
-    },
-    {
-      id: '3',
-      name: "Manuel d'installation",
-      type: 'Exploitation',
-      format: 'pdf',
-      lastUpdated: new Date('2023-05-20'),
-      size: '3.2 MB',
-    },
-    {
-      id: '4',
-      name: 'Architecture système',
-      type: 'Technique',
-      format: 'pptx',
-      lastUpdated: new Date('2023-06-30'),
-      size: '5.1 MB',
-    },
-    {
-      id: '5',
-      name: 'Guide de maintenance',
-      type: 'Exploitation',
-      format: 'pdf',
-      lastUpdated: new Date('2023-07-10'),
-      size: '1.5 MB',
-    },
-  ];
-  groupedDocuments: Record<DocumentType, Document[]> | null = null;
+  @Input() applicationId!: number;
+  documents: Documentation[] = [];
+  groupedDocuments: Record<DocumentationType, Documentation[]> | null = null;
+  appFilenameDelete: string | null = null;
 
-  constructor(private eRef: ElementRef) {}
+  constructor(private docService: DocumentationService, public userService : UserService) {}
 
-  getGroupedDocuments(): Record<DocumentType, Document[]> {
+  canDeleteDoc(){
+    return this.userService.getUserConnected()?.role == Role.admin || this.userService.getUserConnected()?.role == Role.editor
+  }
+
+  saveIdAppDelete = (filename: string) => {
+    this.appFilenameDelete = filename;
+  };
+
+  onConfirmDelete = () => {
+    if (this.appFilenameDelete) {
+      this.deleteByFileName(this.appFilenameDelete);
+    }
+  };
+
+  findAllDocByAppId() {
+    this.docService.findAllByAppId(this.applicationId).subscribe((docs) => {
+      this.documents = docs;
+      this.groupedDocuments = this.getGroupedDocuments();
+    });
+  }
+
+  deleteByFileName(name: string) {
+    this.docService.deleteByFileName(name).subscribe({
+      next: (value) => {
+        this.refresh();
+      },
+    });
+  }
+
+  refresh = () => {
+    this.findAllDocByAppId();
+  };
+
+  getGroupedDocuments(): Record<DocumentationType, Documentation[]> {
     return this.documents.reduce((acc, doc) => {
       if (!acc[doc.type]) {
         acc[doc.type] = [];
       }
       acc[doc.type].push(doc);
       return acc;
-    }, {} as Record<DocumentType, Document[]>);
-  }
-
-  togglePopover(): void {
-    this.isOpen = !this.isOpen;
-    console.log('togglePopover');
+    }, {} as Record<DocumentationType, Documentation[]>);
   }
 
   getDocumentTypeClass(type: DocumentType | string): string {
@@ -85,22 +91,15 @@ export class DocumentationComponent {
     }
   }
 
-  handleView(document: Document): void {
-    console.log('Viewing document:', document.name);
+  handleView(document: Documentation): void {
+    this.docService.viewFileInNewWindow(document.filename);
   }
 
-  handleDownload(document: Document): void {
-    console.log('Downloading document:', document.name);
-  }
-
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: Event): void {
-    if (this.isOpen && !this.eRef.nativeElement.contains(event.target)) {
-      this.isOpen = false;
-    }
+  handleDownload(doc: Documentation): void {
+    this.docService.downloadFile(doc.filename, doc.name);
   }
 
   ngOnInit() {
-    this.groupedDocuments = this.getGroupedDocuments();
+    this.findAllDocByAppId();
   }
 }

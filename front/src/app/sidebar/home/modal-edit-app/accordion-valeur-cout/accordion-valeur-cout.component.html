@@ -1,0 +1,38 @@
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed  py-3" type="button" data-bs-toggle="collapse"
+      data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="font-size: 18px;">
+      Valeurs et Coûts
+    </button>
+  </h2>
+  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <!-- Checkboxes -->
+      <div class="mb-3  d-grid gap-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.budgetBuild"
+            id="editBudgetBuild" name="editBudgetBuild" />
+          <label class="form-check-label" for="editBudgetBuild">Budget de construction</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.budgetRun"
+            id="editBudgetRun" name="editBudgetRun" />
+          <label class="form-check-label" for="editBudgetRun">Budget de fonctionnement</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.businessValue"
+            id="editBusinessValue" name="editBusinessValue" />
+          <label class="form-check-label" for="editBusinessValue">Valeur commerciale</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.technicalDebt"
+            id="editTechnicalDebt" name="editTechnicalDebt" />
+          <label class="form-check-label" for="editTechnicalDebt">Dette technique</label>
+        </div>
+      </div>
+
+      <!-- Input fields -->
+      <app-form-valeur-cout />
+    </div>
+  </div>
+</div>

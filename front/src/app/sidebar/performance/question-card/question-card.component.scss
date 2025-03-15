@@ -1,13 +1,19 @@
 .icon-button {
   padding: 0;
   border: none;
+  background: transparent;
 }
 .icon-button:hover {
   transform: scale(1.1);
 }
 
 .question-card {
-  background: linear-gradient(to right, #bdc3c721, #2c3e5021);
-  /* background: #eeeeee7d; */
-  border-radius: 10px;
+  background: #eeeeee;
+}
+
+.question-item {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
 }

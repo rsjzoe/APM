@@ -1,20 +1,18 @@
 .sidebar-container {
   position: fixed;
   background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
   width: 270px;
   height: 100%;
   transition: 0.3s ease;
-  z-index: 9999;
-}
-
-.btn-show-sidebar {
-  z-index: 9999;
-  position: fixed;
+  border: 2px solid #d1d5db;
+  z-index: 99999;
 }
 
 .closesidebar {
   grid-template-columns: 57px 1fr !important;
+}
+
+.btn-show-sidebar {
+  z-index: 99999;
+  position: fixed;
 }

@@ -1,0 +1,41 @@
+<div class="">
+  <div class="custom-select">
+    <div
+      class="select-header form-control dropdown-toggle"
+      (click)="toggleDropdown()"
+    >
+      <span>{{
+        selectedChild
+          ? selectedChild.parentName + " - " + selectedChild.name
+          : "Sélectionnez une catégorie"
+      }}</span>
+    </div>
+
+    <div class="select-options form-control" *ngIf="isOpen">
+      <ng-container *ngFor="let parent of categories">
+        <div class="option-group">
+          <div class="option-parent" (click)="toggleParent(parent)">
+            <span>{{ parent.name }}</span>
+            <app-icon-triangle-up *ngIf="isParentOpen(parent)"
+              >down</app-icon-triangle-up
+            >
+            <app-icon-triangle-down
+              *ngIf="!isParentOpen(parent)"
+            ></app-icon-triangle-down>
+            <!-- <span [ngClass]="!isParentOpen(parent) ? 'dropdown-toggle' : 'dropup-toggle'"></span> -->
+          </div>
+          <div class="option-children" *ngIf="isParentOpen(parent)">
+            <div
+              *ngFor="let child of parent.childs"
+              class="option-item"
+              [class.selected]="selectedChild?.id === child.id"
+              (click)="selectCategory(child)"
+            >
+              {{ child.name }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="container mt-4">
+  <h3 class="category-title text-center fw-bold">Gestion des Catégories</h3>
+
+  <!-- Add Parent Category -->
+  <div class="add-category-card p-2 mb-3">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="input-group">
+          <input type="text" class="form-control form-control-lg" [(ngModel)]="newParentName"
+            placeholder="Nom de la catégorie" (keyup.enter)="addParentCategory()" />
+          <button class="btn btn-primary btn-lg" (click)="addParentCategory()">
+            <app-icon-plus />
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories Grid -->
+  <div class="row mt-4">
+    <div *ngFor="let category of categories" class="col-md-6 mb-4">
+      <div class="category-card card">
+        <div class="category-header d-flex justify-content-between align-items-center  text-white p-2"
+          [ngStyle]="{'background': category.bgColor}">
+          <div class="d-flex align-items-center flex-grow-1">
+            <div *ngIf="!editingParent[category.id]" class="d-flex align-items-center">
+              <h4 class="mb-0">{{ category.name }}</h4>
+
+            </div>
+            <div *ngIf="editingParent[category.id]" class="d-flex align-items-center flex-grow-1">
+              <input type="text" class="form-control" [(ngModel)]="editingParentName[category.id]"
+                (keyup.enter)="saveParentName(category)" (blur)="saveParentName(category)" />
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center flex-end">
+            <button class="btn btn-sm btn-outline-light ms-2" (click)="startEditingParent(category)">
+              <app-icon-edit />
+            </button>
+            <button class="btn btn-sm btn-outline-light ms-2" data-bs-toggle="modal" data-bs-target="#modalConfirm"
+              data-bs-dismiss="modal" (click)="saveCategoryIdDelete(category.id)">
+              <app-icon-delete />
+            </button>
+          </div>
+
+        </div>
+        <app-modal-confirm [onConfirm]="onConfirmDelete"></app-modal-confirm>
+
+        <div class="card-body">
+          <!-- Child Categories -->
+          <div class="mb-3">
+            <div *ngFor="let child of category.childs"
+              class="child-category d-flex justify-content-between align-items-center p-2">
+              <div class="d-flex align-items-center flex-grow-1">
+                <div *ngIf="!editingChild[child.id]" class="d-flex align-items-center">
+                  <span>{{ child.name }}</span>
+                </div>
+                <div *ngIf="editingChild[child.id]" class="d-flex align-items-center flex-grow-1">
+                  <input type="text" class="form-control" [(ngModel)]="editingChildName[child.id]"
+                    (keyup.enter)="saveChildName(category.id, child)" (blur)="saveChildName(category.id, child)" />
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center flex-end">
+                <button class="btn btn-sm btn-outline-info ms-2" style="border: none !important;"
+                  (click)="startEditingChild(category.id, child)">
+                  <app-icon-edit />
+                </button>
+                <button class="btn btn-sm btn-outline-danger" style="border: none !important;"
+                  (click)="deleteChildCategory(category.id, child.id)">
+                  <app-icon-delete />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add Child Category -->
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="newChildNames[category.id]"
+              placeholder="Nouvelle sous-catégorie" (keyup.enter)="addChildCategory(category.id)" />
+            <button class="btn btn-secondary" (click)="addChildCategory(category.id)">
+              Ajouter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

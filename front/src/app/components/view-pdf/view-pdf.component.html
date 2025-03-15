@@ -1,0 +1,22 @@
+<div
+  class="modal fade modal-xl"
+  id="viewpdf"
+  tabindex="-1"
+  aria-labelledby="viewpdfLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div *ngIf="src">
+          <pdf-viewer
+            [src]="src"
+            [render-text]="true"
+            [original-size]="false"
+            style="width: 400px; height: 500px"
+          ></pdf-viewer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

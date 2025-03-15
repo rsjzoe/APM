@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { CommonModule } from '@angular/common';
-import { QuestionService } from '../../../performance/question.service';
+import { QuestionGroupeService } from '../../../performance/service/questionGroupe.service';
 import {
   Application,
-  Question,
+  QuestionGroupe,
   UpdateApplication,
-} from '../../../../application-APM/appType';
-import { ApplicationService } from '../../home.service';
-import { Router } from '@angular/router';
+} from '../../../../application/appType';
+import { ApplicationService } from '../../application.service';
 
 @Component({
   selector: 'app-rate-application',
@@ -17,124 +16,163 @@ import { Router } from '@angular/router';
   styleUrl: './rate-application.component.scss',
 })
 export class RateApplicationComponent {
-  questions: Question[] = [];
-  @Input() application!: Application;
+  questionGroups: QuestionGroupe[] = [
+    {
+      id: 1,
+      text: 'Performance',
+      borderColor: '#ff7900',
+      coeff: 2,
+      questions: [
+        {
+          id: 1,
+          text: "L'application répond-elle rapidement aux actions de l'utilisateur?",
+        },
+        { id: 2, text: 'Les temps de chargement sont-ils acceptables?' },
+        {
+          id: 3,
+          text: "L'application gère-t-elle efficacement les ressources système?",
+        },
+      ],
+      type: 'technical debt',
+    },
+    {
+      id: 2,
+      text: 'Expérience Utilisateur',
+      borderColor: '#32c832',
+      coeff: 3,
+      questions: [
+        { id: 4, text: "L'interface est-elle intuitive et facile à utiliser?" },
+      ],
+      type: 'business value',
+    },
+    {
+      id: 3,
+      text: 'Fiabilité',
+      borderColor: '#0088cc',
+      coeff: 2.5,
+      questions: [
+        { id: 7, text: "L'application fonctionne-t-elle sans erreurs?" },
+        { id: 8, text: 'Les données sont-elles correctement sauvegardées?' },
+      ],
+      type: 'technical debt',
+    },
+  ];
 
+  @Input() application!: Application;
   constructor(
-    private questionService: QuestionService,
-    private appService: ApplicationService,
-    private router: Router,
+    private questionGroupeService: QuestionGroupeService,
+    private appService: ApplicationService
   ) {}
 
-  questionsPerPage = 3;
-  currentPage = 0;
-  ratings: number[] = new Array(this.questions.length).fill(0);
+  expandedGroups: boolean[] = [true];
+  // Store ratings in a map: {groupId: {questionId: rating}}
+  ratings: Map<number, Map<number, number>> = new Map();
 
-  getCurrentPage(): number {
-    return this.currentPage + 1;
+  isGroupExpanded(index: number): boolean {
+    return this.expandedGroups[index] || false;
   }
 
-  getTotalPages(): number {
-    return Math.ceil(this.questions.length / this.questionsPerPage);
+  toggleGroup(index: number) {
+    this.expandedGroups[index] = !this.expandedGroups[index];
   }
 
-  getCurrentQuestionIndexes(): number[] {
-    const startIndex = this.currentPage * this.questionsPerPage;
-    const endIndex = Math.min(
-      startIndex + this.questionsPerPage,
-      this.questions.length
-    );
-    // [0,1,2]
-    // [3,4,5]
-    // [6,7,8]
-    return Array.from(
-      { length: endIndex - startIndex },
-      (_, i) => startIndex + i
-    );
+  getRatingForQuestion(groupId: number, questionId: number): number {
+    if (!this.ratings.has(groupId)) {
+      return 0;
+    }
+    const groupRatings = this.ratings.get(groupId);
+    if (!groupRatings || !groupRatings.has(questionId)) {
+      return 0;
+    }
+    return groupRatings.get(questionId) || 0;
   }
 
-  handleRating = (rating: number, questionIndex: number) => {
-    this.ratings[questionIndex] = rating;
+  handleRating = (rating: number, groupId: number, questionId: number) => {
+    if (!this.ratings.has(groupId)) {
+      this.ratings.set(groupId, new Map());
+    }
+    const groupRatings = this.ratings.get(groupId);
+    if (groupRatings) {
+      groupRatings.set(questionId, rating);
+    }
   };
 
-  handleNext() {
-    if (this.currentPage < this.getTotalPages() - 1) {
-      this.currentPage++;
-    }
-  }
-
-  handlePrevious() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-    }
-  }
-
-  canProceed(): boolean {
-    const currentIndexes = this.getCurrentQuestionIndexes();
-    // tokony > 0 daholo ny noten ireo question mipoitra
-    // every : boucleny ilay element rehetra de verifieny ilay condition,
-    // raha mahamarina daholo dia mi-retourne true ilay every, sinon false
-    return currentIndexes.every((index) => this.ratings[index] > 0);
-  }
-
-  isLastPage(): boolean {
-    return this.currentPage === this.getTotalPages() - 1;
-  }
-
   canSubmit(): boolean {
-    return this.ratings.every((rating) => rating > 0);
+    // Check if all questions in all groups have ratings
+    return this.questionGroups.every((group) => {
+      if (!this.ratings.has(group.id)) {
+        return false;
+      }
+      const groupRatings = this.ratings.get(group.id);
+      return group.questions.every(
+        (question) =>
+          groupRatings?.has(question.id) &&
+          (groupRatings.get(question.id) || 0) > 0
+      );
+    });
   }
 
   handleSubmit() {
-    const { id } = this.application;
     let updateApplication: UpdateApplication = {
       name: this.application.name,
-      businessValue: this.application.businessValue,
-      costBuild: this.application.costBuild,
-      costRun: this.application.costRun,
-      categoryId: this.application.category.id,
+      budget: this.application.budget,
+      categoryODAChildId: this.application.categoryODAChild.id,
       departementId: this.application.departement.id,
       description: this.application.description,
       lastUpdate: this.application.lastUpdate,
       startDate: this.application.startDate,
       status: this.application.status,
-      time: this.application.time,
       userTotal: this.application.userTotal,
-      note: this.averageRatings(),
+      classeId: this.application.classe.id,
+      note: 0,
     };
-
-    this.updateApplication(this.application.id, updateApplication);
+    return this.updateApplication(this.application.id, updateApplication);
   }
 
-  averageRatings() {
-    let sum = 0;
-    for (let rating of this.ratings) {
-      sum += rating;
-    }
-    return sum / this.questions.length;
-  }
+  calculateWeightedAverage() {
+    let totalTechnicalDebtSum = 0;
+    let totalTechnicalDebtCoeff = 0;
+    let totalBusinessValueSum = 0;
+    let totalBusinessValueCoeff = 0;
 
-  findAllQuestions = () => {
-    this.questionService.findAll().subscribe({
-      next: (data) => {
-        this.questions = data;
-        this.ratings = new Array(this.questions.length).fill(0);
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des questions :', error);
-      },
+    this.questionGroups.forEach((group) => {
+      const groupRatings = this.ratings.get(group.id);
+      if (groupRatings) {
+        let groupSum = 0;
+        group.questions.forEach((question) => {
+          groupSum += groupRatings.get(question.id) || 0;
+        });
+
+        // Calculate average for this group
+        const groupAverage = groupSum / group.questions.length;
+
+        if (group.type === 'technical debt') {
+          totalTechnicalDebtSum += groupAverage * group.coeff;
+          totalTechnicalDebtCoeff += group.coeff;
+        } else if (group.type === 'business value') {
+          totalBusinessValueSum += groupAverage * group.coeff;
+          totalBusinessValueCoeff += group.coeff;
+        }
+      }
     });
-  };
 
-  updateApplication(id: number, updateApp: UpdateApplication) {
-    this.appService.update(id, updateApp).subscribe({
-      next: (val) => {
-        window.location.reload();
-      },
-    });
+    const technicalDebtAverage =
+      totalTechnicalDebtCoeff > 0
+        ? totalTechnicalDebtSum / totalTechnicalDebtCoeff
+        : 0;
+    const businessValueAverage =
+      totalBusinessValueCoeff > 0
+        ? totalBusinessValueSum / totalBusinessValueCoeff
+        : 0;
+
+    return { technicalDebtAverage, businessValueAverage };
   }
+
+  findAllQuestionGroups = () => {};
+
+  updateApplication(id: number, updateApp: UpdateApplication) {}
 
   ngOnInit() {
-    this.findAllQuestions();
+    // this.findAllQuestionGroups();
   }
 }

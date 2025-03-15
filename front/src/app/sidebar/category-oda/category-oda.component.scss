@@ -1,0 +1,18 @@
+.category-card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.child-category {
+  background-color: #f8f9fa;
+  border-left: 4px solid #ff7900;
+  margin: 0.5rem 0;
+}
+
+.category-title {
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}

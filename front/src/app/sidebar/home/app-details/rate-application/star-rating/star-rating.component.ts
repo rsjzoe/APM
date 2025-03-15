@@ -11,12 +11,13 @@ import { StarComponent } from '../../../../../components/icons/star/star.compone
 })
 export class StarRatingComponent {
   @Input() rating = 0;
-  @Input() questionIndex = 0;
-  @Input() handleRatingWithIndex = (
-    rating: number,
-    questionIndex: number
-  ) => {};
-  handleRating = (rating: number) => {
-    this.handleRatingWithIndex(rating, this.questionIndex);
-  };
+  @Input() questionId = 0;
+  @Input() questionGroupId: number = 0;
+
+  @Input() handleRatingWithIds: (rating: number, groupId: number, questionId: number) => void = () => {};
+  stars = [1, 2, 3, 4, 5];
+  rate(rating: number): void {
+    this.rating = rating;
+    this.handleRatingWithIds(rating, this.questionGroupId, this.questionId);
+  }
 }

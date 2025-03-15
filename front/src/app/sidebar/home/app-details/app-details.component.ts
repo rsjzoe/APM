@@ -1,117 +1,90 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AppHistory, Application } from '../../../application-APM/appType';
-import { FormsModule } from '@angular/forms';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { IconStarComponent } from '../../../components/icons/icon-star/icon-star.component';
+import { IconDollarComponent } from '../../../components/icons/icon-dollar/icon-dollar.component';
+import { IconUserComponent } from '../../../components/icons/icon-user/icon-user.component';
+import { IconCategoryComponent } from '../../../components/icons/icon-category/icon-category.component';
+import { IconCalendarComponent } from '../../../components/icons/icon-calendar/icon-calendar.component';
+import { IconUpdateComponent } from '../../../components/icons/icon-update/icon-update.component';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AppHistory, Application, Budget } from '../../../application/appType';
+import { ApplicationService } from '../application.service';
 import { CommonModule } from '@angular/common';
 import { IconLifecycleComponent } from '../../../components/icons/icon-lifecycle/icon-lifecycle.component';
-import { IconStarComponent } from '../../../components/icons/icon-star/icon-star.component';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ApplicationService } from '../home.service';
-import { TimelineComponent } from '../../../components/timeline/timeline.component';
 import { TimelineHistoryComponent } from './timeline-history/timeline-history.component';
-import { AppHistoryService } from '../../../application-APM/app-history.service';
-import { Chart, ChartConfiguration } from 'chart.js/auto';
-import { ChartData } from './appDetailType';
-import { DateFormater } from '../../../lib/dateFormater';
+import { TimelineComponent } from '../../../components/timeline/timeline.component';
 import { RateApplicationComponent } from './rate-application/rate-application.component';
-import { IconLayerComponent } from '../../../components/icons/icon-layer/icon-layer.component';
-import { DocumentationComponent } from './documentation/documentation.component';
+import { DateFormater } from '../../../lib/dateFormater';
+import { AppHistoryService } from '../../../application/app-history.service';
 import { NumberFormat } from '../../../lib/numberFormat';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { BudgetService } from '../../../application/budget.service';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { IconClassificationComponent } from '../../../components/icons/icon-classification/icon-classification.component';
+import { IconSablierComponent } from '../../../components/icons/icon-sablier/icon-sablier.component';
+import { UserService } from '../../administration/user.service';
+import { Role } from '../../administration/user.type';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { IconStatusComponent } from '../../../components/icons/icon-status/icon-status.component';
 
 @Component({
   selector: 'app-app-details',
   imports: [
-    FormsModule,
+    IconStarComponent,
+    IconDollarComponent,
+    IconUserComponent,
+    IconCategoryComponent,
+    IconCalendarComponent,
+    IconUpdateComponent,
     CommonModule,
     IconLifecycleComponent,
-    IconStarComponent,
-    RouterLink,
     TimelineComponent,
     TimelineHistoryComponent,
     RateApplicationComponent,
-    IconLayerComponent,
+    RouterLink,
     DocumentationComponent,
+    ButtonComponent,
+    IconClassificationComponent,
+    IconSablierComponent,
+    DashboardComponent,
+    IconStatusComponent,
   ],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',
 })
-export class AppDetailsComponent implements OnInit {
-  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
+export class AppDetailsComponent {
+  @Input() route!: string;
+  @ViewChild('chartCanvasTechBusiness')
+  chartCanvasTechBusiness!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartCanvasCost') chartCanvasCost!: ElementRef<HTMLCanvasElement>;
+
   application: Application | null = null;
   appId: number | null = null;
   appHistory: AppHistory[] = [];
+  budgetHistory: Budget[] = [];
   activeTab: string = 'dashboard';
-  chart: Chart | null = null;
-  numberFormat = (value: number) => {
-    return NumberFormat.formatDevise(value);
-  };
 
   constructor(
     private appService: ApplicationService,
     private activateRoute: ActivatedRoute,
     private appHistoryService: AppHistoryService,
+    private budgetService: BudgetService,
+    public userService: UserService,
     private router: Router
   ) {}
 
-  chartData = [
-    { name: 'Jan', businessValue: 4000, costBuild: 2400, costRun: 2400 },
-    { name: 'Feb', businessValue: 3000, costBuild: 1398, costRun: 2210 },
-    { name: 'Mar', businessValue: 2000, costBuild: 9800, costRun: 2290 },
-    { name: 'Apr', businessValue: 2780, costBuild: 3908, costRun: 2000 },
-    { name: 'May', businessValue: 1890, costBuild: 4800, costRun: 2181 },
-    { name: 'Jun', businessValue: 2390, costBuild: 3800, costRun: 2500 },
-    { name: 'Jul', businessValue: 3490, costBuild: 4300, costRun: 2100 },
-  ];
-
-  generateChartData(appHistory: AppHistory[]): ChartData[] {
-    const allMonths = [
-      'janv.',
-      'févr.',
-      'mars.',
-      'avr.',
-      'mai.',
-      'juin.',
-      'juil.',
-      'août.',
-      'sept.',
-      'oct.',
-      'nov.',
-      'déc.',
-    ];
-
-    const monthlyData: { [key: string]: ChartData } = allMonths.reduce(
-      (acc, month) => {
-        acc[month] = {
-          name: month,
-          businessValue: 0,
-          costBuild: 0,
-          costRun: 0,
-        };
-        return acc;
-      },
-      {} as { [key: string]: ChartData }
+  canAddDoc() {
+    return (
+      this.userService.getUserConnected()?.role == Role.admin ||
+      this.userService.getUserConnected()?.role == Role.editor
     );
-
-    appHistory.forEach((history) => {
-      const date = new Date(history.modifiedAt);
-      const month = DateFormater.getMonth(date);
-
-      if (monthlyData[month]) {
-        monthlyData[month].businessValue += history.businessValue;
-        monthlyData[month].costBuild += history.costBuild;
-        monthlyData[month].costRun += history.costRun;
-      }
-    });
-
-    return Object.values(monthlyData);
   }
+
+  numberFormat = (value: number) => {
+    return NumberFormat.formatDevise(value);
+  };
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
-    if (tab === 'dashboard') {
-      setTimeout(() => {
-        this.initChart();
-      }, 200);
-    }
   }
 
   formatDate(date: Date | string) {
@@ -122,9 +95,6 @@ export class AppDetailsComponent implements OnInit {
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.findAppById(this.appId);
     this.findAllAppHistory(this.appId);
-    setTimeout(() => {
-      this.initChart();
-    }, 200);
   }
 
   findAppById(id: number) {
@@ -143,7 +113,7 @@ export class AppDetailsComponent implements OnInit {
     this.appHistoryService.findAllByAppId(appId).subscribe({
       next: (data) => {
         this.appHistory = data;
-        this.chartData = this.generateChartData(data);
+        // this.chartData = this.generateChartData(data);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des tâches :', error);
@@ -151,165 +121,13 @@ export class AppDetailsComponent implements OnInit {
     });
   };
 
-  initChart() {
-    if (this.chartCanvas) {
-      const ctx = this.chartCanvas.nativeElement.getContext('2d');
-      if (ctx) {
-        const config: ChartConfiguration = {
-          type: 'line',
-          data: {
-            labels: this.chartData.map((item) => item.name),
-            datasets: [
-              {
-                label: 'Valeur Métier',
-                data: this.chartData.map((item) => item.businessValue),
-                borderColor: '#6366f1',
-                backgroundColor: 'transparent',
-                tension: 0.4,
-                fill: false,
-                borderWidth: 3,
-                pointRadius: 4,
-                pointBackgroundColor: '#6366f1',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                pointHoverBorderWidth: 3,
-              },
-              {
-                label: 'Coût de Build',
-                data: this.chartData.map((item) => item.costBuild),
-                borderColor: '#22c55e',
-                backgroundColor: 'transparent',
-                tension: 0.4,
-                fill: false,
-                borderWidth: 3,
-                pointRadius: 4,
-                pointBackgroundColor: '#22c55e',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                pointHoverBorderWidth: 3,
-              },
-              {
-                label: 'Coût de Run',
-                data: this.chartData.map((item) => item.costRun),
-                borderColor: '#f59e0b',
-                backgroundColor: 'transparent',
-                tension: 0.4,
-                fill: false,
-                borderWidth: 3,
-                pointRadius: 4,
-                pointBackgroundColor: '#f59e0b',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                pointHoverBorderWidth: 3,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: 'top',
-                labels: {
-                  padding: 20,
-                  font: {
-                    size: 13,
-                    family: "'Inter', sans-serif",
-                  },
-                  usePointStyle: true,
-                  pointStyle: 'circle',
-                },
-              },
-              tooltip: {
-                mode: 'index',
-                intersect: false,
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#1f2937',
-                bodyColor: '#4b5563',
-                borderColor: '#e5e7eb',
-                borderWidth: 1,
-                padding: 12,
-                bodyFont: {
-                  size: 13,
-                  family: "'Inter', sans-serif",
-                },
-                titleFont: {
-                  size: 14,
-                  family: "'Inter', sans-serif",
-                },
-                displayColors: true,
-                boxWidth: 8,
-                boxHeight: 8,
-                boxPadding: 4,
-                usePointStyle: true,
-              },
-            },
-            hover: {
-              mode: 'nearest',
-              intersect: true,
-            },
-            scales: {
-              x: {
-                grid: {
-                  display: false,
-                },
-                ticks: {
-                  font: {
-                    size: 12,
-                    family: "'Inter', sans-serif",
-                  },
-                  padding: 8,
-                },
-              },
-              y: {
-                beginAtZero: true,
-                grid: {
-                  color: '#f3f4f6',
-                },
-                ticks: {
-                  font: {
-                    size: 12,
-                    family: "'Inter', sans-serif",
-                  },
-                  padding: 12,
-                  stepSize: 2000,
-                  callback: function (value: any) {
-                    return value.toLocaleString() + ' €';
-                  },
-                },
-              },
-            },
-            elements: {
-              line: {
-                borderWidth: 3,
-              },
-            },
-            layout: {
-              padding: {
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-              },
-            },
-          },
-        };
-
-        this.chart = new Chart(ctx, config);
-      }
-    }
-  }
-
   getStatusColor(status: Application['status']): string {
     switch (status) {
       case 'development':
         return 'bg-warning';
       case 'production':
         return 'bg-success';
-      case 'deprecated':
+      case 'decommissioned':
         return 'bg-danger';
       default:
         return 'bg-secondary';

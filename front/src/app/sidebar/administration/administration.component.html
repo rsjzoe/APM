@@ -1,3 +1,5 @@
+<!-- <p>administration works!</p>    -->
+
 <div class="admin-container">
 
   <div class="d-flex">
@@ -11,6 +13,7 @@
       <ul class="dropdown-menu">
         <li><a class="dropdown-item">utilisateur</a></li>
         <li><a class="dropdown-item">administration</a></li>
+
       </ul>
     </div>
   </div>
@@ -20,28 +23,29 @@
 
 
   <div class="table-container position-relative" style="top: 50px">
-    <table class="table" style="--bs-table-bg: none">
+    <table class="table table-striped" style="--bs-table-bg: none">
       <thead class="bg-dark text-white">
         <tr class="title-col text-white">
           <th scope="col">Nom</th>
-          <th scope="col">Email</th>
+          <th scope="col">Trigramme</th>
+          <th scope="col">Département </th>
           <th scope="col">Rôle</th>
-          <th scope="col">Direction</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="bg-white">
         <tr *ngFor="let user of users">
           <td>{{ user.name }}</td>
           <td>{{ user.trigramme }}</td>
+          <td>{{ user.departement }}</td>
           <td>
-            <span class="badge rounded-pill" [ngClass]="user.role == 'admin' ? 'text-bg-secondary' : 'text-bg-warning'">
+            <span class="badge rounded-pill" [ngClass]="user.role == 'admin' ? 'text-bg-secondary' : (user.role == 'editor' ? 'text-bg-info' : 'text-bg-warning')">
               {{ user.role }}
             </span>
           </td>
-          <td>DSI</td>
-          <td class="d-flex gap-3">
-            <div class="delete-icon" (click)="deleteUser(user.id)">
+          <td class="d-flex gap-2">
+            <div class="delete-icon" data-bs-toggle="modal" data-bs-target="#modalConfirm" data-bs-dismiss="modal"
+              (click)="saveTrigrammeAppDelete(user.trigramme)">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CD3C14"
                 class="solaris-icon si-trash" viewBox="0 0 1000 1000">
                 <path
@@ -62,6 +66,7 @@
       </tbody>
     </table>
   </div>
+  <app-modal-confirm [onConfirm]="onConfirmDelete"></app-modal-confirm>
 
   <nav aria-label="Page navigation " class="position-relative" style="top: 80px">
     <ul class="pagination justify-content-center">

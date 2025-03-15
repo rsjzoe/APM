@@ -1,0 +1,43 @@
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button  py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+      aria-expanded="true" aria-controls="collapseOne" style="font-size: 18px;">
+      Informations Générales
+    </button>
+  </h2>
+  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <!-- Checkboxes -->
+      <div class="mb-3  d-grid gap-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.name" id="editName"
+            name="editName" />
+          <label class="form-check-label" for="editName">Nom</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.description"
+            id="editDescription" name="editDescription" />
+          <label class="form-check-label" for="editDescription">Description</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.userTotal"
+            id="editUserTotal" name="editUserTotal" />
+          <label class="form-check-label" for="editUserTotal">Nombre d'utilisateurs</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.categoryODAChildId"
+            id="editCategory" name="editCategory" />
+          <label class="form-check-label" for="editCategory">Catégorie</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="modalStateService.openFields.departementId"
+            id="editDepartement" name="editDepartement" />
+          <label class="form-check-label" for="editDepartement">Département</label>
+        </div>
+      </div>
+
+      <!-- Input fields -->
+      <app-form-general />
+    </div>
+  </div>
+</div>

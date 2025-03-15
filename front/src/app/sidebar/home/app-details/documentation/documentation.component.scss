@@ -1,16 +1,10 @@
-.popover-container {
+.documentation-container {
   position: relative;
-  display: inline-block;
 }
 
-.popover-content {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 384px;
+.documentation-content {
   background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
+  border: 2px solid #e2e8f0;
   padding: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -19,8 +13,7 @@
 
 .button {
   padding: 0.5rem 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.375rem;
+  border: 2px solid #e2e8f0;
   background: white;
   cursor: pointer;
 }
@@ -41,25 +34,6 @@
   border-radius: 0.25rem;
 }
 
-.badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  color: white;
-}
-
-.badge-technique {
-  background-color: #3b82f6;
-}
-
-.badge-fonctionnelle {
-  background-color: #22c55e;
-}
-
-.badge-exploitation {
-  background-color: #eab308;
-}
-
 .separator {
   height: 1px;
   background: #e2e8f0;
@@ -72,24 +46,6 @@
 
 .document-group {
   margin-bottom: 1rem;
-}
-
-.document-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-}
-
-.document-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.document-actions {
-  display: flex;
-  gap: 0.5rem;
 }
 
 .flex {

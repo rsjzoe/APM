@@ -1,0 +1,26 @@
+<div class="modal fade modal-lg" id="modalEditApp" tabindex="-1" aria-labelledby="modalEditAppLabel"
+  data-bs-backdrop="false" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalEditAppLabel">
+          Modifier l'application
+        </h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"
+          (click)="modalStateService.resetData()"></button>
+      </div>
+      <div class="modal-body mt-2   ">
+        <div class="accordion" id="accordionExample">
+          <app-accordion-general />
+          <app-accordion-valeur-cout />
+          <app-accordion-date-status />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="modalStateService.submit()">
+          Mettre à jour
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

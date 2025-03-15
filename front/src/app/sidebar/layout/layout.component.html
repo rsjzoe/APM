@@ -1,7 +1,7 @@
 <div class="d-grid" [class.closesidebar]="closeSidebar"
     style="min-height: 100vh; grid-template-columns: 270px 1fr;z-index: 2;position: relative;  transition: 0.1s ease;">
     <div class="position-relative">
-        <div class="sidebar-container">
+        <div class="sidebar-container bg-white">
             <div class="">
                 <div class="sidebar">
                     <app-sidebar [toggleSidebar]="toggleCloseSidebar.bind(this)"></app-sidebar>
@@ -19,15 +19,13 @@
 
 
     <div class="position-relative">
-        <header class="position-fixed "
-            style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.09); width: 100%;left: 0;z-index: 999;background: #000;">
+        <header class="position-fixed bg-secondary" style="width: 100%;left: 0;z-index: 9999;background: #000;">
             <div>
                 <app-header></app-header>
             </div>
         </header>
-        <div class="p-4 " style="padding-top: 86px !important;">
+        <div class="p-4 " style="padding-top: 100px !important;">
             <router-outlet></router-outlet>
         </div>
-
     </div>
 </div>

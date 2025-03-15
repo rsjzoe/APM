@@ -1,8 +1,11 @@
 export type User = {
-  id: number;
   name: string;
   trigramme: string;
-  role: Role
+  departement: string;
+  role: Role;
 };
-export type Role = "admin" | "user"
-
+export enum Role {
+  admin = "admin",
+  editor = "editor",
+  visitor = "visitor"
+}

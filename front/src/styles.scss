@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @use "boosted/scss/boosted";
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
+  // background: #f3f4f6;
 }

@@ -1,8 +1,8 @@
 <div class="star-rating">
-    <app-star
-      *ngFor="let star of [1, 2, 3, 4, 5]"
-      [filled]="star <= rating"
-      [value]="star"
-      [onRating]="handleRating"
-    ></app-star>
-  </div>
+  <app-star
+    *ngFor="let star of stars; let i = index"
+    [filled]="star <= rating"
+    [value]="star"
+    (click)="rate(star)"
+  ></app-star>
+</div>

@@ -1,0 +1,83 @@
+<!-- Modal -->
+<!-- <div
+  class="modal fade"
+  id="modalConfirm"
+  tabindex="-1"
+  aria-labelledby="modalConfirmLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title h5" id="modalConfirmLabel">
+          Confirmer l'action
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          data-bs-title="Close"
+        >
+          <span class="visually-hidden">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir continuer cette action ?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-dismiss="modal"
+        >
+          Annuler
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onConfirm()">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Modal - Étape 2 -->
+<div
+  class="modal fade modal-lg"
+  id="modalConfirm"
+  tabindex="-1"
+  aria-labelledby="modalConfirmLabel"
+  data-bs-backdrop="false"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title h5" id="modalConfirmLabel">
+          Confirmer l'action
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir continuer cette action ?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-dismiss="modal"
+        >
+          Annuler
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onConfirm()"   data-bs-dismiss="modal">
+          Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
