@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   Application,
   CreateApplication,
-  CreateDocumentation,
-  DocumentationType,
   UpdateApplication,
-} from '../../../application/appType';
+} from '../../../application/app.type';
 import { ApplicationService } from '../application.service';
-import { BudgetService } from '../../../application/budget.service';
-import { forkJoin } from 'rxjs';
+import {
+  CreateDocumentationWithoutApp,
+  DocumentationType,
+} from '../../../application/documentation.type';
 
 type Create = Omit<CreateApplication, 'documentations'> & {
   fonctionnelles: File[];
@@ -54,15 +54,15 @@ export class ModalStateService {
     startDate: undefined!,
     lastUpdate: undefined!,
     status: undefined!,
-    time: undefined!,
     userTotal: undefined!,
-    categoryODAChildId: undefined!,
+    categoryId: undefined!,
     departementId: undefined!,
-    budget: {
-      budgetBuild: undefined!,
-      budgetRun: undefined!,
+    costWithoutApp: {
+      costBuild: undefined!,
+      costRun: undefined!,
+    },
+    techBusinessValueWithoutApp: {
       businessValue: undefined!,
-      createdAt: undefined!,
       technicalDebt: undefined!,
     },
     classeId: undefined!,
@@ -71,10 +71,7 @@ export class ModalStateService {
     techniques: [],
   };
 
-  constructor(
-    private appService: ApplicationService,
-    private budgetService: BudgetService
-  ) {
+  constructor(private appService: ApplicationService) {
     this.openAllFields();
   }
 
@@ -85,15 +82,15 @@ export class ModalStateService {
       startDate: undefined!,
       lastUpdate: undefined!,
       status: undefined!,
-      time: undefined!,
       userTotal: undefined!,
-      categoryODAChildId: undefined!,
+      categoryId: undefined!,
       departementId: undefined!,
-      budget: {
-        budgetBuild: undefined!,
-        budgetRun: undefined!,
+      costWithoutApp: {
+        costBuild: undefined!,
+        costRun: undefined!,
+      },
+      techBusinessValueWithoutApp: {
         businessValue: undefined!,
-        createdAt: undefined!,
         technicalDebt: undefined!,
       },
       classeId: undefined!,
@@ -142,25 +139,25 @@ export class ModalStateService {
     this.createApplication = {
       name: app.name,
       description: app.description,
-      budget: {
-        budgetBuild: app.budget.budgetBuild,
-        budgetRun: app.budget.budgetRun,
-        businessValue: app.budget.businessValue,
-        createdAt: app.budget.createdAt,
-        technicalDebt: app.budget.technicalDebt,
+      costWithoutApp: {
+        costBuild: app.currentCost.costBuild,
+        costRun: app.currentCost.costRun,
+      },
+      techBusinessValueWithoutApp: {
+        businessValue: app.currentTechBusinessValue.businessValue,
+        technicalDebt: app.currentTechBusinessValue.technicalDebt,
       },
       startDate: app.startDate,
       lastUpdate: app.lastUpdate,
       status: app.status,
-      time: app.time,
       userTotal: app.userTotal,
-      categoryODAChildId: app.categoryODAChild.id,
+      categoryId: app.category.id,
       departementId: app.departement.id,
       classeId: app.classe.id,
       exploitation: [],
       fonctionnelles: [],
       techniques: [],
-    };    
+    };
     this.hideAllFields();
   };
 
@@ -175,7 +172,7 @@ export class ModalStateService {
   };
 
   transformCreateToCreateApplication(create: Create): CreateApplication {
-    const documentations: CreateDocumentation[] = [
+    const documentations: CreateDocumentationWithoutApp[] = [
       ...create.fonctionnelles.map((file) => ({
         type: DocumentationType.fonctionnelle,
         file,
@@ -234,35 +231,28 @@ export class ModalStateService {
     let updatedApp: UpdateApplication = {
       name: this.createApplication.name,
       description: this.createApplication.description,
-      budget: {
-        budgetBuild: this.createApplication.budget.budgetBuild,
-        budgetRun: this.createApplication.budget.budgetRun,
-        businessValue: this.createApplication.budget.businessValue,
-        createdAt: this.createApplication.budget.createdAt,
-        technicalDebt: this.createApplication.budget.technicalDebt,
-        id: this.appEditing.budget.id,
+      costWithoutApp: {
+        costBuild: this.createApplication.costWithoutApp.costBuild,
+        costRun: this.createApplication.costWithoutApp.costRun,
+      },
+      techBusinessValueWithoutApp: {
+        businessValue:
+          this.createApplication.techBusinessValueWithoutApp.businessValue,
+        technicalDebt:
+          this.createApplication.techBusinessValueWithoutApp.technicalDebt,
       },
       startDate: this.createApplication.startDate,
       lastUpdate: this.createApplication.lastUpdate,
       status: this.createApplication.status,
       userTotal: this.createApplication.userTotal,
-      categoryODAChildId: this.createApplication.categoryODAChildId,
+      categoryId: this.createApplication.categoryId,
       departementId: this.createApplication.departementId,
       classeId: this.createApplication.classeId,
-      note: this.appEditing.note,
+      noteCost: this.appEditing.noteCost,
+      noteTechBusiness: this.appEditing.noteTechBusiness,
     };
 
-    // mila vitaina izy roa vao miantso ny resetData sy ...
-    forkJoin([
-      this.budgetService.updateBugetById(this.appEditing.budget.id, {
-        budgetBuild: this.createApplication.budget.budgetBuild,
-        budgetRun: this.createApplication.budget.budgetRun,
-        businessValue: this.createApplication.budget.businessValue,
-        createdAt: this.createApplication.budget.createdAt,
-        technicalDebt: this.createApplication.budget.technicalDebt,
-      }),
-      this.appService.update(this.appEditing.id, updatedApp),
-    ]).subscribe({
+    this.appService.update(this.appEditing.id, updatedApp).subscribe({
       next: () => {
         this.resetData();
         this.callSubscriberOnsubmit();

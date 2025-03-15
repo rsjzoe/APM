@@ -4,10 +4,13 @@ import { CommonModule } from '@angular/common';
 import { QuestionGroupeService } from '../../../performance/service/questionGroupe.service';
 import {
   Application,
-  QuestionGroupe,
   UpdateApplication,
-} from '../../../../application/appType';
+} from '../../../../application/app.type';
 import { ApplicationService } from '../../application.service';
+import {
+  QuestionGroupe,
+  QuestionGroupeType,
+} from '../../../../application/question.type';
 
 @Component({
   selector: 'app-rate-application',
@@ -33,7 +36,7 @@ export class RateApplicationComponent {
           text: "L'application gère-t-elle efficacement les ressources système?",
         },
       ],
-      type: 'technical debt',
+      type: QuestionGroupeType.businessValue,
     },
     {
       id: 2,
@@ -43,7 +46,7 @@ export class RateApplicationComponent {
       questions: [
         { id: 4, text: "L'interface est-elle intuitive et facile à utiliser?" },
       ],
-      type: 'business value',
+      type: QuestionGroupeType.businessValue,
     },
     {
       id: 3,
@@ -54,7 +57,7 @@ export class RateApplicationComponent {
         { id: 7, text: "L'application fonctionne-t-elle sans erreurs?" },
         { id: 8, text: 'Les données sont-elles correctement sauvegardées?' },
       ],
-      type: 'technical debt',
+      type: QuestionGroupeType.technicalDebt,
     },
   ];
 
@@ -114,17 +117,8 @@ export class RateApplicationComponent {
 
   handleSubmit() {
     let updateApplication: UpdateApplication = {
-      name: this.application.name,
-      budget: this.application.budget,
-      categoryODAChildId: this.application.categoryODAChild.id,
-      departementId: this.application.departement.id,
-      description: this.application.description,
-      lastUpdate: this.application.lastUpdate,
-      startDate: this.application.startDate,
-      status: this.application.status,
-      userTotal: this.application.userTotal,
-      classeId: this.application.classe.id,
-      note: 0,
+      noteCost: 0,
+      noteTechBusiness: 0,
     };
     return this.updateApplication(this.application.id, updateApplication);
   }
@@ -146,10 +140,10 @@ export class RateApplicationComponent {
         // Calculate average for this group
         const groupAverage = groupSum / group.questions.length;
 
-        if (group.type === 'technical debt') {
+        if (group.type === QuestionGroupeType.technicalDebt) {
           totalTechnicalDebtSum += groupAverage * group.coeff;
           totalTechnicalDebtCoeff += group.coeff;
-        } else if (group.type === 'business value') {
+        } else if (group.type === QuestionGroupeType.businessValue) {
           totalBusinessValueSum += groupAverage * group.coeff;
           totalBusinessValueCoeff += group.coeff;
         }

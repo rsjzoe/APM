@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { Classe, Departement } from '../../../../application/appType';
 import { DepartementService } from '../../../../application/departement.service';
 import { ModalStateService } from '../../modal-add-app/modal-state.service';
 import { ClasseService } from '../../../../application/classe.service';
 import { SelectCategoryComponent } from '../../modal-add-app/modal-general/select-category/select-category.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Departement } from '../../../../application/departement.type';
+import { Classe } from '../../../../application/classe.type';
 
 @Component({
   selector: 'app-form-general',

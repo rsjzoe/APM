@@ -1,15 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
-  DocumentationBackend,
-  transformCreateDocumentationToCreateDocumentationBackend,
-  transformDocumentationBackendToDocumentation,
-} from '../../../../application/appBackend';
-import { map, Observable } from 'rxjs';
-import {
-  CreateDocumentation,
+  CreateDocumentationWithoutApp,
   Documentation,
-} from '../../../../application/appType';
+} from '../../../../application/documentation.type';
 
 @Injectable({
   providedIn: 'root',
@@ -19,42 +13,23 @@ export class DocumentationService {
   private apiUrl = 'http://localhost:8080/documentation';
 
   findAllByAppId(appId: number) {
-    return this.http
-      .get<DocumentationBackend[]>(this.apiUrl + '/application/' + appId)
-      .pipe(
-        map((data: DocumentationBackend[]) =>
-          data.map((CategoryODAChild) =>
-            transformDocumentationBackendToDocumentation(CategoryODAChild)
-          )
-        )
-      );
+    return this.http.get<Documentation[]>(
+      this.apiUrl + '/application/' + appId
+    );
   }
 
-  add(data: CreateDocumentation, appId: number) {
-    const create =
-      transformCreateDocumentationToCreateDocumentationBackend(data);
+  add(data: CreateDocumentationWithoutApp, appId: number) {
+    const create = data;
     const formData = new FormData();
     formData.append('image', create.file);
     formData.append('type', create.type);
     formData.append('applicationId', appId.toString());
-    return this.documentationBackendToDocumentation(
-      this.http.post<DocumentationBackend>(this.apiUrl, formData)
-    );
+    return this.http.post<Documentation>(this.apiUrl, formData);
   }
 
   deleteByFileName(name: string) {
-    return this.documentationBackendToDocumentation(
-      this.http.delete<DocumentationBackend>(
-        `${this.apiUrl}/${encodeURIComponent(name)}`
-      )
-    );
-  }
-
-  documentationBackendToDocumentation(data: Observable<DocumentationBackend>) {
-    return data.pipe(
-      map((data: DocumentationBackend) => {
-        return transformDocumentationBackendToDocumentation(data);
-      })
+    return this.http.delete<Documentation>(
+      `${this.apiUrl}/${encodeURIComponent(name)}`
     );
   }
 

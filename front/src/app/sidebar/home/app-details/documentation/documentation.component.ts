@@ -1,11 +1,11 @@
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconViewComponent } from '../../../../components/icons/icon-view/icon-view.component';
 import { IconDocumentComponent } from '../../../../components/icons/icon-document/icon-document.component';
 import {
   DocumentationType,
   Documentation,
-} from '../../../../application/appType';
+} from '../../../../application/documentation.type';
 import { DocumentationService } from './documentation.service';
 import { ModalAddDocumentationComponent } from './modal-add-documentation/modal-add-documentation.component';
 import { IconDeleteComponent } from '../../../../components/icons/icon-delete/icon-delete.component';
@@ -33,10 +33,16 @@ export class DocumentationComponent {
   groupedDocuments: Record<DocumentationType, Documentation[]> | null = null;
   appFilenameDelete: string | null = null;
 
-  constructor(private docService: DocumentationService, public userService : UserService) {}
+  constructor(
+    private docService: DocumentationService,
+    public userService: UserService
+  ) {}
 
-  canDeleteDoc(){
-    return this.userService.getUserConnected()?.role == Role.admin || this.userService.getUserConnected()?.role == Role.editor
+  canDeleteDoc() {
+    return (
+      this.userService.getUserConnected()?.role == Role.admin ||
+      this.userService.getUserConnected()?.role == Role.editor
+    );
   }
 
   saveIdAppDelete = (filename: string) => {

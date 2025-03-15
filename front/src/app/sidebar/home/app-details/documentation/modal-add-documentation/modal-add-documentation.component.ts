@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { DocumentationService } from '../documentation.service';
 import {
-  CreateDocumentation,
+  CreateDocumentationWithoutApp,
   DocumentationType,
-} from '../../../../../application/appType';
+} from '../../../../../application/documentation.type';
 
 @Component({
   selector: 'app-modal-add-documentation',
@@ -51,7 +51,7 @@ export class ModalAddDocumentationComponent {
 
   submit() {
     if (this.applicationId == null) return;
-    const allFiles: CreateDocumentation[] = [
+    const allFiles: CreateDocumentationWithoutApp[] = [
       ...this.fonctionnelles.map((file) => ({
         type: DocumentationType.fonctionnelle,
         file,

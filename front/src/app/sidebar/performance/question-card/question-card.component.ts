@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { QuestionGroupe } from '../../../application/appType';
+import { QuestionGroupe } from '../../../application/question.type';
 import { IconDeleteComponent } from '../../../components/icons/icon-delete/icon-delete.component';
 import { IconEditComponent } from '../../../components/icons/icon-edit/icon-edit.component';
 import { CommonModule } from '@angular/common';

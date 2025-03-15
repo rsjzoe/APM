@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Role, User } from '../user.type';
 import { FormsModule } from '@angular/forms';
-import { Departement } from '../../../application/appType';
+import { Departement } from '../../../application/departement.type';
 import { DepartementService } from '../../../application/departement.service';
 
 @Component({

@@ -19,14 +19,14 @@
           <app-icon-dollar class="text-success"></app-icon-dollar>
           <div class="">
             <span class="">Valeur Métier :</span>
-            <span> {{ numberFormat(application.budget.businessValue) }}</span>
+            <span> {{ numberFormat(application.currentTechBusinessValue.businessValue) }}</span>
           </div>
         </div>
         <div class="d-flex align-items-center gap-1">
           <app-icon-category />
           <div class="">
             <span class="">Catégorie: </span>
-            <span class="">{{application.categoryODAChild.parentName}} - {{ application.categoryODAChild.name }}</span>
+            <span class="">{{application.category.parentName}} - {{ application.category.name }}</span>
           </div>
         </div>
         <div class="custom-flex">
@@ -43,7 +43,7 @@
             <app-icon-sablier />
             <div class="">
               <span class="">Dette technique: </span>
-              <span class="">{{ application.budget.technicalDebt }}</span>
+              <span class="">{{ application.currentTechBusinessValue.technicalDebt }}</span>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="app-content">
               <div class="fs-3 fw-bold">
-                {{ numberFormat(application.budget.budgetBuild) }} €
+                {{ numberFormat(application.currentCost.costBuild) }} €
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
             </div>
             <div class="app-content">
               <div class="fs-3 fw-bold">
-                {{ numberFormat(application.budget.budgetRun) }} €
+                {{ numberFormat(application.currentCost.costRun) }} €
               </div>
             </div>
           </div>
@@ -100,7 +100,8 @@
         <h3 class="custom-font-semibold">Performance</h3>
         <div class="d-flex justify-content-between">
           <div class="stars d-flex align-items-end gap-1">
-            <span>Note : <span class="fw-bold">{{ application.note }}</span>/5</span>
+            <span>Note Costs : <span class="fw-bold">{{ application.noteCost }}</span>/5</span>
+            <span>Note Tech : <span class="fw-bold">{{ application.noteTechBusiness }}</span>/5</span>
             <app-icon-star style="color: #fecc00"></app-icon-star>
           </div>
 

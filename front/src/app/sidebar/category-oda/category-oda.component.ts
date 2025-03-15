@@ -7,7 +7,7 @@ import {
   CreateCategoryODAParent,
   UpdateCategoryODAChild,
   UpdateCategoryODAParent,
-} from '../../application/appType';
+} from '../../application/category.type';
 import { FormsModule } from '@angular/forms';
 import { CategoryODAParentService } from './service/category-oda-parent.service';
 import { CategoryODAChildService } from './service/category-oda-child.service';

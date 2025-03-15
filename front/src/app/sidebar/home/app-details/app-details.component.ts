@@ -6,7 +6,7 @@ import { IconCategoryComponent } from '../../../components/icons/icon-category/i
 import { IconCalendarComponent } from '../../../components/icons/icon-calendar/icon-calendar.component';
 import { IconUpdateComponent } from '../../../components/icons/icon-update/icon-update.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AppHistory, Application, Budget } from '../../../application/appType';
+import { AppHistory, Application } from '../../../application/app.type';
 import { ApplicationService } from '../application.service';
 import { CommonModule } from '@angular/common';
 import { IconLifecycleComponent } from '../../../components/icons/icon-lifecycle/icon-lifecycle.component';
@@ -17,7 +17,6 @@ import { DateFormater } from '../../../lib/dateFormater';
 import { AppHistoryService } from '../../../application/app-history.service';
 import { NumberFormat } from '../../../lib/numberFormat';
 import { DocumentationComponent } from './documentation/documentation.component';
-import { BudgetService } from '../../../application/budget.service';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { IconClassificationComponent } from '../../../components/icons/icon-classification/icon-classification.component';
 import { IconSablierComponent } from '../../../components/icons/icon-sablier/icon-sablier.component';
@@ -60,14 +59,12 @@ export class AppDetailsComponent {
   application: Application | null = null;
   appId: number | null = null;
   appHistory: AppHistory[] = [];
-  budgetHistory: Budget[] = [];
   activeTab: string = 'dashboard';
 
   constructor(
     private appService: ApplicationService,
     private activateRoute: ActivatedRoute,
     private appHistoryService: AppHistoryService,
-    private budgetService: BudgetService,
     public userService: UserService,
     private router: Router
   ) {}

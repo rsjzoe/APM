@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { QuestionCardComponent } from './question-card/question-card.component';
 import { ModalQuestionFormComponent } from './modal-question-form/modal-question-form.component';
-import { QuestionGroupe } from '../../application/appType';
+import { QuestionGroupe } from '../../application/question.type';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { QuestionGroupeService } from './service/questionGroupe.service';

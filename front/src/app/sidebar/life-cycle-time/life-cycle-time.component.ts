@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataset } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { timeColor } from './color';
-import { Application } from '../../application/appType';
+import { Application } from '../../application/app.type';
 import { applications } from '../../application/data';
 import { ApplicationService } from '../home/application.service';
 
@@ -129,8 +129,8 @@ export class LifeCycleTimeComponent {
       }
 
       const item = {
-        x: app.budget.businessValue,
-        y: app.budget.technicalDebt,
+        x: app.currentTechBusinessValue.businessValue,
+        y: app.currentTechBusinessValue.technicalDebt,
         r: normalizedR,
       };
 
@@ -189,8 +189,8 @@ export class LifeCycleTimeComponent {
 
       rep2.set(
         JSON.stringify({
-          x: element.budget.businessValue,
-          y: element.budget.technicalDebt,
+          x: element.currentTechBusinessValue.businessValue,
+          y: element.currentTechBusinessValue.technicalDebt,
           r: normalizedR,
         }),
         element
@@ -203,11 +203,11 @@ export class LifeCycleTimeComponent {
     this.appService.findAll().subscribe({
       next: (data) => {
         console.log(data);
-        
+
         this.apps = data;
         this.bubbleChartData = this.generateDataSet();
         console.log(this.bubbleChartData);
-        
+
         this.bubbleDataMap = this.appsToMap();
       },
       error: (error) => {

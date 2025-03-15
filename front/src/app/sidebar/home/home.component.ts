@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
-import { Application } from '../../application/appType';
+import { Application } from '../../application/app.type';
 import { applications } from '../../application/data';
 import { ApplicationService } from './application.service';
 import { ModalStateService } from './modal-add-app/modal-state.service';
@@ -35,13 +35,11 @@ export class HomeComponent {
   constructor(
     private appService: ApplicationService,
     private modalStateService: ModalStateService,
-    public userService : UserService,
+    public userService: UserService,
     private router: Router
   ) {
     modalStateService.subscribeOnsubmit(this.refresh);
   }
-
-
 
   saveIdAppDelete = (id: number) => {
     this.appIdDelete = id;
@@ -63,7 +61,7 @@ export class HomeComponent {
 
   findAll = () => {
     this.appService.findAll().subscribe({
-      next: (data) => {        
+      next: (data) => {
         this.apps = data;
       },
       error: (error) => {

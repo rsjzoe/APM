@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
-import { Application } from '../../application/appType';
+import { Application } from '../../application/app.type';
 import { CommonModule } from '@angular/common';
 import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
@@ -26,10 +26,10 @@ import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
   ],
 })
 export class HomeComponent {
-userService: any;
-canAdd(): any {
-throw new Error('Method not implemented.');
-}
+  userService: any;
+  canAdd(): any {
+    throw new Error('Method not implemented.');
+  }
   onClickAdd = () => {};
   saveIdAppDelete(arg0: any) {
     throw new Error('Method not implemented.');

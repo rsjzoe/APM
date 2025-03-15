@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateQuestion, Question, UpdateQuestion } from '../../../application/appType';
+import {
+  CreateQuestion,
+  Question,
+  UpdateQuestion,
+} from '../../../application/app.type';
 
 @Injectable({
   providedIn: 'root',

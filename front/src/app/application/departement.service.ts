@@ -1,10 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import {
-  DepartementBackend,
-  departementBackendToDepartement,
-} from './appBackend';
-import { map } from 'rxjs';
+import { Departement } from './departement.type';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +10,6 @@ export class DepartementService {
   private apiUrl = 'http://localhost:8080/departements';
 
   findAll() {
-    return this.http
-      .get<DepartementBackend[]>(this.apiUrl + "/list")
-      .pipe(
-        map((departementBackend: DepartementBackend[]) =>
-          departementBackend.map((element) =>
-            departementBackendToDepartement(element)
-          )
-        )
-      );
+    return this.http.get<Departement[]>(this.apiUrl);
   }
 }

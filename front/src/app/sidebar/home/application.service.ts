@@ -4,15 +4,7 @@ import {
   Application,
   CreateApplication,
   UpdateApplication,
-} from '../../application/appType';
-import {
-  AppBackend,
-  AppDetailsBackend,
-  transformAppBackendToApplication,
-  transformAppDetailsBackendToApplication,
-  transformCreateApplicationToCreateAppBackend,
-  transformUpdateApplicationToBackend,
-} from '../../application/appBackend';
+} from '../../application/app.type';
 import { map, Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
 import { Role } from '../administration/user.type';
@@ -27,22 +19,14 @@ export class ApplicationService {
   constructor(private userService: UserService) {}
 
   findAll() {
-    return this.http
-      .get<AppBackend[]>(this.apiUrl + '/list/active')
-      .pipe(
-        map((appBackends: AppBackend[]) =>
-          appBackends.map((appBackend) =>
-            transformAppBackendToApplication(appBackend)
-          )
-        )
-      );
+    return this.http.get<Application[]>(this.apiUrl);
   }
 
   add(application: CreateApplication) {
     if (this.userService.getUserConnected()?.role != Role.admin) {
       throw new Error('Only admins can add applications');
     }
-    const data = transformCreateApplicationToCreateAppBackend(application);
+    const data = application;
     const formData = new FormData();
 
     formData.append(
@@ -55,41 +39,18 @@ export class ApplicationService {
       formData.append('types', doc.type);
     });
 
-    return this.appBackendToApp(
-      this.http.post<AppBackend>(this.apiUrl + '/insert', formData)
-    );
+    return this.http.post<Application>(this.apiUrl, formData);
   }
 
   delete(id: number) {
-    return this.appBackendToApp(
-      this.http.delete<AppBackend>(`${this.apiUrl}/delete/${id}`)
-    );
+    return this.http.delete<Application>(`${this.apiUrl}/${id}`);
   }
 
   update(id: number, application: UpdateApplication) {
-    return this.appBackendToApp(
-      this.http.patch<AppBackend>(
-        `${this.apiUrl}/update/${id}`,
-        transformUpdateApplicationToBackend(application)
-      )
-    );
+    return this.http.patch<Application>(`${this.apiUrl}/${id}`, application);
   }
 
   findById(id: number) {
-    return this.http
-      .get<AppDetailsBackend>(`${this.apiUrl}/details/${id}`)
-      .pipe(
-        map((appBackend) => {
-          return transformAppDetailsBackendToApplication(appBackend);
-        })
-      );
-  }
-
-  appBackendToApp(data: Observable<AppBackend>) {
-    return data.pipe(
-      map((appBackend: AppBackend) => {
-        return transformAppBackendToApplication(appBackend);
-      })
-    );
+    return this.http.get<Application>(`${this.apiUrl}/${id}`);
   }
 }

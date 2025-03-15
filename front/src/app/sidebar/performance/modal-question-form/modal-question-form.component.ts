@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { QuestionGroupe } from '../../../application/appType';
+import { QuestionGroupe } from '../../../application/question.type';
 
 @Component({
   selector: 'app-modal-question-form',
@@ -12,13 +12,12 @@ import { QuestionGroupe } from '../../../application/appType';
 export class ModalQuestionFormComponent {
   @Input() isEditingId: number | null = null;
   valueQuestion!: string;
-  valueCoeff!:number;
+  valueCoeff!: number;
   @Input() questionEditing: QuestionGroupe | null = null;
-  @Input() addQuestion = (question: string,coeff:number) => {};
-  @Input() updateQuestion = (question: string,coeff:number) => {};
+  @Input() addQuestion = (question: string, coeff: number) => {};
+  @Input() updateQuestion = (question: string, coeff: number) => {};
 
   add() {
-    
     if (this.valueQuestion.length == 0) return;
     this.addQuestion(this.valueQuestion, this.valueCoeff);
     this.valueQuestion = '';

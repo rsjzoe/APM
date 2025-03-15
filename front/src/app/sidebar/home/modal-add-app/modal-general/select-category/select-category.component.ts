@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 import {
   CategoryODAChild,
   CategoryODAParent,
-} from '../../../../../application/appType';
+} from '../../../../../application/category.type';
 import { CommonModule } from '@angular/common';
 import { ModalStateService } from '../../modal-state.service';
 import { IconTriangleUpComponent } from '../../../../../components/icons/icon-triangle-up/icon-triangle-up.component';
@@ -34,10 +34,7 @@ export class SelectCategoryComponent {
       this.categories = categories;
       for (const parent of categories) {
         for (const child of parent.childs) {
-          if (
-            child.id ==
-            this.modalStateService.createApplication.categoryODAChildId
-          ) {
+          if (child.id == this.modalStateService.createApplication.categoryId) {
             this.selectedChild = child;
             return;
           }
@@ -63,7 +60,7 @@ export class SelectCategoryComponent {
   }
 
   selectCategory(child: CategoryODAChild): void {
-    this.modalStateService.createApplication.categoryODAChildId = child.id;
+    this.modalStateService.createApplication.categoryId = child.id;
     this.selectedChild = child;
     this.isOpen = false;
     this.openParents.clear();

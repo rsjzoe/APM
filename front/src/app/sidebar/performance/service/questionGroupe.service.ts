@@ -3,7 +3,7 @@ import {
   CreateQuestionGroupe,
   QuestionGroupe,
   UpdateQuestionGroupe,
-} from '../../../application/appType';
+} from '../../../application/question.type';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
