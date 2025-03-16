@@ -26,15 +26,15 @@ export class ApplicationService {
     if (this.userService.getUserConnected()?.role != Role.admin) {
       throw new Error('Only admins can add applications');
     }
-    const data = application;
+    const { documentations, ...newApplication } = application;
     const formData = new FormData();
 
     formData.append(
-      'dto',
-      new Blob([JSON.stringify(data)], { type: 'application/json' })
+      'newApplication',
+      new Blob([JSON.stringify(newApplication)], { type: 'application/json' })
     );
 
-    application.documentations.forEach((doc, index) => {
+    documentations.forEach((doc, index) => {
       formData.append('files', doc.file);
       formData.append('types', doc.type);
     });
