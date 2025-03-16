@@ -16,7 +16,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
-@Path("/question_group")
+@Path("/question-group")
 public class QuestionGroupController implements QuestionGroupRest {
 
     @Inject

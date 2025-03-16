@@ -4,14 +4,14 @@ import {
   CreateQuestion,
   Question,
   UpdateQuestion,
-} from '../../../application/app.type';
+} from '../../../application/question.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/';
+  private apiUrl = 'http://localhost:8080/question';
 
   constructor() {}
 
