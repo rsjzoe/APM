@@ -47,7 +47,7 @@ export class ApplicationService {
   }
 
   update(id: number, application: UpdateApplication) {
-    return this.http.patch<Application>(`${this.apiUrl}/${id}`, application);
+    return this.http.put<Application>(`${this.apiUrl}/${id}`, application);
   }
 
   findById(id: number) {

@@ -2,8 +2,9 @@
   <div class="">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <div class="d-flex align-items-center">
-        <h1 class="h4  mb-0">Executive Summary</h1>
+      <div class="d-grid gap-2">
+        <h1 class="h4 mb-0">Executive Summary</h1>
+        <span class="text-muted small">General information about this application</span>
       </div>
     </div>
 
@@ -11,28 +12,59 @@
     <div class="row g-4">
       <div class="col-md-4">
         <div class="card h-100 bg-primary rounded-1 text-white border-0 shadow-sm ">
-          <div class="card-body">
-            <h3 class="h5">Global Assets</h3>
-            <div class="display-6 fw-bold mb-2">€1,247,652,800</div>
-            <div class="small opacity-75">+24.52% since previous quarter</div>
+          <div class="card-body p-4">
+            <h3 class="h5">Date de Mise à jour</h3>
+            <div class="d-grid gap-2">
+              <div class=" d-flex align-items-end gap-1">
+                <app-icon-calendar />
+                <div><span class="fw-bold">Date de début: </span><span
+                    class="">{{formatDate(application.startDate)}}</span></div>
+              </div>
+              <div class="d-flex align-items-end gap-1">
+                <app-icon-update />
+                <div class=""><span class="fw-bold">Mise à jour: </span><span
+                    class="">{{formatDate(application.lastUpdate)}}
+                  </span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100 bg-dark rounded-1  text-white border-0 shadow-sm ">
           <div class="card-body p-4">
-            <h3 class="h5">Revenue Stream</h3>
-            <div class="display-6 fw-bold mb-2">€187,459,000</div>
-            <div class="small opacity-75">Increased by €7,832.00 compared to forecast</div>
+            <h3 class="h5">Valeur Metier et dette</h3>
+            <div class="d-grid gap-2">
+              <div class=" d-flex align-items-center gap-1">
+                <app-icon-dollar />
+                <div><span class="fw-bold">Valeur Commerciale:
+                  </span><span class="">{{application.currentTechBusinessValue.businessValue}}</span></div>
+              </div>
+              <div class=" d-flex align-items-end gap-1">
+                <app-icon-sablier />
+                <div><span class="fw-bold">Dette technique:
+                  </span><span class="">{{application.currentTechBusinessValue.technicalDebt}}</span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100 bg-white rounded-1  border-0 shadow-sm ">
           <div class="card-body p-4">
-            <h3 class="h5">Operating Costs</h3>
-            <div class="display-6 fw-bold mb-2">€392,124,600</div>
-            <div class="small text-muted">Reduced by €3,876.00 through efficiency measures</div>
+            <h3 class="h4">Operating Costs</h3>
+            <div class="d-grid gap-2">
+              <div class=" d-flex align-items-center gap-1">
+                <app-icon-dollar />
+                <div><span class="fw-bold">Coût de construction: </span><span
+                    class="">{{application.currentCost.costBuild}}€</span></div>
+              </div>
+              <div class=" d-flex align-items-center gap-1">
+                <app-icon-dollar />
+                <div><span class="fw-bold">Coût d'exploitation: </span><span
+                    class="">{{application.currentCost.costRun}}€</span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -50,26 +82,75 @@
     </div>
 
     <!-- Investment Summit -->
-    <div class="card border-0 shadow-sm rounded-1  mt-4">
-      <div class="card-body p-4">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h3 class="h5">Q2 Investment Summit</h3>
-            <div class="text-muted small">Wed, 19 Mar</div>
-            <div class="h2 text-orange">10:15 AM</div>
-            <div class="mt-3">
-              <img src="https://github.com/identicons/user1.png" class="rounded-circle"
-                style="width: 32px; height: 32px;" alt="User 1">
-              <img src="https://github.com/identicons/user2.png" class="rounded-circle ms-1"
-                style="width: 32px; height: 32px;" alt="User 2">
-              <img src="https://github.com/identicons/user3.png" class="rounded-circle ms-1"
-                style="width: 32px; height: 32px;" alt="User 3">
-              <span class="ms-2 small">and 32+ stakeholders</span>
+    <div class="row g-4 mt-2">
+      <!-- Investment Summit -->
+      <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+          <div class="card-body p-4">
+            <h3 class="h5">Application Details</h3>
+            <div class="d-grid gap-4">
+              <div class="d-grid gap-2">
+                <span class="text-muted small">Description</span>
+                <span>{{application.description}}</span>
+              </div>
+              <div class="d-flex" style="gap: 15rem;">
+                <div class="d-grid gap-3">
+                  <div class="d-flex align-items-center gap-1">
+                    <app-icon-lifecycle [ngClass]="getTimeColor(application.time)" />
+                    <div class="d-grid gap-1">
+                      <span class="fw-bold small">TIME</span>
+                      <span class="text-muted small">{{application.time}}</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-1">
+                    <app-icon-status />
+                    <div class="d-grid gap-1">
+                      <span class="fw-bold small">Status</span>
+                      <span class="text-muted small">{{application.status}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-3">
+                  <div class="d-flex align-items-center gap-1">
+                    <app-icon-user />
+                    <div class="d-grid gap-1">
+                      <span class="fw-bold small">Total Users</span>
+                      <span class="text-muted small">{{application.userTotal}}</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-1">
+                    <app-icon-category />
+                    <div class="d-grid gap-1">
+                      <span class="fw-bold small">Catégorie</span>
+                      <span class="text-muted small">{{application.category.parentName}} - {{
+                        application.category.name}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
-          <div class="text-center">
-            <div class="h3">15,742</div>
-            <div class="text-muted small">Client Interactions</div>
+        </div>
+      </div>
+
+      <!-- Client Interactions -->
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+          <div class="card-body p-4">
+            <h3 class="h5 mb-4">Classification</h3>
+            <div class="d-grid gap-2">
+              <span class="text-muted small">Département</span>
+              <span class="">{{ application.departement.name }}</span>
+            </div>
+
+            <div class="separator horizontal"></div>
+
+            <div class="d-grid gap-2">
+              <span class="text-muted small">Classe de l'application </span>
+              <span class="">{{ application.classe.name }}</span>
+            </div>
           </div>
         </div>
       </div>
