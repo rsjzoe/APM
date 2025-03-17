@@ -24,6 +24,9 @@ import { UserService } from '../../administration/user.service';
 import { Role } from '../../administration/user.type';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IconStatusComponent } from '../../../components/icons/icon-status/icon-status.component';
+import { IconHistoryComponent } from '../../../components/icons/icon-history/icon-history.component';
+import { IconNoteComponent } from '../../../components/icons/icon-note/icon-note.component';
+import { IconDocsComponent } from '../../../components/icons/icon-docs/icon-docs.component';
 
 @Component({
   selector: 'app-app-details',
@@ -46,6 +49,9 @@ import { IconStatusComponent } from '../../../components/icons/icon-status/icon-
     IconSablierComponent,
     DashboardComponent,
     IconStatusComponent,
+    IconHistoryComponent,
+    IconNoteComponent,
+    IconDocsComponent,
   ],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',

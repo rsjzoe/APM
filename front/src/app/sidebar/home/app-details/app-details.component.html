@@ -10,8 +10,8 @@
     <!-- Metrics -->
     <div class="row g-4">
       <div class="col-md-4">
-        <div class="card h-100 bg-primary text-white border-0 shadow-sm ">
-          <div class="card-body p-4">
+        <div class="card h-100 bg-primary rounded-1 text-white border-0 shadow-sm ">
+          <div class="card-body">
             <h3 class="h5">Global Assets</h3>
             <div class="display-6 fw-bold mb-2">€1,247,652,800</div>
             <div class="small opacity-75">+24.52% since previous quarter</div>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card h-100 bg-dark text-white border-0 shadow-sm ">
+        <div class="card h-100 bg-dark rounded-1  text-white border-0 shadow-sm ">
           <div class="card-body p-4">
             <h3 class="h5">Revenue Stream</h3>
             <div class="display-6 fw-bold mb-2">€187,459,000</div>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card h-100 bg-white border-0 shadow-sm ">
+        <div class="card h-100 bg-white rounded-1  border-0 shadow-sm ">
           <div class="card-body p-4">
             <h3 class="h5">Operating Costs</h3>
             <div class="display-6 fw-bold mb-2">€392,124,600</div>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Chart -->
-    <div class="card border-0 shadow-sm  mt-4">
+    <div class="card border-0 shadow-sm  rounded-1  mt-4">
       <div class="card-body p-4">
         <h3 class="h5">Market Performance</h3>
         <p class="text-muted small">Quarterly sector comparison analysis</p>
@@ -50,7 +50,7 @@
     </div>
 
     <!-- Investment Summit -->
-    <div class="card border-0 shadow-sm  mt-4">
+    <div class="card border-0 shadow-sm rounded-1  mt-4">
       <div class="card-body p-4">
         <div class="d-flex justify-content-between align-items-center">
           <div>
@@ -75,11 +75,11 @@
       </div>
     </div>
   </div>
-  <div>
+  <div class="rounded-1 overflow-hidden">
     <ul role="tablist" aria-owns="nav-tab1 nav-tab2 nav-tab3 nav-tab4" class="nav nav-tabs d-flex"
       id="nav-tab-with-nested-tabs">
       <li class="nav-item flex-fill" role="presentation" (click)="setActiveTab('dashboard')">
-        <span class="nav-link" [ngClass]="activeTab == 'dashboard' ? 'active' : ''">
+        <span class="nav-link gap-1 align-items-end" [ngClass]="activeTab == 'dashboard' ? 'active' : ''">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
             class="solaris-icon si-graph-column-chart" viewBox="0 0 1000 1000">
             <path
@@ -90,40 +90,25 @@
         </span>
       </li>
       <li class="nav-item flex-fill" role="presentation" (click)="setActiveTab('history')">
-        <span class="nav-link" [ngClass]="activeTab == 'history' ? 'active' : ''">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-            class="solaris-icon si-history" viewBox="0 0 1000 1000">
-            <path
-              d="M492.08,450.63c0.86-.14,1.72-0.26,2.59-0.34C493.8,450.38,492.94,450.49,492.08,450.63ZM550,300a50,50,0,0,0-100,0V500c0,1.41.06,2.82,0.18,4.22,0.1,1.14.23,2.27,0.4,3.39,0.03,0.15.05,0.29,0.07,0.44,0.14,0.86.31,1.73,0.49,2.58s0.39,1.67.61,2.5a1.209,1.209,0,0,1,.05.18c0.12,0.41.23,0.82,0.36,1.23,0.11,0.38.23,0.76,0.35,1.13,0.17,0.51.35,1.01,0.53,1.52,0.3,0.81.62,1.62,0.96,2.42a46.731,46.731,0,0,0,2.04,4.22c0.19,0.35.39,0.7,0.59,1.05s0.4,0.7.61,1.04c0.63,1.02,1.28,2.02,1.97,3l0.02,0.02c0.69,0.98,1.43,1.94,2.19,2.86,0.26,0.31.52,0.61,0.78,0.92,0.78,0.9,1.6,1.78,2.45,2.63,0.28,0.28.57,0.56,0.86,0.84s0.58,0.55.88,0.82,0.59,0.53.89,0.79c0.23,0.21.47,0.41,0.71,0.61l0.21,0.17,119.79,99.83a50,50,0,0,0,64.02-76.82L550,476.58m-98.72,12.13c0.26-1.14.57-2.28,0.92-3.42C451.86,486.41,451.55,487.55,451.28,488.71Zm40.8-38.08c0.86-.14,1.72-0.26,2.59-0.34C493.8,450.38,492.94,450.49,492.08,450.63Zm19.26,0.66c1.14,0.27,2.26.57,3.36,0.91C513.59,451.86,512.47,451.56,511.34,451.29Zm-60.06,37.42c0.26-1.14.57-2.28,0.92-3.42C451.86,486.41,451.55,487.55,451.28,488.71Zm5.96,37.21c0.63,1.02,1.28,2.02,1.97,3C458.51,527.94,457.86,526.94,457.24,525.92Zm4.18,5.88c-0.77-.93-1.51-1.88-2.19-2.86C459.92,529.92,460.66,530.88,461.42,531.8Zm3.23,3.55c-0.87-.85-1.68-1.73-2.45-2.63C462.98,533.62,463.8,534.5,464.65,535.35ZM500,75c-136.475,0-257.923,64.329-335.683,164.317L75,150V344.444h0.314A50.507,50.507,0,0,0,75,350a49.955,49.955,0,0,0,55.556,49.685V400H325l-89.253-89.253A326.775,326.775,0,0,1,373.526,200.5,325.465,325.465,0,1,1,175,500h0V475h0a25,25,0,0,0-25-25H100a25,25,0,0,0-25,25h0v25h0c0,234.721,190.279,425,425,425S925,734.721,925,500,734.721,75,500,75Z"
-              style="fill-rule:evenodd" />
-          </svg>
+        <span class="nav-link gap-1 align-items-center" [ngClass]="activeTab == 'history' ? 'active' : ''">
+          <app-icon-history />
           <span>Historique</span>
         </span>
       </li>
       <li class="nav-item flex-fill" role="presentation" (click)="setActiveTab('note')">
-        <span class="nav-link" [ngClass]="activeTab == 'note' ? 'active' : ''">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-            class="solaris-icon si-orange-expert" viewBox="0 0 1000 1000">
-            <path
-              d="M400,875a25,25,0,0,0,25,25h31.706a49.987,49.987,0,0,0,86.588,0H575a25,25,0,0,0,25-25V800H400v75ZM500,175c-124.264,0-225,100.736-225,225a223.937,223.937,0,0,0,39.358,127.142c69.379,106.617,83.8,198.168,85.735,212.874A37.5,37.5,0,0,0,437.5,775h125a37.5,37.5,0,0,0,37.21-32.908h0.011S610.2,640.981,688.738,522.525h-0.009A223.928,223.928,0,0,0,725,400C725,275.736,624.264,175,500,175ZM371.044,155.767a25,25,0,0,0,46.193-19.135L398.1,90.439a25,25,0,0,0-46.195,19.135ZM190.44,303.956l46.193,19.135A25,25,0,1,0,255.768,276.9l-46.194-19.135A25,25,0,0,0,190.44,303.956ZM805.767,521.042l-46.194-19.133A25,25,0,0,0,740.439,548.1l46.2,19.135A25,25,0,0,0,805.767,521.042ZM240.425,501.909l-46.194,19.135a25,25,0,1,0,19.135,46.193L259.56,548.1A25,25,0,1,0,240.425,501.909Zm522.94-178.818,46.2-19.135a25,25,0,0,0-19.135-46.195L744.232,276.9A25,25,0,1,0,763.365,323.091ZM596.291,169.3a25,25,0,0,0,32.664-13.531l19.135-46.194A25,25,0,1,0,601.9,90.439l-19.135,46.2A25,25,0,0,0,596.291,169.3Z"
-              style="fill-rule:evenodd" />
-          </svg>
+        <span class="nav-link gap-1 align-items-end" [ngClass]="activeTab == 'note' ? 'active' : ''">
+          <app-icon-note />
           <span>Note</span></span>
       </li>
       <li class="nav-item flex-fill" role="presentation" (click)="setActiveTab('documentation')">
-        <span class="nav-link" [ngClass]="activeTab == 'documentation' ? 'active' : ''">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-            class="solaris-icon si-files" viewBox="0 0 1000 1000">
-            <path
-              d="M575,150l-50-50H175V700a50,50,0,0,0,50,50V150H575Zm75,75-50-50H250V775a50,50,0,0,0,50,50V225H650ZM635,375V250H325V850a50,50,0,0,0,50,50H825V440H700A65.074,65.074,0,0,1,635,375Zm90,395H425a20,20,0,0,1,0-40H725A20,20,0,0,1,725,770Zm0-100H425a20,20,0,0,1,0-40H725A20,20,0,0,1,725,670Zm20-120a20,20,0,0,1-20,20H425a20,20,0,0,1,0-40H725A20,20,0,0,1,745,550Zm80-150H700a25,25,0,0,1-25-25V250Z"
-              style="fill-rule:evenodd" />
-          </svg>
+        <span class="nav-link gap-1 align-items-end" [ngClass]="activeTab == 'documentation' ? 'active' : ''">
+          <app-icon-docs></app-icon-docs>
           <span>Documentation</span>
         </span>
       </li>
     </ul>
 
-    <div class="card-tab" *ngIf="activeTab === 'dashboard'">
+    <div class="card-tab rounded-1" *ngIf="activeTab === 'dashboard'">
       <div class="card-tab-header">
         <h2>Dashboard</h2>
         <p>Aperçu des métriques clés de l'application</p>
@@ -135,7 +120,7 @@
       </div>
     </div>
 
-    <div class="card-tab" *ngIf="activeTab === 'history'">
+    <div class="card-tab rounded-1" *ngIf="activeTab === 'history'">
       <div class="card-tab-header">
         <h2>Historique</h2>
         <p>Historique des modifications de l'application</p>
@@ -164,7 +149,7 @@
       </div>
     </div>
 
-    <div class="card-tab" *ngIf="activeTab === 'note'" id="note">
+    <div class="card-tab rounded-1" *ngIf="activeTab === 'note'" id="note">
       <div class="card-tab-header">
         <h2>Noter l'application</h2>
         <p>Votre avis nous est précieux</p>
@@ -174,7 +159,7 @@
       </div>
     </div>
 
-    <div class="card-tab" *ngIf="activeTab === 'documentation'">
+    <div class="card-tab rounded-1" *ngIf="activeTab === 'documentation'">
       <div class="card-tab-header">
         <div class="d-flex gap-2 justify-content-between">
           <div>

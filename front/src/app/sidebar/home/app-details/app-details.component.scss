@@ -25,13 +25,13 @@
 
 .card-tab {
   background: white;
-  border: 2px solid #d1d5db;
+  // border: 2px solid #d1d5db;
   border-top: none;
 }
 
 .card-tab-header {
   padding: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  // border-bottom: 1px solid #e5e7eb;
 }
 
 .card-tab-header h2 {
@@ -109,5 +109,5 @@
 }
 
 .nav-tabs {
-  border: 1px solid #d1d5db !important;
+  border-bottom: 1px solid #d1d5db !important;
 }

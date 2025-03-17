@@ -2,8 +2,14 @@
   <div class="offcanvas-header d-flex align-items-center gap-2 p-3">
     <img src="/image/orange.png" class="logo" width="48" height="48" alt="" />
     <h5 class="offcanvas-title text-white" id="offcanvasLabel">APM-<span class="text-primary">Orange</span> </h5>
-
-
+    <span class="btn-close-sidebar" (click)="toggleSidebar()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#fff" class=" solaris-icon
+        si-form-cross" viewBox="0 0 1000 1000">
+        <path
+          d="M500 83.3333333 416.666667 0 250 166.666667 83.3333333 0 0 83.3333333 166.666667 250 0 416.666667 83.3333333 500 250 333.333333 416.666667 500 500 416.666667 333.333333 250z"
+          transform="translate(250 250)" />
+      </svg>
+    </span>
   </div>
 
   <div class="offcanvas-body px-3" style="overflow: hidden">
