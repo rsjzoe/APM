@@ -21,6 +21,7 @@ import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
@@ -51,9 +52,9 @@ public class ApplicationEntity extends PanacheEntity {
     private DepartementEntity departement;
     @ManyToOne(fetch = FetchType.LAZY)
     private ClasseEntity classe;
-    @OneToMany(mappedBy = "application")
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CostEntity> costEntity = new ArrayList<>();
-    @OneToMany(mappedBy = "application")
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TechBusinessValueEntity> techBusinessValueEntity = new ArrayList<>();
     private boolean isDeleted;
 

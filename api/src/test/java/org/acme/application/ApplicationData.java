@@ -1,8 +1,10 @@
 package org.acme.application;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
+import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
@@ -10,14 +12,16 @@ import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
 import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
 import org.acme.classe.infra.database.ClasseEntity;
+import org.acme.cost.domain.model.input.CreateCostWithoutApp;
 import org.acme.departement.infra.out.DepartementEntity;
+import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWithoutApp;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.Getter;
 
 @ApplicationScoped
 @Getter
-class ApplicationData {
+public class ApplicationData {
     private CategoryODAParentEntity categoryParent;
     private CategoryODAChildEntity categoryChild;
     private DepartementEntity departement;
@@ -79,5 +83,29 @@ class ApplicationData {
         input.setStatus(Status.production);
         input.setTime(Time.migrate);
         return input;
+    }
+
+    public CreateApplicationServiceInput createApplicationServiceInput() {
+        return new CreateApplicationServiceInput(
+                "App1",
+                "Description1",
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                Status.development,
+                10,
+                categoryChild.id,
+                departement.id,
+                classe.id,
+                new CreateCostWithoutApp(1000.0, 500.0),
+                new CreateTechBusinessValueWithoutApp(4.5, 2.0),
+                List.of(
+                // new CreateDocumentationFileWithoutApp(
+                // new FileInput(Path.of("/docs/functional_doc.pdf"), "Functional
+                // Documentation"),
+                // DocumentationType.fonctionnelle),
+                // new CreateDocumentationFileWithoutApp(
+                // new FileInput(Path.of("/docs/technical_doc.pdf"), "Technical Documentation"),
+                // DocumentationType.technique)
+                ));
     }
 }

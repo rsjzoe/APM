@@ -33,6 +33,7 @@ import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class ApplicationService {
@@ -71,6 +72,7 @@ public class ApplicationService {
         return applicationRepository.findById(id);
     };
 
+    @Transactional
     public ApplicationOutput create(CreateApplicationServiceInput newApplication)
             throws InvalidTechBusinessValueException, ClasseNotFoundException, CategoryODAChildNotFoundException,
             DepartementNotFoundException, InvalidCostException, InvalidApplicationException,
