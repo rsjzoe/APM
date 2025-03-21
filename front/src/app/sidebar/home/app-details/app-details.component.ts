@@ -27,6 +27,7 @@ import { IconStatusComponent } from '../../../components/icons/icon-status/icon-
 import { IconHistoryComponent } from '../../../components/icons/icon-history/icon-history.component';
 import { IconNoteComponent } from '../../../components/icons/icon-note/icon-note.component';
 import { IconDocsComponent } from '../../../components/icons/icon-docs/icon-docs.component';
+import { IconDepartementComponent } from '../../../components/icons/icon-departement/icon-departement.component';
 
 @Component({
   selector: 'app-app-details',
@@ -42,16 +43,15 @@ import { IconDocsComponent } from '../../../components/icons/icon-docs/icon-docs
     TimelineComponent,
     TimelineHistoryComponent,
     RateApplicationComponent,
-    RouterLink,
     DocumentationComponent,
     ButtonComponent,
-    IconClassificationComponent,
     IconSablierComponent,
     DashboardComponent,
     IconStatusComponent,
     IconHistoryComponent,
     IconNoteComponent,
     IconDocsComponent,
+    IconDepartementComponent,
   ],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',
