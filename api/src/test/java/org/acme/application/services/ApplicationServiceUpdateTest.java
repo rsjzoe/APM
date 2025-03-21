@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.acme.application.ApplicationData;
 import org.acme.application.app.service.ApplicationService;
+import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
@@ -54,6 +55,12 @@ public class ApplicationServiceUpdateTest {
 
         assertNotNull(output);
         assertEquals(input.getName(), output.getName());
+    }
+
+    @Test
+    public void testUpdateThrowsException() {
+        UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
+        assertThrows(ApplicationNotFoundException.class, () -> applicationService.update(999L, input));
     }
 
     @Test
