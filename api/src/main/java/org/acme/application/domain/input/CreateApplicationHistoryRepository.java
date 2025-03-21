@@ -57,6 +57,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
                 app.getCategory().getId(),
                 app.getDepartement().getId(), app.getClasse().getId(), LocalDateTime.now(), modifiedBy,
                 descriptionHistory,
-                app.getCurrentCost().getId(), app.getCurrentTechBusinessValue().getId());
+                app.getCurrentCost() == null ? null : app.getCurrentCost().getId(),
+                app.getCurrentTechBusinessValue() == null ? null : app.getCurrentTechBusinessValue().getId());
     }
 }

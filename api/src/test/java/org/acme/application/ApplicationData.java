@@ -6,6 +6,7 @@ import java.util.List;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
+import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.infra.database.ApplicationEntity;
@@ -107,5 +108,21 @@ public class ApplicationData {
                 // new FileInput(Path.of("/docs/technical_doc.pdf"), "Technical Documentation"),
                 // DocumentationType.technique)
                 ));
+    }
+
+    public UpdateApplicationServiceInput updateApplicationServiceInput() {
+        return new UpdateApplicationServiceInput("App1",
+                "Description1",
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                Status.development,
+                10,
+                3.5,
+                1.5,
+                categoryChild.id,
+                departement.id,
+                classe.id,
+                new CreateCostWithoutApp(1000.0, 500.0),
+                new CreateTechBusinessValueWithoutApp(4.5, 2.0));
     }
 }

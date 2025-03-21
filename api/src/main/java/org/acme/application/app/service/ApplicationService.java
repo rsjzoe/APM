@@ -129,6 +129,7 @@ public class ApplicationService {
         return created;
     };
 
+    @Transactional
     public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication)
             throws InvalidCostException, InvalidTechBusinessValueException, ApplicationNotFoundException,
             ClasseNotFoundException, CategoryODAChildNotFoundException, DepartementNotFoundException {
@@ -149,7 +150,7 @@ public class ApplicationService {
         if (updateApplication.getDepartementId() != null) {
             departementService.findByDepartementId(updateApplication.getDepartementId());
         }
-
+System.out.println(1);
         ApplicationOutput updated = applicationRepository.update(id,
                 new UpdateApplicationRepositoryInput(updateApplication, time));
 
@@ -157,16 +158,20 @@ public class ApplicationService {
             costService.createCost(new CreateCostInput(updateApplication.getCostWithoutApp().getCostBuild(),
                     updateApplication.getCostWithoutApp().getCostRun(), updated.getId()));
         }
+        System.out.println(2);
         if (updateApplication.getTechBusinessValueWithoutApp() != null) {
             var techBusinessValue = updateApplication.getTechBusinessValueWithoutApp();
             techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
                     techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), updated.getId()));
 
         }
+        System.out.println(3);
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(id);
         applicationHistoryService.create(data);
+        System.out.println(4);
         // maka anlay app updated miarakam curreent cost any vaovao
         ApplicationOutput appFound = findById(id);
+        System.out.println(5);
         return appFound;
     };
 

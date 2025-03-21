@@ -68,8 +68,13 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.modifiedBy = data.getModifiedBy();
         this.descriptionHistory = data.getDescriptionHistory();
         this.description = data.getDescription();
-        this.costEntity = CostEntityHelper.entityFromId(data.getCostId());
-        this.techBusinessValueEntity = TechBusinessValueEntityHelper.entityFromId(data.getTechBusinessValueId());
+        if (data.getCostId() != null) {
+            this.costEntity = CostEntityHelper.entityFromId(data.getCostId());
+        }
+
+        if (data.getTechBusinessValueId() != null) {
+            this.techBusinessValueEntity = TechBusinessValueEntityHelper.entityFromId(data.getTechBusinessValueId());
+        }
         this.name = data.getName();
         this.startDate = data.getStartDate();
         this.lastUpdate = data.getLastUpdate();
@@ -82,8 +87,9 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
                 userTotal, noteCost, noteTechBusiness, category.toCategoryODAChildOutput(), departement.toDepartement(),
                 classe.toOutput(),
-                modifiedAt, modifiedBy, descriptionHistory, costEntity.toCostOutput(),
-                techBusinessValueEntity.toTechBusinessValueOutput(), isDeleted);
+                modifiedAt, modifiedBy, descriptionHistory, costEntity == null ? null : costEntity.toCostOutput(),
+                techBusinessValueEntity == null ? null : techBusinessValueEntity.toTechBusinessValueOutput(),
+                isDeleted);
     }
 
 }
