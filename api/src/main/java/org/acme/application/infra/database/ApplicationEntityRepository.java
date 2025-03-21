@@ -9,6 +9,8 @@ import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 
+import jakarta.transaction.Transactional;
+
 public class ApplicationEntityRepository implements ApplicationRepository {
 
     @Override
@@ -29,6 +31,7 @@ public class ApplicationEntityRepository implements ApplicationRepository {
     }
 
     @Override
+    @Transactional
     public ApplicationOutput create(CreateApplicationRepositoryInput newApplication) {
         ApplicationEntity data = new ApplicationEntity(newApplication);
         data.persist();
