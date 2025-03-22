@@ -52,12 +52,12 @@
           </td>
           <td *ngIf="userService.canEdit() || userService.canDelete()">
             <div class="action-buttons">
-              <button class="btn btn-sm bg-info edit text-white" aria-label="Modifier" *ngIf="userService.canEdit()"
+              <button class="btn btn-sm text-info edit" aria-label="Modifier" *ngIf="userService.canEdit()"
                 (click)="editApp(app); $event.stopPropagation()" data-bs-toggle="modal" data-bs-target="#modalEditApp"
                 data-bs-dismiss="modal">
                 <app-icon-edit></app-icon-edit>
               </button>
-              <button class="btn btn-danger btn-sm delete" aria-label="Supprimer" data-bs-toggle="modal"
+              <button class="btn text-danger btn-sm delete" aria-label="Supprimer" data-bs-toggle="modal"
                 data-bs-target="#modalConfirm" data-bs-dismiss="modal"
                 (click)="saveIdAppDelete(app.id); $event.stopPropagation()" *ngIf="userService.canDelete()">
                 <!-- (click)="deleteById(app.id); $event.stopPropagation()" -->
