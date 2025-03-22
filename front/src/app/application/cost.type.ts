@@ -6,6 +6,12 @@ export type Cost = {
   createdAt: string | Date;
 };
 
+export type CostMonth = {
+  month: string;
+  monthValue: number;
+  data: Cost | null;
+};
+
 export type CreateCost = Omit<Cost, 'id' | 'createdAt'>;
 export type CreateCostWithoutApp = Omit<CreateCost, 'applicationId'>;
 export type UpdateCost = Omit<Cost, 'id'>;

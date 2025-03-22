@@ -6,6 +6,11 @@ export type TechBusinessValue = {
   createdAt: string | Date;
 };
 
+export type TechBusinessValueMonth = {
+  month: string;
+  monthValue: number;
+  data: TechBusinessValue | null;
+};
 export type CreateTechBusinessValue = Omit<
   TechBusinessValue,
   'id' | 'createdAt'

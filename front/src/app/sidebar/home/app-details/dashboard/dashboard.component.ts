@@ -6,8 +6,11 @@ import { UserService } from '../../../administration/user.service';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
 import { ChartDataCost, ChartDataTechBusiness } from '../appDetailType';
 import { DateFormater } from '../../../../lib/dateFormater';
-import { Cost } from '../../../../application/cost.type';
+import { Cost, CostMonth } from '../../../../application/cost.type';
 import { CommonModule } from '@angular/common';
+import { TechBusinessValueMonth } from '../../../../application/techBusinessValue.type';
+import { CostService } from '../../../../application/cost.service';
+import { TechBusinessValueService } from '../../../../application/tech-business-value.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,29 +31,8 @@ export class DashboardComponent {
   appHistory: AppHistory[] = [];
   chartTechBusiness: Chart | null = null;
   chartCost: Chart | null = null;
-
-  constructor(
-    private activateRoute: ActivatedRoute,
-    private appHistoryService: AppHistoryService,
-    public userService: UserService
-  ) {}
-
-  setActiveTab(tab: 'cost' | 'techBusiness') {
-    this.activeTab = tab;
-    this.initChart();
-  }
-
-  initChart() {
-    this.loading = true;
-    setTimeout(() => {
-      if (this.activeTab === 'cost') {
-        this.initChartCost();
-      } else {
-        this.initChartTechBusiness();
-      }
-      this.loading = false;
-    }, 1000);
-  }
+  costsMonth: CostMonth[] = [];
+  techBusinessValueMonth: TechBusinessValueMonth[] = [];
 
   chartDataTechBusiness: ChartDataTechBusiness[] = [
     { name: 'Jan', businessValue: 1, techDebt: 2.1 },
@@ -72,127 +54,81 @@ export class DashboardComponent {
     { name: 'Jul', costBuild: 200, costRun: 100 },
   ];
 
-  generateChartData(appHistory: Cost[]): {
-    chartDataCost: ChartDataCost[];
-    chartDataTechBusiness: ChartDataTechBusiness[];
-  } {
-    //   const allMonths = [
-    //     'janv.',
-    //     'févr.',
-    //     'mars.',
-    //     'avr.',
-    //     'mai.',
-    //     'juin.',
-    //     'juil.',
-    //     'août.',
-    //     'sept.',
-    //     'oct.',
-    //     'nov.',
-    //     'déc.',
-    //   ];
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private appHistoryService: AppHistoryService,
+    public userService: UserService,
+    private costService: CostService,
+    private techBusinessValueService: TechBusinessValueService
+  ) {}
 
-    //   const monthlyDataTechBusiness: { [key: string]: ChartDataTechBusiness } =
-    //     allMonths.reduce((acc, month) => {
-    //       acc[month] = {
-    //         name: month,
-    //         businessValue: 0,
-    //         techDebt: 0,
-    //       };
-    //       return acc;
-    //     }, {} as { [key: string]: ChartDataTechBusiness });
-
-    //   const monthlyDataCost: { [key: string]: ChartDataCost } = allMonths.reduce(
-    //     (acc, month) => {
-    //       acc[month] = {
-    //         name: month,
-    //         costBuild: 0,
-    //         costRun: 0,
-    //       };
-    //       return acc;
-    //     },
-    //     {} as { [key: string]: ChartDataCost }
-    //   );
-
-    //   let lastBussinessValue = 0;
-    //   let lastCostBuild = 0;
-    //   let lastCostsRun = 0;
-    //   appHistory.forEach((history) => {
-    //     // const date = new Date(history.modifiedAt);
-    //     const date = new Date(history.createdAt);
-    //     const month = DateFormater.getMonth(date);
-
-    //     if (monthlyDataTechBusiness[month]) {
-    //       if (lastBussinessValue != history.businessValue) {
-    //         monthlyDataTechBusiness[month].businessValue += history.businessValue;
-    //         lastBussinessValue = history.businessValue;
-    //       }
-    //       if (lastCostBuild !== history.budgetBuild) {
-    //         monthlyDataTechBusiness[month].techDebt += history.technicalDebt;
-    //         lastCostBuild = history.budgetBuild;
-    //       }
-    //     }
-
-    //     if (monthlyDataCost[month]) {
-    //       if (lastBussinessValue != history.businessValue) {
-    //         monthlyDataCost[month].costBuild += history.budgetBuild;
-    //         lastBussinessValue = history.businessValue;
-    //       }
-    //       if (lastCostBuild !== history.budgetBuild) {
-    //         monthlyDataCost[month].costRun += history.budgetRun;
-    //         lastCostBuild = history.budgetBuild;
-    //       }
-    //     }
-    //   });
-
-    //   const chartDataCost: ChartDataCost[] = Object.values(monthlyDataCost).map(
-    //     (data) => ({
-    //       name: data.name,
-    //       costBuild: data.costBuild,
-    //       costRun: data.costRun,
-    //     })
-    //   );
-
-    //   const chartDataTechBusiness: ChartDataTechBusiness[] = Object.values(
-    //     monthlyDataTechBusiness
-    //   ).map((data) => ({
-    //     name: data.name,
-    //     businessValue: data.businessValue,
-    //     techDebt: 0, // Assuming techDebt is not available in monthlyData
-    //   }));
-
-    return { chartDataCost: [], chartDataTechBusiness: [] };
+  setActiveTab(tab: 'cost' | 'techBusiness') {
+    this.activeTab = tab;
+    this.initChart();
   }
 
-  findAllAppHistory = (appId: number) => {
-    this.appHistoryService.findAllByAppId(appId).subscribe({
+  initChart() {
+    this.loading = true;
+    setTimeout(() => {
+      if (this.activeTab === 'cost') {
+        this.initChartCost();
+      } else {
+        this.initChartTechBusiness();
+      }
+      this.loading = false;
+    }, 1000);
+  }
+
+  findAllCostsMonth() {
+    if (this.appId == null) return;
+    this.costService.findCostLatestPerMonthByAppId(this.appId).subscribe({
       next: (data) => {
-        this.appHistory = data;
-        // this.chartData = this.generateChartData(data);
+        this.costsMonth = data;
+        this.chartDataCost = this.generateChartCostData(data);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des tâches :', error);
       },
     });
-  };
+  }
 
-  findAllBudgetHistory = (appId: number) => {
-    // this.budgetService.findAllByAppId(appId).subscribe({
-    //   next: (data) => {
-    //     this.budgetHistory = data;
-    //     let chartData = this.generateChartData(data);
-    //     this.chartDataCost = chartData.chartDataCost;
-    //     this.chartDataTechBusiness = chartData.chartDataTechBusiness;
-    //   },
-    //   error: (error) => {
-    //     console.error('Erreur lors de la récupération des tâches :', error);
-    //   },
-    // });
-  };
+  findAllTechBusinessValueMonth() {
+    if (this.appId == null) return;
+    this.techBusinessValueService
+      .findTechBusinessValueLatestPerMonthByAppId(this.appId)
+      .subscribe({
+        next: (data) => {
+          this.techBusinessValueMonth = data;
+          this.chartDataTechBusiness = this.generateChartTechBusinessData(data);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des tâches :', error);
+        },
+      });
+  }
+
+  generateChartCostData(costsMonth: CostMonth[]): ChartDataCost[] {
+    return costsMonth.map((cost) => ({
+      name: cost.month,
+      costBuild: cost.data?.costBuild ?? 0,
+      costRun: cost.data?.costRun ?? 0,
+    }));
+  }
+
+  generateChartTechBusinessData(
+    techBusinessValueMonth: TechBusinessValueMonth[]
+  ): ChartDataTechBusiness[] {
+    return techBusinessValueMonth.map((techBusiness) => ({
+      name: techBusiness.month,
+      businessValue: techBusiness.data?.businessValue ?? 0,
+      techDebt: techBusiness.data?.technicalDebt ?? 0,
+    }));
+  }
 
   ngOnInit() {
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
-    this.findAllAppHistory(this.appId);
-    this.findAllBudgetHistory(this.appId);
+    this.findAllCostsMonth();
+    this.findAllTechBusinessValueMonth();
     this.initChart();
   }
 
