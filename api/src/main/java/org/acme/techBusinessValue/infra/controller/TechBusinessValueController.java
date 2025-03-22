@@ -3,6 +3,7 @@ package org.acme.techBusinessValue.infra.controller;
 import org.acme.techBusinessValue.app.TechBusinessValueService;
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
+import org.acme.techBusinessValue.domain.model.output.TechBusinessValueMonth;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.domain.port.in.TechBusinessValueRest;
 
@@ -37,6 +38,14 @@ public class TechBusinessValueController implements TechBusinessValueRest {
         } catch (InvalidTechBusinessValueException e) {
             throw new BadRequestException(e);
         }
+    }
+
+    @Override
+    @Transactional
+    @GET
+    @Path("/latest-per-month/{appId}")
+    public List<TechBusinessValueMonth> findTechBusinessValueLatestPerMonthByAppId(@PathParam("appId") Long appId) {
+        return techBusinessValueService.findTechBusinessValueLatestPerMonthByAppId(appId);
     }
 
 }

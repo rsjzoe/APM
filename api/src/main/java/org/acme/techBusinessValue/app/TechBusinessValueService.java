@@ -2,13 +2,13 @@ package org.acme.techBusinessValue.app;
 
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
+import org.acme.techBusinessValue.domain.model.output.TechBusinessValueMonth;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.domain.port.out.TechBusinessValueRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;
-
 
 @ApplicationScoped
 public class TechBusinessValueService {
@@ -19,7 +19,8 @@ public class TechBusinessValueService {
         return techBusinessValueRepository.findTechBusinessValueByAppId(appId);
     }
 
-    public TechBusinessValueOutput createTechBusinessValueOutput(CreateTechBusinessValue techBusinessValue) throws InvalidTechBusinessValueException {
+    public TechBusinessValueOutput createTechBusinessValueOutput(CreateTechBusinessValue techBusinessValue)
+            throws InvalidTechBusinessValueException {
         if (!techBusinessValue.checkIfValid()) {
             throw new InvalidTechBusinessValueException();
         }
@@ -28,5 +29,9 @@ public class TechBusinessValueService {
 
     public TechBusinessValueOutput updateTechBusinessValueOutput(Long idTech, Long appId) {
         return techBusinessValueRepository.update(idTech, appId);
+    }
+
+    public List<TechBusinessValueMonth> findTechBusinessValueLatestPerMonthByAppId(Long appId) {
+        return techBusinessValueRepository.findTechBusinessValueLatestPerMonthByAppId(appId);
     }
 }

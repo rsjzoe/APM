@@ -4,6 +4,7 @@ import org.acme.cost.app.CostService;
 import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
+import org.acme.cost.domain.model.output.CostOutputMonth;
 import org.acme.cost.domain.port.in.CostRest;
 
 import jakarta.inject.Inject;
@@ -14,7 +15,6 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import java.util.List;
-
 
 @Path("/cost")
 public class CostController implements CostRest {
@@ -38,5 +38,14 @@ public class CostController implements CostRest {
         } catch (InvalidCostException e) {
             throw new BadRequestException();
         }
+    }
+
+    @Override
+    @Transactional
+    @GET
+    @Path("/latest-per-month/{appId}")
+
+    public List<CostOutputMonth> findCostLatestPerMonthByAppId(@PathParam("appId") Long appId) {
+        return costService.findCostLatestPerMonthByAppId(appId);
     }
 }

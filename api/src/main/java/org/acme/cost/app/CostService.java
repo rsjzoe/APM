@@ -3,6 +3,7 @@ package org.acme.cost.app;
 import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.cost.domain.model.input.CreateCostInput;
 import org.acme.cost.domain.model.output.CostOutput;
+import org.acme.cost.domain.model.output.CostOutputMonth;
 import org.acme.cost.domain.port.out.CostRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -27,5 +28,9 @@ public class CostService {
 
     public CostOutput updateCost(Long idCost, Long appId) {
         return costRepository.update(idCost, appId);
+    }
+
+    public List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId) {
+        return costRepository.findCostLatestPerMonthByAppId(appId);
     }
 }
