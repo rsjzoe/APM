@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { QuestionGroupe } from '../../../application/question.type';
+import {
+  QuestionGroupe,
+  QuestionGroupeType,
+} from '../../../application/question.type';
 
 @Component({
   selector: 'app-modal-question-form',
@@ -13,19 +16,30 @@ export class ModalQuestionFormComponent {
   @Input() isEditingId: number | null = null;
   valueQuestion!: string;
   valueCoeff!: number;
+  questionType!: QuestionGroupeType;
   @Input() questionEditing: QuestionGroupe | null = null;
-  @Input() addQuestion = (question: string, coeff: number) => {};
-  @Input() updateQuestion = (question: string, coeff: number) => {};
+  @Input() addQuestion = (
+    question: string,
+    coeff: number,
+    type: QuestionGroupeType
+  ) => {};
+  @Input() updateQuestion = (
+    question: string,
+    coeff: number,
+    type: QuestionGroupeType
+  ) => {};
 
   add() {
-    if (this.valueQuestion.length == 0) return;
-    this.addQuestion(this.valueQuestion, this.valueCoeff);
+    if (this.valueQuestion.length == 0 || !this.questionType) return;
+    if (this.valueCoeff < 0 || this.valueCoeff > 4) return;
+    this.addQuestion(this.valueQuestion, this.valueCoeff, this.questionType);
     this.valueQuestion = '';
   }
 
   update() {
-    if (this.valueQuestion.length == 0) return;
-    this.updateQuestion(this.valueQuestion, this.valueCoeff);
+    if (this.valueQuestion.length == 0 || !this.questionType) return;
+    if (this.valueCoeff < 0 || this.valueCoeff > 4) return;
+    this.updateQuestion(this.valueQuestion, this.valueCoeff, this.questionType);
     this.valueQuestion = '';
   }
 
@@ -38,5 +52,7 @@ export class ModalQuestionFormComponent {
       return;
     }
     this.valueQuestion = currentQuestionEditing.text;
+    this.valueCoeff = currentQuestionEditing.coeff;
+    this.questionType = currentQuestionEditing.type;
   }
 }

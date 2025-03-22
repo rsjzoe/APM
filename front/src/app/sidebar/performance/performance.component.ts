@@ -1,7 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { QuestionCardComponent } from './question-card/question-card.component';
 import { ModalQuestionFormComponent } from './modal-question-form/modal-question-form.component';
-import { QuestionGroupe } from '../../application/question.type';
+import {
+  QuestionGroupe,
+  QuestionGroupeType,
+} from '../../application/question.type';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { QuestionGroupeService } from './service/questionGroupe.service';
@@ -39,20 +42,63 @@ export class PerformanceComponent {
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
-  addQuestion = (question: string, coeff: number) => {};
+  addQuestion = (question: string, coeff: number, type: QuestionGroupeType) => {
+    this.questionGroupeService
+      .add({
+        text: question,
+        coeff,
+        type,
+        borderColor: this.generateRandomColor(),
+      })
+      .subscribe({
+        next: () => {
+          this.findAll();
+        },
+      });
+  };
 
-  deleteQuestion = (id: number) => {};
+  deleteQuestion = (id: number) => {
+    this.questionGroupeService.delete(id).subscribe({
+      next: () => {
+        this.findAll();
+      },
+    });
+  };
 
   editQuestion = (question: QuestionGroupe) => {
     this.isEditingId = question.id;
     this.questionEditing = question;
   };
 
-  updateQuetion = (questionText: string, coeff: number) => {
-    if (this.isEditingId == null) return;
+  updateQuetion = (
+    questionText: string,
+    coeff: number,
+    type: QuestionGroupeType
+  ) => {
+    if (this.isEditingId == null || this.questionEditing == null) return;
+    this.questionGroupeService
+      .update(this.isEditingId, {
+        text: questionText,
+        coeff,
+        type,
+        borderColor: this.questionEditing.borderColor,
+      })
+      .subscribe({
+        next: () => {
+          this.isEditingId = null;
+          this.questionEditing = null;
+          this.findAll();
+        },
+      });
   };
 
-  findAll = () => {};
+  findAll = () => {
+    this.questionGroupeService.findAll().subscribe({
+      next: (questions) => {
+        this.questions = questions;
+      },
+    });
+  };
 
   ngOnInit() {
     this.findAll();

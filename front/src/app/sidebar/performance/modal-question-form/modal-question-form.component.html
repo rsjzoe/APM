@@ -19,9 +19,21 @@
               placeholder="Entrez votre question" />
           </div>
           <div class="mb-3">
-            <label for="coefficient" class="col-form-label">Coeffficient <span class="text-muted">(échelle de 1 à
-                10)</span>:</label>
-            <input type="number" id="coefficient" class="form-control" placeholder="Entrez coefficient" [(ngModel)]="valueCoeff"/>
+            <label for="coefficient" class="col-form-label">Coefficient <span class="text-muted">(échelle de 0 à
+                4)</span>:</label>
+            <input type="number" id="coefficient" class="form-control" placeholder="Entrez coefficient"
+              [(ngModel)]="valueCoeff" />
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Type de question </label>
+            <select class="form-select" [(ngModel)]="questionType" required id="">
+              <option value="businessValue">
+                Valeur métier
+              </option>
+              <option value="technicalDebt">
+                Dette technique
+              </option>
+            </select>
           </div>
         </div>
       </div>
