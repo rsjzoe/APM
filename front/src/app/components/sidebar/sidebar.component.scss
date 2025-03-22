@@ -1,63 +1,68 @@
-.closesidebar {
-  .btn-logout {
-    padding: 6px 0 !important;
+.sidebar-header {
+  overflow: hidden;
+  height: 88px;
+}
+.sidebar-header img {
+  width: 42px;
+  height: 42px;
+  position: relative;
+  left: -7px;
+  top: -3px;
+}
+.sidebar-header .sidebar-title {
+  display: none;
+  white-space: nowrap;
+}
 
-    span {
-      display: none;
-    }
+.sidebar-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+  line-height: 24px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  width: 100%;
+  overflow: hidden;
+  width: 35px;
+  position: relative;
+  left: -4px;
+}
+
+.logout-btn button {
+  position: relative;
+  left: -13px;
+  transition: all 0.3s ease;
+}
+
+.ul-sidebar {
+  position: relative;
+  left: -4px;
+}
+
+.sidebar-container:hover {
+  .logout-btn {
+    width: 100%;
+    position: static;
   }
-  .btn-bottom {
-    padding: 0.625rem !important;
+
+  .logout-btn button {
+    position: static;
   }
-  .logo {
-    height: 40px;
-    width: 40px;
-    position: relative;
-    left: -11px;
+
+  .sidebar-header img {
+    width: 48px;
+    height: 48px;
   }
-  #offcanvasLabel {
-    display: none;
-  }
-  .btn-close-sidebar {
-    display: none;
-  }
-  .btn-show-sidebar {
+
+  .sidebar-header .sidebar-title {
     display: block;
   }
-  .sidebar-container {
-    width: 57px;
-  }
-
-  .nav-item.list {
-    width: 35px;
-    left: -7px;
-    position: relative;
-  }
-  .nav-item-text {
-    display: none;
-  }
-  .iconright-category .icon-right {
-    display: none;
-  }
-}
-
-.btn-close:hover,
-.btn-close:active {
-  border: none !important;
-}
-
-.btn-show-sidebar {
-  display: none;
-  position: absolute;
-  cursor: pointer;
-  left: 70px;
-  z-index: 10;
-  top: 27px;
-}
-.btn-close-sidebar {
-  display: block;
-  border: 2px solid black;
-  left: 20px;
-  position: relative;
-  cursor: pointer;
 }

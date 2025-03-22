@@ -10,9 +10,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
-  closeSidebar = false;
 
-  toggleCloseSidebar() {
-    this.closeSidebar = !this.closeSidebar;
-  }
 }

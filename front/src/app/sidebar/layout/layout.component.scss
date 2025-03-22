@@ -1,16 +1,25 @@
 .sidebar-container {
   position: fixed;
-  width: 270px;
+  width: 60px;
   height: 100%;
   transition: 0.3s ease;
   z-index: 99999;
 }
 
-.closesidebar {
-  grid-template-columns: 57px 1fr !important;
+.sidebar-container:hover {
+  width: 240px;
 }
 
 .btn-show-sidebar {
   z-index: 99999;
   position: fixed;
+}
+
+.main-content {
+  margin-left: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar-container:hover + .main-content {
+  margin-left: 240px;
 }

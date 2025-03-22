@@ -17,10 +17,12 @@
   </div>
   <div class="chart-container" *ngIf="activeTab == 'techBusiness'">
     <h6>Valeur Métier et Dette Technique</h6>
+    <p *ngIf="loading">chargement...</p>
     <canvas #chartCanvasTechBusiness></canvas>
   </div><br>
   <div class="chart-container" *ngIf="activeTab == 'cost'">
     <h6>Coût de Construction et d'Exploitation</h6>
+    <p *ngIf="loading">chargement...</p>
     <canvas #chartCanvasCost></canvas>
   </div>
 </div>

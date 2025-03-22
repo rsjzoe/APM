@@ -7,24 +7,18 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [ButtonComponent,CommonModule, SidebarLinkComponent],
+  imports: [ButtonComponent, CommonModule, SidebarLinkComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent {
-  showCategory = false;
-  @Input() toggleSidebar = () => {
+  constructor(
+    private authService: AuthService,
+    public userService: UserService
+  ) {}
 
-  };
-
-  constructor(private authService : AuthService, public userService: UserService){}
-
-  toggleShowCategory() {
-    this.showCategory = !this.showCategory;
-  }
-
-  logout(){
-    this.authService.logout()
+  logout() {
+    this.authService.logout();
   }
 }

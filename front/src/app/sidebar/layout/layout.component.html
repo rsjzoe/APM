@@ -1,25 +1,13 @@
-<div class="d-grid" [class.closesidebar]="closeSidebar"
-    style="min-height: 100vh; grid-template-columns: 270px 1fr;z-index: 2;position: relative;  transition: 0.1s ease;">
-    <div class="position-relative">
-        <div class="sidebar-container bg-black">
-            <div class="">
-                <div class="sidebar">
-                    <app-sidebar [toggleSidebar]="toggleCloseSidebar.bind(this)"></app-sidebar>
-                </div>
+<div style="min-height: 100vh; z-index: 2;position: relative;">
+    <div class="sidebar-container bg-black">
+        <div class="">
+            <div class="sidebar">
+                <app-sidebar></app-sidebar>
             </div>
         </div>
-
-        <span class="btn-show-sidebar" (click)="toggleCloseSidebar()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#fff"
-                class="solaris-icon si-list-display" viewBox="0 0 1000 1000">
-                <path d="M875,263H125V138H875V263Zm0,200H125V338H875V463Zm0,200H125V538H875V663Zm0,200H125V738H875V863Z"
-                    style="fill-rule:evenodd" />
-            </svg>
-        </span>
     </div>
 
-
-    <div class="position-relative">
+    <div class="position-relative main-content">
         <header class="position-fixed bg-secondary" style="width: 100%;left: 0;z-index: 9999;background: #000;">
             <div>
                 <app-header></app-header>

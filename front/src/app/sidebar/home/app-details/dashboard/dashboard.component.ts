@@ -21,6 +21,7 @@ export class DashboardComponent {
   chartCanvasTechBusiness!: ElementRef<HTMLCanvasElement>;
   @ViewChild('chartCanvasCost') chartCanvasCost!: ElementRef<HTMLCanvasElement>;
   activeTab: 'cost' | 'techBusiness' = 'techBusiness';
+  loading = false;
 
   application: Application | null = null;
   appId: number | null = null;
@@ -36,12 +37,18 @@ export class DashboardComponent {
 
   setActiveTab(tab: 'cost' | 'techBusiness') {
     this.activeTab = tab;
+    this.initChart();
+  }
+
+  initChart() {
+    this.loading = true;
     setTimeout(() => {
       if (this.activeTab === 'cost') {
         this.initChartCost();
       } else {
         this.initChartTechBusiness();
       }
+      this.loading = false;
     }, 1000);
   }
 
@@ -186,10 +193,7 @@ export class DashboardComponent {
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.findAllAppHistory(this.appId);
     this.findAllBudgetHistory(this.appId);
-    setTimeout(() => {
-      this.initChartCost();
-      this.initChartTechBusiness();
-    }, 1000);
+    this.initChart();
   }
 
   initChartTechBusiness() {
