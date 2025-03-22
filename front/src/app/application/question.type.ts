@@ -18,6 +18,6 @@ export enum QuestionGroupeType {
 }
 
 export type CreateQuestionGroupe = Omit<QuestionGroupe, 'id' | 'questions'>;
-export type CreateQuestion = Omit<Question, 'id'>;
+export type CreateQuestion = Omit<Question, 'id'> & { questionGroupId: number };
 export type UpdateQuestionGroupe = Omit<QuestionGroupe, 'id' | 'questions'>;
-export type UpdateQuestion = Omit<Question, 'id'>;
+export type UpdateQuestion = Omit<Question, 'id'> & { questionGroupId: number };
