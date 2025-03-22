@@ -13,3 +13,29 @@ canvas {
   border-radius: 0.5rem;
   padding: 1rem;
 }
+
+.stepped-process ol {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--bs-stepped-process-font-size);
+  font-weight: var(--bs-stepped-process-font-weight);
+  text-align: center;
+  list-style: none;
+  counter-reset: var(--bs-stepped-process-counter);
+}
+
+.stepped-process-item.active {
+  cursor: pointer;
+  opacity: 1;
+  flex: 1;
+}
+
+.stepped-process-item:nth-child(2) {
+  z-index: 3;
+}
+
+.stepped-process-item + .stepped-process-item {
+  padding-left: var(--bs-stepped-process-item-arrow-width);
+}

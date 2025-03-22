@@ -7,10 +7,11 @@ import { Chart, ChartConfiguration } from 'chart.js/auto';
 import { ChartDataCost, ChartDataTechBusiness } from '../appDetailType';
 import { DateFormater } from '../../../../lib/dateFormater';
 import { Cost } from '../../../../application/cost.type';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -19,6 +20,7 @@ export class DashboardComponent {
   @ViewChild('chartCanvasTechBusiness')
   chartCanvasTechBusiness!: ElementRef<HTMLCanvasElement>;
   @ViewChild('chartCanvasCost') chartCanvasCost!: ElementRef<HTMLCanvasElement>;
+  activeTab: 'cost' | 'techBusiness' = 'techBusiness';
 
   application: Application | null = null;
   appId: number | null = null;
@@ -31,6 +33,17 @@ export class DashboardComponent {
     private appHistoryService: AppHistoryService,
     public userService: UserService
   ) {}
+
+  setActiveTab(tab: 'cost' | 'techBusiness') {
+    this.activeTab = tab;
+    setTimeout(() => {
+      if (this.activeTab === 'cost') {
+        this.initChartCost();
+      } else {
+        this.initChartTechBusiness();
+      }
+    }, 1000);
+  }
 
   chartDataTechBusiness: ChartDataTechBusiness[] = [
     { name: 'Jan', businessValue: 1, techDebt: 2.1 },

@@ -1,9 +1,25 @@
 <div class="">
-  <div class="chart-container">
+  <div class="stepped-process">
+
+    <ol>
+      <li class="stepped-process-item {{activeTab == 'techBusiness' ? 'active' : ''}}"
+        (click)="setActiveTab('techBusiness')" style="cursor: pointer;">
+        <span class="stepped-process-link">
+          Valeur Métier et Dette Technique
+        </span>
+      </li>
+      <li class="stepped-process-item {{activeTab == 'cost' ? 'active' : ''}}" (click)="setActiveTab('cost')"
+        style="cursor: pointer;">
+        <span class="stepped-process-link">
+          Coût de Construction et d'Exploitation</span>
+      </li>
+    </ol>
+  </div>
+  <div class="chart-container" *ngIf="activeTab == 'techBusiness'">
     <h6>Valeur Métier et Dette Technique</h6>
     <canvas #chartCanvasTechBusiness></canvas>
   </div><br>
-  <div class="chart-container">
+  <div class="chart-container" *ngIf="activeTab == 'cost'">
     <h6>Coût de Construction et d'Exploitation</h6>
     <canvas #chartCanvasCost></canvas>
   </div>

@@ -32,12 +32,9 @@ import { IconDepartementComponent } from '../../../components/icons/icon-departe
 @Component({
   selector: 'app-app-details',
   imports: [
-    IconStarComponent,
     IconDollarComponent,
     IconUserComponent,
-    IconCategoryComponent,
     IconCalendarComponent,
-    IconUpdateComponent,
     CommonModule,
     IconLifecycleComponent,
     TimelineComponent,
@@ -65,7 +62,7 @@ export class AppDetailsComponent {
   application: Application | null = null;
   appId: number | null = null;
   appHistory: AppHistory[] = [];
-  activeTab: string = 'dashboard';
+  activeTab: string = 'history';
 
   constructor(
     private appService: ApplicationService,
