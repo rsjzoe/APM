@@ -18,7 +18,6 @@ import org.acme.classe.domain.input.CreateClasseInput;
 import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
 import org.acme.classe.infra.database.ClasseEntity;
-import org.acme.classe.infra.database.ClasseEntityRepository;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.documentation.adapter.out.DocumentationEntity;
@@ -26,7 +25,6 @@ import org.acme.question.infra.database.QuestionEntity;
 import org.acme.question.infra.database.QuestionGroupEntity;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.TestTransaction;
@@ -42,13 +40,6 @@ public class ClasseServiceTest {
 
     @Inject
     private ClasseService classeService;
-    private ClasseEntityRepository classeRepository;
-
-    @BeforeEach
-    void setup() {
-        classeRepository = new ClasseEntityRepository();
-        classeService = new ClasseService(classeRepository);
-    }
 
     @AfterEach
     @Transactional
@@ -95,6 +86,7 @@ public class ClasseServiceTest {
         assertEquals("Classe B", classes.get(1).getName());
     }
 
+    @Test
     @TestTransaction
     void testFindById() throws ClasseNotFoundException {
         ClasseOutput created = classeService.create(new CreateClasseInput("Classe A",
@@ -104,6 +96,12 @@ public class ClasseServiceTest {
         assertNotNull(found);
         assertEquals(created.getId(), found.getId());
         assertEquals("Classe A", found.getName());
+    }
+
+    @Test
+    @TestTransaction
+    void testFindByIdNotFound() throws ClasseNotFoundException {
+        assertThrows(ClasseNotFoundException.class, () -> classeService.findById(987654321L));
     }
 
     @Test
@@ -122,14 +120,25 @@ public class ClasseServiceTest {
 
     @Test
     @TestTransaction
+    void testUpdateNotFound() throws ClasseNotFoundException {
+        assertThrows(ClasseNotFoundException.class,
+                () -> classeService.update(98321L, new UpdateClasse("Classe A Updated", "Description Updated")));
+    }
+
+    @Test
+    @TestTransaction
     void testDeleteById() throws ClasseNotFoundException {
-        ClasseOutput created = classeService.create(new CreateClasseInput("Classe A",
-                "Description"));
+        ClasseOutput created = classeService.create(new CreateClasseInput("Classe A", "Description"));
         ClasseOutput deleted = classeService.deleteById(created.getId());
 
         assertNotNull(deleted);
         assertTrue(deleted.isDeleted());
 
-        assertThrows(ClasseNotFoundException.class, () -> classeService.findById(created.getId()));
+    }
+
+    @Test
+    @TestTransaction
+    void testDeleteByIdNotFound() throws ClasseNotFoundException {
+        assertThrows(ClasseNotFoundException.class, () -> classeService.deleteById(987654321L));
     }
 }

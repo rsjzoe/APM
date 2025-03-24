@@ -1,5 +1,7 @@
 package org.acme.classe;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.List;
 
 import org.acme.application.infra.database.ApplicationEntity;
@@ -101,6 +103,12 @@ public class ClasseRepositoryTest {
 
     @Test
     @TestTransaction
+    void testFindByIdNotFound() throws ClasseNotFoundException {
+        assertThrows(ClasseNotFoundException.class, () -> repository.findById(987654321L));
+    }
+
+    @Test
+    @TestTransaction
     public void testUpdate() throws ClasseNotFoundException {
         ClasseOutput created = repository.create(new CreateClasseInput("classe 1",
                 "description 1"));
@@ -111,6 +119,13 @@ public class ClasseRepositoryTest {
         Assertions.assertNotNull(updated);
         Assertions.assertEquals("classe 2", updated.getName());
         Assertions.assertEquals("description 2", updated.getDescription());
+    }
+
+    @Test
+    @TestTransaction
+    void testUpdateNotFound() throws ClasseNotFoundException {
+        assertThrows(ClasseNotFoundException.class,
+                () -> repository.update(98321L, new UpdateClasse("Classe A Updated", "Description Updated")));
     }
 
     @Test
@@ -126,5 +141,11 @@ public class ClasseRepositoryTest {
 
         List<ClasseOutput> classes = repository.getListAll();
         Assertions.assertFalse(classes.stream().anyMatch(c -> c.getId().equals(created.getId())));
+    }
+
+    @Test
+    @TestTransaction
+    void testDeleteByIdNotFound() throws ClasseNotFoundException {
+        assertThrows(ClasseNotFoundException.class, () -> repository.deleteById(987654321L));
     }
 }
