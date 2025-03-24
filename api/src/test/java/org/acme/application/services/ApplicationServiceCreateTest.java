@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @QuarkusTest
@@ -34,9 +33,6 @@ public class ApplicationServiceCreateTest {
 
     @Inject
     ApplicationService applicationService;
-
-    @Inject
-    EntityManager em;
 
     @BeforeEach
     @Transactional
