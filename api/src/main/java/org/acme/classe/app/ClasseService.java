@@ -17,6 +17,10 @@ public class ClasseService {
     @Inject
     ClasseRepository classeRepository;
 
+    public ClasseService(ClasseRepository classeRepository) {
+        this.classeRepository = classeRepository;
+    }
+
     public List<ClasseOutput> getListAll() {
         return classeRepository.getListAll();
     }

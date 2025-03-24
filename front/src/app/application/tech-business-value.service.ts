@@ -7,7 +7,7 @@ import { TechBusinessValueMonth } from './techBusinessValue.type';
 })
 export class TechBusinessValueService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/techBusinessValue';
+  private apiUrl = 'http://localhost:8080/techBusinessvalue';
 
   findTechBusinessValueLatestPerMonthByAppId(appId: number) {
     return this.http.get<TechBusinessValueMonth[]>(
