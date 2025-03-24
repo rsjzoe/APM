@@ -21,8 +21,10 @@ import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWith
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @QuarkusTest
@@ -33,6 +35,9 @@ public class ApplicationServiceCreateTest {
     @Inject
     ApplicationService applicationService;
 
+    @Inject
+    EntityManager em;
+
     @BeforeEach
     @Transactional
     public void setup() {
@@ -40,6 +45,7 @@ public class ApplicationServiceCreateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationSuccess() throws Exception {
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         ApplicationOutput output = applicationService.create(input);
@@ -50,6 +56,7 @@ public class ApplicationServiceCreateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationInvalidDates() {
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setStartDate(LocalDateTime.now().plusDays(1));
@@ -58,6 +65,7 @@ public class ApplicationServiceCreateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationInvalidCost() {
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setCostWithoutApp(new CreateCostWithoutApp(-1000.0, 500.0));
@@ -66,6 +74,7 @@ public class ApplicationServiceCreateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationInvalidTechBusinessValue() {
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setTechBusinessValueWithoutApp(new CreateTechBusinessValueWithoutApp(5.5, 2.0));
@@ -74,6 +83,7 @@ public class ApplicationServiceCreateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationCategoryNotFound() {
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setCategoryId(9999L);
@@ -82,6 +92,7 @@ public class ApplicationServiceCreateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationDepartementNotFound() {
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setDepartementId(9999L);
@@ -90,6 +101,7 @@ public class ApplicationServiceCreateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationClasseNotFound() {
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setClasseId(9999L);
@@ -97,4 +109,3 @@ public class ApplicationServiceCreateTest {
         assertThrows(ClasseNotFoundException.class, () -> applicationService.create(input));
     }
 }
-

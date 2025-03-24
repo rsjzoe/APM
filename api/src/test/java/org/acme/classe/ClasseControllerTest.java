@@ -8,10 +8,8 @@ import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
 import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
 import org.acme.classe.app.ClasseService;
 import org.acme.classe.domain.input.CreateClasseInput;
-import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
 import org.acme.classe.infra.database.ClasseEntity;
-import org.acme.classe.infra.database.ClasseEntityRepository;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.out.DepartementEntity;
 import org.acme.documentation.adapter.out.DocumentationEntity;
@@ -24,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-import io.quarkus.hibernate.orm.panache.Panache;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -37,16 +34,20 @@ public class ClasseControllerTest {
     @Inject
     EntityManager em;
 
+    @Inject
     private ClasseService classeService;
-    private ClasseEntityRepository classeRepository;
-    private ClasseControllerTest classeController;
+
+    ClasseOutput created1;
+    ClasseOutput created2;
 
     @BeforeEach
+    @Transactional
     void setup() {
-        classeRepository = new ClasseEntityRepository();
-        classeService = new ClasseService(classeRepository);
-        classeController = new ClasseControllerTest();
-        classeController.classeService = classeService;
+        CreateClasseInput input = new CreateClasseInput("Classe C", "Description C");
+        created1 = classeService.create(input);
+
+        CreateClasseInput input1 = new CreateClasseInput("Classe A", "Description");
+        created2 = classeService.create(input1);
     }
 
     @AfterEach
@@ -85,14 +86,7 @@ public class ClasseControllerTest {
     }
 
     @Test
-    @TestTransaction
     void testGetListAll() {
-        CreateClasseInput input1 = new CreateClasseInput("Classe A", "Description");
-        CreateClasseInput input2 = new CreateClasseInput("Classe B", "Description B");
-
-        classeService.create(input1);
-        classeService.create(input2);
-
         given()
                 .when()
                 .get("/classe")
@@ -103,15 +97,9 @@ public class ClasseControllerTest {
 
     @Test
     void testFindById() {
-        CreateClasseInput input = new CreateClasseInput("Classe C", "Description C");
-        ClasseOutput created = classeService.create(input);
-
-        Panache.getEntityManager().flush();
-        Panache.getEntityManager().clear();
-
         given()
                 .when()
-                .get("/classe/" + created.getId())
+                .get("/classe/" + created1.getId())
                 .then()
                 .statusCode(200)
                 .body("name", equalTo("Classe C"))
@@ -119,7 +107,6 @@ public class ClasseControllerTest {
     }
 
     @Test
-    @TestTransaction
     void testFindByIdNotFound() {
         given()
                 .when()

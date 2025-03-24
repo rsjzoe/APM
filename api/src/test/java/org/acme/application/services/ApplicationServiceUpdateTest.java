@@ -19,6 +19,7 @@ import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWith
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -38,6 +39,7 @@ public class ApplicationServiceUpdateTest {
     }
 
     @Test
+    @TestTransaction
     public void testUpdateApplicationSuccess() throws Exception {
         UpdateApplicationServiceInput input = applicationData.updateApplicationServiceInput();
         ApplicationOutput output = applicationService.update(applicationData.getApplication1().id, input);
@@ -48,6 +50,7 @@ public class ApplicationServiceUpdateTest {
     }
 
     @Test
+    @TestTransaction
     public void testPartialUpdateApplicationSuccess() throws Exception {
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
         input.setName("name only");
@@ -58,12 +61,14 @@ public class ApplicationServiceUpdateTest {
     }
 
     @Test
+    @TestTransaction
     public void testUpdateThrowsException() {
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
         assertThrows(ApplicationNotFoundException.class, () -> applicationService.update(999L, input));
     }
 
     @Test
+    @TestTransaction
     public void testUpdateApplicationInvalidCost() {
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
         input.setCostWithoutApp(new CreateCostWithoutApp(-1000.0, 500.0));
@@ -73,6 +78,7 @@ public class ApplicationServiceUpdateTest {
     }
 
     @Test
+    @TestTransaction
     public void testUpdatepplicationInvalidTechBusinessValue() {
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
         input.setTechBusinessValueWithoutApp(new CreateTechBusinessValueWithoutApp(5.5, 2.0));
@@ -82,6 +88,7 @@ public class ApplicationServiceUpdateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationCategoryNotFound() {
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
         input.setCategoryId(9999L);
@@ -91,6 +98,7 @@ public class ApplicationServiceUpdateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationDepartementNotFound() {
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
         input.setDepartementId(9999L);
@@ -100,6 +108,7 @@ public class ApplicationServiceUpdateTest {
     }
 
     @Test
+    @TestTransaction
     public void testCreateApplicationClasseNotFound() {
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
         input.setClasseId(9999L);

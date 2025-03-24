@@ -11,19 +11,15 @@ import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
-import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationEntityRepository;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
-import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
-import org.acme.classe.infra.database.ClasseEntity;
-import org.acme.departement.infra.out.DepartementEntity;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityManager;
 
 @QuarkusTest
 public class ApplicationRepositoryTest {
@@ -31,24 +27,17 @@ public class ApplicationRepositoryTest {
     @Inject
     ApplicationData applicationData;
 
+    @Inject
+    EntityManager em;
+
     @BeforeEach
     @Transactional
     public void setup() {
         applicationData.setup();
     }
 
-    @AfterEach
-    @Transactional
-    public void clear() {
-        ApplicationEntity.deleteAll();
-        CategoryODAChildEntity.deleteAll();
-        CategoryODAParentEntity.deleteAll();
-        ClasseEntity.deleteAll();
-        DepartementEntity.deleteAll();
-    }
-
     @Test
-    @Transactional
+    @TestTransaction
     public void testCreateApplication() {
         CreateApplicationRepositoryInput input = applicationData.createApplicationInput();
         ApplicationOutput output = repository.create(input);
@@ -59,6 +48,7 @@ public class ApplicationRepositoryTest {
     }
 
     @Test
+    @TestTransaction
     public void testListAllApplications() {
         List<ApplicationOutput> applications = repository.listAll();
         assertNotNull(applications);
@@ -66,6 +56,7 @@ public class ApplicationRepositoryTest {
     }
 
     @Test
+    @TestTransaction
     public void testFindApplicationById() throws ApplicationNotFoundException {
         var created = applicationData.getApplication1();
         ApplicationOutput found = repository.findById(created.id);
@@ -75,6 +66,7 @@ public class ApplicationRepositoryTest {
     }
 
     @Test
+    @TestTransaction
     public void testUpdateApplication() throws ApplicationNotFoundException {
         var created = applicationData.getApplication1();
         UpdateApplicationRepositoryInput updateInput = applicationData.updateApplicationInput();
@@ -87,6 +79,7 @@ public class ApplicationRepositoryTest {
     }
 
     @Test
+    @TestTransaction
     public void testDeleteApplication() throws ApplicationNotFoundException {
         var created = applicationData.getApplication1();
         ApplicationOutput deleted = repository.delete(created.id);
@@ -96,6 +89,7 @@ public class ApplicationRepositoryTest {
     }
 
     @Test
+    @TestTransaction
     public void testDeletedApplications() throws ApplicationNotFoundException {
         List<ApplicationOutput> deletedApplications = repository.deletedApplication();
         assertNotNull(deletedApplications);
@@ -103,17 +97,20 @@ public class ApplicationRepositoryTest {
     }
 
     @Test
+    @TestTransaction
     public void testFindByIdThrowsException() {
         assertThrows(ApplicationNotFoundException.class, () -> repository.findById(999L));
     }
 
     @Test
+    @TestTransaction
     public void testUpdateThrowsException() {
         UpdateApplicationRepositoryInput updateInput = new UpdateApplicationRepositoryInput();
         assertThrows(ApplicationNotFoundException.class, () -> repository.update(999L, updateInput));
     }
 
     @Test
+    @TestTransaction
     public void testDeleteThrowsException() {
         assertThrows(ApplicationNotFoundException.class, () -> repository.delete(999L));
     }
