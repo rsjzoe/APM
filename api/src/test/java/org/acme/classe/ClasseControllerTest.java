@@ -8,6 +8,7 @@ import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
 import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
 import org.acme.classe.app.ClasseService;
 import org.acme.classe.domain.input.CreateClasseInput;
+import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.infra.database.CostEntity;
@@ -86,6 +87,7 @@ public class ClasseControllerTest {
     }
 
     @Test
+    @TestTransaction
     void testGetListAll() {
         given()
                 .when()
@@ -96,6 +98,7 @@ public class ClasseControllerTest {
     }
 
     @Test
+    @TestTransaction
     void testFindById() {
         given()
                 .when()
@@ -115,67 +118,55 @@ public class ClasseControllerTest {
                 .statusCode(404);
     }
 
-    // @Test
-    // @TestTransaction
-    // void testUpdate() {
-    // CreateClasseInput input = new CreateClasseInput("Classe D", "Description D");
-    // ClasseOutput created = classeService.create(input);
+    @Test
+    @TestTransaction
+    void testUpdate() {
 
-    // UpdateClasse updateInput = new UpdateClasse("Classe D - Updated",
-    // "Description D - Updated");
+        UpdateClasse updateInput = new UpdateClasse("Classe D - Updated", "Description D - Updated");
 
-    // given()
-    // .contentType(ContentType.JSON)
-    // .body(updateInput)
-    // .when()
-    // .put("/classe/" + created.getId())
-    // .then()
-    // .statusCode(200)
-    // .body("name", equalTo("Classe D - Updated"))
-    // .body("description", equalTo("Description D - Updated"));
-    // }
+        given()
+                .contentType(ContentType.JSON)
+                .body(updateInput)
+                .when()
+                .put("/classe/" + created1.getId())
+                .then()
+                .statusCode(200)
+                .body("name", equalTo("Classe D - Updated"))
+                .body("description", equalTo("Description D - Updated"));
+    }
 
-    // @Test
-    // @TestTransaction
-    // void testUpdateNotFound() {
-    // UpdateClasse updateInput = new UpdateClasse("Classe E - Updated",
-    // "Description E - Updated");
+    @Test
+    @TestTransaction
+    void testUpdateNotFound() {
+        UpdateClasse updateInput = new UpdateClasse("Classe E - Updated",
+                "Description E - Updated");
 
-    // given()
-    // .contentType(ContentType.JSON)
-    // .body(updateInput)
-    // .when()
-    // .put("/classe/999")
-    // .then()
-    // .statusCode(404);
-    // }
+        given()
+                .contentType(ContentType.JSON)
+                .body(updateInput)
+                .when()
+                .put("/classe/999")
+                .then()
+                .statusCode(404);
+    }
 
-    // @Test
-    // @TestTransaction
-    // void testDeleteById() {
-    // CreateClasseInput input = new CreateClasseInput("Classe E", "Description E");
-    // ClasseOutput created = classeService.create(input);
+    @Test
+    void testDeleteById() {
 
-    // given()
-    // .when()
-    // .delete("/classe/" + created.getId())
-    // .then()
-    // .statusCode(200);
-    // // Vérifie que la classe est bien supprimée
-    // given()
-    // .when()
-    // .get("/classe/" + created.getId())
-    // .then()
-    // .statusCode(404);
-    // }
+        given()
+                .when()
+                .delete("/classe/" + created1.getId())
+                .then()
+                .statusCode(200);
+    }
 
-    // @Test
-    // @TestTransaction
-    // void testDeleteByIdNotFound() {
-    // given()
-    // .when()
-    // .delete("/classe/999")
-    // .then()
-    // .statusCode(404);
-    // }
+    @Test
+    @TestTransaction
+    void testDeleteByIdNotFound() {
+        given()
+                .when()
+                .delete("/classe/999")
+                .then()
+                .statusCode(404);
+    }
 }
