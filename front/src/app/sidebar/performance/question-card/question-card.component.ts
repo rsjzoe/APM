@@ -28,10 +28,12 @@ export class QuestionCardComponent {
   @Input() refreshQuestionGroup = () => {};
   questionGroupeIdDelete: number | null = null;
   subQuestionIdDelete: number | null = null;
+  selectedGroup: QuestionGroupe | null = null;
 
   showAddQuestion = false;
   newQuestionText = '';
   editingSubQuestion: Question | null = null;
+  editingQuestionGroup: QuestionGroupe | null = null;
 
   constructor(private questionService: QuestionService) {}
 
@@ -44,6 +46,12 @@ export class QuestionCardComponent {
       this.deleteQuestion(this.questionGroupeIdDelete);
     }
   };
+
+  handleSelectGroup(group: QuestionGroupe): void {
+    this.selectedGroup = group;
+    this.editingQuestionGroup = null;
+    this.editingSubQuestion = null;
+  }
 
   toggleAddQuestion() {
     this.showAddQuestion = !this.showAddQuestion;

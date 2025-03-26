@@ -8,6 +8,10 @@ thead th {
   color: white;
 }
 
+.table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 .grid-card-app {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }

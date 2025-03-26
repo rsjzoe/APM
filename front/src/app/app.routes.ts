@@ -14,6 +14,7 @@ import { CategoryOdaComponent } from './sidebar/category-oda/category-oda.compon
 import { CorbeilleComponent } from './sidebar/corbeille/corbeille.component';
 import { RoleGuard } from './auth/role.guard';
 import { Role } from './sidebar/administration/user.type';
+import { ClassificationComponent } from './sidebar/classification/classification.component';
 
 export const routes: Routes = [
   {
@@ -29,43 +30,48 @@ export const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] }
+        data: { roles: [Role.admin, Role.editor, Role.visitor] },
       },
       {
         path: 'app-details/:id',
         component: AppDetailsComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] }
+        data: { roles: [Role.admin, Role.editor, Role.visitor] },
       },
 
       {
         path: 'administration',
         component: AdministrationComponent,
-        data: { roles: [Role.admin] }
+        data: { roles: [Role.admin] },
       },
       {
         path: 'categoryODA',
         component: CategoryOdaComponent,
-        data: { roles: [Role.admin] }
+        data: { roles: [Role.admin] },
       },
       {
         path: 'life-cycle',
         component: LifeCycleTimeComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] }
+        data: { roles: [Role.admin, Role.editor, Role.visitor] },
       },
       {
         path: 'updateApp',
         component: UpdatedApplicationComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] } 
+        data: { roles: [Role.admin, Role.editor, Role.visitor] },
       },
       {
         path: 'performance',
         component: PerformanceComponent,
-        data: { roles: [Role.admin] }
+        data: { roles: [Role.admin] },
+      },
+      {
+        path: 'classification',
+        component: ClassificationComponent,
+        data: { roles: [Role.admin, Role.editor, Role.visitor] },
       },
       {
         path: 'corbeille',
         component: CorbeilleComponent,
-        data: { roles: [Role.admin] }
+        data: { roles: [Role.admin] },
       },
       {
         path: '404',
