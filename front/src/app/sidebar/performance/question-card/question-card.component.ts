@@ -11,12 +11,8 @@ import { QuestionService } from '../service/question.service';
 @Component({
   selector: 'app-question-card',
   imports: [
-    IconDeleteComponent,
     FormsModule,
-    IconEditComponent,
     CommonModule,
-    ButtonComponent,
-    ModalConfirmComponent,
   ],
   templateUrl: './question-card.component.html',
   styleUrl: './question-card.component.scss',
