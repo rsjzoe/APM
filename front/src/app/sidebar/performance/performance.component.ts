@@ -8,13 +8,19 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { QuestionGroupeService } from './service/questionGroupe.service';
 import { QuestionService } from './service/question.service';
-import { IconEditComponent } from "../../components/icons/icon-edit/icon-edit.component";
-import { IconDeleteComponent } from "../../components/icons/icon-delete/icon-delete.component";
-import { IconPlusComponent } from "../../components/icons/icon-plus/icon-plus.component";
+import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
+import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
+import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.component';
 
 @Component({
   selector: 'app-performance',
-  imports: [FormsModule, CommonModule, IconEditComponent, IconDeleteComponent, IconPlusComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    IconEditComponent,
+    IconDeleteComponent,
+    IconPlusComponent,
+  ],
   templateUrl: './performance.component.html',
   styleUrl: './performance.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -222,7 +228,7 @@ export class PerformanceComponent {
         questionGroupId: questionGroupId,
       })
       .subscribe({
-        next: (updatedQuestion) => {
+        next: () => {
           this.findAll();
           const questions = this.selectedGroup?.questions;
           if (questions) {
@@ -240,6 +246,11 @@ export class PerformanceComponent {
     this.questionService.delete(id).subscribe({
       next: () => {
         this.findAll();
+        if (this.selectedGroup) {
+          this.selectedGroup.questions = this.selectedGroup.questions.filter(
+            (q) => q.id != id
+          );
+        }
       },
     });
   };
