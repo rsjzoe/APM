@@ -1,4 +1,4 @@
-package org.acme.departement.infra.out;
+package org.acme.departement.infra.database;
 
 import org.acme.departement.domain.Departement;
 
@@ -6,7 +6,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 
 @Entity
-public class DepartementEntity extends PanacheEntity{
+public class DepartementEntity extends PanacheEntity {
     public String name;
 
     public DepartementEntity() {

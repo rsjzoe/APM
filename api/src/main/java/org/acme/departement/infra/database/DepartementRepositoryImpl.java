@@ -1,4 +1,4 @@
-package org.acme.departement.infra.out;
+package org.acme.departement.infra.database;
 
 import org.acme.departement.domain.Departement;
 import org.acme.departement.domain.exception.DepartementNotFoundException;

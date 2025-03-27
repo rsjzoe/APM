@@ -11,8 +11,8 @@ import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.classe.infra.database.ClasseEntityHelper;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.cost.infra.database.CostEntityHelper;
-import org.acme.departement.infra.out.DepartementEntity;
-import org.acme.departement.infra.out.DepartementEntityHelper;
+import org.acme.departement.infra.database.DepartementEntity;
+import org.acme.departement.infra.database.DepartementEntityHelper;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntityHelper;
 

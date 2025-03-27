@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,7 +28,6 @@ public class ClasseEntity extends PanacheEntity {
     public List<ApplicationEntity> application;
     public boolean isDeleted;
 
-   
     public ClasseEntity(String name, String description, List<ApplicationEntity> application) {
         this.name = name;
         this.description = description;
@@ -46,8 +45,14 @@ public class ClasseEntity extends PanacheEntity {
     }
 
     public void update(UpdateClasse data) {
-        this.name = data.getName();
-        this.description = data.getDescription();
+
+        if (this.name != null) {
+            this.name = data.getName();
+        }
+
+        if (this.description != null) {
+            this.description = data.getDescription();
+        }
 
     }
 

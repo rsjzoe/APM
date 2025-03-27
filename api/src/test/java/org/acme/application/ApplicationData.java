@@ -14,7 +14,7 @@ import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
 import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.domain.model.input.CreateCostWithoutApp;
-import org.acme.departement.infra.out.DepartementEntity;
+import org.acme.departement.infra.database.DepartementEntity;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWithoutApp;
 
 import jakarta.enterprise.context.ApplicationScoped;

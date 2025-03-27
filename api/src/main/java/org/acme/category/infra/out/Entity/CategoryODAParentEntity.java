@@ -59,8 +59,13 @@ public class CategoryODAParentEntity extends PanacheEntity {
     }
 
     public void update(UpdateCategoryODAParent data) {
-        this.name = data.getName();
-        this.bgColor = data.getBgColor();
+        if(this.name != null){
+            this.name = data.getName();
+        }
+
+        if(this.bgColor != null){
+            this.bgColor = data.getBgColor();
+        }
     }
 
     public List<CategoryODAChildEntity> getCategoryODAChildEntities() {

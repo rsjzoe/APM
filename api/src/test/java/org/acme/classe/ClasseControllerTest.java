@@ -12,7 +12,7 @@ import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.infra.database.CostEntity;
-import org.acme.departement.infra.out.DepartementEntity;
+import org.acme.departement.infra.database.DepartementEntity;
 import org.acme.documentation.adapter.out.DocumentationEntity;
 import org.acme.question.infra.database.QuestionEntity;
 import org.acme.question.infra.database.QuestionGroupEntity;

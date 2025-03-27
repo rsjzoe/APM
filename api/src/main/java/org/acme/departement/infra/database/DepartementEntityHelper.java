@@ -1,5 +1,4 @@
-package org.acme.departement.infra.out;
-
+package org.acme.departement.infra.database;
 
 public class DepartementEntityHelper {
     public static DepartementEntity entityFromId(Long id) {

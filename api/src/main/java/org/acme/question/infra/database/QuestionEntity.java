@@ -30,8 +30,13 @@ public class QuestionEntity extends PanacheEntity {
     }
 
     public QuestionEntity updateQuestion(UpdateQuestion question) {
-        this.text = question.getText();
-        this.questionGroup = QuestionGroupEntityHelper.entityFromId(question.getQuestionGroupId());
+        if (this.text != null) {
+            this.text = question.getText();
+        }
+
+        if (this.questionGroup != null) {
+            this.questionGroup = QuestionGroupEntityHelper.entityFromId(question.getQuestionGroupId());
+        }
         return this;
     }
 
