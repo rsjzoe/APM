@@ -8,7 +8,6 @@ import org.acme.question.domain.input.UpdateQuestionGroup;
 import org.acme.question.domain.model.QuestionGroup;
 import org.acme.question.domain.port.out.QuestionGroupRepository;
 
-
 public class QuestionGroupEntityRepository implements QuestionGroupRepository {
 
     @Override
@@ -40,13 +39,14 @@ public class QuestionGroupEntityRepository implements QuestionGroupRepository {
         QuestionGroupEntity data = QuestionGroupEntity.findById(id);
         if (data == null)
             return null;
-        data.delete();
+        data.setDeleted(true);
+        data.persist();
         return data.toQuestionGroup();
     }
 
     @Override
     public List<QuestionGroup> findAll() {
-        List<QuestionGroupEntity> data = QuestionGroupEntity.listAll();
+        List<QuestionGroupEntity> data = QuestionGroupEntity.list("isDeleted =? 1", false);
         return data.stream()
                 .map(entity -> (entity).toQuestionGroup())
                 .collect(Collectors.toList());

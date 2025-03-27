@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class Question {
     private Long id;
     private String text;
+    private boolean isDeleted;
 }

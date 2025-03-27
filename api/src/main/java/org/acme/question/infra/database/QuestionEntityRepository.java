@@ -39,13 +39,14 @@ public class QuestionEntityRepository implements QuestionRepository {
         QuestionEntity data = QuestionEntity.findById(id);
         if (data == null)
             return null;
-        data.delete();
+        data.setDeleted(true);
+        data.persist();
         return data.toQuestion();
     }
 
     @Override
     public List<Question> findAll() {
-        List<QuestionEntity> data = QuestionEntity.listAll();
+        List<QuestionEntity> data = QuestionEntity.list("isDeleted =? 1", false);
         return data.stream()
                 .map(entity -> (entity).toQuestion())
                 .collect(Collectors.toList());

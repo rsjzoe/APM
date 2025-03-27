@@ -29,17 +29,18 @@ public class QuestionGroupEntity extends PanacheEntity {
     private String borderColor;
     @OneToMany(mappedBy = "questionGroup")
     private List<QuestionEntity> questionEntities;
+    private boolean isDeleted;
 
     public QuestionGroupEntity(CreateQuestionGroup questionGroup) {
         this.text = questionGroup.getText();
         this.coeff = questionGroup.getCoeff();
         this.type = questionGroup.getType();
         this.borderColor = questionGroup.getBorderColor();
-
+        this.isDeleted = false;
     }
 
     public QuestionGroup toQuestionGroup() {
-        return new QuestionGroup(id, text, coeff, type, borderColor, questions());
+        return new QuestionGroup(id, text, coeff, type, borderColor, questions(), isDeleted);
     }
 
     public List<Question> questions() {

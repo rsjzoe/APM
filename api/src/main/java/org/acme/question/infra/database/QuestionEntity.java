@@ -21,10 +21,12 @@ public class QuestionEntity extends PanacheEntity {
     private String text;
     @ManyToOne
     private QuestionGroupEntity questionGroup;
+    private boolean isDeleted;
 
     public QuestionEntity(CreateQuestion question) {
         this.text = question.getText();
         this.questionGroup = QuestionGroupEntityHelper.entityFromId(question.getQuestionGroupId());
+        this.isDeleted = false;
     }
 
     public QuestionEntity updateQuestion(UpdateQuestion question) {
@@ -34,6 +36,6 @@ public class QuestionEntity extends PanacheEntity {
     }
 
     public Question toQuestion() {
-        return new Question(id, text);
+        return new Question(id, text, isDeleted);
     }
 }

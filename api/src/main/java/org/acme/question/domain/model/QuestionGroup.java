@@ -16,4 +16,5 @@ public class QuestionGroup {
     private QuestionGroupeType type;
     private String borderColor;
     private List<Question> questions;
+    private boolean isDeleted;
 }
