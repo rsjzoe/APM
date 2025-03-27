@@ -16,6 +16,7 @@ import org.acme.storage.StorageFile;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -29,6 +30,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/documentation")
+@Authenticated
 public class DocumentationController implements DocumentationRest {
     @Inject
     DocumentationService documentationService;

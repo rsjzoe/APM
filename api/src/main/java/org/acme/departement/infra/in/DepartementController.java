@@ -7,6 +7,7 @@ import org.acme.departement.domain.Departement;
 import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.departement.domain.port.in.DepartementRest;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -15,6 +16,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
 @Path("/departements")
+@Authenticated
 public class DepartementController implements DepartementRest {
     @Inject
     DepartementService departementUseCase;

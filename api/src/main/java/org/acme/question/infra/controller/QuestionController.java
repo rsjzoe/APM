@@ -7,7 +7,9 @@ import org.acme.question.domain.input.CreateQuestion;
 import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.model.Question;
 import org.acme.question.domain.port.in.QuestionRest;
+import org.acme.roleGuard.RoleAllowedCustom;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -17,12 +19,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
 @Path("/question")
+@Authenticated
 public class QuestionController implements QuestionRest {
     @Inject
     QuestionService questionService;
 
     @POST
     @Override
+    @RoleAllowedCustom({ "admin" })
     public Question save(CreateQuestion question) {
         return questionService.save(question);
     }
@@ -30,6 +34,7 @@ public class QuestionController implements QuestionRest {
     @PUT
     @Path("/{id}")
     @Override
+    @RoleAllowedCustom({ "admin" })
     public Question update(@PathParam("id") Long id, UpdateQuestion question) {
         return questionService.update(id, question);
     }
@@ -44,6 +49,7 @@ public class QuestionController implements QuestionRest {
     @DELETE
     @Path("/{id}")
     @Override
+    @RoleAllowedCustom({ "admin" })
     public Question deleteById(@PathParam("id") Long id) {
         return questionService.deleteById(id);
     }

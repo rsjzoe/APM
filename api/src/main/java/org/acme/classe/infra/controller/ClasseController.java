@@ -8,7 +8,9 @@ import org.acme.classe.domain.input.CreateClasseInput;
 import org.acme.classe.domain.input.UpdateClasse;
 import org.acme.classe.domain.output.ClasseOutput;
 import org.acme.classe.domain.port.in.ClasseRest;
+import org.acme.roleGuard.RoleAllowedCustom;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -19,6 +21,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
 @Path("/classe")
+@RoleAllowedCustom({ "admin" })
+@Authenticated
 public class ClasseController implements ClasseRest {
     @Inject
     ClasseService classeService;

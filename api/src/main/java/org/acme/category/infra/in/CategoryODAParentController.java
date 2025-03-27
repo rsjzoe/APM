@@ -7,6 +7,9 @@ import org.acme.category.domain.input.*;
 import org.acme.category.domain.output.CategoryODAParentOutput;
 import org.acme.category.domain.port.in.CategoryODAParentRest;
 import org.acme.roleGuard.RoleAllowedCustom;
+
+import io.quarkus.security.Authenticated;
+
 import org.acme.category.app.CategoryODAParentService;
 
 import jakarta.ws.rs.*;
@@ -14,6 +17,7 @@ import jakarta.inject.Inject;
 
 @Path("/category-oda-parent")
 @RoleAllowedCustom({ "admin" })
+@Authenticated
 public class CategoryODAParentController implements CategoryODAParentRest {
 
     @Inject

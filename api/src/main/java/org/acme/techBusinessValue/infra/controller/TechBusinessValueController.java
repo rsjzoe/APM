@@ -7,6 +7,7 @@ import org.acme.techBusinessValue.domain.model.output.TechBusinessValueMonth;
 import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.domain.port.in.TechBusinessValueRest;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
@@ -17,6 +18,7 @@ import jakarta.ws.rs.PathParam;
 import java.util.List;
 
 @Path("techBusinessvalue")
+@Authenticated
 public class TechBusinessValueController implements TechBusinessValueRest {
     @Inject
     TechBusinessValueService techBusinessValueService;

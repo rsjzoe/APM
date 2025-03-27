@@ -17,12 +17,14 @@ import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.documentation.domain.DocumentationType;
 import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
+import org.acme.roleGuard.RoleAllowedCustom;
 import org.acme.storage.FileInput;
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.jboss.resteasy.reactive.PartType;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
@@ -37,6 +39,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/application")
+@Authenticated
 public class ApplicationController implements ApplicationRest {
 
     @Inject
@@ -44,6 +47,7 @@ public class ApplicationController implements ApplicationRest {
 
     @GET
     @Override
+    @RoleAllowedCustom({ "admin", "editor", "visitor" })
     public List<ApplicationOutput> listAll() {
         return applicationService.listAll();
     }
@@ -51,6 +55,7 @@ public class ApplicationController implements ApplicationRest {
     @GET
     @Path("/{id}")
     @Override
+    @RoleAllowedCustom({ "admin", "editor", "visitor" })
     public ApplicationOutput findById(@PathParam("id") Long id) {
         try {
             return applicationService.findById(id);
@@ -63,6 +68,7 @@ public class ApplicationController implements ApplicationRest {
     @Transactional
     @Override
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @RoleAllowedCustom({ "admin" })
     public ApplicationOutput create(@RestForm List<FileUpload> files, @RestForm List<String> types,
             @RestForm @PartType(MediaType.APPLICATION_JSON) CreateApplicationRest newApplication) {
 
@@ -104,6 +110,7 @@ public class ApplicationController implements ApplicationRest {
     @PUT
     @Path("/{id}")
     @Transactional
+    @RoleAllowedCustom({ "admin", "editor" })
     @Override
     public ApplicationOutput update(@PathParam("id") Long id, UpdateApplicationServiceInput updateApplication) {
         try {
@@ -128,6 +135,7 @@ public class ApplicationController implements ApplicationRest {
     @Path("/{id}")
     @Transactional
     @Override
+    @RoleAllowedCustom({ "admin" })
     public ApplicationOutput delete(@PathParam("id") Long id) {
         try {
             return applicationService.delete(id);
@@ -140,6 +148,7 @@ public class ApplicationController implements ApplicationRest {
     @GET
     @Transactional
     @Path("/deleted/list")
+    @RoleAllowedCustom({ "admin" })
     public List<ApplicationOutput> deletedApplication() {
         return applicationService.deletedApplication();
     }
