@@ -30,7 +30,6 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     protected ClasseOutput classe;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
-    private String description;
     private String descriptionHistory;
     protected CostOutput cost;
     protected TechBusinessValueOutput techBusinessValue;
@@ -60,6 +59,32 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         this.techBusinessValue = techBusinessValue;
         this.time = time;
         this.isDeleted = isDeleted;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationHistoryOutput{" +
+                "id=" + id +
+                ", appId=" + appId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", lastUpdate=" + lastUpdate +
+                ", status=" + status +
+                ", userTotal=" + userTotal +
+                ", noteCost=" + noteCost +
+                ", noteTechBusiness=" + noteTechBusiness +
+                ", category=" + category +
+                ", departement=" + departement +
+                ", classe=" + classe +
+                ", modifiedAt=" + modifiedAt +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                ", descriptionHistory='" + descriptionHistory + '\'' +
+                ", cost=" + cost +
+                ", techBusinessValue=" + techBusinessValue +
+                ", time=" + time +
+                ", isDeleted=" + isDeleted +
+                '}';
     }
 
 }

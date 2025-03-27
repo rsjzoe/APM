@@ -71,4 +71,17 @@ public class CategoryODAParentEntity extends PanacheEntity {
         this.categoryODAChildEntities = categoryODAChildEntities;
     }
 
+    @Override
+    public String toString() {
+        return "CategoryODAParentEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", bgColor='" + bgColor + '\'' +
+                ", isDelete=" + isDelete +
+                ", categoryODAChildEntities="
+                + (categoryODAChildEntities != null ? categoryODAChildEntities.toString() : 0)
+                +
+                '}';
+    }
+
 }

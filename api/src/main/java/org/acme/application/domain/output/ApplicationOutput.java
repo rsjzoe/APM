@@ -58,4 +58,28 @@ public class ApplicationOutput extends ApplicationBase {
         this.isDeleted = isDeleted;
     }
 
+    @Override
+    public String toString() {
+        return "ApplicationOutput{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", lastUpdate=" + lastUpdate +
+                ", status=" + status +
+                ", userTotal=" + userTotal +
+                ", noteCost=" + noteCost +
+                ", noteTechBusiness=" + noteTechBusiness +
+                ", category=" + category +
+                ", departement=" + departement +
+                ", classe=" + classe +
+                ", currentCost=" + currentCost +
+                ", currentTechBusinessValue=" + currentTechBusinessValue +
+                ", costs=" + costs +
+                ", techBusinessValues=" + techBusinessValues +
+                ", time=" + time +
+                ", isDeleted=" + isDeleted +
+                '}';
+    }
+
 }

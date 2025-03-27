@@ -60,4 +60,28 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
                 app.getCurrentCost() == null ? null : app.getCurrentCost().getId(),
                 app.getCurrentTechBusinessValue() == null ? null : app.getCurrentTechBusinessValue().getId());
     }
+
+    @Override
+    public String toString() {
+        return "CreateApplicationHistoryRepository{" +
+                "appId=" + appId +
+                ", noteCost=" + noteCost +
+                ", noteTechBusiness=" + noteTechBusiness +
+                ", categoryId=" + categoryId +
+                ", departementId=" + departementId +
+                ", classeId=" + classeId +
+                ", modifiedAt=" + modifiedAt +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                ", descriptionHistory='" + descriptionHistory + '\'' +
+                ", costId=" + costId +
+                ", techBusinessValueId=" + techBusinessValueId +
+                ", time=" + time +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", lastUpdate=" + lastUpdate +
+                ", status=" + status +
+                ", userTotal=" + userTotal +
+                '}';
+    }
 }

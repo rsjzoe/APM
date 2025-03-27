@@ -54,12 +54,15 @@ public class CategoryODAChildEntity extends PanacheEntity {
                 categoryODAParentEntity == null ? null : categoryODAParentEntity.toCategoryODAParent());
     }
 
-    public CategoryODAParentEntity getCategoryODAParentEntity() {
-        return categoryODAParentEntity;
-    }
-
-    public void setCategoryODAParentEntity(CategoryODAParentEntity categoryODAParentEntity) {
-        this.categoryODAParentEntity = categoryODAParentEntity;
+    @Override
+    public String toString() {
+        return "CategoryODAChildEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", isDelete=" + isDelete +
+                ", categoryODAParentEntity="
+                + (categoryODAParentEntity != null ? categoryODAParentEntity.id : null) +
+                '}';
     }
 
 }
