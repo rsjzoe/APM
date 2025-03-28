@@ -69,8 +69,6 @@ public class ApplicationService {
     };
 
     public ApplicationOutput findById(Long id) throws ApplicationNotFoundException {
-        // System.out.println("servce app");
-        // System.out.println(applicationRepository.findById(id));
         return applicationRepository.findById(id);
     };
 
@@ -125,7 +123,7 @@ public class ApplicationService {
                     }
                 });
         var app = findById(created.getId());
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, app.toString());
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app);
         applicationHistoryService.create(data);
 
         return created;
@@ -168,9 +166,7 @@ public class ApplicationService {
         }
 
         var app = findById(id);
-        System.out.println("okok");
-        System.out.println(findById(id));
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, app.toString());
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app);
         applicationHistoryService.create(data);
         // maka anlay app updated miarakam curreent cost any vaovao
         ApplicationOutput appFound = findById(id);
@@ -180,7 +176,7 @@ public class ApplicationService {
     public ApplicationOutput delete(Long id) throws ApplicationNotFoundException {
         ApplicationOutput deleted = applicationRepository.delete(id);
         var app = findById(id);
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, app.toString());
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app);
         applicationHistoryService.create(data);
         return deleted;
     };

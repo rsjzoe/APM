@@ -39,7 +39,7 @@ import lombok.NoArgsConstructor;
 public class ApplicationEntity extends PanacheEntity {
     private String name;
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private CategoryODAChildEntity category;
     private LocalDateTime startDate;
     private LocalDateTime lastUpdate;
@@ -48,9 +48,9 @@ public class ApplicationEntity extends PanacheEntity {
     private double noteCost;
     private double noteTechBusiness;
     private int userTotal;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private DepartementEntity departement;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ClasseEntity classe;
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CostEntity> costEntity = new ArrayList<>();

@@ -4,11 +4,9 @@ import org.acme.application.domain.output.ApplicationOutput;
 
 public class CreateApplicationHistoryService {
     private ApplicationOutput app;
-    private String appString;
 
-    public CreateApplicationHistoryService(ApplicationOutput app, String appString) {
+    public CreateApplicationHistoryService(ApplicationOutput app) {
         this.app = app;
-        this.appString = appString;
     }
 
     public ApplicationOutput getApp() {
@@ -17,9 +15,5 @@ public class CreateApplicationHistoryService {
 
     public void setApp(ApplicationOutput app) {
         this.app = app;
-    }
-
-    public String getAppString() {
-        return appString;
     }
 }

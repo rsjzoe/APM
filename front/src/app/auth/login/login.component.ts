@@ -20,7 +20,11 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.trigramme, this.password).subscribe({
-      next: () => this.router.navigate(['/home']),
+      next: () => {
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload();
+        });
+      },
       error: (err) => {
         this.errorMessage = "Nom d'utilisateur ou mot de passe incorrect";
       },

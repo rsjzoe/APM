@@ -31,7 +31,7 @@ public class ApplicationHistoryService {
 
     public ApplicationHistoryOutput create(CreateApplicationHistoryService newdata)
             throws ApplicationNotFoundException {
-        System.out.println(newdata.getAppString());
+        System.out.println(newdata.getApp());
 
         List<ApplicationHistoryOutput> historyList = listAllByApplicationId(newdata.getApp().getId());
         ApplicationHistoryOutput lastHistory = historyList.stream()
