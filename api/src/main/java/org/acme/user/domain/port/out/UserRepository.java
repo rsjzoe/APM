@@ -5,6 +5,7 @@ import java.util.List;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
+import org.acme.user.domain.input.UpdateUser;
 
 public interface UserRepository {
     UserOutput me(String token) throws VerificationTokenException, UserNotFoundException;
@@ -13,6 +14,6 @@ public interface UserRepository {
 
     UserOutput deleteByTrigramme(String trigramme) throws UserNotFoundException;
 
-    UserOutput updateByTrigramme(String trigramme, UserOutput userUpdate) throws UserNotFoundException;
+    UserOutput updateByTrigramme(String trigramme, UpdateUser userUpdate) throws UserNotFoundException;
 
 }

@@ -6,6 +6,7 @@ import org.acme.user.app.UserService;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
+import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.in.UserRest;
 
 import io.quarkus.security.Authenticated;
@@ -61,7 +62,7 @@ public class UserController implements UserRest {
     @Override
     @PUT
     @Path("/{trigramme}")
-    public UserOutput updateByTrigramme(@PathParam("trigramme") String trigramme, UserOutput userUpdate) {
+    public UserOutput updateByTrigramme(@PathParam("trigramme") String trigramme, UpdateUser userUpdate) {
         try {
             return userService.updateUserByTrigramme(trigramme, userUpdate);
         } catch (UserNotFoundException e) {

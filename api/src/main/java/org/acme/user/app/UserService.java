@@ -5,6 +5,7 @@ import java.util.List;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
+import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -29,7 +30,7 @@ public class UserService {
         return userRepository.deleteByTrigramme(trigramme);
     }
 
-    public UserOutput updateUserByTrigramme(String trigramme, UserOutput userUpdate) throws UserNotFoundException {
+    public UserOutput updateUserByTrigramme(String trigramme, UpdateUser userUpdate) throws UserNotFoundException {
         return userRepository.updateByTrigramme(trigramme, userUpdate);
     }
 

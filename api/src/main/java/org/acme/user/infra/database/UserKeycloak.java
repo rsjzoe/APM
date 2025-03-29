@@ -8,6 +8,7 @@ import org.acme.user.domain.Role;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
+import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
 import org.keycloak.TokenVerifier;
 import org.keycloak.admin.client.Keycloak;
@@ -110,7 +111,7 @@ public class UserKeycloak implements UserRepository {
     }
 
     @Override
-    public UserOutput updateByTrigramme(String trigramme, UserOutput userUpdate) throws UserNotFoundException {
+    public UserOutput updateByTrigramme(String trigramme, UpdateUser userUpdate) throws UserNotFoundException {
         UsersResource usersResource = keycloak.realm(REALM).users();
 
         // Rechercher l'utilisateur par trigramme (en supposant que c'est stocké dans le
@@ -127,19 +128,26 @@ public class UserKeycloak implements UserRepository {
         String userId = userToUpdate.getId();
 
         // Mise à jour des informations
-        userToUpdate.setFirstName(userUpdate.getName());
-        userToUpdate.setLastName(userUpdate.getDepartement());
+        if (userUpdate.getName() != null) {
+            userToUpdate.setFirstName(userUpdate.getName());
+        }
+        if (userUpdate.getDepartement() != null) {
+            userToUpdate.setLastName(userUpdate.getDepartement());
+        }
 
         // Appliquer la mise à jour
         usersResource.get(userId).update(userToUpdate);
 
-        // Suppression des anciens rôles
-        usersResource.get(userId).roles().realmLevel()
-                .remove(usersResource.get(userId).roles().realmLevel().listEffective());
+        if (userUpdate.getRole() != null) {
+            // Suppression des anciens rôles
+            usersResource.get(userId).roles().realmLevel()
+                    .remove(usersResource.get(userId).roles().realmLevel().listEffective());
 
-        // Ajout du nouveau rôle
-        RoleRepresentation newRole = keycloak.realm(REALM).roles().get(userUpdate.getRole().name()).toRepresentation();
-        usersResource.get(userId).roles().realmLevel().add(Collections.singletonList(newRole));
+            // Ajout du nouveau rôle
+            RoleRepresentation newRole = keycloak.realm(REALM).roles().get(userUpdate.getRole().name())
+                    .toRepresentation();
+            usersResource.get(userId).roles().realmLevel().add(Collections.singletonList(newRole));
+        }
 
         return userRepresentationToOutput(userToUpdate);
     }
