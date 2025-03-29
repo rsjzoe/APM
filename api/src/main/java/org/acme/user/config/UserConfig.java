@@ -1,7 +1,7 @@
 package org.acme.user.config;
 
-import org.acme.user.adapter.out.UserKeycloak;
 import org.acme.user.domain.port.out.UserRepository;
+import org.acme.user.infra.database.UserKeycloak;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import jakarta.enterprise.inject.Produces;

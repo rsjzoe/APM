@@ -1,4 +1,4 @@
-package org.acme.user.adapter.out;
+package org.acme.user.infra.database;
 
 import java.util.Collections;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.acme.user.domain.Role;
 import org.acme.user.domain.UserOutput;
+import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
 import org.acme.user.domain.port.out.UserRepository;
 import org.keycloak.TokenVerifier;
@@ -16,8 +17,6 @@ import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-
-import jakarta.ws.rs.NotFoundException;
 
 public class UserKeycloak implements UserRepository {
 
@@ -52,7 +51,7 @@ public class UserKeycloak implements UserRepository {
     }
 
     @Override
-    public UserOutput me(String token) throws VerificationTokenException {
+    public UserOutput me(String token) throws VerificationTokenException, UserNotFoundException {
 
         try {
             // maka ny info miafina ao ambadikka , ao amle tokeen(mdecoder anle token)
@@ -80,7 +79,7 @@ public class UserKeycloak implements UserRepository {
 
     }
 
-    public UserRepresentation findByTrigramme(String trigramme) {
+    public UserRepresentation findByTrigramme(String trigramme) throws UserNotFoundException {
         UsersResource usersResource = keycloak.realm(REALM).users();
 
         // Rechercher l'utilisateur par trigramme
@@ -91,14 +90,14 @@ public class UserKeycloak implements UserRepository {
                 .collect(Collectors.toList());
 
         if (users.isEmpty()) {
-            throw new NotFoundException("Aucun utilisateur trouvé avec le trigramme : " + trigramme);
+            throw new UserNotFoundException("Aucun utilisateur trouvé avec le trigramme : " + trigramme);
         }
         UserRepresentation userFound = users.get(0);
         return userFound;
     }
 
     @Override
-    public UserOutput deleteByTrigramme(String trigramme) {
+    public UserOutput deleteByTrigramme(String trigramme) throws UserNotFoundException {
         UsersResource usersResource = keycloak.realm(REALM).users();
 
         UserRepresentation userToDelete = findByTrigramme(trigramme);
@@ -111,7 +110,7 @@ public class UserKeycloak implements UserRepository {
     }
 
     @Override
-    public UserOutput updateByTrigramme(String trigramme, UserOutput userUpdate) {
+    public UserOutput updateByTrigramme(String trigramme, UserOutput userUpdate) throws UserNotFoundException {
         UsersResource usersResource = keycloak.realm(REALM).users();
 
         // Rechercher l'utilisateur par trigramme (en supposant que c'est stocké dans le
@@ -121,7 +120,7 @@ public class UserKeycloak implements UserRepository {
                 .collect(Collectors.toList());
 
         if (users.isEmpty()) {
-            throw new NotFoundException("Aucun utilisateur trouvé avec le trigramme : " + trigramme);
+            throw new UserNotFoundException("Aucun utilisateur trouvé avec le trigramme : " + trigramme);
         }
 
         UserRepresentation userToUpdate = users.get(0); // Supposons qu'il est unique

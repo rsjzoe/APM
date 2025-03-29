@@ -1,9 +1,10 @@
-package org.acme.user.adapter.in;
+package org.acme.user.infra.controller;
 
 import java.util.List;
 
 import org.acme.user.app.UserService;
 import org.acme.user.domain.UserOutput;
+import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
 import org.acme.user.domain.port.in.UserRest;
 
@@ -13,6 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -34,6 +36,8 @@ public class UserController implements UserRest {
         } catch (VerificationTokenException e) {
             System.out.println(e.getMessage());
             throw new UnauthorizedException();
+        } catch (UserNotFoundException e) {
+            throw new NotFoundException(e);
         }
     }
 
@@ -47,13 +51,21 @@ public class UserController implements UserRest {
     @DELETE
     @Path("/{trigramme}")
     public UserOutput deleteByTrigramme(@PathParam("trigramme") String trigramme) {
-        return userService.deleteUserByTrigramme(trigramme);
+        try {
+            return userService.deleteUserByTrigramme(trigramme);
+        } catch (UserNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @Override
     @PUT
     @Path("/{trigramme}")
     public UserOutput updateByTrigramme(@PathParam("trigramme") String trigramme, UserOutput userUpdate) {
-        return userService.updateUserByTrigramme(trigramme, userUpdate);
+        try {
+            return userService.updateUserByTrigramme(trigramme, userUpdate);
+        } catch (UserNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 }

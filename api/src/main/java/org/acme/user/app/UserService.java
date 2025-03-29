@@ -3,6 +3,7 @@ package org.acme.user.app;
 import java.util.List;
 
 import org.acme.user.domain.UserOutput;
+import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
 import org.acme.user.domain.port.out.UserRepository;
 
@@ -16,19 +17,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserOutput me(String token) throws VerificationTokenException{
+    public UserOutput me(String token) throws VerificationTokenException, UserNotFoundException {
         return userRepository.me(token);
     }
 
-    public List<UserOutput> findAllUsers(){
+    public List<UserOutput> findAllUsers() {
         return userRepository.findAllUser();
     }
 
-    public UserOutput deleteUserByTrigramme(String trigramme) {
+    public UserOutput deleteUserByTrigramme(String trigramme) throws UserNotFoundException {
         return userRepository.deleteByTrigramme(trigramme);
     }
 
-    public UserOutput updateUserByTrigramme(String trigramme, UserOutput userUpdate) {
+    public UserOutput updateUserByTrigramme(String trigramme, UserOutput userUpdate) throws UserNotFoundException {
         return userRepository.updateByTrigramme(trigramme, userUpdate);
     }
 
