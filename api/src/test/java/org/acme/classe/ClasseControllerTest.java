@@ -17,6 +17,7 @@ import org.acme.documentation.adapter.out.DocumentationEntity;
 import org.acme.question.infra.database.QuestionEntity;
 import org.acme.question.infra.database.QuestionGroupEntity;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
+import org.acme.user.UserData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,9 @@ public class ClasseControllerTest {
     @Inject
     private ClasseService classeService;
 
+    @Inject
+    UserData userData;
+
     ClasseOutput created1;
     ClasseOutput created2;
 
@@ -49,6 +53,8 @@ public class ClasseControllerTest {
 
         CreateClasseInput input1 = new CreateClasseInput("Classe A", "Description");
         created2 = classeService.create(input1);
+
+        userData.setup();
     }
 
     @AfterEach
@@ -67,15 +73,17 @@ public class ClasseControllerTest {
         QuestionGroupEntity.deleteAll();
         QuestionEntity.deleteAll();
         em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
+        userData.clear();
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testCreate() {
         CreateClasseInput input = new CreateClasseInput("Classe A", "Description");
-
+        var accessToken = userData.getUserAdminToken().getAccessToken();
         given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + accessToken)
                 .body(input)
                 .when()
                 .post("/classe")
@@ -86,10 +94,12 @@ public class ClasseControllerTest {
                 .body("id", notNullValue());
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testGetListAll() {
+        var accessToken = userData.getUserAdminToken().getAccessToken();
         given()
+                .header("Authorization", "Bearer " + accessToken)
                 .when()
                 .get("/classe")
                 .then()
@@ -97,10 +107,13 @@ public class ClasseControllerTest {
                 .body("$.size()", equalTo(2));
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testFindById() {
+        var accessToken = userData.getUserAdminToken().getAccessToken();
+
         given()
+                .header("Authorization", "Bearer " + accessToken)
                 .when()
                 .get("/classe/" + created1.getId())
                 .then()
@@ -109,23 +122,27 @@ public class ClasseControllerTest {
                 .body("description", equalTo("Description C"));
     }
 
-    // @Test
+    @Test
     void testFindByIdNotFound() {
+        var accessToken = userData.getUserAdminToken().getAccessToken();
+
         given()
+                .header("Authorization", "Bearer " + accessToken)
                 .when()
                 .get("/classe/999")
                 .then()
                 .statusCode(404);
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testUpdate() {
-
         UpdateClasse updateInput = new UpdateClasse("Classe D - Updated", "Description D - Updated");
+        var accessToken = userData.getUserAdminToken().getAccessToken();
 
         given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + accessToken)
                 .body(updateInput)
                 .when()
                 .put("/classe/" + created1.getId())
@@ -135,14 +152,16 @@ public class ClasseControllerTest {
                 .body("description", equalTo("Description D - Updated"));
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testUpdateNotFound() {
         UpdateClasse updateInput = new UpdateClasse("Classe E - Updated",
                 "Description E - Updated");
+        var accessToken = userData.getUserAdminToken().getAccessToken();
 
         given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + accessToken)
                 .body(updateInput)
                 .when()
                 .put("/classe/999")
@@ -150,20 +169,24 @@ public class ClasseControllerTest {
                 .statusCode(404);
     }
 
-    // @Test
+    @Test
     void testDeleteById() {
-
+        var accessToken = userData.getUserAdminToken().getAccessToken();
         given()
+                .header("Authorization", "Bearer " + accessToken)
                 .when()
                 .delete("/classe/" + created1.getId())
                 .then()
                 .statusCode(200);
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testDeleteByIdNotFound() {
+        var accessToken = userData.getUserAdminToken().getAccessToken();
+
         given()
+                .header("Authorization", "Bearer " + accessToken)
                 .when()
                 .delete("/classe/999")
                 .then()

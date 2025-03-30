@@ -34,11 +34,7 @@ public class UserKeycloakTest {
     @AfterEach
     @Transactional
     public void clear() {
-        try {
-            userRepository.deleteByTrigramme(userData.getUserOutput().getTrigramme());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+        userData.clear();
     }
 
     @Test
