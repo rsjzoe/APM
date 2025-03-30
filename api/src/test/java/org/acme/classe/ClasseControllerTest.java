@@ -111,7 +111,6 @@ public class ClasseControllerTest {
     @TestTransaction
     void testFindById() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
-
         given()
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
@@ -125,7 +124,6 @@ public class ClasseControllerTest {
     @Test
     void testFindByIdNotFound() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
-
         given()
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
@@ -139,7 +137,6 @@ public class ClasseControllerTest {
     void testUpdate() {
         UpdateClasse updateInput = new UpdateClasse("Classe D - Updated", "Description D - Updated");
         var accessToken = userData.getUserAdminToken().getAccessToken();
-
         given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + accessToken)
@@ -184,7 +181,6 @@ public class ClasseControllerTest {
     @TestTransaction
     void testDeleteByIdNotFound() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
-
         given()
                 .header("Authorization", "Bearer " + accessToken)
                 .when()

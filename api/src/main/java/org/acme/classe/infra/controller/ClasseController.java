@@ -21,7 +21,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
 @Path("/classe")
-@RoleAllowedCustom({ "admin" })
 @Authenticated
 public class ClasseController implements ClasseRest {
     @Inject
@@ -35,6 +34,7 @@ public class ClasseController implements ClasseRest {
 
     @Override
     @POST
+    @RoleAllowedCustom({ "admin" })
     public ClasseOutput create(CreateClasseInput classe) {
         return classeService.create(classe);
     }
@@ -42,6 +42,7 @@ public class ClasseController implements ClasseRest {
     @Override
     @Path("/{id}")
     @PUT
+    @RoleAllowedCustom({ "admin" })
     public ClasseOutput update(@PathParam("id") Long id, UpdateClasse classe) {
         try {
             return classeService.update(id, classe);
@@ -53,6 +54,7 @@ public class ClasseController implements ClasseRest {
     @Override
     @GET
     @Path("/{id}")
+    @RoleAllowedCustom({ "admin" })
     public ClasseOutput findById(@PathParam("id") Long id) {
         try {
             return classeService.findById(id);
@@ -64,6 +66,7 @@ public class ClasseController implements ClasseRest {
     @Override
     @DELETE
     @Path("/{id}")
+    @RoleAllowedCustom({ "admin" })
     public ClasseOutput deleteById(@PathParam("id") Long id) {
         try {
             return classeService.deleteById(id);

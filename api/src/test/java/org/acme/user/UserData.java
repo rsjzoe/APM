@@ -27,13 +27,21 @@ public class UserData {
 
     private UserOutput userOutput;
     private UserOutput userAdmin;
+    private UserOutput userVisitor;
+    private UserOutput userEditor;
     private Token userAdminToken;
+    private Token userVisitorToken;
+    private Token userEditorToken;
 
     public void setup() {
         try {
             userOutput = authService.register(new Register("userOutput", "userOutput", "DSI", Role.admin));
             userAdmin = authService.register(new Register("userAdmin", "userAdmin", "DSI", Role.admin));
+            userVisitor = authService.register(new Register("userVisitor", "userVisitor", "DSI", Role.visitor));
+            userEditor = authService.register(new Register("userEditor", "userEditor", "DSI", Role.editor));
             userAdminToken = authService.login(new Login(userAdmin.getTrigramme(), "0000"));
+            userVisitorToken = authService.login(new Login(userVisitor.getTrigramme(), "0000"));
+            userEditorToken = authService.login(new Login(userEditor.getTrigramme(), "0000"));
         } catch (UserExistedException | UserCreatedException | LoginException e) {
         }
     }
@@ -45,6 +53,14 @@ public class UserData {
         }
         try {
             userService.deleteUserByTrigramme(userAdmin.getTrigramme());
+        } catch (UserNotFoundException e) {
+        }
+        try {
+            userService.deleteUserByTrigramme(userEditor.getTrigramme());
+        } catch (UserNotFoundException e) {
+        }
+        try {
+            userService.deleteUserByTrigramme(userVisitor.getTrigramme());
         } catch (UserNotFoundException e) {
         }
     }
