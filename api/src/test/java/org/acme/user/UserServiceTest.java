@@ -34,11 +34,7 @@ public class UserServiceTest {
     @AfterEach
     @Transactional
     public void clear() {
-        try {
-            userService.deleteUserByTrigramme(userData.getUserOutput().getTrigramme());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+        userData.clear();
     }
 
     @Test
