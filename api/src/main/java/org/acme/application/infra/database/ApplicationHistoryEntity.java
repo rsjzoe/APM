@@ -17,6 +17,7 @@ import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntityHelper;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
@@ -34,6 +35,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     private Long appId;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
+    @Column(columnDefinition = "TEXT")
     private String descriptionHistory;
     private String description;
     private String name;

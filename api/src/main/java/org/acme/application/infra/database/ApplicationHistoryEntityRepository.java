@@ -15,7 +15,8 @@ public class ApplicationHistoryEntityRepository implements ApplicationHistoryRep
 
     @Override
     public List<ApplicationHistoryOutput> listAllByApplicationId(Long applicationId) {
-        List<ApplicationHistoryEntity> data = ApplicationHistoryEntity.list("appId", applicationId);
+        List<ApplicationHistoryEntity> data = ApplicationHistoryEntity.list("appId = ?1 order by modifiedAt desc",
+                applicationId);
         return data.stream()
                 .map(ApplicationHistoryEntity::toOutput)
                 .toList();

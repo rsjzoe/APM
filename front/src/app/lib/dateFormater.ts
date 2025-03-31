@@ -10,4 +10,8 @@ export class DateFormater {
   static getMonth(date: Date | string) {
     return dayjs(date).format('MMM');
   }
+
+  static longToShortMonth(month: number) {
+    return dayjs().month(month).format('MMM').toLowerCase();
+  }
 }

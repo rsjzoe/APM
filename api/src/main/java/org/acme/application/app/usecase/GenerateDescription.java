@@ -52,26 +52,31 @@ public class GenerateDescription implements GenerateDescriptionHistory {
                     .append(" à ").append(app.getNoteTechnicalDebt()).append(".\n");
         }
 
-        if (!app.getCurrentCost().getId().equals(lastHistory.getCost().getId())) {
+        if (app.getCurrentCost().getCostBuild() != lastHistory.getCost().getCostBuild()) {
             description.append("- Coût de construction changé de ")
                     .append(lastHistory.getCost().getCostBuild()).append(" à ")
                     .append(app.getCurrentCost().getCostBuild());
+        }
 
+        if (app.getCurrentCost().getCostRun() != lastHistory.getCost().getCostRun()) {
             description.append("- Coût de fonctionnement changé de ")
                     .append(lastHistory.getCost().getCostRun()).append(" à ")
                     .append(app.getCurrentCost().getCostRun());
 
         }
 
-        if (!app.getCurrentTechBusinessValue().getId().equals(lastHistory.getTechBusinessValue().getId())) {
+        if (app.getCurrentTechBusinessValue().getTechnicalDebt() != lastHistory.getTechBusinessValue()
+                .getTechnicalDebt()) {
             description.append("- Dette technique actuelle changée de ")
                     .append(lastHistory.getTechBusinessValue().getTechnicalDebt()).append(" à ")
                     .append(app.getCurrentTechBusinessValue().getTechnicalDebt());
+        }
 
+        if (app.getCurrentTechBusinessValue().getBusinessValue() != lastHistory.getTechBusinessValue()
+                .getBusinessValue()) {
             description.append("- Valeur métier changée de ")
                     .append(lastHistory.getTechBusinessValue().getBusinessValue()).append(" à ")
                     .append(app.getCurrentTechBusinessValue().getBusinessValue());
-
         }
 
         if (!app.getStatus().equals(lastHistory.getStatus())) {

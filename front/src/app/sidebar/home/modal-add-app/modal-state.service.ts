@@ -164,12 +164,7 @@ export class ModalStateService {
   submit = () => {
     console.log('submit');
     console.log(this.createApplication);
-    this.createApplication.lastUpdate = new Date(
-      this.createApplication.lastUpdate
-    );
-    this.createApplication.startDate = new Date(
-      this.createApplication.startDate
-    );
+
     if (this.appEditing == null) {
       this.save();
     } else {

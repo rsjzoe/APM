@@ -109,7 +109,7 @@ export class DashboardComponent {
 
   generateChartCostData(costsMonth: CostMonth[]): ChartDataCost[] {
     return costsMonth.map((cost) => ({
-      name: cost.month,
+      name: DateFormater.longToShortMonth(cost.monthValue - 1),
       costBuild: cost.data?.costBuild ?? 0,
       costRun: cost.data?.costRun ?? 0,
     }));
@@ -119,7 +119,7 @@ export class DashboardComponent {
     techBusinessValueMonth: TechBusinessValueMonth[]
   ): ChartDataTechBusiness[] {
     return techBusinessValueMonth.map((techBusiness) => ({
-      name: techBusiness.month,
+      name: DateFormater.longToShortMonth(techBusiness.monthValue - 1),
       businessValue: techBusiness.data?.businessValue ?? 0,
       techDebt: techBusiness.data?.technicalDebt ?? 0,
     }));
