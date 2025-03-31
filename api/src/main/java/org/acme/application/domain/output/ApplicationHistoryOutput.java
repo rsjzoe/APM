@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 public class ApplicationHistoryOutput extends ApplicationBase {
     private Long id;
     private Long appId;
-    protected double noteCost;
-    protected double noteTechBusiness;
+    protected double noteBusinessValue;
+    protected double noteTechnicalDebt;
     protected CategoryODAChildOutput category;
     protected Departement departement;
     protected ClasseOutput classe;
@@ -37,8 +37,8 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     protected boolean isDeleted;
 
     public ApplicationHistoryOutput(Long id, Long appId, String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteCost,
-            double noteTechBusiness,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteBusinessValue,
+            double noteTechnicalDebt,
             CategoryODAChildOutput category,
             Departement departement, ClasseOutput classe, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory,
@@ -47,8 +47,8 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.id = id;
         this.appId = appId;
-        this.noteCost = noteCost;
-        this.noteTechBusiness = noteTechBusiness;
+        this.noteBusinessValue = noteBusinessValue;
+        this.noteTechnicalDebt = noteTechnicalDebt;
         this.category = category;
         this.departement = departement;
         this.classe = classe;
@@ -72,8 +72,8 @@ public class ApplicationHistoryOutput extends ApplicationBase {
                 ", lastUpdate=" + lastUpdate +
                 ", status=" + status +
                 ", userTotal=" + userTotal +
-                ", noteCost=" + noteCost +
-                ", noteTechBusiness=" + noteTechBusiness +
+                ", noteBusinessValue=" + noteBusinessValue +
+                ", noteTechnicalDebt=" + noteTechnicalDebt +
                 ", category=" + category +
                 ", departement=" + departement +
                 ", classe=" + classe +

@@ -20,19 +20,19 @@ public class UpdateApplicationServiceInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
     private Long classeId;
-    protected double noteCost;
-    protected double noteTechBusiness;
+    protected double noteBusinessValue;
+    protected double noteTechnicalDebt;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
 
     public UpdateApplicationServiceInput(String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, int userTotal, double noteCost,
-            double noteTechBusiness, Long categoryId,
+            LocalDateTime lastUpdate, Status status, int userTotal, double noteBusinessValue,
+            double noteTechnicalDebt, Long categoryId,
             Long departementId, Long classeId, CreateCostWithoutApp costWithoutApp,
             CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
-        this.noteCost = noteCost;
-        this.noteTechBusiness = noteTechBusiness;
+        this.noteBusinessValue = noteBusinessValue;
+        this.noteTechnicalDebt = noteTechnicalDebt;
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.classeId = classeId;

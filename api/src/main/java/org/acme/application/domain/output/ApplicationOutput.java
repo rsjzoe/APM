@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApplicationOutput extends ApplicationBase {
     protected Long id;
-    protected double noteCost;
-    protected double noteTechBusiness;
+    protected double noteBusinessValue;
+    protected double noteTechnicalDebt;
     protected CategoryODAChildOutput category;
     protected Departement departement;
     protected ClasseOutput classe;
@@ -37,16 +37,16 @@ public class ApplicationOutput extends ApplicationBase {
 
     public ApplicationOutput(Long id, String name, String description,
             CategoryODAChildOutput category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteCost,
-            double noteTechBusiness, Departement departement,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteBusinessValue,
+            double noteTechnicalDebt, Departement departement,
             ClasseOutput classe, CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue,
             List<CostOutput> costs,
             List<TechBusinessValueOutput> techBusinessValues, boolean isDeleted) {
         super(name, description, startDate,
                 lastUpdate, status, userTotal);
         this.id = id;
-        this.noteCost = noteCost;
-        this.noteTechBusiness = noteTechBusiness;
+        this.noteBusinessValue = noteBusinessValue;
+        this.noteTechnicalDebt = noteTechnicalDebt;
         this.category = category;
         this.departement = departement;
         this.classe = classe;
@@ -68,8 +68,8 @@ public class ApplicationOutput extends ApplicationBase {
                 ", lastUpdate=" + lastUpdate +
                 ", status=" + status +
                 ", userTotal=" + userTotal +
-                ", noteCost=" + noteCost +
-                ", noteTechBusiness=" + noteTechBusiness +
+                ", noteBusinessValue=" + noteBusinessValue +
+                ", noteTechnicalDebt=" + noteTechnicalDebt +
                 ", category=" + category +
                 ", departement=" + departement +
                 ", classe=" + classe +

@@ -9,7 +9,6 @@ import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 
-
 public class ApplicationEntityRepository implements ApplicationRepository {
 
     @Override

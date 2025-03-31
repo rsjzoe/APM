@@ -23,8 +23,8 @@ public class ApplicationHistory extends ApplicationBase {
     protected CategoryODAChild category;
     protected Departement departement;
     protected Classe classe;
-    protected double noteCost;
-    protected double noteTechBusiness;
+    protected double noteBusinessValue;
+    protected double noteTechnicalDebt;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
     private String descriptionHistory;
@@ -35,8 +35,8 @@ public class ApplicationHistory extends ApplicationBase {
 
     public ApplicationHistory(Long id, Long appId, String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, CategoryODAChild category,
-            Departement departement, double noteCost,
-            double noteTechBusiness, Classe classe, LocalDateTime modifiedAt, String modifiedBy,
+            Departement departement, double noteBusinessValue,
+            double noteTechnicalDebt, Classe classe, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory, Cost cost,
             TechBusinessValue techBusinessValue, boolean isDeleted) {
         super(name, description, startDate, lastUpdate, status, userTotal);
@@ -45,8 +45,8 @@ public class ApplicationHistory extends ApplicationBase {
         this.category = category;
         this.departement = departement;
         this.classe = classe;
-        this.noteCost = noteCost;
-        this.noteTechBusiness = noteTechBusiness;
+        this.noteBusinessValue = noteBusinessValue;
+        this.noteTechnicalDebt = noteTechnicalDebt;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
         this.descriptionHistory = descriptionHistory;

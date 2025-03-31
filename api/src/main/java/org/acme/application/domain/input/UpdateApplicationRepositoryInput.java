@@ -18,20 +18,20 @@ public class UpdateApplicationRepositoryInput extends ApplicationBase {
     private Long categoryId;
     private Long departementId;
     private Long classeId;
-    protected double noteCost;
-    protected double noteTechBusiness;
+    protected double noteBusinessValue;
+    protected double noteTechnicalDebt;
     protected Time time;
 
     public UpdateApplicationRepositoryInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal,
-            Long categoryId, Long departementId, Long classeId, double noteCost,
-            double noteTechBusiness) {
+            Long categoryId, Long departementId, Long classeId, double noteBusinessValue,
+            double noteTechnicalDebt) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.classeId = classeId;
-        this.noteCost = noteCost;
-        this.noteTechBusiness = noteTechBusiness;
+        this.noteBusinessValue = noteBusinessValue;
+        this.noteTechnicalDebt = noteTechnicalDebt;
         this.time = time;
     }
 
@@ -41,8 +41,8 @@ public class UpdateApplicationRepositoryInput extends ApplicationBase {
         this.categoryId = updated.getCategoryId();
         this.departementId = updated.getDepartementId();
         this.classeId = updated.getClasseId();
-        this.noteCost = updated.getNoteCost();
-        this.noteTechBusiness = updated.getNoteTechBusiness();
+        this.noteBusinessValue = updated.getNoteBusinessValue();
+        this.noteTechnicalDebt = updated.getNoteTechnicalDebt();
         this.time = time;
     }
 }

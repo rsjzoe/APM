@@ -164,8 +164,12 @@ export class ModalStateService {
   submit = () => {
     console.log('submit');
     console.log(this.createApplication);
-    this.createApplication.lastUpdate = new Date(this.createApplication.lastUpdate)
-    this.createApplication.startDate = new Date(this.createApplication.startDate)
+    this.createApplication.lastUpdate = new Date(
+      this.createApplication.lastUpdate
+    );
+    this.createApplication.startDate = new Date(
+      this.createApplication.startDate
+    );
     if (this.appEditing == null) {
       this.save();
     } else {
@@ -250,8 +254,8 @@ export class ModalStateService {
       categoryId: this.createApplication.categoryId,
       departementId: this.createApplication.departementId,
       classeId: this.createApplication.classeId,
-      noteCost: this.appEditing.noteCost,
-      noteTechBusiness: this.appEditing.noteTechBusiness,
+      noteBusinessValue: this.appEditing.noteBusinessValue,
+      noteTechnicalDebt: this.appEditing.noteTechnicalDebt,
     };
 
     this.appService.update(this.appEditing.id, updatedApp).subscribe({

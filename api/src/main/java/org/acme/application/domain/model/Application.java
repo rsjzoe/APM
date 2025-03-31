@@ -24,8 +24,8 @@ public class Application extends ApplicationBase {
     protected CategoryODAChild category;
     protected Departement departement;
     protected Classe classe;
-    protected double noteCost;
-    protected double noteTechBusiness;
+    protected double noteBusinessValue;
+    protected double noteTechnicalDebt;
     protected Cost currentCost;
     protected TechBusinessValue currentTechBusinessValue;
     protected List<Cost> costs;
@@ -36,8 +36,8 @@ public class Application extends ApplicationBase {
 
     public Application(Long id, String name, String description,
             CategoryODAChild category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, int userTotal, Departement departement, double noteCost,
-            double noteTechBusiness,
+            LocalDateTime lastUpdate, Status status, int userTotal, Departement departement, double noteBusinessValue,
+            double noteTechnicalDebt,
             Classe classe, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs,
             List<TechBusinessValue> techBusinessValues, List<Documentation> documentations, Time time,
             boolean isDeleted) {
@@ -47,8 +47,8 @@ public class Application extends ApplicationBase {
         this.category = category;
         this.departement = departement;
         this.classe = classe;
-        this.noteCost = noteCost;
-        this.noteTechBusiness = noteTechBusiness;
+        this.noteBusinessValue = noteBusinessValue;
+        this.noteTechnicalDebt = noteTechnicalDebt;
         this.currentCost = currentCost;
         this.currentTechBusinessValue = currentTechBusinessValue;
         this.costs = costs;

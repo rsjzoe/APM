@@ -20,8 +20,8 @@ export type Application = {
   status: Status;
   time: Time;
   userTotal: number;
-  noteCost: number | null;
-  noteTechBusiness: number | null;
+  noteBusinessValue: number | null;
+  noteTechnicalDebt: number | null;
   category: CategoryODAChild;
   departement: Departement;
   classe: Classe;
@@ -63,8 +63,8 @@ export type UpdateApplication = Partial<{
   categoryId: number;
   description: string;
   lastUpdate: string | Date;
-  noteCost: number | null;
-  noteTechBusiness: number | null;
+  noteBusinessValue: number | null;
+  noteTechnicalDebt: number | null;
 }>;
 
 export type AppHistory = Omit<

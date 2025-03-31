@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateApplicationHistoryRepository extends ApplicationBase {
     private Long appId;
-    protected double noteCost;
-    protected double noteTechBusiness;
+    protected double noteBusinessValue;
+    protected double noteTechnicalDebt;
     protected Long categoryId;
     protected Long departementId;
     protected Long classeId;
@@ -31,15 +31,15 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     protected Time time;
 
     public CreateApplicationHistoryRepository(String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long appId, double noteCost,
-            double noteTechBusiness,
+            LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long appId, double noteBusinessValue,
+            double noteTechnicalDebt,
             Long categoryId, Long departementId, Long classeId, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory,
             Long costId, Long techBusinessValueId) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.appId = appId;
-        this.noteCost = noteCost;
-        this.noteTechBusiness = noteTechBusiness;
+        this.noteBusinessValue = noteBusinessValue;
+        this.noteTechnicalDebt = noteTechnicalDebt;
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.classeId = classeId;
@@ -53,7 +53,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
 
     public CreateApplicationHistoryRepository(ApplicationOutput app, String modifiedBy, String descriptionHistory) {
         this(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(),
-                app.getTime(), app.getUserTotal(), app.getId(), app.getNoteCost(), app.getNoteTechBusiness(),
+                app.getTime(), app.getUserTotal(), app.getId(), app.getNoteBusinessValue(), app.getNoteTechnicalDebt(),
                 app.getCategory().getId(),
                 app.getDepartement().getId(), app.getClasse().getId(), LocalDateTime.now(), modifiedBy,
                 descriptionHistory,
@@ -65,8 +65,8 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     public String toString() {
         return "CreateApplicationHistoryRepository{" +
                 "appId=" + appId +
-                ", noteCost=" + noteCost +
-                ", noteTechBusiness=" + noteTechBusiness +
+                ", noteBusinessValue=" + noteBusinessValue +
+                ", noteTechnicalDebt=" + noteTechnicalDebt +
                 ", categoryId=" + categoryId +
                 ", departementId=" + departementId +
                 ", classeId=" + classeId +

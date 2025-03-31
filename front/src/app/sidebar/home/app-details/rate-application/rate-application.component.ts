@@ -117,8 +117,8 @@ export class RateApplicationComponent {
 
   handleSubmit() {
     let updateApplication: UpdateApplication = {
-      noteCost: 0,
-      noteTechBusiness: 0,
+      noteBusinessValue: 0,
+      noteTechnicalDebt: 0,
     };
     return this.updateApplication(this.application.id, updateApplication);
   }

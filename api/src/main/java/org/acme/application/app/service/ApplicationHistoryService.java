@@ -7,6 +7,7 @@ import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.input.CreateApplicationHistoryService;
 import org.acme.application.domain.output.ApplicationHistoryOutput;
+import org.acme.application.domain.port.GenerateDescriptionHistory;
 import org.acme.application.domain.port.out.ApplicationHistoryRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,6 +22,9 @@ public class ApplicationHistoryService {
     @Inject
     ApplicationService applicationService;
 
+    @Inject
+    GenerateDescriptionHistory generateDescriptionHistory;
+
     public List<ApplicationHistoryOutput> listAllByApplicationId(Long applicationId) {
         return repository.listAllByApplicationId(applicationId);
     };
@@ -31,15 +35,14 @@ public class ApplicationHistoryService {
 
     public ApplicationHistoryOutput create(CreateApplicationHistoryService newdata)
             throws ApplicationNotFoundException {
-        System.out.println(newdata.getApp());
 
         List<ApplicationHistoryOutput> historyList = listAllByApplicationId(newdata.getApp().getId());
         ApplicationHistoryOutput lastHistory = historyList.stream()
                 .max((h1, h2) -> h1.getModifiedAt().compareTo(h2.getModifiedAt()))
                 .orElse(null);
-        System.out.println("Last History: " + lastHistory);
+        String description = generateDescriptionHistory.generate(newdata.getApp(), lastHistory);
         CreateApplicationHistoryRepository data = new CreateApplicationHistoryRepository(newdata.getApp(), "systeem",
-                "okokok");
+                description);
         return repository.create(data);
     };
 
