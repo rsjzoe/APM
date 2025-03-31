@@ -20,17 +20,21 @@ import org.acme.documentation.domain.input.CreateDocumentationFileWithoutApp;
 import org.acme.roleGuard.RoleAllowedCustom;
 import org.acme.storage.FileInput;
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
+import org.acme.user.domain.exception.UserNotFoundException;
+import org.acme.user.domain.exception.VerificationTokenException;
 import org.jboss.resteasy.reactive.PartType;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import io.quarkus.security.Authenticated;
+import io.quarkus.security.UnauthorizedException;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -70,7 +74,9 @@ public class ApplicationController implements ApplicationRest {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @RoleAllowedCustom({ "admin" })
     public ApplicationOutput create(@RestForm List<FileUpload> files, @RestForm List<String> types,
-            @RestForm @PartType(MediaType.APPLICATION_JSON) CreateApplicationRest newApplication) {
+            @RestForm @PartType(MediaType.APPLICATION_JSON) CreateApplicationRest newApplication,
+            @HeaderParam("Authorization") String authHeader) {
+        String token = authHeader.substring("Bearer ".length());
 
         if (files.size() != types.size()) {
             throw new BadRequestException();
@@ -89,7 +95,7 @@ public class ApplicationController implements ApplicationRest {
         }
 
         try {
-            return applicationService.create(new CreateApplicationServiceInput(docs, newApplication));
+            return applicationService.create(new CreateApplicationServiceInput(docs, newApplication), token);
         } catch (InvalidTechBusinessValueException e) {
             throw new BadRequestException(e);
         } catch (ClasseNotFoundException e) {
@@ -104,6 +110,10 @@ public class ApplicationController implements ApplicationRest {
             throw new BadRequestException(e);
         } catch (ApplicationNotFoundException e) {
             throw new NotFoundException(e);
+        } catch (VerificationTokenException e) {
+            throw new UnauthorizedException();
+        } catch (UserNotFoundException e) {
+            throw new NotFoundException();
         }
     }
 
@@ -112,9 +122,11 @@ public class ApplicationController implements ApplicationRest {
     @Transactional
     @RoleAllowedCustom({ "admin", "editor" })
     @Override
-    public ApplicationOutput update(@PathParam("id") Long id, UpdateApplicationServiceInput updateApplication) {
+    public ApplicationOutput update(@PathParam("id") Long id, UpdateApplicationServiceInput updateApplication,
+            @HeaderParam("Authorization") String authHeader) {
+        String token = authHeader.substring("Bearer ".length());
         try {
-            return applicationService.update(id, updateApplication);
+            return applicationService.update(id, updateApplication, token);
         } catch (InvalidCostException e) {
             throw new BadRequestException(e);
         } catch (InvalidTechBusinessValueException e) {
@@ -128,6 +140,10 @@ public class ApplicationController implements ApplicationRest {
             throw new NotFoundException();
         } catch (DepartementNotFoundException e) {
             throw new NotFoundException();
+        } catch (VerificationTokenException e) {
+            throw new UnauthorizedException();
+        } catch (UserNotFoundException e) {
+            throw new NotFoundException();
         }
     }
 
@@ -136,10 +152,15 @@ public class ApplicationController implements ApplicationRest {
     @Transactional
     @Override
     @RoleAllowedCustom({ "admin" })
-    public ApplicationOutput delete(@PathParam("id") Long id) {
+    public ApplicationOutput delete(@PathParam("id") Long id, @HeaderParam("Authorization") String authHeader) {
+        String token = authHeader.substring("Bearer ".length());
         try {
-            return applicationService.delete(id);
+            return applicationService.delete(id, token);
         } catch (ApplicationNotFoundException e) {
+            throw new NotFoundException();
+        } catch (VerificationTokenException e) {
+            throw new UnauthorizedException();
+        } catch (UserNotFoundException e) {
             throw new NotFoundException();
         }
     }

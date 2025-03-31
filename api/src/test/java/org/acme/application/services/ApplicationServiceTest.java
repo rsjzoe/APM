@@ -11,6 +11,10 @@ import org.acme.application.ApplicationData;
 import org.acme.application.app.service.ApplicationService;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.user.UserData;
+import org.acme.user.domain.exception.UserNotFoundException;
+import org.acme.user.domain.exception.VerificationTokenException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,10 +31,20 @@ public class ApplicationServiceTest {
     @Inject
     ApplicationService applicationService;
 
+    @Inject
+    UserData userData;
+
     @BeforeEach
     @Transactional
     public void setup() {
         applicationData.setup();
+        userData.setup();
+    }
+
+    @AfterEach
+    @Transactional
+    public void clear() {
+        userData.clear();
     }
 
     @Test
@@ -53,9 +67,11 @@ public class ApplicationServiceTest {
 
     @Test
     @TestTransaction
-    public void testDeleteApplication() throws ApplicationNotFoundException {
+    public void testDeleteApplication()
+            throws ApplicationNotFoundException, VerificationTokenException, UserNotFoundException {
+        String token = userData.getUserAdminToken().getAccessToken();
         var created = applicationData.getApplication1();
-        ApplicationOutput deleted = applicationService.delete(created.id);
+        ApplicationOutput deleted = applicationService.delete(created.id, token);
 
         assertNotNull(deleted);
         assertTrue(deleted.isDeleted());
@@ -78,6 +94,7 @@ public class ApplicationServiceTest {
     @Test
     @TestTransaction
     public void testDeleteThrowsException() {
-        assertThrows(ApplicationNotFoundException.class, () -> applicationService.delete(999L));
+        String token = userData.getUserAdminToken().getAccessToken();
+        assertThrows(ApplicationNotFoundException.class, () -> applicationService.delete(999L, token));
     }
 }

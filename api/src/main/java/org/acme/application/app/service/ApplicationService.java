@@ -30,6 +30,8 @@ import org.acme.storage.FileNotFound;
 import org.acme.techBusinessValue.app.TechBusinessValueService;
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
+import org.acme.user.domain.exception.UserNotFoundException;
+import org.acme.user.domain.exception.VerificationTokenException;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -73,10 +75,10 @@ public class ApplicationService {
     };
 
     @Transactional
-    public ApplicationOutput create(CreateApplicationServiceInput newApplication)
+    public ApplicationOutput create(CreateApplicationServiceInput newApplication, String token)
             throws InvalidTechBusinessValueException, ClasseNotFoundException, CategoryODAChildNotFoundException,
             DepartementNotFoundException, InvalidCostException, InvalidApplicationException,
-            ApplicationNotFoundException {
+            ApplicationNotFoundException, VerificationTokenException, UserNotFoundException {
 
         classeService.findById(newApplication.getClasseId());
         categoryODAChildService.findById(newApplication.getCategoryId());
@@ -123,16 +125,17 @@ public class ApplicationService {
                     }
                 });
         var app = findById(created.getId());
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app);
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
         applicationHistoryService.create(data);
 
         return created;
     };
 
     @Transactional
-    public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication)
+    public ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication, String token)
             throws InvalidCostException, InvalidTechBusinessValueException, ApplicationNotFoundException,
-            ClasseNotFoundException, CategoryODAChildNotFoundException, DepartementNotFoundException {
+            ClasseNotFoundException, CategoryODAChildNotFoundException, DepartementNotFoundException,
+            VerificationTokenException, UserNotFoundException {
 
         Time time = null;
         if (updateApplication.getTechBusinessValueWithoutApp() != null) {
@@ -166,17 +169,18 @@ public class ApplicationService {
         }
 
         var app = findById(id);
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app);
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
         applicationHistoryService.create(data);
         // maka anlay app updated miarakam curreent cost any vaovao
         ApplicationOutput appFound = findById(id);
         return appFound;
     };
 
-    public ApplicationOutput delete(Long id) throws ApplicationNotFoundException {
+    public ApplicationOutput delete(Long id, String token)
+            throws ApplicationNotFoundException, VerificationTokenException, UserNotFoundException {
         ApplicationOutput deleted = applicationRepository.delete(id);
         var app = findById(id);
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app);
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
         applicationHistoryService.create(data);
         return deleted;
     };

@@ -18,6 +18,8 @@ import org.acme.cost.domain.model.input.CreateCostWithoutApp;
 import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWithoutApp;
+import org.acme.user.UserData;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,17 +36,28 @@ public class ApplicationServiceCreateTest {
     @Inject
     ApplicationService applicationService;
 
+    @Inject
+    UserData userData;
+
     @BeforeEach
     @Transactional
     public void setup() {
         applicationData.setup();
+        userData.setup();
+    }
+
+    @AfterEach
+    @Transactional
+    public void clear() {
+        userData.clear();
     }
 
     @Test
     @TestTransaction
     public void testCreateApplicationSuccess() throws Exception {
+        String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
-        ApplicationOutput output = applicationService.create(input);
+        ApplicationOutput output = applicationService.create(input, token);
 
         assertNotNull(output);
         assertEquals(input.getName(), output.getName());
@@ -54,54 +67,60 @@ public class ApplicationServiceCreateTest {
     @Test
     @TestTransaction
     public void testCreateApplicationInvalidDates() {
+        String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setStartDate(LocalDateTime.now().plusDays(1));
 
-        assertThrows(InvalidApplicationException.class, () -> applicationService.create(input));
+        assertThrows(InvalidApplicationException.class, () -> applicationService.create(input, token));
     }
 
     @Test
     @TestTransaction
     public void testCreateApplicationInvalidCost() {
+        String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setCostWithoutApp(new CreateCostWithoutApp(-1000.0, 500.0));
 
-        assertThrows(InvalidCostException.class, () -> applicationService.create(input));
+        assertThrows(InvalidCostException.class, () -> applicationService.create(input, token));
     }
 
     @Test
     @TestTransaction
     public void testCreateApplicationInvalidTechBusinessValue() {
+        String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setTechBusinessValueWithoutApp(new CreateTechBusinessValueWithoutApp(5.5, 2.0));
 
-        assertThrows(InvalidTechBusinessValueException.class, () -> applicationService.create(input));
+        assertThrows(InvalidTechBusinessValueException.class, () -> applicationService.create(input, token));
     }
 
     @Test
     @TestTransaction
     public void testCreateApplicationCategoryNotFound() {
+        String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setCategoryId(9999L);
 
-        assertThrows(CategoryODAChildNotFoundException.class, () -> applicationService.create(input));
+        assertThrows(CategoryODAChildNotFoundException.class, () -> applicationService.create(input, token));
     }
 
     @Test
     @TestTransaction
     public void testCreateApplicationDepartementNotFound() {
+        String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setDepartementId(9999L);
 
-        assertThrows(DepartementNotFoundException.class, () -> applicationService.create(input));
+        assertThrows(DepartementNotFoundException.class, () -> applicationService.create(input, token));
     }
 
     @Test
     @TestTransaction
     public void testCreateApplicationClasseNotFound() {
+        String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
         input.setClasseId(9999L);
 
-        assertThrows(ClasseNotFoundException.class, () -> applicationService.create(input));
+        assertThrows(ClasseNotFoundException.class, () -> applicationService.create(input, token));
     }
 }

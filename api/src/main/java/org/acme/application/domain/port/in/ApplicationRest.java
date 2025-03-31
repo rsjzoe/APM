@@ -12,11 +12,12 @@ public interface ApplicationRest {
 
     ApplicationOutput findById(Long id);
 
-    ApplicationOutput create(List<FileUpload> files, List<String> types, CreateApplicationRest newApplication);
+    ApplicationOutput create(List<FileUpload> files, List<String> types, CreateApplicationRest newApplication,
+            String authHeader);
 
-    ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication);
+    ApplicationOutput update(Long id, UpdateApplicationServiceInput updateApplication, String authHeader);
 
-    ApplicationOutput delete(Long id);
+    ApplicationOutput delete(Long id, String authHeader);
 
     List<ApplicationOutput> deletedApplication();
 
