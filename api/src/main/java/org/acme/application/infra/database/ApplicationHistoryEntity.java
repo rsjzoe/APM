@@ -13,6 +13,7 @@ import org.acme.cost.infra.database.CostEntity;
 import org.acme.cost.infra.database.CostEntityHelper;
 import org.acme.departement.infra.database.DepartementEntity;
 import org.acme.departement.infra.database.DepartementEntityHelper;
+import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntityHelper;
 
@@ -86,12 +87,17 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     }
 
     public ApplicationHistoryOutput toOutput() {
+        TechBusinessValueOutput techBusinessValueOutputFromNote = new TechBusinessValueOutput();
+        techBusinessValueOutputFromNote.setBusinessValue(noteBusinessValue);
+        techBusinessValueOutputFromNote.setTechnicalDebt(noteTechnicalDebt);
+
         return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
                 userTotal, noteBusinessValue, noteTechnicalDebt, category.toCategoryODAChildOutput(),
                 departement.toDepartement(),
                 classe.toOutput(),
                 modifiedAt, modifiedBy, descriptionHistory, costEntity == null ? null : costEntity.toCostOutput(),
-                techBusinessValueEntity == null ? null : techBusinessValueEntity.toTechBusinessValueOutput(),
+                techBusinessValueEntity == null ? techBusinessValueOutputFromNote
+                        : techBusinessValueEntity.toTechBusinessValueOutput(),
                 isDeleted);
     }
 

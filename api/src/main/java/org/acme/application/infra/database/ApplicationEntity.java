@@ -95,8 +95,11 @@ public class ApplicationEntity extends PanacheEntity {
                 .findFirst()
                 .orElse(null);
 
+        TechBusinessValueOutput techBusinessValueOutputFromNote = new TechBusinessValueOutput();
+        techBusinessValueOutputFromNote.setBusinessValue(noteBusinessValue);
+        techBusinessValueOutputFromNote.setTechnicalDebt(noteTechnicalDebt);
         TechBusinessValueOutput latestTech = latestTechEntity != null ? latestTechEntity.toTechBusinessValueOutput()
-                : null;
+                : techBusinessValueOutputFromNote;
         return new ApplicationOutput(id, name, description, category.toCategoryODAChildOutput(),
                 startDate, lastUpdate, status, time, userTotal, noteBusinessValue, noteTechnicalDebt,
                 departement.toDepartement(), classe.toOutput(), latestCost,

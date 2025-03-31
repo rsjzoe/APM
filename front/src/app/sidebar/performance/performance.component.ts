@@ -11,6 +11,8 @@ import { QuestionService } from './service/question.service';
 import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
 import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.component';
+import { IconQuestionComponent } from '../../components/icons/icon-question/icon-question.component';
+import { IconHelpComponent } from '../../components/icons/icon-help/icon-help.component';
 
 @Component({
   selector: 'app-performance',
@@ -20,6 +22,7 @@ import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.co
     IconEditComponent,
     IconDeleteComponent,
     IconPlusComponent,
+    IconHelpComponent,
   ],
   templateUrl: './performance.component.html',
   styleUrl: './performance.component.scss',

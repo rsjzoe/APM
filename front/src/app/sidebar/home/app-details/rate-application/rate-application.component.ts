@@ -11,6 +11,7 @@ import {
   QuestionGroupe,
   QuestionGroupeType,
 } from '../../../../application/question.type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rate-application',
@@ -19,47 +20,7 @@ import {
   styleUrl: './rate-application.component.scss',
 })
 export class RateApplicationComponent {
-  questionGroups: QuestionGroupe[] = [
-    {
-      id: 1,
-      text: 'Performance',
-      borderColor: '#ff7900',
-      coeff: 2,
-      questions: [
-        {
-          id: 1,
-          text: "L'application répond-elle rapidement aux actions de l'utilisateur?",
-        },
-        { id: 2, text: 'Les temps de chargement sont-ils acceptables?' },
-        {
-          id: 3,
-          text: "L'application gère-t-elle efficacement les ressources système?",
-        },
-      ],
-      type: QuestionGroupeType.businessValue,
-    },
-    {
-      id: 2,
-      text: 'Expérience Utilisateur',
-      borderColor: '#32c832',
-      coeff: 3,
-      questions: [
-        { id: 4, text: "L'interface est-elle intuitive et facile à utiliser?" },
-      ],
-      type: QuestionGroupeType.businessValue,
-    },
-    {
-      id: 3,
-      text: 'Fiabilité',
-      borderColor: '#0088cc',
-      coeff: 2.5,
-      questions: [
-        { id: 7, text: "L'application fonctionne-t-elle sans erreurs?" },
-        { id: 8, text: 'Les données sont-elles correctement sauvegardées?' },
-      ],
-      type: QuestionGroupeType.technicalDebt,
-    },
-  ];
+  questionGroups: QuestionGroupe[] = [];
 
   @Input() application!: Application;
   constructor(
@@ -162,11 +123,23 @@ export class RateApplicationComponent {
     return { technicalDebtAverage, businessValueAverage };
   }
 
-  findAllQuestionGroups = () => {};
+  findAllQuestionGroups = () => {
+    this.questionGroupeService.findAll().subscribe((data) => {
+      this.questionGroups = data;
+    });
+  };
 
-  updateApplication(id: number, updateApp: UpdateApplication) {}
+  updateApplication(id: number, updateApp: UpdateApplication) {
+    const { technicalDebtAverage, businessValueAverage } =
+      this.calculateWeightedAverage();
+    updateApp.noteBusinessValue = businessValueAverage;
+    updateApp.noteTechnicalDebt = technicalDebtAverage;
+    this.appService.update(id, updateApp).subscribe((data) => {
+      window.location.reload();
+    });
+  }
 
   ngOnInit() {
-    // this.findAllQuestionGroups();
+    this.findAllQuestionGroups();
   }
 }

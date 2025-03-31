@@ -84,7 +84,7 @@ public class GenerateDescription implements GenerateDescriptionHistory {
                     .append("' à '").append(app.getStatus()).append("'.\n");
         }
 
-        if (!app.getTime().equals(lastHistory.getTime())) {
+        if (app.getTime() != null && !app.getTime().equals(lastHistory.getTime())) {
             description.append("- TIME modifié de ").append(lastHistory.getTime())
                     .append("' à '").append(app.getTime()).append("'.\n");
             ;

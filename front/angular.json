@@ -30,7 +30,10 @@
               }
             ],
             "styles": ["src/styles.scss"],
-            "scripts": ["node_modules/boosted/dist/js/boosted.bundle.min.js"]
+            "scripts": [
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/boosted/dist/js/boosted.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -84,8 +84,13 @@ public class ApplicationService {
         categoryODAChildService.findById(newApplication.getCategoryId());
         departementService.findByDepartementId(newApplication.getDepartementId());
 
-        var time = calculateTime.calcul(newApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
-                newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
+        Time time = null;
+        if (newApplication.getTechBusinessValueWithoutApp() != null
+                && newApplication.getTechBusinessValueWithoutApp().getBusinessValue() != 0
+                && newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt() != 0) {
+            time = calculateTime.calcul(newApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
+                    newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
+        }
 
         if (newApplication.getStartDate().isAfter(newApplication.getLastUpdate())) {
             throw new InvalidApplicationException("Start date cannot be after last update date");
@@ -109,9 +114,13 @@ public class ApplicationService {
         costService.createCost(new CreateCostInput(newApplication.getCostWithoutApp().getCostBuild(),
                 newApplication.getCostWithoutApp().getCostRun(), created.getId()));
 
-        var techBusinessValue = newApplication.getTechBusinessValueWithoutApp();
-        techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
-                techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), created.getId()));
+        if (newApplication.getTechBusinessValueWithoutApp() != null
+                && newApplication.getTechBusinessValueWithoutApp().getBusinessValue() != 0
+                && newApplication.getTechBusinessValueWithoutApp().getTechnicalDebt() != 0) {
+            var techBusinessValue = newApplication.getTechBusinessValueWithoutApp();
+            techBusinessValueService.createTechBusinessValueOutput(new CreateTechBusinessValue(
+                    techBusinessValue.getBusinessValue(), techBusinessValue.getTechnicalDebt(), created.getId()));
+        }
 
         newApplication.getDocumentationsFileWithoutApp().forEach(
                 documentation -> {
