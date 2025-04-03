@@ -12,6 +12,9 @@ import { IconDeleteComponent } from '../../../../components/icons/icon-delete/ic
 import { ModalConfirmComponent } from '../../../../components/modal-confirm/modal-confirm.component';
 import { UserService } from '../../../administration/user.service';
 import { Role } from '../../../administration/user.type';
+import { IconTechniqueComponent } from '../../../../components/icons/icon-technique/icon-technique.component';
+import { IconExploitationComponent } from '../../../../components/icons/icon-exploitation/icon-exploitation.component';
+import { IconFonctionnelleComponent } from '../../../../components/icons/icon-fonctionnelle/icon-fonctionnelle.component';
 
 @Component({
   selector: 'app-documentation',
@@ -22,6 +25,9 @@ import { Role } from '../../../administration/user.type';
     ModalAddDocumentationComponent,
     IconDeleteComponent,
     ModalConfirmComponent,
+    IconTechniqueComponent,
+    IconExploitationComponent,
+    IconFonctionnelleComponent,
   ],
   templateUrl: './documentation.component.html',
   styleUrl: './documentation.component.scss',

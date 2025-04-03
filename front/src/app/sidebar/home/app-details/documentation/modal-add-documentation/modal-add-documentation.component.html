@@ -1,71 +1,37 @@
-<div
-  class="modal fade modal-lg"
-  id="modalAddDocumentation"
-  tabindex="-1"
-  aria-labelledby="modalAddDocumentationLabel"
-  data-bs-backdrop="false"
-  aria-hidden="true"
->
+<div class="modal fade modal-lg" id="modalAddDocumentation" tabindex="-1" aria-labelledby="modalAddDocumentationLabel"
+  data-bs-backdrop="false" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalAddDocumentationLabel">
           Ajouter documentation
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Fermer"
-          (click)="resetData()"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"
+          (click)="resetData()"></button>
       </div>
       <div class="modal-body">
         <div id="datesStatusForm">
           <div class="mb-3">
             <label for="Fonctionnelle" class="form-label">Fonctionnelle</label>
-            <input
-              type="file"
-              multiple
-              class="form-control"
-              id="Fonctionnelle"
-              (change)="onChangeFonctionnelle($event)"
-              required
-            />
+            <input type="file" multiple class="form-control" id="Fonctionnelle" (change)="onChangeFonctionnelle($event)"
+              required />
           </div>
 
           <div class="mb-3">
             <label for="technique" class="form-label">Technique</label>
-            <input
-              type="file"
-              multiple
-              class="form-control"
-              id="technique"
-              (change)="onChangeTechnique($event)"
-              required
-            />
+            <input type="file" multiple class="form-control" id="technique" (change)="onChangeTechnique($event)"
+              required />
           </div>
 
           <div class="mb-3">
             <label for="exploitation" class="form-label">Exploitation</label>
-            <input
-              type="file"
-              multiple
-              class="form-control"
-              id="exploitation"
-              (change)="onChangeTechnique($event)"
-              required
-            />
+            <input type="file" multiple class="form-control" id="exploitation" (change)="onChangeExploitation($event)"
+              required />
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          data-bs-dismiss="modal"
-          (click)="submit()"
-        >
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="submit()">
           Ajouter
         </button>
       </div>

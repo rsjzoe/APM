@@ -1,12 +1,16 @@
 <div class="document-list" *ngIf="groupedDocuments != null">
   <div class="document-group" *ngFor="let group of groupedDocuments | keyvalue">
-    <h5>
-      <span class="text-black" [class]="getDocumentTypeClass(group.key)">
+    <div class="d-flex align-items-center gap-2">
+      <app-icon-technique *ngIf="group.key == 'technique'" />
+      <app-icon-exploitation *ngIf="group.key == 'exploitation'" />
+      <app-icon-fonctionnelle *ngIf="group.key == 'fonctionnelle'" />
+      <span class="text-black h5 mb-0" [class]="getDocumentTypeClass(group.key)">
         {{ group.key }}
       </span>
-    </h5>
+    </div>
 
-    <div class="document-item d-flex justify-content-between align-items-center p-2" *ngFor="let doc of group.value">
+    <div class="document-item d-flex justify-content-between align-items-center p-2 ms-3"
+      *ngFor="let doc of group.value">
       <div class="document-info d-flex align-items-end gap-2">
         <app-icon-document></app-icon-document>
         <span>{{ doc.name }}</span>
@@ -14,7 +18,7 @@
 
       <div class="document-actions d-flex gap-2">
         <button class="button-icon" aria-label="Supprimer" data-bs-toggle="modal" data-bs-target="#modalConfirm"
-          data-bs-dismiss="modal" (click)="saveIdAppDelete(doc.filename)"  *ngIf="canDeleteDoc()">
+          data-bs-dismiss="modal" (click)="saveIdAppDelete(doc.filename)" *ngIf="canDeleteDoc()">
           <app-icon-delete />
         </button>
         <button class="button-icon" (click)="handleView(doc)">
