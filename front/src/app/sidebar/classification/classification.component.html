@@ -1,1 +1,58 @@
-<p>classification works!</p>
+<div class="container mt-4">
+    <h1 class="mb-4">Gestion des Classifications</h1>
+
+    <!-- Add New Classification -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Nouvelle Classification</h5>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="newClasse.name">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3" [(ngModel)]="newClasse.description"></textarea>
+            </div>
+            <button class="btn btn-primary" (click)="addClass()">Ajouter</button>
+        </div>
+    </div>
+
+    <!-- Classifications List -->
+    <div class="accordion" id="classificationsAccordion">
+        <div class="accordion-item" *ngFor="let classe of classes">
+            <h2 class="accordion-header">
+                <button class="accordion-button" [class.collapsed]="!isExpanded(classe.id)" type="button"
+                    (click)="toggleAccordion(classe.id)">
+                    {{ classe.name }}
+                </button>
+            </h2>
+            <div class="accordion-collapse collapse" [class.show]="isExpanded(classe.id)">
+                <div class="accordion-body">
+                    <div *ngIf="!isEditing(classe.id)">
+                        <p>{{ classe.description }}</p>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" (click)="startEditing(classe)">Modifier</button>
+                            <button class="btn btn-danger" (click)="deleteClasse(classe.id)">Supprimer</button>
+                        </div>
+                    </div>
+                    <div *ngIf="isEditing(classe.id) && editingClasse">
+                        <div class="mb-3">
+                            <label class="form-label">Nom</label>
+                            <input type="text" class="form-control" [ngModel]="editingClasse.name"
+                                (ngModelChange)="updateEditingName($event)">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="3" [ngModel]="editingClasse.description"
+                                (ngModelChange)="updateEditingDescription($event)"></textarea>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" (click)="saveEdit()">Enregistrer</button>
+                            <button class="btn btn-secondary" (click)="cancelEdit()">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

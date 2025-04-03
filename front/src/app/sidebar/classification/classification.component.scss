@@ -1,0 +1,9 @@
+.accordion-button:not(.collapsed) {
+  background-color: #ff7900;
+  color: white;
+}
+
+.form-control:focus {
+  border-color: #ff7900;
+  box-shadow: 0 0 0 0.25rem rgba(255, 121, 0, 0.25);
+}
