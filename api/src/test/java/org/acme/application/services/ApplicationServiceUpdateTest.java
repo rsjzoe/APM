@@ -9,13 +9,24 @@ import org.acme.application.app.service.ApplicationService;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.infra.database.ApplicationEntity;
+import org.acme.application.infra.database.ApplicationHistoryEntity;
 import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
+import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
+import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
+import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.cost.domain.model.input.CreateCostWithoutApp;
+import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.domain.exception.DepartementNotFoundException;
+import org.acme.departement.infra.database.DepartementEntity;
+import org.acme.documentation.adapter.out.DocumentationEntity;
+import org.acme.question.infra.database.QuestionEntity;
+import org.acme.question.infra.database.QuestionGroupEntity;
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValueWithoutApp;
+import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 import org.acme.user.UserData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,10 +35,15 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @QuarkusTest
 public class ApplicationServiceUpdateTest {
+
+    @Inject
+    EntityManager em;
+
     @Inject
     ApplicationData applicationData;
 
@@ -47,6 +63,19 @@ public class ApplicationServiceUpdateTest {
     @AfterEach
     @Transactional
     public void clear() {
+        em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
+        ApplicationEntity.deleteAll();
+        CategoryODAChildEntity.deleteAll();
+        CategoryODAParentEntity.deleteAll();
+        ClasseEntity.deleteAll();
+        DepartementEntity.deleteAll();
+        DocumentationEntity.deleteAll();
+        CostEntity.deleteAll();
+        TechBusinessValueEntity.deleteAll();
+        ApplicationHistoryEntity.deleteAll();
+        QuestionGroupEntity.deleteAll();
+        QuestionEntity.deleteAll();
+        em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
         userData.clear();
     }
 

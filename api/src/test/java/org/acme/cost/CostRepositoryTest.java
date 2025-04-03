@@ -33,7 +33,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @QuarkusTest
-public class costRepositoryTest {
+public class CostRepositoryTest {
     @Inject
     EntityManager em;
 

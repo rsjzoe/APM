@@ -1,5 +1,6 @@
 package org.acme.cost.infra.controller;
 
+import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.cost.app.CostService;
 import org.acme.cost.domain.exception.InvalidCostException;
 import org.acme.cost.domain.model.input.CreateCostInput;
@@ -13,6 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -40,6 +42,8 @@ public class CostController implements CostRest {
             return costService.createCost(cost);
         } catch (InvalidCostException e) {
             throw new BadRequestException();
+        } catch (ApplicationNotFoundException e) {
+            throw new NotFoundException();
         }
     }
 
