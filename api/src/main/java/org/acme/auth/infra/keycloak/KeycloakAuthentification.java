@@ -1,4 +1,4 @@
-package org.acme.auth.adapter.keycloak;
+package org.acme.auth.infra.keycloak;
 
 import java.net.URI;
 import java.net.URLEncoder;

@@ -1,4 +1,4 @@
-package org.acme.auth.adapter.in;
+package org.acme.auth.infra.in;
 
 import org.acme.auth.app.AuthService;
 import org.acme.auth.domain.Token;

@@ -1,7 +1,7 @@
 package org.acme.auth.config;
 
-import org.acme.auth.adapter.keycloak.KeycloakAuthentification;
 import org.acme.auth.domain.port.out.Authentification;
+import org.acme.auth.infra.keycloak.KeycloakAuthentification;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import jakarta.enterprise.inject.Produces;
