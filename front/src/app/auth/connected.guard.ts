@@ -11,11 +11,15 @@ export class ConnectedGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
   async canActivate() {
+    const currentUrl = window.location.pathname;
+
     try {
       const user = await firstValueFrom(this.userService.me());
       return true;
     } catch (error) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], {
+        queryParams: { callbackUrl: currentUrl },
+      });
       return false;
     }
   }

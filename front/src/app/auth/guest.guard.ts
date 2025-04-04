@@ -11,14 +11,26 @@ export class GuestGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
   async canActivate() {
+    const currentUrl = window.location.pathname;
+
     try {
       const user = await firstValueFrom(this.userService.me());
-      // raha connecte izy de makao amin'ny homee
-      this.router.navigate(['/home']);
+      // raha connecte izy de makao amin'ny home na callbackUrl na currentUrl
+
+      const callbackUrl = new URLSearchParams(window.location.search).get(
+        'callbackUrl'
+      );
+      if (callbackUrl && callbackUrl != '/login') {
+        this.router.navigateByUrl(callbackUrl);
+      } else if (currentUrl.length > 1 && currentUrl != '/login') {
+        this.router.navigateByUrl(currentUrl);
+      } else {
+        this.router.navigate(['/home']);
+      }
       // false satria amzay tsy tafiditra amle composant LoginComposant
       return false;
     } catch (error) {
-        // sinon makao amlee amle composant LoginComposant
+      // sinon makao amlee amle composant LoginComposant
       return true;
     }
   }

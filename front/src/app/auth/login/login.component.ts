@@ -21,8 +21,13 @@ export class LoginComponent {
   login() {
     this.authService.login(this.trigramme, this.password).subscribe({
       next: () => {
-        this.router.navigate(['/home']).then(() => {
-          window.location.reload();
+        const callbackUrl = new URLSearchParams(window.location.search).get(
+          'callbackUrl'
+        );
+        const nextUrl = callbackUrl || '/home';
+
+        this.router.navigate([nextUrl]).then(() => {
+          window.location.replace(nextUrl);
         });
       },
       error: (err) => {
