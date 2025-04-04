@@ -126,7 +126,7 @@
           <div class="card-body">
             <div class="mb-3">
               <label class="form-label">Nom de groupe </label>
-              <input type="text" class="form-control" [(ngModel)]="editingGroup.text" placeholder="Group name" />
+              <input type="text" class="form-control" [(ngModel)]="editingGroup.text" placeholder="Nom de groupe" />
             </div>
 
             <div class="mb-3">
@@ -143,14 +143,12 @@
 
             <div class="mb-3">
               <div class="d-flex align-items-center gap-4">
-                <label class="form-label mb-0">Coefficient</label>
+                <label class="form-label mb-0">Importance <span class="text-muted">(0 à 4)</span></label>
                 <div class="tooltip-container">
-                  <app-icon-help />
-                  <div class="custom-tooltip">
-                    <div>0 : pas très important</div>
-                    <div>1 : très utile</div>
-                    <div>2 : shdsjkh</div>
-                  </div>
+                  <!-- <app-icon-help /> -->
+                  <app-icon-help class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right"
+                    data-bs-html="true" title="0 : pas mal<br>1 : un peu moche<br>2 : irrelevant<br>3 : très bien">
+                  </app-icon-help>
                 </div>
               </div>
               <input type="number" class="form-control" [(ngModel)]="editingGroup.coeff" step="0.1" min="0" />

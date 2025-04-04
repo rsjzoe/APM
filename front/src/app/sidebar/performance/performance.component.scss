@@ -39,30 +39,35 @@
   border-radius: 0.25rem;
   border: 1px solid #dee2e6;
 }
-
-.tooltip-container {
-  position: relative;
-  display: inline-block;
+.info-icon {
+  cursor: help;
+  margin-left: 0.5rem;
+  color: #ff7900;
 }
 
-.custom-tooltip {
-  visibility: hidden;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #000;
-  color: #fff;
-  text-align: left;
-  padding: 10px;
-  border-radius: 6px;
-  min-width: 200px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+// .tooltip-container {
+//   position: relative;
+//   display: inline-block;
+// }
 
-.tooltip-container:hover .custom-tooltip {
-  visibility: visible;
-  opacity: 1;
-}
+// .custom-tooltip {
+//   visibility: hidden;
+//   position: absolute;
+//   z-index: 1;
+//   bottom: 125%;
+//   left: 50%;
+//   transform: translateX(-50%);
+//   background-color: #000;
+//   color: #fff;
+//   text-align: left;
+//   padding: 10px;
+//   border-radius: 6px;
+//   min-width: 200px;
+//   opacity: 0;
+//   transition: opacity 0.3s;
+// }
+
+// .tooltip-container:hover .custom-tooltip {
+//   visibility: visible;
+//   opacity: 1;
+// }
