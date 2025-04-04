@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.acme.application.ApplicationData;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationHistoryEntity;
@@ -44,12 +45,12 @@ public class CostServiceTest {
     CostService costService;
 
     @Inject
-    CostData costData;
+    ApplicationData applicationData;
 
-    // @BeforeEach
+    @BeforeEach
     @Transactional
     public void setup() {
-        costData.setup();
+        applicationData.setup();
     }
 
     @AfterEach
@@ -70,20 +71,18 @@ public class CostServiceTest {
         em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testCreateCostAndFindByAppId() throws InvalidCostException, ApplicationNotFoundException {
-        ApplicationEntity app = new ApplicationEntity();
-        app.persist();
 
-        CreateCostInput costInput = new CreateCostInput(200.0, 100.0, app.id);
+        CreateCostInput costInput = new CreateCostInput(200.0, 100.0, applicationData.getApplication1().id);
         CostOutput createdCost = costService.createCost(costInput);
 
         assertNotNull(createdCost);
         assertEquals(200.0, createdCost.getCostBuild());
         assertEquals(100.0, createdCost.getCostRun());
 
-        List<CostOutput> costs = costService.findCostByAppId(app.id);
+        List<CostOutput> costs = costService.findCostByAppId(applicationData.getApplication1().id);
         assertNotNull(costs);
         assertFalse(costs.isEmpty());
         assertEquals(1, costs.size());

@@ -50,12 +50,14 @@ public class ApplicationData {
         application1 = new ApplicationEntity(new CreateApplicationRepositoryInput("App1", "Description1",
                 LocalDateTime.now(), LocalDateTime.now(), Status.development, Time.invest, 10, categoryChild.id,
                 departement.id, classe.id));
+        application1.setClasse(classe);
         application1.persistAndFlush();
 
         applicationDeleted = new ApplicationEntity(
                 new CreateApplicationRepositoryInput("applicationDeleted", "Description1",
                         LocalDateTime.now(), LocalDateTime.now(), Status.development, Time.invest, 10, categoryChild.id,
                         departement.id, classe.id));
+        applicationDeleted.setClasse(classe);
         applicationDeleted.setDeleted(true);
         applicationDeleted.persistAndFlush();
     }
