@@ -21,6 +21,8 @@ import { Router } from '@angular/router';
 })
 export class RateApplicationComponent {
   questionGroups: QuestionGroupe[] = [];
+  questionGroupsTechnicalDebt: QuestionGroupe[] = [];
+  questionGroupsBusinessValue: QuestionGroupe[] = [];
 
   @Input() application!: Application;
   constructor(
@@ -126,6 +128,12 @@ export class RateApplicationComponent {
   findAllQuestionGroups = () => {
     this.questionGroupeService.findAll().subscribe((data) => {
       this.questionGroups = data;
+      this.questionGroupsTechnicalDebt = data.filter(
+        (group) => group.type === QuestionGroupeType.technicalDebt
+      );
+      this.questionGroupsBusinessValue = data.filter(
+        (group) => group.type === QuestionGroupeType.businessValue
+      );
     });
   };
 
