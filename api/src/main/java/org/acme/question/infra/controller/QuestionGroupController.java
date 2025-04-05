@@ -3,6 +3,7 @@ package org.acme.question.infra.controller;
 import java.util.List;
 
 import org.acme.question.app.service.QuestionGroupService;
+import org.acme.question.domain.exception.QuestionGroupNotFoundException;
 import org.acme.question.domain.input.CreateQuestionGroup;
 import org.acme.question.domain.input.UpdateQuestionGroup;
 import org.acme.question.domain.model.QuestionGroup;
@@ -13,6 +14,7 @@ import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -37,14 +39,22 @@ public class QuestionGroupController implements QuestionGroupRest {
     @Override
     @RoleAllowedCustom({ "admin" })
     public QuestionGroup update(@PathParam("id") Long id, UpdateQuestionGroup questionGroup) {
-        return questionGroupService.update(id, questionGroup);
+        try {
+            return questionGroupService.update(id, questionGroup);
+        } catch (QuestionGroupNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @GET
     @Path("/{id}")
     @Override
     public QuestionGroup findById(@PathParam("id") Long id) {
-        return questionGroupService.findById(id);
+        try {
+            return questionGroupService.findById(id);
+        } catch (QuestionGroupNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @DELETE
@@ -52,7 +62,11 @@ public class QuestionGroupController implements QuestionGroupRest {
     @Override
     @RoleAllowedCustom({ "admin" })
     public QuestionGroup deleteById(@PathParam("id") Long id) {
-        return questionGroupService.deleteById(id);
+        try {
+            return questionGroupService.deleteById(id);
+        } catch (QuestionGroupNotFoundException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @GET

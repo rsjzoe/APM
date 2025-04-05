@@ -2,6 +2,7 @@ package org.acme.question.app.service;
 
 import java.util.List;
 
+import org.acme.question.domain.exception.QuestionNotFoundException;
 import org.acme.question.domain.input.CreateQuestion;
 import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.model.Question;
@@ -22,17 +23,17 @@ public class QuestionService {
     }
 
     @Transactional
-    public Question update(Long id, UpdateQuestion question) {
+    public Question update(Long id, UpdateQuestion question) throws QuestionNotFoundException {
         return questionRepository.update(id, question);
     }
 
     @Transactional
-    public Question findById(Long id) {
+    public Question findById(Long id) throws QuestionNotFoundException {
         return questionRepository.findById(id);
     }
 
     @Transactional
-    public Question deleteById(Long id) {
+    public Question deleteById(Long id) throws QuestionNotFoundException {
         return questionRepository.deleteById(id);
     }
 

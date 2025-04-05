@@ -2,6 +2,7 @@ package org.acme.question.app.service;
 
 import java.util.List;
 
+import org.acme.question.domain.exception.QuestionGroupNotFoundException;
 import org.acme.question.domain.input.CreateQuestionGroup;
 import org.acme.question.domain.input.UpdateQuestionGroup;
 import org.acme.question.domain.model.QuestionGroup;
@@ -22,17 +23,17 @@ public class QuestionGroupService {
     }
 
     @Transactional
-    public QuestionGroup update(Long id, UpdateQuestionGroup question) {
+    public QuestionGroup update(Long id, UpdateQuestionGroup question) throws QuestionGroupNotFoundException {
         return questionGroupRepository.update(id, question);
     }
 
     @Transactional
-    public QuestionGroup findById(Long id) {
+    public QuestionGroup findById(Long id) throws QuestionGroupNotFoundException {
         return questionGroupRepository.findById(id);
     }
 
     @Transactional
-    public QuestionGroup deleteById(Long id) {
+    public QuestionGroup deleteById(Long id) throws QuestionGroupNotFoundException {
         return questionGroupRepository.deleteById(id);
     }
 

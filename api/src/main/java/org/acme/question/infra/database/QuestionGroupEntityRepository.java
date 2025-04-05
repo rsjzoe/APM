@@ -3,6 +3,7 @@ package org.acme.question.infra.database;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.acme.question.domain.exception.QuestionGroupNotFoundException;
 import org.acme.question.domain.input.CreateQuestionGroup;
 import org.acme.question.domain.input.UpdateQuestionGroup;
 import org.acme.question.domain.model.QuestionGroup;
@@ -18,27 +19,30 @@ public class QuestionGroupEntityRepository implements QuestionGroupRepository {
     }
 
     @Override
-    public QuestionGroup update(Long id, UpdateQuestionGroup updateQuestion) {
+    public QuestionGroup update(Long id, UpdateQuestionGroup updateQuestion) throws QuestionGroupNotFoundException {
         QuestionGroupEntity data = QuestionGroupEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new QuestionGroupNotFoundException();
+        }
         data.updateQuestion(updateQuestion);
         return data.toQuestionGroup();
     }
 
     @Override
-    public QuestionGroup findById(Long id) {
+    public QuestionGroup findById(Long id) throws QuestionGroupNotFoundException {
         QuestionGroupEntity data = QuestionGroupEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new QuestionGroupNotFoundException();
+        }
         return data.toQuestionGroup();
     }
 
     @Override
-    public QuestionGroup deleteById(Long id) {
+    public QuestionGroup deleteById(Long id) throws QuestionGroupNotFoundException {
         QuestionGroupEntity data = QuestionGroupEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new QuestionGroupNotFoundException();
+        }
         data.setDeleted(true);
         data.persist();
         return data.toQuestionGroup();

@@ -3,6 +3,7 @@ package org.acme.question.infra.database;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.acme.question.domain.exception.QuestionNotFoundException;
 import org.acme.question.domain.input.CreateQuestion;
 import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.model.Question;
@@ -18,27 +19,30 @@ public class QuestionEntityRepository implements QuestionRepository {
     }
 
     @Override
-    public Question update(Long id, UpdateQuestion question) {
+    public Question update(Long id, UpdateQuestion question) throws QuestionNotFoundException {
         QuestionEntity data = QuestionEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new QuestionNotFoundException();
+        }
         data.updateQuestion(question);
         return data.toQuestion();
     }
 
     @Override
-    public Question findById(Long id) {
+    public Question findById(Long id) throws QuestionNotFoundException {
         QuestionEntity data = QuestionEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new QuestionNotFoundException();
+        }
         return data.toQuestion();
     }
 
     @Override
-    public Question deleteById(Long id) {
+    public Question deleteById(Long id) throws QuestionNotFoundException {
         QuestionEntity data = QuestionEntity.findById(id);
-        if (data == null)
-            return null;
+        if (data == null) {
+            throw new QuestionNotFoundException();
+        }
         data.setDeleted(true);
         data.persist();
         return data.toQuestion();
