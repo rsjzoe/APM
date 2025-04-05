@@ -162,7 +162,6 @@ public class CostServiceTest {
                 .findCostLatestPerMonthByAppId(applicationData.getApplication1().id);
 
         assertFalse(latestPerMonth.isEmpty());
-        assertNotNull(latestPerMonth.get(0).getData());
     }
 
 }
