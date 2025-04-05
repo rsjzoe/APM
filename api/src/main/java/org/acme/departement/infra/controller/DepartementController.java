@@ -19,19 +19,19 @@ import jakarta.ws.rs.PathParam;
 @Authenticated
 public class DepartementController implements DepartementRest {
     @Inject
-    DepartementService departementUseCase;
+    DepartementService departementService;
 
     @Transactional
     @GET
     public List<Departement> listDepartement() {
-        return departementUseCase.listDepartement();
+        return departementService.listDepartement();
     }
 
     @GET
     @Path("/{id}")
     public Departement findByDepartementId(@PathParam("id") Long id) {
         try {
-            return departementUseCase.findByDepartementId(id);
+            return departementService.findByDepartementId(id);
         } catch (DepartementNotFoundException e) {
             throw new NotFoundException(e);
         }

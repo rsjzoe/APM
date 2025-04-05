@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class DepartementRepositoryImpl implements DepartementRepository {
+public class DepartementEntityRepository implements DepartementRepository {
     @Transactional
     @Override
     public List<Departement> getListDepartement() {
