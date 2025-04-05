@@ -11,7 +11,7 @@ import { QuestionService } from './service/question.service';
 import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
 import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.component';
-import Tooltip from './boosted/js/dist/tooltip';
+// import Tooltip from './boosted/js/dist/tooltip';
 import { IconHelpComponent } from '../../components/icons/icon-help/icon-help.component';
 
 @Component({
@@ -40,15 +40,15 @@ export class PerformanceComponent {
     private questionService: QuestionService
   ) {}
 
-  ngAfterViewInit() {
-    // Initialize all tooltips
-    const tooltipTriggerList = Array.from(
-      document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    );
-    tooltipTriggerList.forEach((element) => {
-      new Tooltip(element);
-    });
-  }
+  // ngAfterViewInit() {
+  //   // Initialize all tooltips
+  //   const tooltipTriggerList = Array.from(
+  //     document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  //   );
+  //   tooltipTriggerList.forEach((element) => {
+  //     new Tooltip(element);
+  //   });
+  // }
   handleSelectGroup(group: QuestionGroupe): void {
     this.selectedGroup = group;
     this.editingGroup = null;

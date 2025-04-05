@@ -89,8 +89,8 @@ public class CostServiceTest {
         assertEquals(200.0, costs.get(0).getCostBuild());
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testCreateCostWithNullAppId() throws InvalidCostException, ApplicationNotFoundException {
         CreateCostInput costInput = new CreateCostInput(200.0, 100.0, null);
         CostOutput createdCost = costService.createCost(costInput);
@@ -100,8 +100,8 @@ public class CostServiceTest {
         assertEquals(100.0, createdCost.getCostRun());
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testCreateCostThrowsAppNotFoundException() {
         CreateCostInput costInput = new CreateCostInput(200.0, 100.0, 999L);
 
@@ -111,8 +111,8 @@ public class CostServiceTest {
 
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testCreateCostInvalid() {
         CreateCostInput costInput = new CreateCostInput(-200.0, 100.0, null);
 
@@ -121,26 +121,22 @@ public class CostServiceTest {
         });
     }
 
-    // @Test
-    // @Transactional
+    @Test
+    @Transactional
     void testUpdateCost() throws InvalidCostException, ApplicationNotFoundException {
-        ApplicationEntity app = new ApplicationEntity();
-        app.persist();
 
         CreateCostInput input = new CreateCostInput(200.0, 80.0, null);
         CostOutput created = costService.createCost(input);
 
-        CostOutput updated = costService.updateCost(created.getId(), app.id);
+        CostOutput updated = costService.updateCost(created.getId(), applicationData.getApplication1().id);
 
         assertNotNull(updated);
-        assertEquals(app.id, updated.getApplicationId());
+        assertEquals(applicationData.getApplication1().id, updated.getApplicationId());
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testUpdateCostThrowsAppNotFoundException() throws InvalidCostException, ApplicationNotFoundException {
-        ApplicationEntity app = new ApplicationEntity();
-        app.persist();
 
         CreateCostInput input = new CreateCostInput(200.0, 80.0, null);
         CostOutput created = costService.createCost(input);
@@ -150,23 +146,20 @@ public class CostServiceTest {
         });
     }
 
-    // @Test
-    // @TestTransaction
+    @Test
+    @TestTransaction
     void testFindCostLatestPerMonthByAppId() {
-        ApplicationEntity app = new ApplicationEntity();
-
-        app.setName("Test App");
-        app.persist();
 
         CostEntity cost1 = new CostEntity(100.0, 50.0, LocalDateTime.now().minusMonths(2));
-        cost1.setApplication(app);
+        cost1.setApplication(applicationData.getApplication1());
         cost1.persist();
 
         CostEntity cost2 = new CostEntity(200.0, 80.0, LocalDateTime.now().minusMonths(1));
-        cost2.setApplication(app);
+        cost2.setApplication(applicationData.getApplication1());
         cost2.persist();
 
-        List<CostOutputMonth> latestPerMonth = costService.findCostLatestPerMonthByAppId(app.id);
+        List<CostOutputMonth> latestPerMonth = costService
+                .findCostLatestPerMonthByAppId(applicationData.getApplication1().id);
 
         assertFalse(latestPerMonth.isEmpty());
         assertNotNull(latestPerMonth.get(0).getData());
