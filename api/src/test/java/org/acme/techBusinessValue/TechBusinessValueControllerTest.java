@@ -1,4 +1,4 @@
-package org.acme.cost;
+package org.acme.techBusinessValue;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -12,17 +12,16 @@ import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationHistoryEntity;
 import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
 import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
-
 import org.acme.classe.infra.database.ClasseEntity;
-import org.acme.cost.app.CostService;
-import org.acme.cost.domain.exception.InvalidCostException;
-import org.acme.cost.domain.model.input.CreateCostInput;
-import org.acme.cost.domain.model.output.CostOutput;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.database.DepartementEntity;
 import org.acme.documentation.adapter.out.DocumentationEntity;
 import org.acme.question.infra.database.QuestionEntity;
 import org.acme.question.infra.database.QuestionGroupEntity;
+import org.acme.techBusinessValue.app.TechBusinessValueService;
+import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
+import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
+import org.acme.techBusinessValue.domain.model.output.TechBusinessValueOutput;
 import org.acme.techBusinessValue.infra.database.TechBusinessValueEntity;
 import org.acme.user.UserData;
 import org.junit.jupiter.api.AfterEach;
@@ -37,42 +36,42 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @QuarkusTest
-public class CostControllerTest {
+public class TechBusinessValueControllerTest {
     @Inject
     EntityManager em;
 
     @Inject
-    CostService costService;
+    TechBusinessValueService techBusinessValueService;
 
     @Inject
     UserData userData;
 
-    CostOutput created1;
+    TechBusinessValueOutput created1;
 
     @Inject
     ApplicationData applicationData;
 
     @BeforeEach
     @Transactional
-    void setup() throws InvalidCostException, ApplicationNotFoundException {
+    void setup() throws InvalidTechBusinessValueException, ApplicationNotFoundException {
         applicationData.setup();
-        CreateCostInput input = new CreateCostInput(10, 30, applicationData.getApplication1().id);
-        created1 = costService.createCost(input);
+        CreateTechBusinessValue input = new CreateTechBusinessValue(1, 2.5, applicationData.getApplication1().id);
+        created1 = techBusinessValueService.createTechBusinessValueOutput(input);
 
         LocalDateTime now = LocalDateTime.now();
-        CostEntity janCost = new CostEntity();
-        janCost.setApplication(applicationData.getApplication1());
-        janCost.setCostBuild(120);
-        janCost.setCostRun(70);
-        janCost.setCreatedAt(now.withMonth(1));
-        janCost.persist();
+        TechBusinessValueEntity janTechBusinessValue = new TechBusinessValueEntity();
+        janTechBusinessValue.setApplication(applicationData.getApplication1());
+        janTechBusinessValue.setBusinessValue(2.3);
+        janTechBusinessValue.setTechnicalDebt(4);
+        janTechBusinessValue.setCreatedAt(now.withMonth(1));
+        janTechBusinessValue.persist();
 
-        CostEntity febCost = new CostEntity();
-        febCost.setApplication(applicationData.getApplication1());
-        febCost.setCostBuild(140);
-        febCost.setCostRun(80);
-        febCost.setCreatedAt(now.withMonth(2));
-        febCost.persist();
+        TechBusinessValueEntity febTechBusinessValue = new TechBusinessValueEntity();
+        febTechBusinessValue.setApplication(applicationData.getApplication1());
+        febTechBusinessValue.setBusinessValue(3);
+        febTechBusinessValue.setTechnicalDebt(1);
+        febTechBusinessValue.setCreatedAt(now.withMonth(2));
+        febTechBusinessValue.persist();
 
         userData.setup();
     }
@@ -98,8 +97,8 @@ public class CostControllerTest {
 
     @Test
     @TestTransaction
-    void testCreateCost() {
-        CreateCostInput input = new CreateCostInput(10, 30, applicationData.getApplication1().id);
+    void testCreateTechBusinessValue() {
+        CreateTechBusinessValue input = new CreateTechBusinessValue(2, 1.5, applicationData.getApplication1().id);
         var accessToken = userData.getUserAdminToken().getAccessToken();
 
         given()
@@ -107,18 +106,18 @@ public class CostControllerTest {
                 .body(input)
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .post("/cost")
+                .post("/techBusinessvalue")
                 .then()
                 .statusCode(200)
                 .body("applicationId", equalTo(applicationData.getApplication1().id.intValue()))
-                .body("costBuild", equalTo(10.0F))
-                .body("costRun", equalTo(30.0F));
+                .body("businessValue", equalTo(2.0F))
+                .body("technicalDebt", equalTo(1.5F));
     }
 
     @Test
     @TestTransaction
-    public void testCreateCostInvalid() {
-        CreateCostInput input = new CreateCostInput(-10, 30, applicationData.getApplication1().id);
+    public void testCreateTechBusinessValueInvalid() {
+        CreateTechBusinessValue input = new CreateTechBusinessValue(-2, 1.5, applicationData.getApplication1().id);
         var accessToken = userData.getUserAdminToken().getAccessToken();
 
         given()
@@ -126,14 +125,14 @@ public class CostControllerTest {
                 .body(input)
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .post("/cost")
+                .post("/techBusinessvalue")
                 .then()
                 .statusCode(400);
     }
 
     @Test
     @TestTransaction
-    public void testFindCostByAppId() {
+    public void testFindTechBusinessValueByAppId() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
 
         given()
@@ -141,18 +140,18 @@ public class CostControllerTest {
                 .body(created1)
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .get("/cost/" + applicationData.getApplication1().id)
+                .get("/techBusinessvalue/" + applicationData.getApplication1().id)
                 .then()
                 .statusCode(200)
                 .body("$.size()", is(3))
                 .body("[0].applicationId", equalTo(applicationData.getApplication1().id.intValue()))
-                .body("[0].costBuild", equalTo(10.0F))
-                .body("[0].costRun", equalTo(30.0F));
+                .body("[0].businessValue", equalTo(1.0F))
+                .body("[0].technicalDebt", equalTo(2.5F));
     }
 
     @Test
     @TestTransaction
-    public void testFindCostByAppIdNotFound() {
+    public void testFindTechBusinessValueByAppIdNotFound() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
 
         given()
@@ -160,7 +159,7 @@ public class CostControllerTest {
                 .body(created1)
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .get("/cost/999999")
+                .get("/techBusinessvalue/999999")
                 .then()
                 .statusCode(200)
                 .body("$.size()", is(0));
@@ -168,18 +167,18 @@ public class CostControllerTest {
 
     @Test
     @TestTransaction
-    public void testLatestCostPerMonth() {
+    public void testLatestTechBusinessValuePerMonth() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
 
         given()
                 .pathParam("appId", applicationData.getApplication1().id)
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .get("/cost/latest-per-month/{appId}")
+                .get("/techBusinessvalue/latest-per-month/{appId}")
                 .then()
                 .statusCode(200)
                 .body("size()", is(12)) // un par mois
-                .body("findAll { it.monthValue == 1 }[0].data.costBuild", equalTo(120F))
-                .body("findAll { it.monthValue == 2 }[0].data.costRun", equalTo(80F));
+                .body("findAll { it.monthValue == 1 }[0].data.businessValue", equalTo(2.3F))
+                .body("findAll { it.monthValue == 2 }[0].data.technicalDebt", equalTo(1F));
     }
 }
