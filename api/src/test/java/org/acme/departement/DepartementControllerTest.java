@@ -6,8 +6,8 @@ import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
 import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.infra.database.CostEntity;
+import org.acme.departement.app.DepartementService;
 import org.acme.departement.infra.database.DepartementEntity;
-import org.acme.departement.infra.database.DepartementEntityRepository;
 import org.acme.documentation.adapter.out.DocumentationEntity;
 import org.acme.question.infra.database.QuestionEntity;
 import org.acme.question.infra.database.QuestionGroupEntity;
@@ -33,7 +33,10 @@ public class DepartementControllerTest {
     EntityManager em;
 
     @Inject
-    DepartementEntityRepository departementRepository;
+    DepartementService departementService;
+
+    DepartementEntity d1;
+    DepartementEntity d2;
 
     @Inject
     UserData userData;
@@ -41,6 +44,14 @@ public class DepartementControllerTest {
     @BeforeEach
     @Transactional
     void setup() {
+        this.d1 = new DepartementEntity();
+        this.d1.name = "RH";
+        this.d1.persistAndFlush();
+
+        this.d2 = new DepartementEntity();
+        this.d2.name = "IT";
+        this.d2.persistAndFlush();
+
         userData.setup();
     }
 
@@ -65,20 +76,13 @@ public class DepartementControllerTest {
 
     @Test
     @TestTransaction
-    public void testListDepartementEndpoint() {
+    public void testListDepartement() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
-        DepartementEntity d1 = new DepartementEntity();
-        d1.name = "RH";
-        d1.persist();
-
-        DepartementEntity d2 = new DepartementEntity();
-        d2.name = "IT";
-        d2.persist();
 
         given()
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .get("/departement")
+                .get("/departements")
                 .then()
                 .statusCode(200)
                 .body("$.size()", is(2))
@@ -90,19 +94,16 @@ public class DepartementControllerTest {
     @TestTransaction
     public void testFindById() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
-        DepartementEntity d = new DepartementEntity();
-        d.name = "Finance";
-        d.persist();
 
         given()
                 .header("Authorization", "Bearer " + accessToken)
-                .pathParam("id", d.id)
+
                 .when()
-                .get("/{id}")
+                .get("/departements/" + d1.id)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(d.id.intValue()))
-                .body("name", equalTo("Finance"));
+                .body("id", equalTo(d1.id.intValue()))
+                .body("name", equalTo("RH"));
 
     }
 
@@ -113,9 +114,9 @@ public class DepartementControllerTest {
         RestAssured
                 .given()
                 .header("Authorization", "Bearer " + accessToken)
-                .pathParam("id", 9999)
+
                 .when()
-                .get("/{id}")
+                .get("/departements/" + 9999)
                 .then()
                 .statusCode(404);
     }
