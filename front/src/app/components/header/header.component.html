@@ -1,5 +1,4 @@
 <div class="header-container  p-2 mx-3">
-
     <div class="d-flex align-items-center justify-content-end gap-3">
         <form class="d-flex" role="search">
             <div class="input-group">
@@ -16,9 +15,9 @@
             </div>
         </form>
 
-        <div class="user-profil">
+        <a [routerLink]="['/user-profile']" routerLinkActive="router-link-active" class="user-profil">
             <img src="/image/user.jpg" class="rounded-circle" width="45" height="45" alt="">
-        </div>
+        </a>
 
     </div>
 </div>
