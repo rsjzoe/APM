@@ -2,8 +2,8 @@ package org.acme.departement;
 
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationHistoryEntity;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
-import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAParentEntity;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.app.DepartementService;

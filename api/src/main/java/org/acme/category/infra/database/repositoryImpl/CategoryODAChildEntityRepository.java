@@ -1,4 +1,4 @@
-package org.acme.category.infra.out.repositoryImpl;
+package org.acme.category.infra.database.repositoryImpl;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.acme.category.domain.input.CreateCategoryODAChild;
 import org.acme.category.domain.input.UpdateCategoryODAChild;
 import org.acme.category.domain.output.CategoryODAChildOutput;
 import org.acme.category.domain.port.out.CategoryODAChildRepository;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
 
 import jakarta.enterprise.context.ApplicationScoped;
 

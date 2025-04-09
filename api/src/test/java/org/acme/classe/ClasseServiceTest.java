@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationHistoryEntity;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
-import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAParentEntity;
 import org.acme.classe.app.ClasseService;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.classe.domain.input.CreateClasseInput;

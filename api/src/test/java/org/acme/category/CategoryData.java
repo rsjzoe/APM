@@ -4,8 +4,8 @@ import org.acme.category.domain.input.CreateCategoryODAChild;
 import org.acme.category.domain.input.CreateCategoryODAParent;
 import org.acme.category.domain.input.UpdateCategoryODAChild;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
-import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAParentEntity;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.Getter;

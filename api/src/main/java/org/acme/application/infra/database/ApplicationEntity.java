@@ -9,7 +9,7 @@ import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.classe.infra.database.ClasseEntityHelper;
 import org.acme.cost.domain.model.output.CostOutput;

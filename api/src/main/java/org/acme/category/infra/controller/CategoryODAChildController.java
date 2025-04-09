@@ -1,4 +1,4 @@
-package org.acme.category.infra.in;
+package org.acme.category.infra.controller;
 
 import java.util.List;
 

@@ -11,9 +11,9 @@ import org.acme.application.infra.database.ApplicationHistoryEntity;
 import org.acme.category.CategoryData;
 import org.acme.category.domain.exception.CategoryODAParentNotFoundException;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
-import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
-import org.acme.category.infra.out.repositoryImpl.CategoryODAParentEntityRepository;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAParentEntity;
+import org.acme.category.infra.database.repositoryImpl.CategoryODAParentEntityRepository;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.database.DepartementEntity;
@@ -77,7 +77,7 @@ public class CategoryParentRepositoryTest {
 
     @Test
     @TestTransaction
-    public void testFindAllCategoryParentren() {
+    public void testFindAllCategoryParent() {
         var categoryParent = parentEntityRepository.findAll();
 
         assertNotNull(categoryParent);

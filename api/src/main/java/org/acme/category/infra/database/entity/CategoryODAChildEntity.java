@@ -1,4 +1,4 @@
-package org.acme.category.infra.out.Entity;
+package org.acme.category.infra.database.entity;
 
 import org.acme.category.domain.CategoryODAChild;
 import org.acme.category.domain.input.CreateCategoryODAChild;

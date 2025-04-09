@@ -12,8 +12,8 @@ import org.acme.category.CategoryData;
 import org.acme.category.app.CategoryODAParentService;
 import org.acme.category.domain.exception.CategoryODAParentNotFoundException;
 import org.acme.category.domain.input.UpdateCategoryODAParent;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
-import org.acme.category.infra.out.Entity.CategoryODAParentEntity;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAParentEntity;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.cost.infra.database.CostEntity;
 import org.acme.departement.infra.database.DepartementEntity;
@@ -79,7 +79,7 @@ public class CategoryParentServiceTest {
 
     @Test
     @TestTransaction
-    public void testFindAllCategoryParentren() {
+    public void testFindAllCategoryParentr() {
         var categoryParent = parentService.findAll();
 
         assertNotNull(categoryParent);

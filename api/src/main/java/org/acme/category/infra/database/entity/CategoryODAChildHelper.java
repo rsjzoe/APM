@@ -1,4 +1,4 @@
-package org.acme.category.infra.out.Entity;
+package org.acme.category.infra.database.entity;
 
 public class CategoryODAChildHelper {
     public static CategoryODAChildEntity entityFromId(Long id){

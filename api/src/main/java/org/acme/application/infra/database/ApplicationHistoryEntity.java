@@ -6,7 +6,7 @@ import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationHistoryOutput;
-import org.acme.category.infra.out.Entity.CategoryODAChildEntity;
+import org.acme.category.infra.database.entity.CategoryODAChildEntity;
 import org.acme.classe.infra.database.ClasseEntity;
 import org.acme.classe.infra.database.ClasseEntityHelper;
 import org.acme.cost.infra.database.CostEntity;
