@@ -8,9 +8,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreatePermission {
-    public Boolean canUpdate;
-    public Boolean canDelete;
-    public Boolean canRead;
-    public Boolean canCreate;
-    public Long serviceId;
+    private Boolean canUpdate;
+    private Boolean canDelete;
+    private Boolean canRead;
+    private Boolean canCreate;
+    private Long serviceId;
+
+    public void correctPermission() {
+        if (canUpdate) {
+            canRead = true;
+        }
+        if (canDelete) {
+            canRead = true;
+        }
+        if (canCreate) {
+            canRead = true;
+        }
+    }
 }

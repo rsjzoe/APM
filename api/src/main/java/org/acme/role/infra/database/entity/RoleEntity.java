@@ -25,8 +25,8 @@ public class RoleEntity extends PanacheEntity {
     public List<PermissionEntity> permissions;
 
     public RoleEntity(CreateRole createRole) {
-        this.roleName = createRole.roleName;
-        this.permissions = createRole.permissions.stream().map(PermissionEntity::new).toList();
+        this.roleName = createRole.getRoleName();
+        this.permissions = createRole.getPermissions().stream().map(PermissionEntity::new).toList();
     }
 
     public Role toRole() {

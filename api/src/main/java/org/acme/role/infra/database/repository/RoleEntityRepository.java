@@ -2,6 +2,7 @@ package org.acme.role.infra.database.repository;
 
 import java.util.List;
 
+import org.acme.role.domain.exception.RoleNotFoundException;
 import org.acme.role.domain.input.CreateRole;
 import org.acme.role.domain.model.Role;
 import org.acme.role.domain.port.out.RoleRepository;
@@ -22,6 +23,15 @@ public class RoleEntityRepository implements RoleRepository {
         return data.stream()
                 .map(RoleEntity::toRole)
                 .toList();
+    }
+
+    @Override
+    public Role findRoleByName(String roleName) throws RoleNotFoundException {
+        RoleEntity roleEntity = RoleEntity.find("roleName", roleName).firstResult();
+        if (roleEntity == null) {
+            throw new RoleNotFoundException(roleName);
+        }
+        return roleEntity.toRole();
     }
 
 }

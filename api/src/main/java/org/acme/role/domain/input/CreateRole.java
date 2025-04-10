@@ -10,6 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateRole {
-    public String roleName;
-    public List<CreatePermission> permissions;
+    private String roleName;
+    private List<CreatePermission> permissions;
+
+    public void correctRole() {
+        for (var permission : permissions) {
+            permission.correctPermission();
+        }
+    }
 }

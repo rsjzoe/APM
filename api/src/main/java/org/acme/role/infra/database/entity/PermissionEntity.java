@@ -25,11 +25,11 @@ public class PermissionEntity extends PanacheEntity {
     public ServiceEntity service;
 
     public PermissionEntity(CreatePermission createPermission) {
-        this.canUpdate = createPermission.canUpdate;
-        this.canDelete = createPermission.canDelete;
-        this.canRead = createPermission.canRead;
-        this.canCreate = createPermission.canCreate;
-        this.service = ServiceEntity.findById(createPermission.serviceId);
+        this.canUpdate = createPermission.getCanUpdate();
+        this.canDelete = createPermission.getCanDelete();
+        this.canRead = createPermission.getCanRead();
+        this.canCreate = createPermission.getCanCreate();
+        this.service = ServiceEntity.findById(createPermission.getServiceId());
     }
 
     public Permission toPermission() {
