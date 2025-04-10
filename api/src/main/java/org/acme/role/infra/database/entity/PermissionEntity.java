@@ -5,6 +5,7 @@ import org.acme.role.domain.model.Permission;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,7 @@ public class PermissionEntity extends PanacheEntity {
     public Boolean canDelete;
     public Boolean canRead;
     public Boolean canCreate;
+    @ManyToOne
     public ServiceEntity service;
 
     public PermissionEntity(CreatePermission createPermission) {
@@ -27,6 +29,7 @@ public class PermissionEntity extends PanacheEntity {
         this.canDelete = createPermission.canDelete;
         this.canRead = createPermission.canRead;
         this.canCreate = createPermission.canCreate;
+        this.service = ServiceEntity.findById(createPermission.serviceId);
     }
 
     public Permission toPermission() {

@@ -8,6 +8,7 @@ import org.acme.role.domain.model.Role;
 import org.acme.role.domain.port.in.RoleRest;
 
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -19,12 +20,14 @@ public class RoleController implements RoleRest {
 
     @POST
     @Override
+    @Transactional
     public Role createRole(CreateRole role) {
         return roleService.createRole(role);
     }
 
     @Override
     @GET
+    @Transactional
     public List<Role> findAll() {
         return roleService.findAll();
     }

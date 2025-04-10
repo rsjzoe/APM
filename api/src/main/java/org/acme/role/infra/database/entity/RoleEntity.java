@@ -6,8 +6,9 @@ import org.acme.role.domain.input.CreateRole;
 import org.acme.role.domain.model.Role;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class RoleEntity extends PanacheEntity {
     public String roleName;
+    @OneToMany(cascade = CascadeType.ALL)
     public List<PermissionEntity> permissions;
 
     public RoleEntity(CreateRole createRole) {
