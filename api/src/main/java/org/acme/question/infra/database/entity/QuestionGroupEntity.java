@@ -1,4 +1,4 @@
-package org.acme.question.infra.database;
+package org.acme.question.infra.database.entity;
 
 import java.util.ArrayList;
 import java.util.List;

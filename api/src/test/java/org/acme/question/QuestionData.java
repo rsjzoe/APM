@@ -5,8 +5,8 @@ import org.acme.question.domain.input.CreateQuestionGroup;
 import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.input.UpdateQuestionGroup;
 import org.acme.question.domain.model.QuestionGroupeType;
-import org.acme.question.infra.database.QuestionEntity;
-import org.acme.question.infra.database.QuestionGroupEntity;
+import org.acme.question.infra.database.entity.QuestionEntity;
+import org.acme.question.infra.database.entity.QuestionGroupEntity;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.Getter;

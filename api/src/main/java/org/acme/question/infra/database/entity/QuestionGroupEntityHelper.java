@@ -1,4 +1,4 @@
-package org.acme.question.infra.database;
+package org.acme.question.infra.database.entity;
 
 public class QuestionGroupEntityHelper {
     public static QuestionGroupEntity entityFromId(Long id){

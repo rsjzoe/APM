@@ -1,4 +1,4 @@
-package org.acme.question.infra.database;
+package org.acme.question.infra.database.repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +8,7 @@ import org.acme.question.domain.input.CreateQuestion;
 import org.acme.question.domain.input.UpdateQuestion;
 import org.acme.question.domain.model.Question;
 import org.acme.question.domain.port.out.QuestionRepository;
+import org.acme.question.infra.database.entity.QuestionEntity;
 
 public class QuestionEntityRepository implements QuestionRepository {
 

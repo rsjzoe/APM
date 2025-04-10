@@ -1,4 +1,4 @@
-package org.acme.question.infra.database;
+package org.acme.question.infra.database.entity;
 
 import org.acme.question.domain.input.CreateQuestion;
 import org.acme.question.domain.input.UpdateQuestion;
