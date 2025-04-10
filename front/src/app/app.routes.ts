@@ -16,6 +16,8 @@ import { RoleGuard } from './auth/role.guard';
 import { Role } from './sidebar/administration/user.type';
 import { ClassificationComponent } from './sidebar/classification/classification.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { RoleComponent } from './sidebar/role/role.component';
+import { AddRoleComponent } from './sidebar/role/add-role/add-role.component';
 
 export const routes: Routes = [
   {
@@ -77,6 +79,16 @@ export const routes: Routes = [
       {
         path: 'corbeille',
         component: CorbeilleComponent,
+        data: { roles: [Role.admin] },
+      },
+      {
+        path: 'roles',
+        component: RoleComponent,
+        data: { roles: [Role.admin] },
+      },
+      {
+        path: 'roles/add',
+        component: AddRoleComponent,
         data: { roles: [Role.admin] },
       },
       {

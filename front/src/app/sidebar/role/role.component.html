@@ -1,0 +1,22 @@
+<div class="">
+    <h2 class="mb-4">Liste des rôles</h2>
+    <button class="btn btn-primary">
+        <a [routerLink]="['/roles/add']" routerLinkActive="router-link-active">Ajouter</a>
+    </button>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom du rôle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let role of roles">
+                    <td>{{ role.id }}</td>
+                    <td>{{ role.roleName }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

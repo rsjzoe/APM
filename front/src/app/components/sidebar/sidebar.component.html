@@ -16,6 +16,10 @@
         " [route]="'/administration'" [label]="'Administration'"></app-sidebar-link>
 
       <app-sidebar-link *ngIf="userService.isAdmin()" [iconPath]="
+        'M823.077,175C701.856,175,589.994,137.771,500,75c-89.995,62.771-201.856,99.972-323.077,99.972L150,175V450c0,184.9,107.691,400,350,475,242.308-75,350-290.1,350-475V175H823.077ZM500,873.286C292.307,809,200,624.632,200,466.143V231.428l23.077-1.024C325.07,224.726,421.5,197.36,500,139.714V873.286Z'
+        " [route]="'/roles'" [label]="'Roles'"></app-sidebar-link>
+
+      <app-sidebar-link *ngIf="userService.isAdmin()" [iconPath]="
           'M837.5,275H450L375,175H100V762.5A62.5,62.5,0,0,0,162.5,825H900V337.5A62.5,62.5,0,0,0,837.5,275ZM275,625H175L275,450,375,625H275Zm325,0H425V450H600V625Zm137.5,0A87.5,87.5,0,1,1,825,537.5,87.5,87.5,0,0,1,737.5,625Z'
         " [route]="'/categoryODA'" [label]="'Catégorie ODA'"></app-sidebar-link>
 
