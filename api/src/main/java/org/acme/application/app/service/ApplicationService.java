@@ -153,6 +153,8 @@ public class ApplicationService {
 
         }
 
+        // FIXME: verifier si note ne sont pas null est calcuer time si pas null
+
         if (updateApplication.getClasseId() != null) {
             classeService.findById(updateApplication.getClasseId());
         }

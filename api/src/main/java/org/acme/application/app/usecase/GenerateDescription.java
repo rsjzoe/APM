@@ -42,14 +42,18 @@ public class GenerateDescription implements GenerateDescriptionHistory {
                     .append("' à '").append(app.getDepartement().getName()).append("'.\n");
         }
 
+        var isBussinessValueSet = false;
         if (app.getNoteBusinessValue() != lastHistory.getNoteBusinessValue()) {
             description.append("- Valeur métier changée de ").append(lastHistory.getNoteBusinessValue())
                     .append(" à ").append(app.getNoteBusinessValue()).append(".\n");
+            isBussinessValueSet = true;
         }
 
+        var isTechnicalDebtSet = false;
         if (app.getNoteTechnicalDebt() != lastHistory.getNoteTechnicalDebt()) {
             description.append("- Dette Technique changée de ").append(lastHistory.getNoteTechnicalDebt())
                     .append(" à ").append(app.getNoteTechnicalDebt()).append(".\n");
+            isTechnicalDebtSet = true;
         }
 
         if (app.getCurrentCost().getCostBuild() != lastHistory.getCost().getCostBuild()) {
@@ -66,14 +70,14 @@ public class GenerateDescription implements GenerateDescriptionHistory {
         }
 
         if (app.getCurrentTechBusinessValue().getTechnicalDebt() != lastHistory.getTechBusinessValue()
-                .getTechnicalDebt()) {
+                .getTechnicalDebt() && !isTechnicalDebtSet) {
             description.append("- Dette technique actuelle changée de ")
                     .append(lastHistory.getTechBusinessValue().getTechnicalDebt()).append(" à ")
                     .append(app.getCurrentTechBusinessValue().getTechnicalDebt());
         }
 
         if (app.getCurrentTechBusinessValue().getBusinessValue() != lastHistory.getTechBusinessValue()
-                .getBusinessValue()) {
+                .getBusinessValue() && !isBussinessValueSet) {
             description.append("- Valeur métier changée de ")
                     .append(lastHistory.getTechBusinessValue().getBusinessValue()).append(" à ")
                     .append(app.getCurrentTechBusinessValue().getBusinessValue());
