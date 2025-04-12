@@ -5,7 +5,7 @@ import { IconDocumentComponent } from '../../../../components/icons/icon-documen
 import {
   DocumentationType,
   Documentation,
-} from '../../../../application/documentation.type';
+} from '../../../../application/documentation/documentation.type';
 import { DocumentationService } from './documentation.service';
 import { ModalAddDocumentationComponent } from './modal-add-documentation/modal-add-documentation.component';
 import { IconDeleteComponent } from '../../../../components/icons/icon-delete/icon-delete.component';

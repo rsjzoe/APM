@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Classe } from '../../application/classe.type';
+import { Classe } from '../../application/classe/classe.type';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ClasseService } from '../../application/classe.service';
+import { ClasseService } from '../../application/classe/classe.service';
 
 @Component({
   selector: 'app-classification',

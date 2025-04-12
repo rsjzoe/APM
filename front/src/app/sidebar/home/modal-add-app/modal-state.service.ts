@@ -8,7 +8,7 @@ import { ApplicationService } from '../application.service';
 import {
   CreateDocumentationWithoutApp,
   DocumentationType,
-} from '../../../application/documentation.type';
+} from '../../../application/documentation/documentation.type';
 
 type Create = Omit<CreateApplication, 'documentations'> & {
   fonctionnelles: File[];

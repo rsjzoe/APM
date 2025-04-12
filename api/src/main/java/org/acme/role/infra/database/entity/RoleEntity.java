@@ -2,8 +2,8 @@ package org.acme.role.infra.database.entity;
 
 import java.util.List;
 
-import org.acme.role.domain.input.CreateRole;
 import org.acme.role.domain.model.Role;
+import org.acme.role.domain.model.input.CreateRole;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;

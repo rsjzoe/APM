@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   CreateDocumentationWithoutApp,
   Documentation,
-} from '../../../../application/documentation.type';
+} from '../../../../application/documentation/documentation.type';
 
 @Injectable({
   providedIn: 'root',

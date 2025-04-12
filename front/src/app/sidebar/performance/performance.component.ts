@@ -3,7 +3,7 @@ import {
   Question,
   QuestionGroupe,
   QuestionGroupeType,
-} from '../../application/question.type';
+} from '../../application/question/question.type';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { QuestionGroupeService } from './service/questionGroupe.service';

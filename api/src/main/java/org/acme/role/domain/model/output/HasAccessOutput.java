@@ -1,4 +1,4 @@
-package org.acme.role.domain.output;
+package org.acme.role.domain.model.output;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

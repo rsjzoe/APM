@@ -1,7 +1,7 @@
 package org.acme.role.infra.database.entity;
 
-import org.acme.role.domain.input.CreatePermission;
 import org.acme.role.domain.model.Permission;
+import org.acme.role.domain.model.input.CreatePermission;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;

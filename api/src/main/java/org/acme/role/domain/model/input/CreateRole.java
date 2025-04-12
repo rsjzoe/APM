@@ -1,4 +1,4 @@
-package org.acme.role.domain.input;
+package org.acme.role.domain.model.input;
 
 import java.util.List;
 

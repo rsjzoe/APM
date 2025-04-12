@@ -5,7 +5,7 @@ import {
   CategoryODAParent,
   CreateCategoryODAParent,
   UpdateCategoryODAParent,
-} from '../../../application/category.type';
+} from '../../../application/category/category.type';
 
 @Injectable({
   providedIn: 'root',

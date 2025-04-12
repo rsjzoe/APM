@@ -4,7 +4,7 @@ import {
   CreateQuestion,
   Question,
   UpdateQuestion,
-} from '../../../application/question.type';
+} from '../../../application/question/question.type';
 
 @Injectable({
   providedIn: 'root',

@@ -10,7 +10,7 @@ import { ApplicationService } from '../../application.service';
 import {
   QuestionGroupe,
   QuestionGroupeType,
-} from '../../../../application/question.type';
+} from '../../../../application/question/question.type';
 import { Router } from '@angular/router';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 import {
   CategoryODAChild,
   CategoryODAParent,
-} from '../../../../../application/category.type';
+} from '../../../../../application/category/category.type';
 import { CommonModule } from '@angular/common';
 import { ModalStateService } from '../../modal-state.service';
 import { IconTriangleUpComponent } from '../../../../../components/icons/icon-triangle-up/icon-triangle-up.component';

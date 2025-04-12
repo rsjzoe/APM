@@ -1,15 +1,15 @@
-import { CategoryODAChild } from './category.type';
-import { Classe } from './classe.type';
-import { Cost, CreateCostWithoutApp } from './cost.type';
-import { Departement } from './departement.type';
+import { CategoryODAChild } from './category/category.type';
+import { Classe } from './classe/classe.type';
+import { Cost, CreateCostWithoutApp } from './cost/cost.type';
+import { Departement } from './departement/departement.type';
 import {
   CreateDocumentationWithoutApp,
   Documentation,
-} from './documentation.type';
+} from './documentation/documentation.type';
 import {
   CreateTechBusinessValueWithoutApp,
   TechBusinessValue,
-} from './techBusinessValue.type';
+} from './tech-business-value/techBusinessValue.type';
 
 export type Application = {
   id: number;

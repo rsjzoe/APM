@@ -5,10 +5,10 @@ import java.util.List;
 import org.acme.role.app.RoleService;
 import org.acme.role.domain.exception.ConflitRoleException;
 import org.acme.role.domain.exception.RoleNotFoundException;
-import org.acme.role.domain.input.CreateRole;
-import org.acme.role.domain.input.HasAccess;
 import org.acme.role.domain.model.Role;
-import org.acme.role.domain.output.HasAccessOutput;
+import org.acme.role.domain.model.input.CreateRole;
+import org.acme.role.domain.model.input.HasAccess;
+import org.acme.role.domain.model.output.HasAccessOutput;
 import org.acme.role.domain.port.in.RoleRest;
 
 import jakarta.inject.Inject;

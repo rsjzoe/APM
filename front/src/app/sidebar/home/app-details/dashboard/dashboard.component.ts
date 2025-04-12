@@ -6,11 +6,11 @@ import { UserService } from '../../../administration/user.service';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
 import { ChartDataCost, ChartDataTechBusiness } from '../appDetailType';
 import { DateFormater } from '../../../../lib/dateFormater';
-import { Cost, CostMonth } from '../../../../application/cost.type';
+import { Cost, CostMonth } from '../../../../application/cost/cost.type';
 import { CommonModule } from '@angular/common';
-import { TechBusinessValueMonth } from '../../../../application/techBusinessValue.type';
-import { CostService } from '../../../../application/cost.service';
-import { TechBusinessValueService } from '../../../../application/tech-business-value.service';
+import { TechBusinessValueMonth } from '../../../../application/tech-business-value/techBusinessValue.type';
+import { CostService } from '../../../../application/cost/cost.service';
+import { TechBusinessValueService } from '../../../../application/tech-business-value/tech-business-value.service';
 
 @Component({
   selector: 'app-dashboard',

@@ -3,7 +3,7 @@ import { DocumentationService } from '../documentation.service';
 import {
   CreateDocumentationWithoutApp,
   DocumentationType,
-} from '../../../../../application/documentation.type';
+} from '../../../../../application/documentation/documentation.type';
 
 @Component({
   selector: 'app-modal-add-documentation',
