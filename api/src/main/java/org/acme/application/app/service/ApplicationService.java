@@ -184,7 +184,8 @@ public class ApplicationService {
         }
 
         var app = findById(id);
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token,
+                updateApplication.getOtherDescription());
         applicationHistoryService.create(data);
         // maka anlay app updated miarakam curreent cost any vaovao
         ApplicationOutput appFound = findById(id);

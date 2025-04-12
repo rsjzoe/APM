@@ -5,10 +5,18 @@ import org.acme.application.domain.output.ApplicationOutput;
 public class CreateApplicationHistoryService {
     private ApplicationOutput app;
     private String token;
+    private String otherDescription;
 
     public CreateApplicationHistoryService(ApplicationOutput app, String token) {
         this.app = app;
         this.token = token;
+    }
+
+
+    public CreateApplicationHistoryService(ApplicationOutput app, String token, String otherDescription) {
+        this.app = app;
+        this.token = token;
+        this.otherDescription = otherDescription;
     }
 
     public ApplicationOutput getApp() {
@@ -21,5 +29,9 @@ public class CreateApplicationHistoryService {
 
     public String getToken() {
         return token;
+    }
+
+    public String getOtherDescription() {
+        return otherDescription;
     }
 }

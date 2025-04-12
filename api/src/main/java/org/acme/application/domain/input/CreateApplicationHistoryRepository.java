@@ -29,7 +29,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     protected Long costId;
     protected Long techBusinessValueId;
     protected Time time;
-
+    
     public CreateApplicationHistoryRepository(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long appId, double noteBusinessValue,
             double noteTechnicalDebt,

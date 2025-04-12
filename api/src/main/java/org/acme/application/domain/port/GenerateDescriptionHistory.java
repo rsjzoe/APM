@@ -4,5 +4,5 @@ import org.acme.application.domain.output.ApplicationHistoryOutput;
 import org.acme.application.domain.output.ApplicationOutput;
 
 public interface GenerateDescriptionHistory {
-    String generate(ApplicationOutput app, ApplicationHistoryOutput lastHistory);
+    String generate(ApplicationOutput app, ApplicationHistoryOutput lastHistory, String otherDescription);
 }

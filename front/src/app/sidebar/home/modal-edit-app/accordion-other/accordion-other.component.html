@@ -1,0 +1,37 @@
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button
+      class="accordion-button collapsed py-3"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapseThree"
+      aria-expanded="false"
+      aria-controls="collapseThree"
+      style="font-size: 18px"
+    >
+      Autres
+    </button>
+  </h2>
+  <div
+    id="collapseThree"
+    class="accordion-collapse collapse"
+    data-bs-parent="#accordionExample"
+  >
+    <div class="accordion-body">
+      <div id="datesStatusForm">
+        <div class="mb-3">
+          <label for="otherDescription" class="form-label"
+            >Autre mis à jour</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="otherDescription"
+            [(ngModel)]="modalStateService.otherDescription"
+            required
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

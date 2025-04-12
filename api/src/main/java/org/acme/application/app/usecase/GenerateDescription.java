@@ -7,7 +7,7 @@ import org.acme.application.domain.port.GenerateDescriptionHistory;
 public class GenerateDescription implements GenerateDescriptionHistory {
 
     @Override
-    public String generate(ApplicationOutput app, ApplicationHistoryOutput lastHistory) {
+    public String generate(ApplicationOutput app, ApplicationHistoryOutput lastHistory, String otherDescription) {
         StringBuilder description = new StringBuilder("");
 
         if (lastHistory == null) {
@@ -16,6 +16,10 @@ public class GenerateDescription implements GenerateDescriptionHistory {
 
         if (app.isDeleted()) {
             return "L'application a été supprimée.";
+        }
+
+        if (otherDescription != null && !otherDescription.isEmpty()) {
+            description.append("- ").append(otherDescription).append("\n");
         }
 
         if (!app.getName().equals(lastHistory.getName())) {

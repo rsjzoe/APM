@@ -124,6 +124,7 @@ public class ApplicationData {
                 categoryChild.id,
                 departement.id,
                 classe.id,
+                null,
                 new CreateCostWithoutApp(1000.0, 500.0),
                 new CreateTechBusinessValueWithoutApp(4.5, 2.0));
     }

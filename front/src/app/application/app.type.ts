@@ -65,6 +65,7 @@ export type UpdateApplication = Partial<{
   lastUpdate: string | Date;
   noteBusinessValue: number | null;
   noteTechnicalDebt: number | null;
+  otherDescription: string | null;
 }>;
 
 export type AppHistory = Omit<

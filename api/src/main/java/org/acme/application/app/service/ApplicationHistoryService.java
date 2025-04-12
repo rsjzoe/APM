@@ -48,7 +48,7 @@ public class ApplicationHistoryService {
         ApplicationHistoryOutput lastHistory = historyList.stream()
                 .max((h1, h2) -> h1.getModifiedAt().compareTo(h2.getModifiedAt()))
                 .orElse(null);
-        String description = generateDescriptionHistory.generate(newdata.getApp(), lastHistory);
+        String description = generateDescriptionHistory.generate(newdata.getApp(), lastHistory, newdata.getOtherDescription());
         CreateApplicationHistoryRepository data = new CreateApplicationHistoryRepository(newdata.getApp(),
                 user.getTrigramme(),
                 description);

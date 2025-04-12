@@ -71,6 +71,8 @@ export class ModalStateService {
     techniques: [],
   };
 
+  otherDescription!: string;
+
   constructor(private appService: ApplicationService) {
     this.openAllFields();
   }
@@ -100,6 +102,7 @@ export class ModalStateService {
     };
     this.appEditing = null;
     this.openAllFields();
+    this.otherDescription = undefined!;
   };
 
   setFieldsState = (value: boolean) => {
@@ -251,6 +254,7 @@ export class ModalStateService {
       classeId: this.createApplication.classeId,
       noteBusinessValue: this.appEditing.noteBusinessValue,
       noteTechnicalDebt: this.appEditing.noteTechnicalDebt,
+      otherDescription: this.otherDescription,
     };
 
     this.appService.update(this.appEditing.id, updatedApp).subscribe({

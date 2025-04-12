@@ -24,11 +24,12 @@ public class UpdateApplicationServiceInput extends ApplicationBase {
     protected double noteTechnicalDebt;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
+    private String otherDescription;
 
     public UpdateApplicationServiceInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, int userTotal, double noteBusinessValue,
             double noteTechnicalDebt, Long categoryId,
-            Long departementId, Long classeId, CreateCostWithoutApp costWithoutApp,
+            Long departementId, Long classeId, String otherDescription, CreateCostWithoutApp costWithoutApp,
             CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.noteBusinessValue = noteBusinessValue;
@@ -36,6 +37,7 @@ public class UpdateApplicationServiceInput extends ApplicationBase {
         this.categoryId = categoryId;
         this.departementId = departementId;
         this.classeId = classeId;
+        this.otherDescription = otherDescription;
         this.costWithoutApp = costWithoutApp;
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
     }
