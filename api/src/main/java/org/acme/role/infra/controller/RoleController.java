@@ -32,6 +32,7 @@ public class RoleController implements RoleRest {
         try {
             return roleService.createRole(role);
         } catch (ConflitRoleException e) {
+            System.out.println("conglittt");
             throw new BadRequestException();
         }
     }

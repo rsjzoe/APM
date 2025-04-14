@@ -1,5 +1,3 @@
-import { expand } from 'rxjs';
-
 export type Role = {
   id: number;
   roleName: string;
@@ -17,7 +15,7 @@ export type Permission = {
 
 export type Service = {
   id: number;
-  serviceName: string;
+  name: string;
 };
 
 export type CreatePermission = {

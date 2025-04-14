@@ -3,6 +3,8 @@ import { CreateRole, Service } from '../../../application/role/role.type';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServiceDataService } from '../service/service-data.service';
+import { RoleService } from '../service/role.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-role-form',
@@ -12,7 +14,11 @@ import { ServiceDataService } from '../service/service-data.service';
 })
 export class RoleFormComponent {
   services: Service[] = [];
-  constructor(private serviceDataService: ServiceDataService) {}
+  constructor(
+    private serviceDataService: ServiceDataService,
+    private createRoleService: RoleService,
+    private router: Router
+  ) {}
 
   newRole: CreateRole = {
     roleName: '',
@@ -21,7 +27,6 @@ export class RoleFormComponent {
 
   ngOnInit() {
     this.findAllServiceData();
-    this.initializePermissions();
   }
 
   private initializePermissions() {
@@ -36,7 +41,14 @@ export class RoleFormComponent {
 
   onSubmit() {
     console.log('Role to create:', this.newRole);
-    // Here you would typically call your API service to save the role
+    this.createRoleService.add(this.newRole).subscribe({
+      next: (response) => {
+        this.router.navigate(['/roles']);
+      },
+      error: (error) => {
+        console.error('Error creating role:', error);
+      },
+    });
   }
 
   onReset() {
@@ -47,8 +59,10 @@ export class RoleFormComponent {
   findAllServiceData() {
     this.serviceDataService.findAll().subscribe({
       next: (data) => {
-        console.log(data);
         this.services = data;
+        this.initializePermissions();
+        console.log(this.services);
+        console.log(this.newRole);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des services :', error);

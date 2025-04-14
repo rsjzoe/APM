@@ -12,7 +12,7 @@ import {
 })
 export class RoleService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/roles';
+  private apiUrl = 'http://localhost:8080/role';
 
   findAll() {
     return this.http.get<Role[]>(this.apiUrl);
