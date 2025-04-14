@@ -55,7 +55,7 @@ public class DocumentationEntity extends PanacheEntity {
     }
 
     public Documentation toDocumentation() {
-        return new Documentation(id, name, filename, url, type);
+        return new Documentation(id, name, filename, url, type, applicationEntity.id);
     }
 
     public DocumentationEntity updateFrom(UpdateDocumentation update) {

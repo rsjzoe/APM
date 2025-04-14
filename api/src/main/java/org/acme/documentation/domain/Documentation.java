@@ -13,5 +13,5 @@ public class Documentation {
     private String filename;
     private String url;
     private DocumentationType type;
-
+    private Long applicationId;
 }

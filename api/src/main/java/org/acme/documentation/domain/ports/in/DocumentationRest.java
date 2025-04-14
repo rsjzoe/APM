@@ -11,9 +11,9 @@ import jakarta.ws.rs.core.Response;
 public interface DocumentationRest {
     List<Documentation> findDocumentationByAppId(Long id);
 
-    Documentation createDocumentation(FileUpload file, Long applicationId, DocumentationType type);
+    Documentation createDocumentation(FileUpload file, Long applicationId, DocumentationType type, String authHeader);
 
     Response getDocumentation(String filename);
 
-    Documentation deleteDocumentation(String filename);
+    Documentation deleteDocumentation(String filename, String authHeader);
 }

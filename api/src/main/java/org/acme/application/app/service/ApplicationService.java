@@ -26,7 +26,6 @@ import org.acme.departement.app.DepartementService;
 import org.acme.departement.domain.exception.DepartementNotFoundException;
 import org.acme.documentation.app.DocumentationService;
 import org.acme.documentation.domain.input.CreateDocumentationFile;
-import org.acme.storage.FileNotFound;
 import org.acme.techBusinessValue.app.TechBusinessValueService;
 import org.acme.techBusinessValue.domain.exception.InvalidTechBusinessValueException;
 import org.acme.techBusinessValue.domain.model.input.CreateTechBusinessValue;
@@ -126,10 +125,10 @@ public class ApplicationService {
                 documentation -> {
                     try {
                         documentationService.createDocumentation(new CreateDocumentationFile(
-                                documentation.getFileInput(), documentation.getType(), created.getId()));
+                                documentation.getFileInput(), documentation.getType(), created.getId()), token);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    } catch (FileNotFound e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
