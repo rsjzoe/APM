@@ -1,5 +1,3 @@
-import { Role } from "../sidebar/administration/user.type";
-
 export type Token = {
   accessToken: string;
   refreshToken: string;
@@ -8,8 +6,8 @@ export type Token = {
 };
 
 export type Register = {
-  name : string;
-  trigramme : string;
+  name: string;
+  trigramme: string;
   departement: string;
-  role: Role
-}
+  role: string;
+};

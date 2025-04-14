@@ -47,9 +47,11 @@ export type UpdateRole = {
 export type HasAccess = {
   roleName: string;
   serviceName: string;
-  action: 'canUpdate' | 'canDelete' | 'canRead' | 'canCreate';
+  action: ActionType;
 };
 
 export type HasAccessOutput = {
   ok: boolean;
 };
+
+export type ActionType = 'canUpdate' | 'canDelete' | 'canRead' | 'canCreate';

@@ -13,7 +13,6 @@ import { GuestGuard } from './auth/guest.guard';
 import { CategoryOdaComponent } from './sidebar/category-oda/category-oda.component';
 import { CorbeilleComponent } from './sidebar/corbeille/corbeille.component';
 import { RoleGuard } from './auth/role.guard';
-import { Role } from './sidebar/administration/user.type';
 import { ClassificationComponent } from './sidebar/classification/classification.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RoleComponent } from './sidebar/role/role.component';
@@ -33,63 +32,63 @@ export const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'app-details/:id',
         component: AppDetailsComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] },
+        data: { roles: ['admin'] },
       },
 
       {
         path: 'administration',
         component: AdministrationComponent,
-        data: { roles: [Role.admin] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'categoryODA',
         component: CategoryOdaComponent,
-        data: { roles: [Role.admin] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'life-cycle',
         component: LifeCycleTimeComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'updateApp',
         component: UpdatedApplicationComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'performance',
         component: PerformanceComponent,
-        data: { roles: [Role.admin] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'classification',
         component: ClassificationComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'user-profile',
         component: UserProfileComponent,
-        data: { roles: [Role.admin, Role.editor, Role.visitor] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'corbeille',
         component: CorbeilleComponent,
-        data: { roles: [Role.admin] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'roles',
         component: RoleComponent,
-        data: { roles: [Role.admin] },
+        data: { roles: ['admin'] },
       },
       {
         path: 'roles/add',
         component: AddRoleComponent,
-        data: { roles: [Role.admin] },
+        data: { roles: ['admin'] },
       },
       {
         path: '404',

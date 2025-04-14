@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Role, User } from './user.type';
-import { tap } from 'rxjs';
+import { User } from './user.type';
+import { map, tap } from 'rxjs';
+import { RoleService } from '../role/service/role.service';
+import { ActionType } from '../../application/role/role.type';
 
 @Injectable({
   providedIn: 'root',
@@ -10,29 +12,47 @@ export class UserService {
   private API_URL = 'http://localhost:8080/user';
   private userConnected: User | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private roleService: RoleService) {}
 
-  isAdmin(){
-    return this.getUserConnected()?.role == Role.admin
+  isAdmin() {
+    return this.getUserConnected()?.role == 'admin';
   }
 
-  canAdd(){
-    if (this.getUserConnected()?.role == Role.admin) {
+  hasAccess(serviceName: string, action: ActionType) {
+    return this.roleService.hasAccess({
+      action: action,
+      roleName: this.getUserConnected()?.role || '',
+      serviceName: serviceName,
+    });
+  }
+
+  canRead(serviceName: string) {
+    return this.roleService.hasAccess({
+      action: 'canRead',
+      roleName: this.getUserConnected()?.role || '',
+      serviceName: serviceName,
+    });
+  }
+  canAdd() {
+    if (this.getUserConnected()?.role == 'admin') {
       return true;
-    } 
-    return false
-    // return this.getUserConnected()?.role == Role.admin
+    }
+    return false;
+    // return this.getUserConnected()?.role == "admin"
   }
 
-  canEdit(){
-    return this.getUserConnected()?.role == Role.admin || this.getUserConnected()?.role == Role.editor
+  canEdit() {
+    return (
+      this.getUserConnected()?.role == 'admin' ||
+      this.getUserConnected()?.role == 'editor'
+    );
   }
 
-  canDelete(){
-    return this.getUserConnected()?.role == Role.admin
+  canDelete() {
+    return this.getUserConnected()?.role == 'admin';
   }
 
-  getUserConnected(){
+  getUserConnected() {
     return this.userConnected;
   }
 
@@ -44,7 +64,7 @@ export class UserService {
         },
         error: () => {
           this.userConnected = null;
-        }
+        },
       })
     );
   }

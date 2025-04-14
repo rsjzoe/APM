@@ -11,7 +11,6 @@ import { ModalAddDocumentationComponent } from './modal-add-documentation/modal-
 import { IconDeleteComponent } from '../../../../components/icons/icon-delete/icon-delete.component';
 import { ModalConfirmComponent } from '../../../../components/modal-confirm/modal-confirm.component';
 import { UserService } from '../../../administration/user.service';
-import { Role } from '../../../administration/user.type';
 import { IconTechniqueComponent } from '../../../../components/icons/icon-technique/icon-technique.component';
 import { IconExploitationComponent } from '../../../../components/icons/icon-exploitation/icon-exploitation.component';
 import { IconFonctionnelleComponent } from '../../../../components/icons/icon-fonctionnelle/icon-fonctionnelle.component';
@@ -46,8 +45,8 @@ export class DocumentationComponent {
 
   canDeleteDoc() {
     return (
-      this.userService.getUserConnected()?.role == Role.admin ||
-      this.userService.getUserConnected()?.role == Role.editor
+      this.userService.getUserConnected()?.role == 'admin' ||
+      this.userService.getUserConnected()?.role == 'editor'
     );
   }
 

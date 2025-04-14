@@ -3,7 +3,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Role, User } from './user.type';
+import { User } from './user.type';
 import { UserModalComponent } from './user-modal/user-modal.component';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from './user.service';
@@ -47,7 +47,7 @@ export class AdministrationComponent {
     name: string,
     trigramme: string,
     departement: string,
-    role: Role
+    role: string
   ) => {
     this.authService
       .register({ name, trigramme, departement, role })
@@ -89,7 +89,7 @@ export class AdministrationComponent {
     name: string,
     trigramme: string,
     departement: string,
-    role: Role
+    role: string
   ) => {
     if (this.isEditing == null) return;
 

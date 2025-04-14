@@ -12,7 +12,6 @@ import { ModalConfirmComponent } from '../../components/modal-confirm/modal-conf
 import { ModalEditAppComponent } from './modal-edit-app/modal-edit-app.component';
 import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
 import { UserService } from '../administration/user.service';
-import { Role } from '../administration/user.type';
 
 @Component({
   selector: 'app-home',

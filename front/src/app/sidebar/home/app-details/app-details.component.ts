@@ -18,10 +18,8 @@ import { AppHistoryService } from '../../../application/app-history.service';
 import { NumberFormat } from '../../../lib/numberFormat';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { IconClassificationComponent } from '../../../components/icons/icon-classification/icon-classification.component';
 import { IconSablierComponent } from '../../../components/icons/icon-sablier/icon-sablier.component';
 import { UserService } from '../../administration/user.service';
-import { Role } from '../../administration/user.type';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IconStatusComponent } from '../../../components/icons/icon-status/icon-status.component';
 import { IconHistoryComponent } from '../../../components/icons/icon-history/icon-history.component';
@@ -74,8 +72,8 @@ export class AppDetailsComponent {
 
   canAddDoc() {
     return (
-      this.userService.getUserConnected()?.role == Role.admin ||
-      this.userService.getUserConnected()?.role == Role.editor
+      this.userService.getUserConnected()?.role == 'admin' ||
+      this.userService.getUserConnected()?.role == 'editor'
     );
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Role, User } from '../sidebar/administration/user.type';
+import { User } from '../sidebar/administration/user.type';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IconAdminComponent } from '../components/icons/icon-admin/icon-admin.component';
@@ -25,7 +25,7 @@ export class UserProfileComponent {
     name: 'Jean Dupont',
     trigramme: 'JDP',
     departement: 'Engineering',
-    role: Role.visitor,
+    role: 'visitor',
   };
 
   isEditing = false;
@@ -34,7 +34,7 @@ export class UserProfileComponent {
     this.isEditing = !this.isEditing;
   }
 
-  getRoleLabel(role: Role): string {
+  getRoleLabel(role: string) {
     switch (role) {
       case 'admin':
         return 'Admin';

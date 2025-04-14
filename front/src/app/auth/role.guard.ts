@@ -7,12 +7,10 @@ import {
 } from '@angular/router';
 
 import { UserService } from '../sidebar/administration/user.service';
-import { Role } from '../sidebar/administration/user.type';
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class RoleGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
@@ -26,7 +24,7 @@ export class RoleGuard implements CanActivate {
       return false;
     }
 
-    const requiredRoles: Role[] = route.data['roles'];
+    const requiredRoles: string[] = route.data['roles'];
     if (!requiredRoles || requiredRoles.includes(user.role)) {
       return true;
     }

@@ -6,6 +6,7 @@ import {
   HasAccessOutput,
   Role,
 } from '../../../application/role/role.type';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,9 +25,9 @@ export class RoleService {
 
   hasAccess(data: HasAccess) {
     const query = new URLSearchParams(data);
-    return this.http.get<HasAccessOutput>(
-      this.apiUrl + '/hasAccess?' + query.toString()
-    );
+    return this.http
+      .get<HasAccessOutput>(this.apiUrl + '/hasAccess?' + query.toString())
+      .pipe(map((response) => response.ok));
   }
 
   // delete(id: number) {

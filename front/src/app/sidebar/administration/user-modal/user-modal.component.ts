@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
-import { Role, User } from '../user.type';
+import { User } from '../user.type';
 import { FormsModule } from '@angular/forms';
 import { Departement } from '../../../application/departement/departement.type';
 import { DepartementService } from '../../../application/departement/departement.service';
-
 
 @Component({
   selector: 'app-user-modal',
@@ -22,18 +21,18 @@ export class UserModalComponent {
   constructor(private departementService: DepartementService) {}
 
   @Input() userEditing: User | null = null;
-  newUserRole: Role = Role.visitor;
+  newUserRole: string = 'visitor';
   @Input() addUser = (
     name: string,
     trigramme: string,
     departement: string,
-    role: Role
+    role: string
   ) => {};
   @Input() updateUser = (
     name: string,
     trigramme: string,
     departement: string,
-    role: Role
+    role: string
   ) => {};
 
   findAllDepartement = () => {
@@ -59,7 +58,7 @@ export class UserModalComponent {
     this.newUserName = '';
     this.newUserTrigramme = '';
     this.newUserDepartement = '';
-    this.newUserRole = Role.visitor;
+    this.newUserRole = 'visitor';
   }
 
   update() {
@@ -74,7 +73,7 @@ export class UserModalComponent {
     this.newUserName = '';
     this.newUserTrigramme = '';
     this.newUserDepartement = '';
-    this.newUserRole = Role.visitor;
+    this.newUserRole = 'visitor';
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -7,7 +7,6 @@ import {
 } from '../../application/app.type';
 import { map, Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
-import { Role } from '../administration/user.type';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +22,7 @@ export class ApplicationService {
   }
 
   add(application: CreateApplication) {
-    if (this.userService.getUserConnected()?.role != Role.admin) {
+    if (this.userService.getUserConnected()?.role != 'admin') {
       throw new Error('Only admins can add applications');
     }
     const { documentations, ...newApplication } = application;
