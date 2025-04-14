@@ -27,68 +27,72 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [ConnectedGuard, RoleGuard],
+    canActivate: [ConnectedGuard],
     children: [
       {
         path: 'home',
         component: HomeComponent,
-        data: { roles: ['admin'] },
+        data: { action: 'canRead', serviceName: 'application' },
+        canActivate: [RoleGuard],
       },
       {
         path: 'app-details/:id',
         component: AppDetailsComponent,
-        data: { roles: ['admin'] },
       },
 
       {
         path: 'administration',
         component: AdministrationComponent,
-        data: { roles: ['admin'] },
+        data: { action: 'canRead', serviceName: 'admin' },
+        canActivate: [RoleGuard],
       },
       {
         path: 'categoryODA',
         component: CategoryOdaComponent,
-        data: { roles: ['admin'] },
+        canActivate: [RoleGuard],
+        data: { action: 'canRead', serviceName: 'category' },
       },
       {
         path: 'life-cycle',
         component: LifeCycleTimeComponent,
-        data: { roles: ['admin'] },
       },
       {
         path: 'updateApp',
         component: UpdatedApplicationComponent,
-        data: { roles: ['admin'] },
       },
       {
         path: 'performance',
         component: PerformanceComponent,
-        data: { roles: ['admin'] },
+        data: { action: 'canRead', serviceName: 'performance' },
+        canActivate: [RoleGuard],
       },
       {
         path: 'classification',
         component: ClassificationComponent,
-        data: { roles: ['admin'] },
+        canActivate: [RoleGuard],
+        data: { action: 'canRead', serviceName: 'classification' },
       },
       {
         path: 'user-profile',
         component: UserProfileComponent,
-        data: { roles: ['admin'] },
       },
       {
         path: 'corbeille',
         component: CorbeilleComponent,
-        data: { roles: ['admin'] },
+        canActivate: [RoleGuard],
+        data: { action: 'canRead', serviceName: 'corbeille' },
       },
       {
         path: 'roles',
         component: RoleComponent,
-        data: { roles: ['admin'] },
+        canActivate: [RoleGuard],
+        data: { action: 'canRead', serviceName: 'roles', roles: ['admin'] },
       },
       {
         path: 'roles/add',
         component: AddRoleComponent,
-        data: { roles: ['admin'] },
+        canActivate: [RoleGuard],
+        data: { action: 'canCreate', serviceName: 'roles' },
       },
       {
         path: '404',

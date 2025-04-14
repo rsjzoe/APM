@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 
 import { UserService } from '../sidebar/administration/user.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,23 +15,28 @@ import { UserService } from '../sidebar/administration/user.service';
 export class RoleGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const user = this.userService.getUserConnected();
     if (!user) {
       this.router.navigate(['/login']);
       return false;
     }
 
-    const requiredRoles: string[] = route.data['roles'];
-    if (!requiredRoles || requiredRoles.includes(user.role)) {
-      return true;
+    const serviceName = route.data['serviceName'];
+    const action = route.data['action'];
+
+    if (serviceName && action) {
+      const hasAccess = await firstValueFrom(
+        this.userService.hasAccess(serviceName, action)
+      );
+      if (hasAccess) {
+        return true;
+      } else {
+        this.router.navigate(['/life-cycle']);
+        return false;
+      }
     }
 
-    // Redirection si l'utilisateur n'a pas le bon rôle
-    this.router.navigate(['/']);
-    return false;
+    return true;
   }
 }
