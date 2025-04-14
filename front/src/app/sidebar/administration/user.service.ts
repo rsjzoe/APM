@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from './user.type';
-import { map, tap } from 'rxjs';
+import { firstValueFrom, map, tap } from 'rxjs';
 import { RoleService } from '../role/service/role.service';
 import { ActionType } from '../../application/role/role.type';
 
@@ -26,13 +26,38 @@ export class UserService {
     });
   }
 
-  canRead(serviceName: string) {
+  canReadService(serviceName: string) {
     return this.roleService.hasAccess({
       action: 'canRead',
       roleName: this.getUserConnected()?.role || '',
       serviceName: serviceName,
     });
   }
+
+  canCreateService(serviceName: string) {
+    return this.roleService.hasAccess({
+      action: 'canCreate',
+      roleName: this.getUserConnected()?.role || '',
+      serviceName: serviceName,
+    });
+  }
+
+  canEditService(serviceName: string) {
+    return this.roleService.hasAccess({
+      action: 'canUpdate',
+      roleName: this.getUserConnected()?.role || '',
+      serviceName: serviceName,
+    });
+  }
+
+  canDeleteService(serviceName: string) {
+    return this.roleService.hasAccess({
+      action: 'canDelete',
+      roleName: this.getUserConnected()?.role || '',
+      serviceName: serviceName,
+    });
+  }
+
   canAdd() {
     if (this.getUserConnected()?.role == 'admin') {
       return true;

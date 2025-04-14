@@ -4,6 +4,8 @@ import { User } from '../user.type';
 import { FormsModule } from '@angular/forms';
 import { Departement } from '../../../application/departement/departement.type';
 import { DepartementService } from '../../../application/departement/departement.service';
+import { RoleService } from '../../role/service/role.service';
+import { Role } from '../../../application/role/role.type';
 
 @Component({
   selector: 'app-user-modal',
@@ -18,10 +20,9 @@ export class UserModalComponent {
   newUserDepartement = '';
   departements: Departement[] = [];
 
-  constructor(private departementService: DepartementService) {}
-
   @Input() userEditing: User | null = null;
-  newUserRole: string = 'visitor';
+  roles: Role[] = [];
+  newUserRole!: string;
   @Input() addUser = (
     name: string,
     trigramme: string,
@@ -34,6 +35,22 @@ export class UserModalComponent {
     departement: string,
     role: string
   ) => {};
+
+  constructor(
+    private departementService: DepartementService,
+    private roleService: RoleService
+  ) {}
+
+  findAllRole = () => {
+    this.roleService.findAll().subscribe({
+      next: (data) => {
+        this.roles = data;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des tâches :', error);
+      },
+    });
+  };
 
   findAllDepartement = () => {
     this.departementService.findAll().subscribe({
@@ -88,5 +105,6 @@ export class UserModalComponent {
   }
   ngOnInit() {
     this.findAllDepartement();
+    this.findAllRole();
   }
 }

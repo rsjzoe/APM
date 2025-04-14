@@ -26,7 +26,7 @@ export class RoleService {
   hasAccess(data: HasAccess) {
     const query = new URLSearchParams(data);
     return this.http
-      .get<HasAccessOutput>(this.apiUrl + '/hasAccess?' + query.toString())
+      .get<HasAccessOutput>(this.apiUrl + '/has-access?' + query.toString())
       .pipe(map((response) => response.ok));
   }
 

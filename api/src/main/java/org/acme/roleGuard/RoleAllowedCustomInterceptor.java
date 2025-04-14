@@ -42,7 +42,7 @@ public class RoleAllowedCustomInterceptor {
             token = token.replace("Bearer ", "").trim();
             UserOutput user = userService.me(token);
 
-            if (user == null || !Arrays.asList(allowedRoles).contains(user.getRole().name())) {
+            if (user == null || !Arrays.asList(allowedRoles).contains(user.getRole())) {
                 throw new ForbiddenException("Accès refusé !");
             }
         }

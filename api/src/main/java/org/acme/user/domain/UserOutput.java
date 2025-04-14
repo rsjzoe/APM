@@ -10,13 +10,6 @@ import lombok.NoArgsConstructor;
 public class UserOutput {
     private String name;
     private String trigramme;
-    private Role role;
+    private String role;
     private String departement;
-
-    public UserOutput(String name, String trigramme, String departement, Role role) {
-        this.name = name;
-        this.trigramme = trigramme;
-        this.departement = departement;
-        this.role = role;
-    }
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.acme.user.domain.Role;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
@@ -48,7 +47,7 @@ public class UserKeycloakTest {
     @Test
     public void testUpdateByTrigramme() throws UserNotFoundException {
         var user = userData.getUserOutput();
-        var data = new UpdateUser("namemiova", "OMM", Role.admin);
+        var data = new UpdateUser("namemiova", "OMM", "admin");
         var updated = userRepository.updateByTrigramme(user.getTrigramme(), data);
 
         assertNotNull(updated);

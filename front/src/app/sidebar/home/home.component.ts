@@ -12,6 +12,7 @@ import { ModalConfirmComponent } from '../../components/modal-confirm/modal-conf
 import { ModalEditAppComponent } from './modal-edit-app/modal-edit-app.component';
 import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
 import { UserService } from '../administration/user.service';
+import { combineLatest, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,10 @@ import { UserService } from '../administration/user.service';
 export class HomeComponent {
   apps = applications;
   appIdDelete: number | null = null;
+  canAddApp$!: Observable<boolean>;
+  canEdit$!: Observable<boolean>;
+  canDelete$!: Observable<boolean>;
+  canEditOrDelete$!: Observable<boolean>;
 
   constructor(
     private appService: ApplicationService,
@@ -90,6 +95,13 @@ export class HomeComponent {
 
   ngOnInit() {
     this.findAll();
+    this.canAddApp$ = this.userService.canCreateService('application');
+    this.canEdit$ = this.userService.canEditService('application');
+    this.canDelete$ = this.userService.canDeleteService('application');
+    this.canEditOrDelete$ = combineLatest([
+      this.canDelete$,
+      this.canEdit$,
+    ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
   }
 
   getStatusColor(status: Application['status']): string {

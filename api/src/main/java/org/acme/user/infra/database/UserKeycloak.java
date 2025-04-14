@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.acme.user.domain.Role;
+import org.acme.role.domain.model.Role;
+import org.acme.role.domain.port.out.RoleRepository;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
@@ -32,14 +33,17 @@ public class UserKeycloak implements UserRepository {
     private final String ADMIN_PASSWORD;
     private String prefix = "-orange";
 
+    private RoleRepository roleRepository;
+
     public UserKeycloak(String serverUrl, String realm, String clientId, String clientSecret,
-            String adminUsername, String adminPassword) {
+            String adminUsername, String adminPassword, RoleRepository roleRepository) {
         this.SERVER_URL = serverUrl;
         this.REALM = realm;
         this.CLIENT_ID = clientId;
         this.CLIENT_SECRET = clientSecret;
         this.ADMIN_USERNAME = adminUsername;
         this.ADMIN_PASSWORD = adminPassword;
+        this.roleRepository = roleRepository;
         this.keycloak = KeycloakBuilder.builder()
                 .serverUrl(SERVER_URL)
                 .realm(REALM)
@@ -144,7 +148,7 @@ public class UserKeycloak implements UserRepository {
                     .remove(usersResource.get(userId).roles().realmLevel().listEffective());
 
             // Ajout du nouveau rôle
-            RoleRepresentation newRole = keycloak.realm(REALM).roles().get(userUpdate.getRole().name())
+            RoleRepresentation newRole = keycloak.realm(REALM).roles().get(userUpdate.getRole())
                     .toRepresentation();
             usersResource.get(userId).roles().realmLevel().add(Collections.singletonList(newRole));
         }
@@ -163,17 +167,17 @@ public class UserKeycloak implements UserRepository {
                 .map(role -> role.getName())
                 .collect(Collectors.toList());
 
+        List<Role> rolesDatabase = roleRepository.findAll();
+
         String roleString = roles.stream()
-                .filter(role -> role.equals("admin") || role.equals("visitor") || role.equals("editor"))
+                .filter(role -> rolesDatabase.stream()
+                        .anyMatch(dbRole -> dbRole.getRoleName().equalsIgnoreCase(role)))
                 .findFirst()
                 .orElse("visitor");
-
-        Role role = Role.valueOf(roleString);
 
         return new UserOutput(
                 user.getFirstName(),
                 user.getUsername().replace(prefix, ""),
-                user.getLastName(),
-                role);
+                roleString, user.getLastName());
     }
 }

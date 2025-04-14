@@ -11,7 +11,7 @@ public class User {
     private String name;
     private String trigramme;
     private String department;
-    private Role role;
+    private String role;
     private String password;
 
     public UserOutput toOutput() {

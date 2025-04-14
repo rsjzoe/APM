@@ -1,5 +1,6 @@
 package org.acme.user.config;
 
+import org.acme.role.domain.port.out.RoleRepository;
 import org.acme.user.domain.port.out.UserRepository;
 import org.acme.user.infra.database.UserKeycloak;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -8,7 +9,7 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
 public class UserConfig {
-@Inject
+    @Inject
     @ConfigProperty(name = "keycloak.url")
     String serverUrl;
 
@@ -32,8 +33,11 @@ public class UserConfig {
     @ConfigProperty(name = "keycloak.admin.password")
     String adminPassword;
 
+    @Inject
+    RoleRepository roleRepository;
+
     @Produces
-    UserRepository userRepository(){
-        return new UserKeycloak(serverUrl, realm, clientId, clientSecret, adminName, adminPassword);
+    UserRepository userRepository() {
+        return new UserKeycloak(serverUrl, realm, clientId, clientSecret, adminName, adminPassword, roleRepository);
     }
 }

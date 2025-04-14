@@ -8,7 +8,6 @@ import org.acme.auth.domain.exception.UserExistedException;
 import org.acme.auth.domain.input.Login;
 import org.acme.auth.domain.input.Register;
 import org.acme.user.app.UserService;
-import org.acme.user.domain.Role;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 
@@ -35,10 +34,10 @@ public class UserData {
 
     public void setup() {
         try {
-            userOutput = authService.register(new Register("userOutput", "userOutput", "DSI", Role.admin));
-            userAdmin = authService.register(new Register("userAdmin", "userAdmin", "DSI", Role.admin));
-            userVisitor = authService.register(new Register("userVisitor", "userVisitor", "DSI", Role.visitor));
-            userEditor = authService.register(new Register("userEditor", "userEditor", "DSI", Role.editor));
+            userOutput = authService.register(new Register("userOutput", "userOutput", "DSI", "admin"));
+            userAdmin = authService.register(new Register("userAdmin", "userAdmin", "DSI", "admin"));
+            userVisitor = authService.register(new Register("userVisitor", "userVisitor", "DSI", "visitor"));
+            userEditor = authService.register(new Register("userEditor", "userEditor", "DSI", "editor"));
             userAdminToken = authService.login(new Login(userAdmin.getTrigramme(), "0000"));
             userVisitorToken = authService.login(new Login(userVisitor.getTrigramme(), "0000"));
             userEditorToken = authService.login(new Login(userEditor.getTrigramme(), "0000"));
