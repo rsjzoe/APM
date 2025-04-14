@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CreateRole, Service } from '../../../application/role/role.type';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ServiceDataService } from '../service/service-data.service';
 
 @Component({
   selector: 'app-role-form',
@@ -10,11 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './role-form.component.scss',
 })
 export class RoleFormComponent {
-  services: Service[] = [
-    { id: 1, serviceName: 'Utilisateurs' },
-    { id: 2, serviceName: 'Rôles' },
-    { id: 3, serviceName: 'Rapports' },
-  ];
+  services: Service[] = [];
+  constructor(private serviceDataService: ServiceDataService) {}
 
   newRole: CreateRole = {
     roleName: '',
@@ -22,6 +20,7 @@ export class RoleFormComponent {
   };
 
   ngOnInit() {
+    this.findAllServiceData();
     this.initializePermissions();
   }
 
@@ -43,5 +42,17 @@ export class RoleFormComponent {
   onReset() {
     this.newRole.roleName = '';
     this.initializePermissions();
+  }
+
+  findAllServiceData() {
+    this.serviceDataService.findAll().subscribe({
+      next: (data) => {
+        console.log(data);
+        this.services = data;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des services :', error);
+      },
+    });
   }
 }
