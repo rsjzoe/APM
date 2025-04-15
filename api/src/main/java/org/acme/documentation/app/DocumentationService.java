@@ -51,7 +51,7 @@ public class DocumentationService {
 
         var app = applicationService.findById(input.getApplicationId());
         var createHistory = new CreateApplicationHistoryService(app, token,
-                "Ajout de la documentation " + created.getName() + " - " + created.getType());
+                "Ajout de la documentation : '" + created.getName() + "'' - " + created.getType());
         applicationHistoryService.create(createHistory);
 
         return created;
@@ -65,7 +65,7 @@ public class DocumentationService {
 
         var app = applicationService.findById(deleted.getApplicationId());
         var createHistory = new CreateApplicationHistoryService(app, token,
-                "Ajout de la documentation " + deleted.getName() + " - " + deleted.getType());
+            "Suppression de la documentation : '" + deleted.getName() + "' - " + deleted.getType());
         applicationHistoryService.create(createHistory);
 
         return deleted;
