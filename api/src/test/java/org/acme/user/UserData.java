@@ -7,6 +7,7 @@ import org.acme.auth.domain.exception.UserCreatedException;
 import org.acme.auth.domain.exception.UserExistedException;
 import org.acme.auth.domain.input.Login;
 import org.acme.auth.domain.input.Register;
+import org.acme.role.RoleData;
 import org.acme.user.app.UserService;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
@@ -24,24 +25,39 @@ public class UserData {
     @Inject
     UserService userService;
 
+    @Inject
+    RoleData roleData;
+
     private UserOutput userOutput;
     private UserOutput userAdmin;
-    private UserOutput userVisitor;
-    private UserOutput userEditor;
+    private UserOutput userReadAppOnly;
     private Token userAdminToken;
-    private Token userVisitorToken;
-    private Token userEditorToken;
+    private Token userReadAppOnlyToken;
 
     public void setup() {
+        roleData.setup();
         try {
-            userOutput = authService.register(new Register("userOutput", "userOutput", "DSI", "admin"));
-            userAdmin = authService.register(new Register("userAdmin", "userAdmin", "DSI", "admin"));
-            userVisitor = authService.register(new Register("userVisitor", "userVisitor", "DSI", "visitor"));
-            userEditor = authService.register(new Register("userEditor", "userEditor", "DSI", "editor"));
+            userOutput = authService.register(
+                    new Register("userOutput", "userOutput", "DSI", roleData.getApmsuperadmin().getRoleName()));
+        } catch (UserExistedException | UserCreatedException e) {
+        }
+        try {
+            userAdmin = authService
+                    .register(new Register("userAdmin", "userAdmin", "DSI", roleData.getApmsuperadmin().getRoleName()));
+        } catch (UserExistedException | UserCreatedException e) {
+        }
+        try {
+            userReadAppOnly = authService.register(
+                    new Register("userReadAppOnly", "userReadAppOnly", "DSI", roleData.getReadAppOnly().getRoleName()));
+        } catch (UserExistedException | UserCreatedException e) {
+        }
+        try {
             userAdminToken = authService.login(new Login(userAdmin.getTrigramme(), "0000"));
-            userVisitorToken = authService.login(new Login(userVisitor.getTrigramme(), "0000"));
-            userEditorToken = authService.login(new Login(userEditor.getTrigramme(), "0000"));
-        } catch (UserExistedException | UserCreatedException | LoginException e) {
+        } catch (LoginException e) {
+        }
+        try {
+            userReadAppOnlyToken = authService.login(new Login(userReadAppOnly.getTrigramme(), "0000"));
+        } catch (LoginException e) {
         }
     }
 
@@ -55,12 +71,9 @@ public class UserData {
         } catch (UserNotFoundException e) {
         }
         try {
-            userService.deleteUserByTrigramme(userEditor.getTrigramme());
+            userService.deleteUserByTrigramme(userReadAppOnly.getTrigramme());
         } catch (UserNotFoundException e) {
         }
-        try {
-            userService.deleteUserByTrigramme(userVisitor.getTrigramme());
-        } catch (UserNotFoundException e) {
-        }
+        roleData.clear();
     }
 }

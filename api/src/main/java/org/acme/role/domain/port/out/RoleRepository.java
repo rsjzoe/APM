@@ -12,4 +12,6 @@ public interface RoleRepository {
     public Role findRoleByName(String roleName) throws RoleNotFoundException;
 
     public List<Role> findAll();
+
+    public Role deleteByName(String roleName) throws RoleNotFoundException;
 }

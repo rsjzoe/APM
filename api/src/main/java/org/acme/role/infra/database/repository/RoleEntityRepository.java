@@ -68,4 +68,27 @@ public class RoleEntityRepository implements RoleRepository {
         return roleEntity.toRole();
     }
 
+    @Override
+    public Role deleteByName(String roleName) throws RoleNotFoundException {
+        RoleEntity roleEntity = RoleEntity.find("roleName", roleName).firstResult();
+        if (roleEntity == null) {
+            throw new RoleNotFoundException(roleName);
+        }
+        roleEntity.delete();
+
+        Keycloak keycloak = KeycloakBuilder.builder()
+                .serverUrl(SERVER_URL)
+                .realm(REALM)
+                .clientId(CLIENT_ID)
+                .clientSecret(CLIENT_SECRET)
+                .username(ADMIN_USERNAME)
+                .password(ADMIN_PASSWORD)
+                .grantType("password")
+                .build();
+        RolesResource rolesResource = keycloak.realm(REALM).roles();
+        rolesResource.deleteRole(roleName);
+
+        return roleEntity.toRole();
+    }
+
 }

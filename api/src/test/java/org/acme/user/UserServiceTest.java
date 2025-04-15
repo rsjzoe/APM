@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.acme.role.RoleData;
 import org.acme.user.app.UserService;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.input.UpdateUser;
@@ -23,6 +24,9 @@ public class UserServiceTest {
 
     @Inject
     UserData userData;
+
+    @Inject
+    RoleData roleData;
 
     @BeforeEach
     @Transactional
@@ -47,7 +51,7 @@ public class UserServiceTest {
     @Test
     public void testUpdateByTrigramme() throws UserNotFoundException {
         var user = userData.getUserOutput();
-        var data = new UpdateUser("namemiova", "OMM", "admin");
+        var data = new UpdateUser("namemiova", "OMM", roleData.getApmsuperadmin().getRoleName());
         var updated = userService.updateUserByTrigramme(user.getTrigramme(), data);
 
         assertNotNull(updated);
