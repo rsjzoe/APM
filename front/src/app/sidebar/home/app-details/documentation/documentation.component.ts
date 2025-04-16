@@ -14,6 +14,7 @@ import { UserService } from '../../../administration/user.service';
 import { IconTechniqueComponent } from '../../../../components/icons/icon-technique/icon-technique.component';
 import { IconExploitationComponent } from '../../../../components/icons/icon-exploitation/icon-exploitation.component';
 import { IconFonctionnelleComponent } from '../../../../components/icons/icon-fonctionnelle/icon-fonctionnelle.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-documentation',
@@ -37,18 +38,19 @@ export class DocumentationComponent {
   documents: Documentation[] = [];
   groupedDocuments: Record<DocumentationType, Documentation[]> | null = null;
   appFilenameDelete: string | null = null;
+  canDeleteDoc$!: Observable<boolean>;
 
   constructor(
     private docService: DocumentationService,
     public userService: UserService
   ) {}
 
-  canDeleteDoc() {
-    return (
-      this.userService.getUserConnected()?.role == 'admin' ||
-      this.userService.getUserConnected()?.role == 'editor'
-    );
-  }
+  // canDeleteDoc() {
+  //   return (
+  //     this.userService.getUserConnected()?.role == 'admin' ||
+  //     this.userService.getUserConnected()?.role == 'editor'
+  //   );
+  // }
 
   saveIdAppDelete = (filename: string) => {
     this.appFilenameDelete = filename;
@@ -112,5 +114,6 @@ export class DocumentationComponent {
 
   ngOnInit() {
     this.findAllDocByAppId();
+    this.canDeleteDoc$ = this.userService.canDeleteDoc('documentation');
   }
 }

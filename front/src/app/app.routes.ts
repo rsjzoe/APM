@@ -86,7 +86,7 @@ export const routes: Routes = [
         path: 'roles',
         component: RoleComponent,
         canActivate: [RoleGuard],
-        data: { action: 'canRead', serviceName: 'roles', roles: ['admin'] },
+        data: { action: 'canRead', serviceName: 'roles' },
       },
       {
         path: 'roles/add',

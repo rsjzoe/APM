@@ -58,12 +58,12 @@ export class UserService {
     });
   }
 
-  canAdd() {
-    if (this.getUserConnected()?.role == 'admin') {
-      return true;
-    }
-    return false;
-    // return this.getUserConnected()?.role == "admin"
+  canAddDoc(serviceName: string) {
+    return this.roleService.hasAccess({
+      action: 'canCreate',
+      roleName: this.getUserConnected()?.role || '',
+      serviceName: serviceName,
+    });
   }
 
   canEdit() {
@@ -75,6 +75,14 @@ export class UserService {
 
   canDelete() {
     return this.getUserConnected()?.role == 'admin';
+  }
+
+  canDeleteDoc(serviceName: string) {
+    return this.roleService.hasAccess({
+      action: 'canDelete',
+      roleName: this.getUserConnected()?.role || '',
+      serviceName: serviceName,
+    });
   }
 
   getUserConnected() {

@@ -17,8 +17,8 @@
       </div>
 
       <div class="document-actions d-flex gap-2">
-        <button class="button-icon" aria-label="Supprimer" data-bs-toggle="modal" data-bs-target="#modalConfirm"
-          data-bs-dismiss="modal" (click)="saveIdAppDelete(doc.filename)" *ngIf="canDeleteDoc()">
+        <button *ngIf="canDeleteDoc$ | async" class="button-icon" aria-label="Supprimer" data-bs-toggle="modal"
+          data-bs-target="#modalConfirm" data-bs-dismiss="modal" (click)="saveIdAppDelete(doc.filename)">
           <app-icon-delete />
         </button>
         <button class="button-icon" (click)="handleView(doc)">

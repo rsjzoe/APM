@@ -26,6 +26,7 @@ import { IconHistoryComponent } from '../../../components/icons/icon-history/ico
 import { IconNoteComponent } from '../../../components/icons/icon-note/icon-note.component';
 import { IconDocsComponent } from '../../../components/icons/icon-docs/icon-docs.component';
 import { IconDepartementComponent } from '../../../components/icons/icon-departement/icon-departement.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-app-details',
@@ -61,6 +62,7 @@ export class AppDetailsComponent {
   appId: number | null = null;
   appHistory: AppHistory[] = [];
   activeTab: string = 'history';
+  canAddDoc$!: Observable<boolean>;
 
   constructor(
     private appService: ApplicationService,
@@ -70,12 +72,12 @@ export class AppDetailsComponent {
     private router: Router
   ) {}
 
-  canAddDoc() {
-    return (
-      this.userService.getUserConnected()?.role == 'admin' ||
-      this.userService.getUserConnected()?.role == 'editor'
-    );
-  }
+  // canAddDoc() {
+  //   return (
+  //     this.userService.getUserConnected()?.role == 'admin' ||
+  //     this.userService.getUserConnected()?.role == 'editor'
+  //   );
+  // }
 
   numberFormat = (value: number) => {
     return NumberFormat.formatDevise(value);
@@ -93,6 +95,7 @@ export class AppDetailsComponent {
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.findAppById(this.appId);
     this.findAllAppHistory(this.appId);
+    this.canAddDoc$ = this.userService.canAddDoc('documentation');
   }
 
   findAppById(id: number) {
