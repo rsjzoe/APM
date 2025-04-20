@@ -3,6 +3,7 @@ package org.acme.application.app.usecase;
 import org.acme.application.domain.output.ApplicationHistoryOutput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.GenerateDescriptionHistory;
+import org.acme.lib.DateHumanizer;
 
 public class GenerateDescription implements GenerateDescriptionHistory {
 
@@ -102,14 +103,16 @@ public class GenerateDescription implements GenerateDescriptionHistory {
         }
 
         if (!app.getLastUpdate().equals(lastHistory.getLastUpdate())) {
-            description.append("- Date de dernière mise à jour modifiée de ").append(lastHistory.getLastUpdate())
-                    .append(" à ").append(app.getLastUpdate()).append(".\n");
+            description.append("- Date de dernière mise à jour modifiée de ")
+                    .append(DateHumanizer.format(lastHistory.getLastUpdate()))
+                    .append(" à ").append(DateHumanizer.format(app.getLastUpdate())).append(".\n");
             ;
         }
 
         if (!app.getStartDate().equals(lastHistory.getStartDate())) {
-            description.append("- Date de mise en production modifiée de ").append(lastHistory.getStartDate())
-                    .append(" à ").append(app.getStartDate()).append(".\n");
+            description.append("- Date de mise en production modifiée de ")
+                    .append(DateHumanizer.format(lastHistory.getStartDate()))
+                    .append(" à ").append(DateHumanizer.format(app.getStartDate())).append(".\n");
             ;
         }
 
