@@ -3,34 +3,52 @@
     <div class="card-content">
       <div class="d-grid gap-4">
         <div class="technical-debt-question">
-          <span class=" fs-7 fw-bold text-muted">Type: </span> <span class="text-primary">Dette technique</span>
+          <span class="fs-7 fw-bold text-muted">Type: </span>
+          <span class="text-primary">Dette technique</span>
           <div class="accordion" id="questionAccordion">
-            <div class="accordion-item" *ngFor="let group of questionGroupsTechnicalDebt; let i = index">
+            <div
+              class="accordion-item"
+              *ngFor="let group of questionGroupsTechnicalDebt; let i = index"
+            >
               <div class="accordion-header">
-                <button class="accordion-button fs-6 d-flex gap-2 py-3" type="button"
-                  [class.collapsed]="!isGroupExpanded(i)" (click)="toggleGroup(i)"
-                  [attr.data-bs-target]="'#collapse' + i" [attr.aria-expanded]="isGroupExpanded(i)">
+                <button
+                  class="accordion-button fs-6 d-flex gap-2 py-3"
+                  type="button"
+                  [class.collapsed]="!isGroupExpanded(i)"
+                  (click)="toggleGroup(i)"
+                  [attr.data-bs-target]="'#collapse' + i"
+                  [attr.aria-expanded]="isGroupExpanded(i)"
+                >
                   {{ group.text }}
-
                 </button>
               </div>
-              <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="isGroupExpanded(i)">
+              <div
+                [id]="'collapse' + i"
+                class="accordion-collapse collapse"
+                [class.show]="isGroupExpanded(i)"
+              >
                 <div class="accordion-body d-grid gap-2">
-                  <div class="d-grid gap-2 ">
-                    <div class="question-group-coeff ">
-                      <span class=" fs-7 fw-bold text-muted">Type: </span> <span class="text-primary">{{ group.type
-                        }}</span>
+                  <div class="d-grid gap-2">
+                    <div class="question-group-coeff">
+                      <span class="fs-7 fw-bold text-muted">Type: </span>
+                      <span class="text-primary">{{ group.type }}</span>
                     </div>
                     <div class="question-group-coeff">
-                      <span class=" fs-7 fw-bold text-muted">Importance: </span> <span class="text-primary">{{
-                        group.coeff}}</span>
+                      <span class="fs-7 fw-bold text-muted">Importance: </span>
+                      <span class="text-primary">{{ group.coeff }}</span>
                     </div>
                   </div>
-                  <div *ngFor="let question of group.questions"
-                    class="question-container d-flex align-items-center justify-content-between">
+                  <div
+                    *ngFor="let question of group.questions"
+                    class="question-container d-flex align-items-center justify-content-between"
+                  >
                     <p class="mb-0">{{ question.text }}</p>
-                    <app-star-rating [rating]="getRatingForQuestion(group.id, question.id)" [questionGroupId]="group.id"
-                      [questionId]="question.id" [handleRatingWithIds]="handleRating.bind(this)">
+                    <app-star-rating
+                      [rating]="getRatingForQuestion(group.id, question.id)"
+                      [questionGroupId]="group.id"
+                      [questionId]="question.id"
+                      [handleRatingWithIds]="handleRating.bind(this)"
+                    >
                     </app-star-rating>
                   </div>
                 </div>
@@ -41,35 +59,54 @@
 
         <div class="business-value-question">
           <div class="">
-            <span class=" fs-7 fw-bold text-muted">Type: </span> <span class="text-primary">Valeur Métier</span>
+            <span class="fs-7 fw-bold text-muted">Type: </span>
+            <span class="text-primary">Valeur Métier</span>
             <div class="accordion" id="questionAccordion">
-              <div class="accordion-item" *ngFor="let group of questionGroupsBusinessValue; let i = index">
+              <div
+                class="accordion-item"
+                *ngFor="let group of questionGroupsBusinessValue; let i = index"
+              >
                 <div class="accordion-header">
-                  <button class="accordion-button fs-6 d-flex gap-2 py-3" type="button"
-                    [class.collapsed]="!isGroupExpanded(i)" (click)="toggleGroup(i)"
-                    [attr.data-bs-target]="'#collapse' + i" [attr.aria-expanded]="isGroupExpanded(i)">
+                  <button
+                    class="accordion-button fs-6 d-flex gap-2 py-3"
+                    type="button"
+                    [class.collapsed]="!isGroupExpanded(i)"
+                    (click)="toggleGroup(i)"
+                    [attr.data-bs-target]="'#collapse' + i"
+                    [attr.aria-expanded]="isGroupExpanded(i)"
+                  >
                     {{ group.text }}
-
                   </button>
                 </div>
-                <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="isGroupExpanded(i)">
+                <div
+                  [id]="'collapse' + i"
+                  class="accordion-collapse collapse"
+                  [class.show]="isGroupExpanded(i)"
+                >
                   <div class="accordion-body d-grid gap-2">
-                    <div class="d-grid gap-2 ">
-                      <div class="question-group-coeff ">
-                        <span class=" fs-7 fw-bold text-muted">Type: </span> <span class="text-primary">{{ group.type
-                          }}</span>
+                    <div class="d-grid gap-2">
+                      <div class="question-group-coeff">
+                        <span class="fs-7 fw-bold text-muted">Type: </span>
+                        <span class="text-primary">{{ group.type }}</span>
                       </div>
                       <div class="question-group-coeff">
-                        <span class=" fs-7 fw-bold text-muted">Importance: </span> <span class="text-primary">{{
-                          group.coeff}}</span>
+                        <span class="fs-7 fw-bold text-muted"
+                          >Importance:
+                        </span>
+                        <span class="text-primary">{{ group.coeff }}</span>
                       </div>
                     </div>
-                    <div *ngFor="let question of group.questions"
-                      class="question-container d-flex align-items-center justify-content-between">
+                    <div
+                      *ngFor="let question of group.questions"
+                      class="question-container d-flex align-items-center justify-content-between"
+                    >
                       <p class="mb-0">{{ question.text }}</p>
-                      <app-star-rating [rating]="getRatingForQuestion(group.id, question.id)"
-                        [questionGroupId]="group.id" [questionId]="question.id"
-                        [handleRatingWithIds]="handleRating.bind(this)">
+                      <app-star-rating
+                        [rating]="getRatingForQuestion(group.id, question.id)"
+                        [questionGroupId]="group.id"
+                        [questionId]="question.id"
+                        [handleRatingWithIds]="handleRating.bind(this)"
+                      >
                       </app-star-rating>
                     </div>
                   </div>
@@ -79,9 +116,13 @@
           </div>
         </div>
 
-        <div class=" d-flex justify-content-end">
-
-          <button type="submit" class="btn btn-success " (click)="handleSubmit()">
+        <div class="d-flex justify-content-end">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!canSubmit()"
+            (click)="handleSubmit()"
+          >
             Soumettre
           </button>
         </div>
