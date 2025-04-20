@@ -1,16 +1,22 @@
 package org.acme.techBusinessValue.domain.model.input;
 
-import lombok.AllArgsConstructor;
+import org.acme.lib.NumberHumanizer;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CreateTechBusinessValue {
     private double businessValue;
     private double technicalDebt;
     private Long appId;
+
+    public CreateTechBusinessValue(double businessValue, double technicalDebt, Long appId) {
+        this.businessValue = NumberHumanizer.oneDecimal(businessValue);
+        this.technicalDebt = NumberHumanizer.oneDecimal(technicalDebt);
+        this.appId = appId;
+    }
 
     public boolean checkIfValid() {
         if (businessValue < 0 || businessValue > 5)
