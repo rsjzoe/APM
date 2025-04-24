@@ -5,7 +5,7 @@ import {
   CreateApplication,
   UpdateApplication,
 } from '../../application/app.type';
-import { map, Observable } from 'rxjs';
+
 import { UserService } from '../administration/user.service';
 
 @Injectable({
@@ -22,9 +22,6 @@ export class ApplicationService {
   }
 
   add(application: CreateApplication) {
-    if (this.userService.getUserConnected()?.role != 'admin') {
-      throw new Error('Only admins can add applications');
-    }
     const { documentations, ...newApplication } = application;
     const formData = new FormData();
 

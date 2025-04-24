@@ -1,12 +1,12 @@
 <div class=" py-4">
   <h1 class="display-4 mb-4">Gestionnaire de Questions</h1>
 
-  <div class="row g-4">
+  <div class="d-flex gap-4">
     <!-- Left Column - Question Groups -->
-    <div class="col-md-6">
+    <div class="w-100 p-3 rounded-1" style="background-color: #f8f9fa;">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h4">Question Groupes</h2>
-        <button class="btn btn-primary btn-sm" (click)="handleAddNewGroup()">
+        <h2 class="h4">Groupe de Questions</h2>
+        <button class="btn btn-primary" (click)="handleAddNewGroup()">
           Ajouter Groupe
         </button>
       </div>
@@ -19,15 +19,14 @@
             <div>
               <h3 class="h6 mb-2">{{ group.text }}</h3>
               <div class="d-flex align-items-center gap-2">
-                <span class="badge" [class.bg-primary]="group.type === 'businessValue'"
-                  [class.bg-secondary]="group.type === 'technicalDebt'">
+                <span class="small text-muted">
                   {{
                   group.type === "businessValue"
-                  ? "Business Value"
-                  : "Technical Debt"
+                  ? "Valeur Métier"
+                  : "Dette Technique"
                   }}
                 </span>
-                <small class="text-muted">Coeff: {{ group.coeff }}</small>
+                <small class="text-muteds small">Coeff: {{ group.coeff }}</small>
               </div>
             </div>
             <div>
@@ -40,11 +39,6 @@
               </button>
             </div>
           </div>
-          <small class="text-muted d-block mt-2">
-            {{ group.questions.length }} question{{
-            group.questions.length !== 1 ? "s" : ""
-            }}
-          </small>
         </div>
 
         <div *ngIf="questionGroups.length === 0" class="empty-state">
@@ -54,11 +48,11 @@
     </div>
 
     <!-- Right Column - Questions -->
-    <div class="col-md-6">
+    <div class="w-100 p-3 rounded-1" style="background: #f8f9fa;">
       <ng-container *ngIf="selectedGroup && !editingGroup">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h2 class="h4">Questions for "{{ selectedGroup.text }}"</h2>
-          <button class="btn btn-primary btn-sm" (click)="handleAddNewQuestion()">
+          <h2 class="h4">Questions pour "{{ selectedGroup.text }}"</h2>
+          <button class="btn btn-primary " (click)="handleAddNewQuestion()">
             <app-icon-plus /> Ajouter Question
           </button>
         </div>
@@ -98,7 +92,7 @@
           <div *ngIf="editingQuestion?.id === 0" class="question-card">
             <div class="mb-3">
               <input type="text" class="form-control" [ngModel]="editingQuestion?.text"
-                (ngModelChange)="updateEditingQuestionText($event)" placeholder="New question text" />
+                (ngModelChange)="updateEditingQuestionText($event)" placeholder="nouvelle question" />
             </div>
             <div class="d-flex justify-content-end gap-2">
               <button class="btn btn-outline-secondary btn-sm" (click)="handleCancelEditQuestion()">
@@ -122,6 +116,7 @@
             <h3 class="card-title h5 mb-0">
               {{ editingGroup.id === 0 ? "Ajouter groupe" : "Modifier groupe" }}
             </h3>
+
           </div>
           <div class="card-body">
             <div class="mb-3">

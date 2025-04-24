@@ -15,6 +15,8 @@ import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.co
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
 import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.component';
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
+import { Observable } from 'rxjs';
+import { UserService } from '../administration/user.service';
 
 @Component({
   selector: 'app-category-oda',
@@ -41,9 +43,14 @@ export class CategoryOdaComponent {
   editingChildName: { [key: number]: string } = {};
   categoryIdDelete: number | null = null;
 
+  canAddCategory$!: Observable<boolean>;
+  canEditCategory$!: Observable<boolean>;
+  canDeleteCategory$!: Observable<boolean>;
+
   constructor(
     private categoryODAParentService: CategoryODAParentService,
-    private categoryODAChildService: CategoryODAChildService
+    private categoryODAChildService: CategoryODAChildService,
+    private userService: UserService
   ) {}
 
   generateRandomColor(): string {
@@ -60,6 +67,9 @@ export class CategoryOdaComponent {
   }
 
   ngOnInit() {
+    this.canAddCategory$ = this.userService.canCreateService('category');
+    this.canEditCategory$ = this.userService.canEditService('category');
+    this.canDeleteCategory$ = this.userService.canDeleteService('category');
     this.categoryODAParentService.findAll().subscribe((categories) => {
       this.categories = categories;
     });
