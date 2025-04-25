@@ -62,6 +62,10 @@ public class RoleService {
         return HasAccessOutput.notOk();
     }
 
+    public Role findByName(String roleName) throws RoleNotFoundException {
+        return roleRepository.findRoleByName(roleName);
+    }
+
     public Role deleteByName(String roleName) throws RoleNotFoundException {
         return roleRepository.deleteByName(roleName);
     }
