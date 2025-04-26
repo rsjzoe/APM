@@ -3,6 +3,8 @@ import { Classe } from '../../application/classe/classe.type';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ClasseService } from '../../application/classe/classe.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../administration/user.service';
 
 @Component({
   selector: 'app-classification',
@@ -16,10 +18,20 @@ export class ClassificationComponent {
   editingClasse: Classe | null = null;
   expandedId: number | null = null;
 
-  constructor(private classeService: ClasseService) {}
+  canAddClasse$!: Observable<boolean>;
+  canEditClasse$!: Observable<boolean>;
+  canDeleteClasse$!: Observable<boolean>;
+
+  constructor(
+    private classeService: ClasseService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.findAll();
+    this.canAddClasse$ = this.userService.canCreateService('classfication');
+    this.canEditClasse$ = this.userService.canEditService('classfication');
+    this.canDeleteClasse$ = this.userService.canDeleteService('classfication');
   }
 
   findAll() {

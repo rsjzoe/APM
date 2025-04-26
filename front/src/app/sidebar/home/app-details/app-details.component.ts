@@ -72,13 +72,6 @@ export class AppDetailsComponent {
     private router: Router
   ) {}
 
-  // canAddDoc() {
-  //   return (
-  //     this.userService.getUserConnected()?.role == 'admin' ||
-  //     this.userService.getUserConnected()?.role == 'editor'
-  //   );
-  // }
-
   numberFormat = (value: number) => {
     return NumberFormat.formatDevise(value);
   };
@@ -95,7 +88,7 @@ export class AppDetailsComponent {
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.findAppById(this.appId);
     this.findAllAppHistory(this.appId);
-    this.canAddDoc$ = this.userService.canAddDoc('documentation');
+    this.canAddDoc$ = this.userService.canCreateService('documentation');
   }
 
   findAppById(id: number) {

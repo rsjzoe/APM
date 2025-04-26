@@ -2,7 +2,7 @@
     <h1 class="mb-4">Gestion des Classifications</h1>
 
     <!-- Add New Classification -->
-    <div class="card mb-4">
+    <div class="card mb-4" *ngIf="canAddClasse$ | async">
         <div class="card-body">
             <h5 class="card-title">Nouvelle Classification</h5>
             <div class="mb-3">
@@ -31,8 +31,10 @@
                     <div *ngIf="!isEditing(classe.id)">
                         <p>{{ classe.description }}</p>
                         <div class="btn-group">
-                            <button class="btn btn-primary" (click)="startEditing(classe)">Modifier</button>
-                            <button class="btn btn-danger" (click)="deleteClasse(classe.id)">Supprimer</button>
+                            <button class="btn btn-primary" *ngIf="canEditClasse$ | async"
+                                (click)="startEditing(classe)">Modifier</button>
+                            <button class="btn btn-danger" *ngIf="canDeleteClasse$ | async"
+                                (click)="deleteClasse(classe.id)">Supprimer</button>
                         </div>
                     </div>
                     <div *ngIf="isEditing(classe.id) && editingClasse">

@@ -58,14 +58,6 @@ export class UserService {
     });
   }
 
-  canAddDoc(serviceName: string) {
-    return this.roleService.hasAccess({
-      action: 'canCreate',
-      roleName: this.getUserConnected()?.role || '',
-      serviceName: serviceName,
-    });
-  }
-
   canEdit() {
     return (
       this.getUserConnected()?.role == 'admin' ||
