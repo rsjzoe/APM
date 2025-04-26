@@ -1,0 +1,70 @@
+<div class="departement-selector-container">
+  <!-- Selected departments display -->
+  <div
+    class="selected-departements mb-2"
+    *ngIf="modalStateService.createApplication.selectedDepartements.length > 0"
+  >
+    <span
+      class="badge bg-primary"
+      *ngFor="
+        let dept of modalStateService.createApplication.selectedDepartements
+      "
+    >
+      {{ dept.name }}
+      <button
+        type="button"
+        class="btn-close btn-close-white ms-2"
+        aria-label="Supprimer"
+        (click)="removeDepartement(dept); $event.stopPropagation()"
+      ></button>
+    </span>
+  </div>
+
+  <!-- Dropdown -->
+  <div class="dropdown-container">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Rechercher un département..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch(searchTerm)"
+        (focus)="dropdownOpen = true"
+        aria-label="Rechercher un département"
+      />
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        (click)="toggleDropdown()"
+        [attr.aria-expanded]="dropdownOpen"
+      >
+        <app-icon-triangle-down *ngIf="!dropdownOpen" />
+        <app-icon-triangle-up *ngIf="dropdownOpen" />
+      </button>
+    </div>
+
+    <!-- Dropdown menu -->
+    <div
+      class="dropdown-menu departement-dropdown w-100"
+      [class.show]="dropdownOpen"
+    >
+      <div class="dropdown-menu-content">
+        <div
+          *ngIf="filteredDepartements.length === 0"
+          class="dropdown-item no-results"
+        >
+          Aucun département trouvé
+        </div>
+        <button
+          *ngFor="let dept of filteredDepartements"
+          class="dropdown-item"
+          type="button"
+          [class.selected]="isSelected(dept)"
+          (click)="selectDepartement(dept)"
+        >
+          {{ dept.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

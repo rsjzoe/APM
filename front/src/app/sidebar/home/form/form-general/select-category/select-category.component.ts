@@ -4,7 +4,7 @@ import {
   CategoryODAParent,
 } from '../../../../../application/category/category.type';
 import { CommonModule } from '@angular/common';
-import { ModalStateService } from '../../modal-state.service';
+import { ModalStateService } from '../../../modal-add-app/modal-state.service';
 import { IconTriangleUpComponent } from '../../../../../components/icons/icon-triangle-up/icon-triangle-up.component';
 import { IconTriangleDownComponent } from '../../../../../components/icons/icon-triangle-down/icon-triangle-down.component';
 import { CategoryODAParentService } from '../../../../category-oda/service/category-oda-parent.service';

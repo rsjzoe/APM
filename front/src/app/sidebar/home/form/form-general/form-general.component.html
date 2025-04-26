@@ -1,16 +1,35 @@
 <div *ngIf="modalStateService.openFields.name" class="form-group mb-3">
-  <label for="editNomApplication" class="form-label">Nom de l'Application</label>
-  <input type="text" class="form-control" id="editNomApplication" [(ngModel)]="modalStateService.createApplication.name"
-    required />
+  <label for="editNomApplication" class="form-label"
+    >Nom de l'Application</label
+  >
+  <input
+    type="text"
+    class="form-control"
+    id="editNomApplication"
+    [(ngModel)]="modalStateService.createApplication.name"
+    required
+  />
 </div>
 <div *ngIf="modalStateService.openFields.description" class="form-group mb-3">
-  <label for="editDescriptionApplication" class="form-label">Description de l'application</label>
-  <textarea class="form-control" id="editDescriptionApplication" rows="4"
-    [(ngModel)]="modalStateService.createApplication.description" required></textarea>
+  <label for="editDescriptionApplication" class="form-label"
+    >Description de l'application</label
+  >
+  <textarea
+    class="form-control"
+    id="editDescriptionApplication"
+    rows="4"
+    [(ngModel)]="modalStateService.createApplication.description"
+    required
+  ></textarea>
 </div>
 <div *ngIf="modalStateService.openFields.classeId" class="mb-3">
   <label for="name" class="form-label">Classe d'Application </label>
-  <select class="form-select" [(ngModel)]="modalStateService.createApplication.classeId" required id="">
+  <select
+    class="form-select"
+    [(ngModel)]="modalStateService.createApplication.classeId"
+    required
+    id=""
+  >
     <option selected>Sélectionner une classe</option>
     <option *ngFor="let classe of classes" [value]="classe.id">
       {{ classe.name }}
@@ -23,17 +42,17 @@
 </div>
 <div *ngIf="modalStateService.openFields.departementId" class="mb-3">
   <label for="userTeam" class="form-label">Département</label>
-  <!-- <select class="form-select" id="category" [(ngModel)]="modalStateService.createApplication.departementId" required>
-    <option value="">Sélectionner un département</option>
-    <option *ngFor="let departement of departements" [value]="departement.id">
-      {{ departement.name }}
-    </option>
-  </select> -->
+  <app-select-departement />
 </div>
 <div *ngIf="modalStateService.openFields.userTotal" class="mb-3">
   <label class="form-label">Nombre total d'utilisateurs</label>
   <div class="input-group">
-    <input type="number" class="form-control" [(ngModel)]="modalStateService.createApplication.userTotal" id="userTotal"
-      required />
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="modalStateService.createApplication.userTotal"
+      id="userTotal"
+      required
+    />
   </div>
 </div>

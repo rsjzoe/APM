@@ -9,11 +9,13 @@ import {
   CreateDocumentationWithoutApp,
   DocumentationType,
 } from '../../../application/documentation/documentation.type';
+import { Departement } from '../../../application/departement/departement.type';
 
-type Create = Omit<CreateApplication, 'documentations'> & {
+type Create = Omit<CreateApplication, 'documentations' | 'departementIds'> & {
   fonctionnelles: File[];
   techniques: File[];
   exploitation: File[];
+  selectedDepartements: Departement[];
 };
 
 type FieldState = {
@@ -56,7 +58,7 @@ export class ModalStateService {
     status: undefined!,
     userTotal: undefined!,
     categoryId: undefined!,
-    departementIds: [],
+    selectedDepartements: [],
     costWithoutApp: {
       costBuild: undefined!,
       costRun: undefined!,
@@ -69,6 +71,7 @@ export class ModalStateService {
     exploitation: [],
     fonctionnelles: [],
     techniques: [],
+    // selectedDepartements: Departement[] = [];
   };
 
   otherDescription!: string;
@@ -86,7 +89,7 @@ export class ModalStateService {
       status: undefined!,
       userTotal: undefined!,
       categoryId: undefined!,
-      departementIds: [],
+      selectedDepartements: [],
       costWithoutApp: {
         costBuild: undefined!,
         costRun: undefined!,
@@ -155,7 +158,7 @@ export class ModalStateService {
       status: app.status,
       userTotal: app.userTotal,
       categoryId: app.category.id,
-      departementIds: app.departements.map((d) => d.id),
+      selectedDepartements: app.departements,
       classeId: app.classe.id,
       exploitation: [],
       fonctionnelles: [],
@@ -191,8 +194,11 @@ export class ModalStateService {
       })),
     ];
 
+    const { selectedDepartements, ...rest } = create;
+
     return {
-      ...create,
+      ...rest,
+      departementIds: selectedDepartements.map((dept) => dept.id),
       documentations,
     };
   }
@@ -250,7 +256,9 @@ export class ModalStateService {
       status: this.createApplication.status,
       userTotal: this.createApplication.userTotal,
       categoryId: this.createApplication.categoryId,
-      departementIds: this.createApplication.departementIds,
+      departementIds: this.createApplication.selectedDepartements.map(
+        (dept) => dept.id
+      ),
       classeId: this.createApplication.classeId,
       noteBusinessValue: this.appEditing.noteBusinessValue,
       noteTechnicalDebt: this.appEditing.noteTechnicalDebt,
