@@ -1,6 +1,7 @@
 package org.acme.application.domain.input;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
@@ -17,16 +18,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateApplicationRepositoryInput extends ApplicationBase {
     private Long categoryId;
-    private Long departementId;
+    private List<Long> departementIds;
     private Long classeId;
     protected Time time;
 
     public CreateApplicationRepositoryInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal,
-            Long categoryId, Long departementId, Long classeId) {
+            Long categoryId, List<Long> departementIds, Long classeId) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
-        this.departementId = departementId;
+        this.departementIds = departementIds;
         this.classeId = classeId;
         this.time = time;
     }
@@ -37,7 +38,7 @@ public class CreateApplicationRepositoryInput extends ApplicationBase {
                 createApplicationServiceInput.getStatus(),
                 createApplicationServiceInput.getUserTotal());
         this.categoryId = createApplicationServiceInput.getCategoryId();
-        this.departementId = createApplicationServiceInput.getDepartementId();
+        this.departementIds = createApplicationServiceInput.getDepartementIds();
         this.classeId = createApplicationServiceInput.getClasseId();
         this.time = time;
     }

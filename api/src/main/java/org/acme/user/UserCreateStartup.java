@@ -28,7 +28,6 @@ public class UserCreateStartup {
     @Startup
     @Transactional
     void init() {
-        System.out.println("SETUP");
         initServices();
         var servicesData = servicesService.getAllServices();
         var superAdminPermissions = servicesData.stream()

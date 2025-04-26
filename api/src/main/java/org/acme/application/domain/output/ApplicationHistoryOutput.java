@@ -1,6 +1,7 @@
 package org.acme.application.domain.output;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
@@ -26,7 +27,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
     protected double noteBusinessValue;
     protected double noteTechnicalDebt;
     protected CategoryODAChildOutput category;
-    protected Departement departement;
+    protected List<Departement> departements;
     protected ClasseOutput classe;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
@@ -40,7 +41,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteBusinessValue,
             double noteTechnicalDebt,
             CategoryODAChildOutput category,
-            Departement departement, ClasseOutput classe, LocalDateTime modifiedAt, String modifiedBy,
+            List<Departement> departements, ClasseOutput classe, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory,
             CostOutput cost,
             TechBusinessValueOutput techBusinessValue, boolean isDeleted) {
@@ -50,7 +51,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
         this.noteBusinessValue = noteBusinessValue;
         this.noteTechnicalDebt = noteTechnicalDebt;
         this.category = category;
-        this.departement = departement;
+        this.departements = departements;
         this.classe = classe;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
@@ -75,7 +76,7 @@ public class ApplicationHistoryOutput extends ApplicationBase {
                 ", noteBusinessValue=" + noteBusinessValue +
                 ", noteTechnicalDebt=" + noteTechnicalDebt +
                 ", category=" + category +
-                ", departement=" + departement +
+                ", departements=" + departements +
                 ", classe=" + classe +
                 ", modifiedAt=" + modifiedAt +
                 ", modifiedBy='" + modifiedBy + '\'' +

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.application.ApplicationData;
 import org.acme.application.app.service.ApplicationService;
@@ -137,7 +138,7 @@ public class ApplicationServiceCreateTest {
     public void testCreateApplicationDepartementNotFound() {
         String token = userData.getUserAdminToken().getAccessToken();
         CreateApplicationServiceInput input = applicationData.createApplicationServiceInput();
-        input.setDepartementId(9999L);
+        input.setDepartementIds(List.of(9999L));
 
         assertThrows(DepartementNotFoundException.class, () -> applicationService.create(input, token));
     }

@@ -20,42 +20,42 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Application extends ApplicationBase {
-    protected Long id;
-    protected CategoryODAChild category;
-    protected Departement departement;
-    protected Classe classe;
-    protected double noteBusinessValue;
-    protected double noteTechnicalDebt;
-    protected Cost currentCost;
-    protected TechBusinessValue currentTechBusinessValue;
-    protected List<Cost> costs;
-    protected List<TechBusinessValue> techBusinessValues;
-    protected List<Documentation> documentations;
-    protected Time time;
-    protected boolean isDeleted;
+  protected Long id;
+  protected CategoryODAChild category;
+  protected List<Departement> departements;
+  protected Classe classe;
+  protected double noteBusinessValue;
+  protected double noteTechnicalDebt;
+  protected Cost currentCost;
+  protected TechBusinessValue currentTechBusinessValue;
+  protected List<Cost> costs;
+  protected List<TechBusinessValue> techBusinessValues;
+  protected List<Documentation> documentations;
+  protected Time time;
+  protected boolean isDeleted;
 
-    public Application(Long id, String name, String description,
-            CategoryODAChild category, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, int userTotal, Departement departement, double noteBusinessValue,
-            double noteTechnicalDebt,
-            Classe classe, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs,
-            List<TechBusinessValue> techBusinessValues, List<Documentation> documentations, Time time,
-            boolean isDeleted) {
-        super(name, description, startDate,
-                lastUpdate, status, userTotal);
-        this.id = id;
-        this.category = category;
-        this.departement = departement;
-        this.classe = classe;
-        this.noteBusinessValue = noteBusinessValue;
-        this.noteTechnicalDebt = noteTechnicalDebt;
-        this.currentCost = currentCost;
-        this.currentTechBusinessValue = currentTechBusinessValue;
-        this.costs = costs;
-        this.techBusinessValues = techBusinessValues;
-        this.documentations = documentations;
-        this.time = time;
-        this.isDeleted = isDeleted;
-    }
+  public Application(Long id, String name, String description,
+      CategoryODAChild category, LocalDateTime startDate,
+      LocalDateTime lastUpdate, Status status, int userTotal, List<Departement> departements, double noteBusinessValue,
+      double noteTechnicalDebt,
+      Classe classe, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs,
+      List<TechBusinessValue> techBusinessValues, List<Documentation> documentations, Time time,
+      boolean isDeleted) {
+    super(name, description, startDate,
+        lastUpdate, status, userTotal);
+    this.id = id;
+    this.category = category;
+    this.departements = departements;
+    this.classe = classe;
+    this.noteBusinessValue = noteBusinessValue;
+    this.noteTechnicalDebt = noteTechnicalDebt;
+    this.currentCost = currentCost;
+    this.currentTechBusinessValue = currentTechBusinessValue;
+    this.costs = costs;
+    this.techBusinessValues = techBusinessValues;
+    this.documentations = documentations;
+    this.time = time;
+    this.isDeleted = isDeleted;
+  }
 
 }

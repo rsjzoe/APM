@@ -1,6 +1,7 @@
 package org.acme.application.domain.input;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateApplicationServiceInput extends ApplicationBase {
     private Long categoryId;
-    private Long departementId;
+    private List<Long> departementIds;
     private Long classeId;
     protected double noteBusinessValue;
     protected double noteTechnicalDebt;
@@ -29,13 +30,13 @@ public class UpdateApplicationServiceInput extends ApplicationBase {
     public UpdateApplicationServiceInput(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, int userTotal, double noteBusinessValue,
             double noteTechnicalDebt, Long categoryId,
-            Long departementId, Long classeId, String otherDescription, CreateCostWithoutApp costWithoutApp,
+            List<Long> departementIds, Long classeId, String otherDescription, CreateCostWithoutApp costWithoutApp,
             CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.noteBusinessValue = noteBusinessValue;
         this.noteTechnicalDebt = noteTechnicalDebt;
         this.categoryId = categoryId;
-        this.departementId = departementId;
+        this.departementIds = departementIds;
         this.classeId = classeId;
         this.otherDescription = otherDescription;
         this.costWithoutApp = costWithoutApp;

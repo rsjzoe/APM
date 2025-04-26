@@ -26,7 +26,7 @@ public class ApplicationOutput extends ApplicationBase {
     protected double noteBusinessValue;
     protected double noteTechnicalDebt;
     protected CategoryODAChildOutput category;
-    protected Departement departement;
+    protected List<Departement> departements;
     protected ClasseOutput classe;
     protected CostOutput currentCost;
     protected TechBusinessValueOutput currentTechBusinessValue;
@@ -38,7 +38,7 @@ public class ApplicationOutput extends ApplicationBase {
     public ApplicationOutput(Long id, String name, String description,
             CategoryODAChildOutput category, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, double noteBusinessValue,
-            double noteTechnicalDebt, Departement departement,
+            double noteTechnicalDebt, List<Departement> departements,
             ClasseOutput classe, CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue,
             List<CostOutput> costs,
             List<TechBusinessValueOutput> techBusinessValues, boolean isDeleted) {
@@ -48,7 +48,7 @@ public class ApplicationOutput extends ApplicationBase {
         this.noteBusinessValue = noteBusinessValue;
         this.noteTechnicalDebt = noteTechnicalDebt;
         this.category = category;
-        this.departement = departement;
+        this.departements = departements;
         this.classe = classe;
         this.currentCost = currentCost;
         this.currentTechBusinessValue = currentTechBusinessValue;
@@ -71,7 +71,7 @@ public class ApplicationOutput extends ApplicationBase {
                 ", noteBusinessValue=" + noteBusinessValue +
                 ", noteTechnicalDebt=" + noteTechnicalDebt +
                 ", category=" + category +
-                ", departement=" + departement +
+                ", departement=" + departements +
                 ", classe=" + classe +
                 ", currentCost=" + currentCost +
                 ", currentTechBusinessValue=" + currentTechBusinessValue +

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.acme.application.ApplicationData;
 import org.acme.application.app.service.ApplicationService;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
@@ -149,7 +151,7 @@ public class ApplicationServiceUpdateTest {
     public void testCreateApplicationDepartementNotFound() {
         String token = userData.getUserAdminToken().getAccessToken();
         UpdateApplicationServiceInput input = new UpdateApplicationServiceInput();
-        input.setDepartementId(9999L);
+        input.setDepartementIds(List.of(9999L));
 
         assertThrows(DepartementNotFoundException.class,
                 () -> applicationService.update(applicationData.getApplication1().id, input, token));

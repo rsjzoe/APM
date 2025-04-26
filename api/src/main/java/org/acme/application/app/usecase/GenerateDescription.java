@@ -1,5 +1,7 @@
 package org.acme.application.app.usecase;
 
+import java.util.stream.Collectors;
+
 import org.acme.application.domain.output.ApplicationHistoryOutput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.GenerateDescriptionHistory;
@@ -42,9 +44,24 @@ public class GenerateDescription implements GenerateDescriptionHistory {
                     .append("' à '").append(app.getClasse().getName()).append("'.\n");
         }
 
-        if (!app.getDepartement().getId().equals(lastHistory.getDepartement().getId())) {
-            description.append("- Département changé de '").append(lastHistory.getDepartement().getName())
-                    .append("' à '").append(app.getDepartement().getName()).append("'.\n");
+        var lastDepartments = lastHistory.getDepartements().stream()
+                .map(departement -> departement.getId())
+                .toList();
+
+        var currentDepartments = app.getDepartements().stream()
+                .map(departement -> departement.getId())
+                .toList();
+
+        if (!lastDepartments.equals(currentDepartments)) {
+            description.append("- Départements modifiés de [")
+                    .append(lastHistory.getDepartements().stream()
+                            .map(departement -> departement.getName())
+                            .collect(Collectors.joining(", ")))
+                    .append("] à [")
+                    .append(app.getDepartements().stream()
+                            .map(departement -> departement.getName())
+                            .collect(Collectors.joining(", ")))
+                    .append("].\n");
         }
 
         var isBussinessValueSet = false;

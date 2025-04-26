@@ -23,7 +23,7 @@ export type Application = {
   noteBusinessValue: number | null;
   noteTechnicalDebt: number | null;
   category: CategoryODAChild;
-  departement: Departement;
+  departements: Departement[];
   classe: Classe;
   currentCost: Cost;
   currentTechBusinessValue: TechBusinessValue;
@@ -39,7 +39,7 @@ export type Status = 'development' | 'production' | 'decommissioned';
 export type CreateApplication = {
   costWithoutApp: CreateCostWithoutApp;
   classeId: number;
-  departementId: number;
+  departementIds: number[];
   name: string;
   startDate: string | Date;
   status: Status;
@@ -54,7 +54,7 @@ export type CreateApplication = {
 export type UpdateApplication = Partial<{
   costWithoutApp: CreateCostWithoutApp;
   classeId: number;
-  departementId: number;
+  departementIds: number[];
   name: string;
   startDate: string | Date;
   status: Status;

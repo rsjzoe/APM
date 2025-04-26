@@ -1,6 +1,8 @@
 package org.acme.application.infra.database;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.acme.application.domain.input.CreateApplicationHistoryRepository;
 import org.acme.application.domain.model.Status;
@@ -21,6 +23,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,8 +54,9 @@ public class ApplicationHistoryEntity extends PanacheEntity {
     private double noteBusinessValue;
     private double noteTechnicalDebt;
     private int userTotal;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private DepartementEntity departement;
+    @ManyToMany
+    @JoinTable(name = "ApplicationHistoryEntity_DepartementEntity", joinColumns = @JoinColumn(name = "application_history_id"), inverseJoinColumns = @JoinColumn(name = "departement_id"))
+    private List<DepartementEntity> departements = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private ClasseEntity classe;
     @ManyToOne
@@ -65,7 +71,8 @@ public class ApplicationHistoryEntity extends PanacheEntity {
         this.noteTechnicalDebt = data.getNoteTechnicalDebt();
         this.category = new CategoryODAChildEntity();
         this.category.id = data.getCategoryId();
-        this.departement = DepartementEntityHelper.entityFromId(data.getDepartementId());
+        this.departements = data.getDepartementIds().stream()
+                .map(departementId -> DepartementEntityHelper.entityFromId(departementId)).toList();
         this.classe = ClasseEntityHelper.entityFromId(data.getClasseId());
         this.modifiedAt = LocalDateTime.now();
         this.modifiedBy = data.getModifiedBy();
@@ -93,7 +100,7 @@ public class ApplicationHistoryEntity extends PanacheEntity {
 
         return new ApplicationHistoryOutput(id, appId, name, description, startDate, lastUpdate, status, time,
                 userTotal, noteBusinessValue, noteTechnicalDebt, category.toCategoryODAChildOutput(),
-                departement.toDepartement(),
+                departements.stream().map(DepartementEntity::toDepartement).toList(),
                 classe.toOutput(),
                 modifiedAt, modifiedBy, descriptionHistory, costEntity == null ? null : costEntity.toCostOutput(),
                 techBusinessValueEntity == null ? techBusinessValueOutputFromNote

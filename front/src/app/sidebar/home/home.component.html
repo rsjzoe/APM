@@ -46,8 +46,7 @@
           </td>
           <td>
             <div class="meta-item d-flex align-items-center gap-1">
-              <span>{{app.departement.name}}
-              </span>
+              <span>{{app.departements.join(', ')}}</span>
             </div>
           </td>
           <td *ngIf="canEditOrDelete$ | async">

@@ -23,12 +23,12 @@
 </div>
 <div *ngIf="modalStateService.openFields.departementId" class="mb-3">
   <label for="userTeam" class="form-label">Département</label>
-  <select class="form-select" id="category" [(ngModel)]="modalStateService.createApplication.departementId" required>
+  <!-- <select class="form-select" id="category" [(ngModel)]="modalStateService.createApplication.departementId" required>
     <option value="">Sélectionner un département</option>
     <option *ngFor="let departement of departements" [value]="departement.id">
       {{ departement.name }}
     </option>
-  </select>
+  </select> -->
 </div>
 <div *ngIf="modalStateService.openFields.userTotal" class="mb-3">
   <label class="form-label">Nombre total d'utilisateurs</label>

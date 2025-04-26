@@ -20,19 +20,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateApplicationServiceInput extends ApplicationBase {
     private Long categoryId;
-    private Long departementId;
+    private List<Long> departementIds;
     private Long classeId;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
     private List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp;
 
     public CreateApplicationServiceInput(String name, String description, LocalDateTime startDate,
-            LocalDateTime lastUpdate, Status status, int userTotal, Long categoryId, Long departementId, Long classeId,
+            LocalDateTime lastUpdate, Status status, int userTotal, Long categoryId, List<Long> departementIds, Long classeId,
             CreateCostWithoutApp costWithoutApp, CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp,
             List<CreateDocumentationFileWithoutApp> documentationsFileWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
-        this.departementId = departementId;
+        this.departementIds = departementIds;
         this.classeId = classeId;
         this.costWithoutApp = costWithoutApp;
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;
@@ -43,7 +43,7 @@ public class CreateApplicationServiceInput extends ApplicationBase {
         super(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(),
                 app.getUserTotal());
         this.categoryId = app.getCategoryId();
-        this.departementId = app.getDepartementId();
+        this.departementIds = app.getDepartementIds();
         this.classeId = app.getClasseId();
         this.costWithoutApp = app.getCostWithoutApp();
         this.techBusinessValueWithoutApp = app.getTechBusinessValueWithoutApp();

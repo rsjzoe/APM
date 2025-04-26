@@ -81,7 +81,9 @@ public class ApplicationService {
 
         classeService.findById(newApplication.getClasseId());
         categoryODAChildService.findById(newApplication.getCategoryId());
-        departementService.findByDepartementId(newApplication.getDepartementId());
+        for (Long departementId : newApplication.getDepartementIds()) {
+            departementService.findByDepartementId(departementId);
+        }
 
         Time time = null;
         if (newApplication.getTechBusinessValueWithoutApp() != null
@@ -164,8 +166,10 @@ public class ApplicationService {
         if (updateApplication.getCategoryId() != null) {
             categoryODAChildService.findById(updateApplication.getCategoryId());
         }
-        if (updateApplication.getDepartementId() != null) {
-            departementService.findByDepartementId(updateApplication.getDepartementId());
+        if (updateApplication.getDepartementIds() != null) {
+            for (Long departementId : updateApplication.getDepartementIds()) {
+                departementService.findByDepartementId(departementId);
+            }
         }
 
         ApplicationOutput updated = applicationRepository.update(id,

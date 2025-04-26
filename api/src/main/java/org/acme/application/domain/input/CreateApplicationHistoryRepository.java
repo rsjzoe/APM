@@ -1,6 +1,7 @@
 package org.acme.application.domain.input;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
@@ -21,7 +22,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     protected double noteBusinessValue;
     protected double noteTechnicalDebt;
     protected Long categoryId;
-    protected Long departementId;
+    protected List<Long> departementIds;
     protected Long classeId;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
@@ -29,11 +30,11 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
     protected Long costId;
     protected Long techBusinessValueId;
     protected Time time;
-    
+
     public CreateApplicationHistoryRepository(String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, Long appId, double noteBusinessValue,
             double noteTechnicalDebt,
-            Long categoryId, Long departementId, Long classeId, LocalDateTime modifiedAt, String modifiedBy,
+            Long categoryId, List<Long> departementIds, Long classeId, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory,
             Long costId, Long techBusinessValueId) {
         super(name, description, startDate, lastUpdate, status, userTotal);
@@ -41,7 +42,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
         this.noteBusinessValue = noteBusinessValue;
         this.noteTechnicalDebt = noteTechnicalDebt;
         this.categoryId = categoryId;
-        this.departementId = departementId;
+        this.departementIds = departementIds;
         this.classeId = classeId;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
@@ -55,7 +56,8 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
         this(app.getName(), app.getDescription(), app.getStartDate(), app.getLastUpdate(), app.getStatus(),
                 app.getTime(), app.getUserTotal(), app.getId(), app.getNoteBusinessValue(), app.getNoteTechnicalDebt(),
                 app.getCategory().getId(),
-                app.getDepartement().getId(), app.getClasse().getId(), LocalDateTime.now(), modifiedBy,
+                app.getDepartements().stream().map(d -> d.getId()).toList(), app.getClasse().getId(),
+                LocalDateTime.now(), modifiedBy,
                 descriptionHistory,
                 app.getCurrentCost() == null ? null : app.getCurrentCost().getId(),
                 app.getCurrentTechBusinessValue() == null ? null : app.getCurrentTechBusinessValue().getId());
@@ -68,7 +70,7 @@ public class CreateApplicationHistoryRepository extends ApplicationBase {
                 ", noteBusinessValue=" + noteBusinessValue +
                 ", noteTechnicalDebt=" + noteTechnicalDebt +
                 ", categoryId=" + categoryId +
-                ", departementId=" + departementId +
+                ", departementIds=" + departementIds +
                 ", classeId=" + classeId +
                 ", modifiedAt=" + modifiedAt +
                 ", modifiedBy='" + modifiedBy + '\'' +

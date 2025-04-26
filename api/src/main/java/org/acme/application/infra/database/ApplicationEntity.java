@@ -23,6 +23,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -47,8 +50,9 @@ public class ApplicationEntity extends PanacheEntity {
     private double noteBusinessValue;
     private double noteTechnicalDebt;
     private int userTotal;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private DepartementEntity departement;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ApplicationEntity_DepartementEntity", joinColumns = @JoinColumn(name = "application_id"), inverseJoinColumns = @JoinColumn(name = "departement_id"))
+    private List<DepartementEntity> departements = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private ClasseEntity classe;
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -67,7 +71,8 @@ public class ApplicationEntity extends PanacheEntity {
         this.userTotal = app.getUserTotal();
         this.noteBusinessValue = 0;
         this.noteTechnicalDebt = 0;
-        this.departement = DepartementEntityHelper.entityFromId(app.getDepartementId());
+        this.departements = app.getDepartementIds().stream()
+                .map(departementId -> DepartementEntityHelper.entityFromId(departementId)).toList();
         // mapfandray application sy category
         CategoryODAChildEntity categoryEntity = new CategoryODAChildEntity();
         categoryEntity.id = app.getCategoryId();
@@ -102,7 +107,8 @@ public class ApplicationEntity extends PanacheEntity {
                 : techBusinessValueOutputFromNote;
         return new ApplicationOutput(id, name, description, category.toCategoryODAChildOutput(),
                 startDate, lastUpdate, status, time, userTotal, noteBusinessValue, noteTechnicalDebt,
-                departement.toDepartement(), classe.toOutput(), latestCost,
+                departements.stream().map(DepartementEntity::toDepartement).toList(), classe.toOutput(),
+                latestCost,
                 latestTech,
                 costEntity.stream().map(CostEntity::toCostOutput).toList(),
                 techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList(),
@@ -141,8 +147,9 @@ public class ApplicationEntity extends PanacheEntity {
         if (app.getCategoryId() != null) {
             this.category = CategoryODAChildEntity.findById(app.getCategoryId());
         }
-        if (app.getDepartementId() != null) {
-            this.departement = DepartementEntity.findById(app.getDepartementId());
+        if (app.getDepartementIds() != null) {
+            this.departements = app.getDepartementIds().stream()
+                    .map(departementId -> (DepartementEntity) DepartementEntity.findById(departementId)).toList();
         }
         if (app.getClasseId() != null) {
             this.classe = ClasseEntity.findById(app.getClasseId());

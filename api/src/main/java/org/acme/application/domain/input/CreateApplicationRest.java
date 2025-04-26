@@ -1,6 +1,7 @@
 package org.acme.application.domain.input;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.application.domain.model.ApplicationBase;
 import org.acme.application.domain.model.Status;
@@ -18,17 +19,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateApplicationRest extends ApplicationBase {
     private Long categoryId;
-    private Long departementId;
+    private List<Long> departementIds;
     private Long classeId;
     private CreateCostWithoutApp costWithoutApp;
     private CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp;
 
     public CreateApplicationRest(String name, String description, LocalDateTime startDate, LocalDateTime lastUpdate,
-            Status status, int userTotal, Long categoryId, Long departementId, Long classeId,
+            Status status, int userTotal, Long categoryId, List<Long> departementIds, Long classeId,
             CreateCostWithoutApp costWithoutApp, CreateTechBusinessValueWithoutApp techBusinessValueWithoutApp) {
         super(name, description, startDate, lastUpdate, status, userTotal);
         this.categoryId = categoryId;
-        this.departementId = departementId;
+        this.departementIds = departementIds;
         this.classeId = classeId;
         this.costWithoutApp = costWithoutApp;
         this.techBusinessValueWithoutApp = techBusinessValueWithoutApp;

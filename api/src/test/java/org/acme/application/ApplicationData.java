@@ -26,6 +26,7 @@ public class ApplicationData {
     private CategoryODAParentEntity categoryParent;
     private CategoryODAChildEntity categoryChild;
     private DepartementEntity departement;
+    private DepartementEntity departement2;
     private ClasseEntity classe;
     private ApplicationEntity application1;
     private ApplicationEntity applicationDeleted;
@@ -42,6 +43,10 @@ public class ApplicationData {
         departement.name = "IT Department";
         departement.persistAndFlush();
 
+        departement2 = new DepartementEntity();
+        departement2.name = "DSI";
+        departement2.persistAndFlush();
+
         classe = new ClasseEntity();
         classe.setName("Class A");
         classe.setDescription("Description of Class A");
@@ -49,14 +54,16 @@ public class ApplicationData {
 
         application1 = new ApplicationEntity(new CreateApplicationRepositoryInput("App1", "Description1",
                 LocalDateTime.now(), LocalDateTime.now(), Status.development, Time.invest, 10, categoryChild.id,
-                departement.id, classe.id));
+                List.of(departement.id), classe.id));
+        // application1.setDepartements(List.of(departement));
         application1.setClasse(classe);
         application1.persistAndFlush();
 
         applicationDeleted = new ApplicationEntity(
                 new CreateApplicationRepositoryInput("applicationDeleted", "Description1",
                         LocalDateTime.now(), LocalDateTime.now(), Status.development, Time.invest, 10, categoryChild.id,
-                        departement.id, classe.id));
+                        List.of(departement2.id), classe.id));
+        // application1.setDepartements(List.of(departement2));
         applicationDeleted.setClasse(classe);
         applicationDeleted.setDeleted(true);
         applicationDeleted.persistAndFlush();
@@ -74,7 +81,7 @@ public class ApplicationData {
         input.setStatus(Status.development);
         input.setTime(Time.invest);
         input.setCategoryId(categoryChild.id);
-        input.setDepartementId(departement.id);
+        input.setDepartementIds(List.of(departement.id));
         input.setClasseId(classe.id);
         return input;
     }
@@ -97,7 +104,7 @@ public class ApplicationData {
                 Status.development,
                 10,
                 categoryChild.id,
-                departement.id,
+                List.of(departement.id),
                 classe.id,
                 new CreateCostWithoutApp(1000.0, 500.0),
                 new CreateTechBusinessValueWithoutApp(4.5, 2.0),
@@ -122,7 +129,7 @@ public class ApplicationData {
                 3.5,
                 1.5,
                 categoryChild.id,
-                departement.id,
+                List.of(departement.id, departement2.id),
                 classe.id,
                 null,
                 new CreateCostWithoutApp(1000.0, 500.0),

@@ -1,6 +1,7 @@
 package org.acme.application.domain.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.acme.category.domain.CategoryODAChild;
 import org.acme.classe.domain.Classe;
@@ -21,7 +22,7 @@ public class ApplicationHistory extends ApplicationBase {
     private Long id;
     private Long appId;
     protected CategoryODAChild category;
-    protected Departement departement;
+    protected List<Departement> departements;
     protected Classe classe;
     protected double noteBusinessValue;
     protected double noteTechnicalDebt;
@@ -35,7 +36,7 @@ public class ApplicationHistory extends ApplicationBase {
 
     public ApplicationHistory(Long id, Long appId, String name, String description, LocalDateTime startDate,
             LocalDateTime lastUpdate, Status status, Time time, int userTotal, CategoryODAChild category,
-            Departement departement, double noteBusinessValue,
+            List<Departement> departements, double noteBusinessValue,
             double noteTechnicalDebt, Classe classe, LocalDateTime modifiedAt, String modifiedBy,
             String descriptionHistory, Cost cost,
             TechBusinessValue techBusinessValue, boolean isDeleted) {
@@ -43,7 +44,7 @@ public class ApplicationHistory extends ApplicationBase {
         this.id = id;
         this.appId = appId;
         this.category = category;
-        this.departement = departement;
+        this.departements = departements;
         this.classe = classe;
         this.noteBusinessValue = noteBusinessValue;
         this.noteTechnicalDebt = noteTechnicalDebt;
