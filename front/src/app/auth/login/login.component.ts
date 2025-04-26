@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../components/button/button.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -16,13 +15,16 @@ export class LoginComponent {
   password = '';
   errorMessage: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   login() {
     this.authService.login(this.trigramme, this.password).subscribe({
       next: () => {
         const callbackUrl = new URLSearchParams(window.location.search).get(
-          'callbackUrl'
+          'callbackUrl',
         );
         const nextUrl = callbackUrl || '/home';
 

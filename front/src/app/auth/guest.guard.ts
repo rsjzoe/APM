@@ -8,17 +8,19 @@ import { firstValueFrom } from 'rxjs';
 })
 // ito i-evitena anle connecte nefa makao amin'ny login
 export class GuestGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) {}
 
   async canActivate() {
     const currentUrl = window.location.pathname;
-
     try {
-      const user = await firstValueFrom(this.userService.me());
+      await firstValueFrom(this.userService.me());
       // raha connecte izy de makao amin'ny home na callbackUrl na currentUrl
 
       const callbackUrl = new URLSearchParams(window.location.search).get(
-        'callbackUrl'
+        'callbackUrl',
       );
       if (callbackUrl && callbackUrl != '/login') {
         this.router.navigateByUrl(callbackUrl);

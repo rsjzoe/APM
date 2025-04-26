@@ -8,13 +8,23 @@ import { firstValueFrom } from 'rxjs';
 })
 // ito i-evitena anle mbola tsy connecte nefa makao amin'ny /home ohatra
 export class ConnectedGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) {}
 
   async canActivate() {
     const currentUrl = window.location.pathname;
 
     try {
-      const user = await firstValueFrom(this.userService.me());
+      await firstValueFrom(this.userService.me());
+      if (currentUrl == '/') {
+        this.router.navigate(['/home']).then(() => {
+          window.location.replace('/home');
+        });
+
+        return false;
+      }
       return true;
     } catch (error) {
       this.router.navigate(['/login'], {
