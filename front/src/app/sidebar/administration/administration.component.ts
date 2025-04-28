@@ -53,7 +53,7 @@ export class AdministrationComponent {
       .register({ name, trigramme, departement, role })
       .subscribe({
         next: (val) => {
-          this.users.push(val);
+          this.findAllUsers();
         },
       });
   };

@@ -9,6 +9,8 @@ import org.acme.role.domain.port.out.RoleRepository;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
+import org.acme.user.domain.exception.WrongPasswordException;
+import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
 import org.keycloak.TokenVerifier;
@@ -17,6 +19,7 @@ import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
+import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
@@ -179,5 +182,33 @@ public class UserKeycloak implements UserRepository {
                 user.getFirstName(),
                 user.getUsername().replace(prefix, ""),
                 roleString, user.getLastName());
+    }
+
+    @Override
+    public UserOutput changePassword(String trigramme, ChangePassword changePassword)
+            throws UserNotFoundException, WrongPasswordException {
+        UsersResource usersResource = keycloak.realm(REALM).users();
+
+        // Rechercher l'utilisateur par trigramme (en supposant que c'est stocké dans le
+        // prénom)
+        List<UserRepresentation> users = usersResource.list().stream()
+                .filter(user -> user.getUsername().equalsIgnoreCase(trigramme + prefix)) // Filtrer par trigramme
+                .collect(Collectors.toList());
+
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("Aucun utilisateur trouvé avec le trigramme : " + trigramme);
+        }
+        UserRepresentation userToUpdate = users.get(0); // Supposons qu'il est unique
+        String userId = userToUpdate.getId();
+
+        // Définir le mot de passe
+        CredentialRepresentation passwordCred = new CredentialRepresentation();
+        passwordCred.setTemporary(false);
+        passwordCred.setType(CredentialRepresentation.PASSWORD);
+        passwordCred.setValue(changePassword.getNewPassword());
+
+        usersResource.get(userId).resetPassword(passwordCred);
+
+        return userRepresentationToOutput(userToUpdate);
     }
 }

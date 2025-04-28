@@ -6,6 +6,8 @@ import org.acme.user.app.UserService;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
+import org.acme.user.domain.exception.WrongPasswordException;
+import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.in.UserRest;
 
@@ -67,6 +69,19 @@ public class UserController implements UserRest {
             return userService.updateUserByTrigramme(trigramme, userUpdate);
         } catch (UserNotFoundException e) {
             throw new NotFoundException(e);
+        }
+    }
+
+    @Override
+    @PUT
+    @Path("/change-password/{trigramme}")
+    public UserOutput changePassword(@PathParam("trigramme") String trigramme, ChangePassword changePassword) {
+        try {
+            return userService.changePassword(trigramme, changePassword);
+        } catch (UserNotFoundException e) {
+            throw new NotFoundException(e);
+        } catch (WrongPasswordException e) {
+            throw new UnauthorizedException();
         }
     }
 }
