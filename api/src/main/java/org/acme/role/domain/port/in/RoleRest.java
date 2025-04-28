@@ -5,6 +5,7 @@ import java.util.List;
 import org.acme.role.domain.model.Role;
 import org.acme.role.domain.model.input.CreateRole;
 import org.acme.role.domain.model.input.HasAccess;
+import org.acme.role.domain.model.input.UpdateRole;
 import org.acme.role.domain.model.output.HasAccessOutput;
 
 public interface RoleRest {
@@ -13,4 +14,8 @@ public interface RoleRest {
     public HasAccessOutput hasAccess(HasAccess params);
 
     public List<Role> findAll();
+
+    public Role deleteByName(String roleName);
+
+    public Role updateRole(Long id, UpdateRole role);
 }

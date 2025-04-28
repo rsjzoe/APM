@@ -2,9 +2,11 @@ package org.acme.role.infra.database.repository;
 
 import java.util.List;
 
+import org.acme.role.domain.exception.RoleActif;
 import org.acme.role.domain.exception.RoleNotFoundException;
 import org.acme.role.domain.model.Role;
 import org.acme.role.domain.model.input.CreateRole;
+import org.acme.role.domain.model.input.UpdateRole;
 import org.acme.role.domain.port.out.RoleRepository;
 import org.acme.role.infra.database.entity.RoleEntity;
 import org.keycloak.admin.client.Keycloak;
@@ -69,7 +71,7 @@ public class RoleEntityRepository implements RoleRepository {
     }
 
     @Override
-    public Role deleteByName(String roleName) throws RoleNotFoundException {
+    public Role deleteByName(String roleName) throws RoleNotFoundException, RoleActif {
         RoleEntity roleEntity = RoleEntity.find("roleName", roleName).firstResult();
         if (roleEntity == null) {
             throw new RoleNotFoundException(roleName);
@@ -85,9 +87,31 @@ public class RoleEntityRepository implements RoleRepository {
                 .password(ADMIN_PASSWORD)
                 .grantType("password")
                 .build();
+        // Check if any user is using the role before deletion
+        var usersWithRole = keycloak.realm(REALM).users().search(null, null, null, null, null, null)
+                .stream()
+                .filter(user -> keycloak.realm(REALM).users().get(user.getId()).roles().realmLevel().listAll()
+                        .stream()
+                        .anyMatch(role -> role.getName().equals(roleName)))
+                .toList();
+
+        if (!usersWithRole.isEmpty()) {
+            throw new RoleActif("Role is still active for some users");
+        }
         RolesResource rolesResource = keycloak.realm(REALM).roles();
         rolesResource.deleteRole(roleName);
 
+        return roleEntity.toRole();
+    }
+
+    @Override
+    public Role updateRole(Long id, UpdateRole role) throws RoleNotFoundException {
+        RoleEntity roleEntity = RoleEntity.findById(id);
+        if (roleEntity == null) {
+            throw new RoleNotFoundException("Role not found with id: " + id);
+        }
+        roleEntity.updateRole(role);
+        roleEntity.persist();
         return roleEntity.toRole();
     }
 

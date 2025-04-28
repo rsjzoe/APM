@@ -3,11 +3,13 @@ package org.acme.role.app;
 import java.util.List;
 
 import org.acme.role.domain.exception.ConflitRoleException;
+import org.acme.role.domain.exception.RoleActif;
 import org.acme.role.domain.exception.RoleNotFoundException;
 import org.acme.role.domain.model.Role;
 import org.acme.role.domain.model.input.ActionType;
 import org.acme.role.domain.model.input.CreateRole;
 import org.acme.role.domain.model.input.HasAccess;
+import org.acme.role.domain.model.input.UpdateRole;
 import org.acme.role.domain.model.output.HasAccessOutput;
 import org.acme.role.domain.port.out.RoleRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -66,7 +68,12 @@ public class RoleService {
         return roleRepository.findRoleByName(roleName);
     }
 
-    public Role deleteByName(String roleName) throws RoleNotFoundException {
+    public Role deleteByName(String roleName) throws RoleNotFoundException, RoleActif {
         return roleRepository.deleteByName(roleName);
+    }
+
+    public Role updateRole(Long id, UpdateRole role) throws RoleNotFoundException {
+        role.correctRole();
+        return roleRepository.updateRole(id, role);
     }
 }

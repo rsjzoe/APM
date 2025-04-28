@@ -2,6 +2,7 @@ package org.acme.role;
 
 import org.acme.role.app.RoleService;
 import org.acme.role.domain.exception.ConflitRoleException;
+import org.acme.role.domain.exception.RoleActif;
 import org.acme.role.domain.exception.RoleNotFoundException;
 import org.acme.role.domain.model.Role;
 import org.acme.role.domain.model.input.CreateRole;
@@ -81,7 +82,7 @@ public class RoleData {
     private void delete(String rolename) {
         try {
             roleService.deleteByName(rolename);
-        } catch (RoleNotFoundException e) {
+        } catch (RoleNotFoundException | RoleActif e) {
         }
     }
 }
