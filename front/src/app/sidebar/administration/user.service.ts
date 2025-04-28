@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from './user.type';
+import { ChangePassword, User } from './user.type';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { RoleService } from '../role/service/role.service';
 import { ActionType } from '../../application/role/role.type';
@@ -104,5 +104,12 @@ export class UserService {
 
   update(trigramme: string, user: User) {
     return this.http.put<User>(`${this.API_URL}/${trigramme}`, user);
+  }
+
+  changePassword(trigramme: string, password: ChangePassword) {
+    return this.http.put<User>(
+      `${this.API_URL}/change-password/${trigramme}`,
+      password
+    );
   }
 }

@@ -1,4 +1,4 @@
-<div class=" ">
+<div class=" " *ngIf="user">
     <div class="">
         <div class="col-md-10">
             <!-- <h1 class="mb-4">Profil Utilisateur</h1> -->
@@ -76,12 +76,17 @@
 
                                 <label for="password" class="form-label">Mot de passe</label>
                                 <div class="d-flex gap-3 align-items-center">
-                                    <input type="text" class="form-control" placeholder="Enter text..."
+                                    <input type="text" class="form-control" placeholder="Ancien mot de passe..."
                                         [type]="isEditing ? 'text' : 'password'" [class.light]="!isEditing"
-                                        [readonly]="!isEditing" name="password">
+                                        [readonly]="!isEditing" name="oldPassword" [(ngModel)]="oldPassword">
                                     <button class="btn btn-primary" (click)="toggleEdit()">
                                         {{ isEditing ? 'Enregistrer' : 'Modifier' }}
                                     </button>
+                                </div> <br><br>
+                                <div class="d-flex gap-3 align-items-center" *ngIf="isEditing">
+                                    <input type="text" class="form-control" placeholder="Nouveau mot de passe..."
+                                        [type]="isEditing ? 'text' : 'password'" [class.light]="!isEditing"
+                                        [readonly]="!isEditing" name="newPassword" [(ngModel)]="newPassword">
                                 </div>
 
                             </form>

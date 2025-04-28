@@ -4,3 +4,8 @@ export type User = {
   departement: string;
   role: string;
 };
+
+export type ChangePassword = {
+  oldPassword: string;
+  newPassword: string;
+};

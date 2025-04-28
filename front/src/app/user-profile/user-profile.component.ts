@@ -7,6 +7,7 @@ import { IconDepartementComponent } from '../components/icons/icon-departement/i
 import { IconNoteComponent } from '../components/icons/icon-note/icon-note.component';
 import { IconUserComponent } from '../components/icons/icon-user/icon-user.component';
 import { IconRoleComponent } from '../components/icons/icon-role/icon-role.component';
+import { UserService } from '../sidebar/administration/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,19 +22,38 @@ import { IconRoleComponent } from '../components/icons/icon-role/icon-role.compo
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent {
-  user: User = {
-    name: 'Jean Dupont',
-    trigramme: 'JDP',
-    departement: 'Engineering',
-    role: 'visitor',
-  };
+  user: User | null = null;
 
   isEditing = false;
+  oldPassword: string = '';
+  newPassword: string = '';
+
+  constructor(public userService: UserService) {}
 
   toggleEdit(): void {
+    if (this.isEditing && this.user) {
+      if (
+        this.oldPassword.trim().length > 0 &&
+        this.newPassword.trim().length > 0
+      ) {
+        this.userService
+          .changePassword(this.user.trigramme, {
+            oldPassword: this.oldPassword,
+            newPassword: this.newPassword,
+          })
+          .subscribe({
+            next: (response) => {
+              console.log('password modifier');
+            },
+          });
+      }
+    }
     this.isEditing = !this.isEditing;
   }
 
+  ngOnInit() {
+    this.user = this.userService.getUserConnected();
+  }
   getRoleLabel(role: string) {
     switch (role) {
       case 'admin':
