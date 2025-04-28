@@ -170,10 +170,11 @@
                     <app-icon-departement />
                     <div class="d-grid gap-1">
                       <span class="fw-bold small">Département</span>
-                      <span class="text-muted small"><span
-                          *ngFor="let department of application.departements; let last = last">
-                          {{ department.name }}<span *ngIf="!last">-</span>
-                        </span></span>
+                      <span class="text-muted small">
+                        <span *ngFor="let department of application.departements; let last = last">
+                          {{ department.name }}<span *ngIf="!last"> - </span>
+                        </span>
+                      </span>
                     </div>
                   </div>
                 </div>
