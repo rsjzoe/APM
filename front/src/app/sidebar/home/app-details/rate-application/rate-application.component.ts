@@ -145,6 +145,7 @@ export class RateApplicationComponent {
     this.appService.update(id, updateApp).subscribe((data) => {
       window.location.reload();
     });
+    console.log(technicalDebtAverage, businessValueAverage);
   }
 
   ngOnInit() {

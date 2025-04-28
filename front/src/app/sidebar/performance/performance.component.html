@@ -6,7 +6,7 @@
     <div class="w-100 p-3 rounded-1" style="background-color: #f8f9fa;">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="h4">Groupe de Questions</h2>
-        <button class="btn btn-primary" (click)="handleAddNewGroup()">
+        <button class="btn btn-primary" (click)="handleAddNewGroup()" *ngIf="canAdd$ | async">
           Ajouter Groupe
         </button>
       </div>
@@ -30,11 +30,12 @@
               </div>
             </div>
             <div>
-              <button class="btn btn-link btn-sm" (click)="$event.stopPropagation(); handleEditGroup(group)">
+              <button class="btn btn-link btn-sm" (click)="$event.stopPropagation(); handleEditGroup(group)"
+                *ngIf="canEdit$ | async">
                 <app-icon-edit />
               </button>
               <button class="btn btn-link btn-sm text-danger"
-                (click)="$event.stopPropagation(); handleDeleteGroup(group.id)">
+                (click)="$event.stopPropagation(); handleDeleteGroup(group.id)" *ngIf="canDelete$ | async">
                 <app-icon-delete />
               </button>
             </div>
@@ -52,7 +53,7 @@
       <ng-container *ngIf="selectedGroup && !editingGroup">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h2 class="h4">Questions pour "{{ selectedGroup.text }}"</h2>
-          <button class="btn btn-primary " (click)="handleAddNewQuestion()">
+          <button class="btn btn-primary " (click)="handleAddNewQuestion()" *ngIf="canAdd$ | async">
             <app-icon-plus /> Ajouter Question
           </button>
         </div>
@@ -78,10 +79,11 @@
               <div class="d-flex justify-content-between align-items-start">
                 <p class="mb-0">{{ question.text }}</p>
                 <div>
-                  <button class="btn btn-link btn-sm" (click)="handleEditQuestion(question)">
+                  <button class="btn btn-link btn-sm" (click)="handleEditQuestion(question)" *ngIf="canEdit$ | async">
                     <app-icon-edit />
                   </button>
-                  <button class="btn btn-link btn-sm text-danger" (click)="handleDeleteQuestion(question.id)">
+                  <button class="btn btn-link btn-sm text-danger" (click)="handleDeleteQuestion(question.id)"
+                    *ngIf="canDelete$ | async">
                     <app-icon-delete />
                   </button>
                 </div>

@@ -5,7 +5,8 @@
   <div class="d-flex">
     <app-button class="btn-adduser w-100" text="Ajouter utilisateur" data-bs-toggle="modal"
       data-bs-target="#exampleModal"
-      iconPath="M850,400H600V150a50,50,0,0,0-50-50H450a50,50,0,0,0-50,50V400H150a50,50,0,0,0-50,50V550a50,50,0,0,0,50,50H400V850a50,50,0,0,0,50,50H550a50,50,0,0,0,50-50V600H850a50,50,0,0,0,50-50V450A50,50,0,0,0,850,400Z"></app-button>
+      iconPath="M850,400H600V150a50,50,0,0,0-50-50H450a50,50,0,0,0-50,50V400H150a50,50,0,0,0-50,50V550a50,50,0,0,0,50,50H400V850a50,50,0,0,0,50,50H550a50,50,0,0,0,50-50V600H850a50,50,0,0,0,50-50V450A50,50,0,0,0,850,400Z"
+      *ngIf="canAdd$ | async"></app-button>
 
     <div class="input-group mb-3 input-dropdown d-flex justify-content-end">
       <button class="btn btn-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -30,7 +31,7 @@
           <th scope="col">Trigramme</th>
           <th scope="col">Département </th>
           <th scope="col">Rôle</th>
-          <th scope="col">Action</th>
+          <th scope="col" *ngIf="canEditOrDelete$ | async">Action</th>
         </tr>
       </thead>
       <tbody class="bg-white">
@@ -39,13 +40,14 @@
           <td>{{ user.trigramme }}</td>
           <td>{{ user.departement }}</td>
           <td>
-            <span class="badge rounded-pill" [ngClass]="user.role == 'admin' ? 'text-bg-secondary' : (user.role == 'editor' ? 'text-bg-info' : 'text-bg-warning')">
+            <span class="badge rounded-pill"
+              [ngClass]="user.role == 'admin' ? 'text-bg-secondary' : (user.role == 'editor' ? 'text-bg-info' : 'text-bg-warning')">
               {{ user.role }}
             </span>
           </td>
-          <td class="d-flex gap-2">
+          <td class="d-flex gap-2" *ngIf="canEditOrDelete$ | async">
             <div class="delete-icon" data-bs-toggle="modal" data-bs-target="#modalConfirm" data-bs-dismiss="modal"
-              (click)="saveTrigrammeAppDelete(user.trigramme)">
+              (click)="saveTrigrammeAppDelete(user.trigramme)" *ngIf="canDelete$ | async">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CD3C14"
                 class="solaris-icon si-trash" viewBox="0 0 1000 1000">
                 <path
@@ -53,7 +55,8 @@
                   style="fill-rule: evenodd" />
               </svg>
             </div>
-            <div class="edit-icon" (click)="editeUser(user)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div class="edit-icon" (click)="editeUser(user)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              *ngIf="canDelete$ | async">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#4170D8"
                 class="solaris-icon si-pencil" viewBox="0 0 1000 1000">
                 <path

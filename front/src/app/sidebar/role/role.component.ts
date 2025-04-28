@@ -4,6 +4,8 @@ import { Role } from '../../application/role/role.type';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { RoleService } from './service/role.service';
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
+import { combineLatest, map, Observable } from 'rxjs';
+import { UserService } from '../administration/user.service';
 
 @Component({
   selector: 'app-role',
@@ -14,8 +16,15 @@ import { ModalConfirmComponent } from '../../components/modal-confirm/modal-conf
 export class RoleComponent {
   roles: Role[] = [];
   roleName: string | null = null;
+  canAdd$!: Observable<boolean>;
+  canEdit$!: Observable<boolean>;
+  canDelete$!: Observable<boolean>;
+  canEditOrDelete$!: Observable<boolean>;
 
-  constructor(private roleService: RoleService) {}
+  constructor(
+    private roleService: RoleService,
+    private userService: UserService
+  ) {}
 
   saveRoleName = (roleName: string) => {
     this.roleName = roleName;
@@ -42,6 +51,13 @@ export class RoleComponent {
   }
 
   ngOnInit() {
+    this.canAdd$ = this.userService.canCreateService('roles');
+    this.canEdit$ = this.userService.canEditService('roles');
+    this.canDelete$ = this.userService.canDeleteService('roles');
+    this.canEditOrDelete$ = combineLatest([
+      this.canDelete$,
+      this.canEdit$,
+    ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
     this.findAll();
   }
 }

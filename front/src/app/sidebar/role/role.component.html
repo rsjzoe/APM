@@ -1,7 +1,7 @@
 <div class="">
     <h2 class="mb-4">Liste des rôles</h2>
     <button class="btn btn-primary">
-        <a [routerLink]="['/roles/add']" routerLinkActive="router-link-active">Ajouter</a>
+        <a [routerLink]="['/roles/add']" routerLinkActive="router-link-active" *ngIf="canAdd$ | async">Ajouter</a>
     </button>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -9,16 +9,16 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nom du rôle</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" *ngIf="canEditOrDelete$ | async">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let role of roles">
                     <td>{{ role.id }}</td>
                     <td>{{ role.roleName }}</td>
-                    <td class="d-flex gap-2">
+                    <td class="d-flex gap-2" *ngIf="canEditOrDelete$ | async">
                         <div class="delete-icon" (click)="saveRoleName(role.roleName)" data-bs-toggle="modal"
-                            data-bs-target="#modalConfirm" data-bs-dismiss="modal">
+                            data-bs-target="#modalConfirm" data-bs-dismiss="modal" *ngIf="canDelete$ | async">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CD3C14"
                                 class="solaris-icon si-trash" viewBox="0 0 1000 1000">
                                 <path
@@ -26,7 +26,7 @@
                                     style="fill-rule: evenodd" />
                             </svg>
                         </div>
-                        <a class="edit-icon" routerLink="/roles/edit/{{ role.roleName }}">
+                        <a class="edit-icon" routerLink="/roles/edit/{{ role.roleName }}" *ngIf="canEdit$ | async">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#4170D8"
                                 class="solaris-icon si-pencil" viewBox="0 0 1000 1000">
                                 <path

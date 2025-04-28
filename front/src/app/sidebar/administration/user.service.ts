@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ChangePassword, User } from './user.type';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { RoleService } from '../role/service/role.service';
-import { ActionType } from '../../application/role/role.type';
+import { ActionType, ServiceName } from '../../application/role/role.type';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class UserService {
     return this.getUserConnected()?.role == 'admin';
   }
 
-  hasAccess(serviceName: string, action: ActionType) {
+  hasAccess(serviceName: ServiceName, action: ActionType) {
     return this.roleService.hasAccess({
       action: action,
       roleName: this.getUserConnected()?.role || '',
@@ -26,7 +26,7 @@ export class UserService {
     });
   }
 
-  canReadService(serviceName: string) {
+  canReadService(serviceName: ServiceName) {
     return this.roleService.hasAccess({
       action: 'canRead',
       roleName: this.getUserConnected()?.role || '',
@@ -34,7 +34,7 @@ export class UserService {
     });
   }
 
-  canCreateService(serviceName: string) {
+  canCreateService(serviceName: ServiceName) {
     return this.roleService.hasAccess({
       action: 'canCreate',
       roleName: this.getUserConnected()?.role || '',
@@ -42,7 +42,7 @@ export class UserService {
     });
   }
 
-  canEditService(serviceName: string) {
+  canEditService(serviceName: ServiceName) {
     return this.roleService.hasAccess({
       action: 'canUpdate',
       roleName: this.getUserConnected()?.role || '',
@@ -50,7 +50,7 @@ export class UserService {
     });
   }
 
-  canDeleteService(serviceName: string) {
+  canDeleteService(serviceName: ServiceName) {
     return this.roleService.hasAccess({
       action: 'canDelete',
       roleName: this.getUserConnected()?.role || '',
@@ -67,14 +67,6 @@ export class UserService {
 
   canDelete() {
     return this.getUserConnected()?.role == 'admin';
-  }
-
-  canDeleteDoc(serviceName: string) {
-    return this.roleService.hasAccess({
-      action: 'canDelete',
-      roleName: this.getUserConnected()?.role || '',
-      serviceName: serviceName,
-    });
   }
 
   getUserConnected() {

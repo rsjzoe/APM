@@ -13,6 +13,8 @@ import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-del
 import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.component';
 // import Tooltip from './boosted/js/dist/tooltip';
 import { IconHelpComponent } from '../../components/icons/icon-help/icon-help.component';
+import { Observable } from 'rxjs';
+import { UserService } from '../administration/user.service';
 
 @Component({
   selector: 'app-performance',
@@ -34,21 +36,16 @@ export class PerformanceComponent {
   selectedGroup: QuestionGroupe | null = null;
   editingGroup: QuestionGroupe | null = null;
   editingQuestion: Question | null = null;
+  canAdd$!: Observable<boolean>;
+  canEdit$!: Observable<boolean>;
+  canDelete$!: Observable<boolean>;
 
   constructor(
     private questionGroupeService: QuestionGroupeService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private userService: UserService
   ) {}
 
-  // ngAfterViewInit() {
-  //   // Initialize all tooltips
-  //   const tooltipTriggerList = Array.from(
-  //     document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  //   );
-  //   tooltipTriggerList.forEach((element) => {
-  //     new Tooltip(element);
-  //   });
-  // }
   handleSelectGroup(group: QuestionGroupe): void {
     this.selectedGroup = group;
     this.editingGroup = null;
@@ -268,6 +265,9 @@ export class PerformanceComponent {
   };
 
   ngOnInit() {
+    this.canAdd$ = this.userService.canCreateService('performance');
+    this.canEdit$ = this.userService.canEditService('performance');
+    this.canDelete$ = this.userService.canDeleteService('performance');
     this.findAll();
   }
 }

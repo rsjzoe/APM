@@ -8,6 +8,7 @@ import { UserModalComponent } from './user-modal/user-modal.component';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from './user.service';
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
+import { combineLatest, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-administration',
@@ -27,6 +28,10 @@ export class AdministrationComponent {
   isEditing: string | null = null;
   userEditing: User | null = null;
   appTrigrammeDelete: string | null = null;
+  canAdd$!: Observable<boolean>;
+  canEdit$!: Observable<boolean>;
+  canDelete$!: Observable<boolean>;
+  canEditOrDelete$!: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -119,6 +124,13 @@ export class AdministrationComponent {
   };
 
   ngOnInit() {
+    this.canAdd$ = this.userService.canCreateService('admin');
+    this.canEdit$ = this.userService.canEditService('admin');
+    this.canDelete$ = this.userService.canDeleteService('admin');
+    this.canEditOrDelete$ = combineLatest([
+      this.canDelete$,
+      this.canEdit$,
+    ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
     this.refresh();
   }
 }

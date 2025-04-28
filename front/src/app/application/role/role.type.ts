@@ -45,7 +45,7 @@ export type UpdateRole = {
 
 export type HasAccess = {
   roleName: string;
-  serviceName: string;
+  serviceName: ServiceName;
   action: ActionType;
 };
 
@@ -54,3 +54,13 @@ export type HasAccessOutput = {
 };
 
 export type ActionType = 'canUpdate' | 'canDelete' | 'canRead' | 'canCreate';
+
+export type ServiceName =
+  | 'application'
+  | 'admin'
+  | 'classification'
+  | 'roles'
+  | 'category'
+  | 'performance'
+  | 'corbeille'
+  | 'documentation';

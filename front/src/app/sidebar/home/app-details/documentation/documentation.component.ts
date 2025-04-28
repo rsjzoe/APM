@@ -45,13 +45,6 @@ export class DocumentationComponent {
     public userService: UserService
   ) {}
 
-  // canDeleteDoc() {
-  //   return (
-  //     this.userService.getUserConnected()?.role == 'admin' ||
-  //     this.userService.getUserConnected()?.role == 'editor'
-  //   );
-  // }
-
   saveIdAppDelete = (filename: string) => {
     this.appFilenameDelete = filename;
   };
@@ -114,6 +107,6 @@ export class DocumentationComponent {
 
   ngOnInit() {
     this.findAllDocByAppId();
-    this.canDeleteDoc$ = this.userService.canDeleteDoc('documentation');
+    this.canDeleteDoc$ = this.userService.canDeleteService('documentation');
   }
 }
