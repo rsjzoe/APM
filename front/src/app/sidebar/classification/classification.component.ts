@@ -29,9 +29,9 @@ export class ClassificationComponent {
 
   ngOnInit() {
     this.findAll();
-    this.canAddClasse$ = this.userService.canCreateService('classfication');
-    this.canEditClasse$ = this.userService.canEditService('classfication');
-    this.canDeleteClasse$ = this.userService.canDeleteService('classfication');
+    this.canAddClasse$ = this.userService.canCreateService('classification');
+    this.canEditClasse$ = this.userService.canEditService('classification');
+    this.canDeleteClasse$ = this.userService.canDeleteService('classification');
   }
 
   findAll() {

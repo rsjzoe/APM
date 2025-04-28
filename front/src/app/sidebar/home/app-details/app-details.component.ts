@@ -115,6 +115,10 @@ export class AppDetailsComponent {
     });
   };
 
+  splitHistory(history: string) {
+    return history.split('-').filter((item) => item.length > 0);
+  }
+
   getStatusColor(status: Application['status']): string {
     switch (status) {
       case 'development':
