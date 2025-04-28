@@ -26,4 +26,8 @@ public class DepartementEntity extends PanacheEntity {
     public Departement toDepartement() {
         return new Departement(id, name);
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

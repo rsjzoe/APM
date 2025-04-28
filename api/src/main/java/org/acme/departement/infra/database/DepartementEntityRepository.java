@@ -28,4 +28,20 @@ public class DepartementEntityRepository implements DepartementRepository {
             throw new DepartementNotFoundException();
         return departements.toDepartement();
     }
+
+    @Override
+    public Departement creaDepartement(String name) {
+        DepartementEntity departement = new DepartementEntity();
+        departement.setName(name);
+        departement.persist();
+        return departement.toDepartement();
+    }
+
+    @Override
+    public Departement findByName(String name) throws DepartementNotFoundException {
+        DepartementEntity departement = DepartementEntity.find("name", name).firstResult();
+        if (departement == null)
+            throw new DepartementNotFoundException();
+        return departement.toDepartement();
+    }
 }

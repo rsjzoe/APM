@@ -9,4 +9,8 @@ public interface DepartementRepository {
     List<Departement> getListDepartement();
 
     Departement findById(Long id) throws DepartementNotFoundException;
+
+    Departement findByName(String name) throws DepartementNotFoundException;
+
+    Departement creaDepartement(String name);
 }
