@@ -87,4 +87,16 @@ public class RoleController implements RoleRest {
         }
     }
 
+    @Override
+    @Transactional
+    @Path("{roleName}")
+    @GET
+    public Role findByName(@PathParam("roleName") String roleName) {
+        try {
+            return roleService.findByName(roleName);
+        } catch (RoleNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+    }
+
 }

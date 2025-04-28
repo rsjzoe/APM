@@ -5,6 +5,7 @@ import {
   HasAccess,
   HasAccessOutput,
   Role,
+  UpdateRole,
 } from '../../../application/role/role.type';
 import { map } from 'rxjs';
 
@@ -30,15 +31,15 @@ export class RoleService {
       .pipe(map((response) => response.ok));
   }
 
-  // delete(id: number) {
-  //   return this.http.delete<Classe>(`${this.apiUrl}/${id}`);
-  // }
+  deleteByName(name: string) {
+    return this.http.delete<Role>(`${this.apiUrl}/${name}`);
+  }
 
-  // update(id: number, data: UpdateClasse) {
-  //   return this.http.put<Classe>(`${this.apiUrl}/${id}`, data);
-  // }
+  update(id: number, data: UpdateRole) {
+    return this.http.put<Role>(`${this.apiUrl}/${id}`, data);
+  }
 
-  // findById(id: number) {
-  //   return this.http.get<Classe>(`${this.apiUrl}/${id}`);
-  // }
+  findByName(name: string) {
+    return this.http.get<Role>(`${this.apiUrl}/${name}`);
+  }
 }

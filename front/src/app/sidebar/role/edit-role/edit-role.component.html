@@ -1,12 +1,7 @@
 <div class="">
-    <h2 class="mb-4">Ajouter un rôle</h2>
+    <h2 class="mb-4">Modifier un rôle</h2>
 
     <div>
-        <div class="mb-3">
-            <label for="roleName" class="form-label">Nom du rôle</label>
-            <input type="text" class="form-control" id="roleName" [(ngModel)]="newRole.roleName" name="roleName"
-                required>
-        </div>
 
         <div class="card mb-4">
             <div class="card-header">
@@ -31,32 +26,32 @@
                                 <td>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input"
-                                            [(ngModel)]="newRole.permissions[i].canCreate" [name]="'canCreate' + i">
+                                            [(ngModel)]="updateRole.permissions[i].canCreate" [name]="'canCreate' + i">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input"
-                                            [(ngModel)]="newRole.permissions[i].canRead" [name]="'canRead' + i">
+                                            [(ngModel)]="updateRole.permissions[i].canRead" [name]="'canRead' + i">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input"
-                                            [(ngModel)]="newRole.permissions[i].canUpdate" [name]="'canUpdate' + i">
+                                            [(ngModel)]="updateRole.permissions[i].canUpdate" [name]="'canUpdate' + i">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input"
-                                            [(ngModel)]="newRole.permissions[i].canDelete" [name]="'canDelete' + i">
+                                            [(ngModel)]="updateRole.permissions[i].canDelete" [name]="'canDelete' + i">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input"
-                                            [checked]="isAllSelected(newRole.permissions[i])"
-                                            (change)="toggleAllPermissions(newRole.permissions[i], $event)">
+                                            [checked]="isAllSelected(updateRole.permissions[i])"
+                                            (change)="toggleAllPermissions(updateRole.permissions[i], $event)">
                                     </div>
                                 </td>
                             </tr>
@@ -68,7 +63,7 @@
 
         <div class="d-flex gap-2">
             <button type="submit" class="btn btn-primary" (click)="onSubmit()">
-                Enregistrer
+                Mettre à jour
             </button>
             <button type="button" class="btn btn-secondary" (click)="onReset()">
                 Réinitialiser

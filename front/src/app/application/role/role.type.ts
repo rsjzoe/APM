@@ -40,7 +40,6 @@ export type UpdatePermission = {
 };
 
 export type UpdateRole = {
-  roleName: string;
   permissions: UpdatePermission[];
 };
 

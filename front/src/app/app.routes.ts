@@ -16,6 +16,7 @@ import { ClassificationComponent } from './sidebar/classification/classification
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RoleComponent } from './sidebar/role/role.component';
 import { AddRoleComponent } from './sidebar/role/add-role/add-role.component';
+import { EditRoleComponent } from './sidebar/role/edit-role/edit-role.component';
 
 export const routes: Routes = [
   {
@@ -88,6 +89,12 @@ export const routes: Routes = [
         component: AddRoleComponent,
         canActivate: [RoleGuard],
         data: { action: 'canCreate', serviceName: 'roles' },
+      },
+      {
+        path: 'roles/edit/:name',
+        component: EditRoleComponent,
+        canActivate: [RoleGuard],
+        data: { action: 'canUpdate', serviceName: 'roles' },
       },
       {
         path: '404',

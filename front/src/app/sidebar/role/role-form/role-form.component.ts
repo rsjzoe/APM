@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { CreateRole, Service } from '../../../application/role/role.type';
+import { Component, Input } from '@angular/core';
+import {
+  CreatePermission,
+  CreateRole,
+  Role,
+  Service,
+} from '../../../application/role/role.type';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServiceDataService } from '../service/service-data.service';
@@ -14,16 +19,18 @@ import { Router } from '@angular/router';
 })
 export class RoleFormComponent {
   services: Service[] = [];
-  constructor(
-    private serviceDataService: ServiceDataService,
-    private createRoleService: RoleService,
-    private router: Router
-  ) {}
+  @Input() role: Role | null = null;
 
   newRole: CreateRole = {
     roleName: '',
     permissions: [],
   };
+
+  constructor(
+    private serviceDataService: ServiceDataService,
+    private createRoleService: RoleService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.findAllServiceData();
@@ -37,6 +44,24 @@ export class RoleFormComponent {
       canUpdate: false,
       canDelete: false,
     }));
+  }
+
+  isAllSelected(permission: CreatePermission): boolean {
+    return (
+      permission.canCreate &&
+      permission.canRead &&
+      permission.canUpdate &&
+      permission.canDelete
+    );
+  }
+
+  toggleAllPermissions(permission: CreatePermission, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const isChecked = input.checked;
+    permission.canCreate = isChecked;
+    permission.canRead = isChecked;
+    permission.canUpdate = isChecked;
+    permission.canDelete = isChecked;
   }
 
   onSubmit() {

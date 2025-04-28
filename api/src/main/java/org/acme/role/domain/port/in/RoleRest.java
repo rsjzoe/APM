@@ -15,6 +15,8 @@ public interface RoleRest {
 
     public List<Role> findAll();
 
+    public Role findByName(String roleName);
+
     public Role deleteByName(String roleName);
 
     public Role updateRole(Long id, UpdateRole role);
