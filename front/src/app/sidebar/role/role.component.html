@@ -1,11 +1,13 @@
 <div class="">
-    <h2 class="mb-4">Liste des rôles</h2>
-    <button class="btn btn-primary">
-        <a [routerLink]="['/roles/add']" routerLinkActive="router-link-active" *ngIf="canAdd$ | async">Ajouter</a>
-    </button>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
+    <h3 class="mb-4">Liste des rôles</h3>
+    <a [routerLink]="['/roles/add']" routerLinkActive="router-link-active" *ngIf="canAdd$ | async">
+        <button class="btn btn-primary">
+            Ajouter
+        </button>
+    </a>
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-hover">
+            <thead class="bg-dark text-white">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nom du rôle</th>
@@ -16,7 +18,7 @@
                 <tr *ngFor="let role of roles">
                     <td>{{ role.id }}</td>
                     <td>{{ role.roleName }}</td>
-                    <td class="d-flex gap-2" *ngIf="canEditOrDelete$ | async">
+                    <td class="d-flex gap-3" *ngIf="canEditOrDelete$ | async">
                         <div class="delete-icon" (click)="saveRoleName(role.roleName)" data-bs-toggle="modal"
                             data-bs-target="#modalConfirm" data-bs-dismiss="modal" *ngIf="canDelete$ | async">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CD3C14"

@@ -2,7 +2,7 @@
   <div class="login-card">
     <div class="container-fluid">
       <div class="row g-0">
-        <div class="col-md-6 p-4 mt-3">
+        <div class="col-md-6 p-4 mt-4">
           <h2 class="login-title text-center mt-3">Se Connecter</h2>
           <div>
             <div class="mb-4">
@@ -14,7 +14,7 @@
             <div class="mb-4">
               <label for="inputEmail4" class="form-label">Mot de passe</label>
               <input type="password" class="form-control" id="inputPassword4" name="password" [(ngModel)]="password"
-                (keyup.enter)="login()" placeholder="password" />
+                (keyup.enter)="login()" placeholder="mot de passe..." />
             </div>
 
             <div class="alert alert-danger" *ngIf="errorMessage != null" role="alert">

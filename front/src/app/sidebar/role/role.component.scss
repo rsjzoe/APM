@@ -1,0 +1,19 @@
+.delete-icon,
+.edit-icon {
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  color: black !important;
+}
+
+.table {
+  overflow: hidden;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+thead th {
+  background-color: #000;
+  color: white;
+}
