@@ -30,8 +30,12 @@ export class UserProfileComponent {
 
   constructor(public userService: UserService) {}
 
-  toggleEdit(): void {
-    if (this.isEditing && this.user) {
+  showEditPassword() {
+    this.isEditing = true;
+  }
+
+  savedPasswordEdited(): void {
+    if (this.user) {
       if (
         this.oldPassword.trim().length > 0 &&
         this.newPassword.trim().length > 0
@@ -47,8 +51,8 @@ export class UserProfileComponent {
             },
           });
       }
+      this.isEditing = false;
     }
-    this.isEditing = !this.isEditing;
   }
 
   ngOnInit() {
