@@ -5,9 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.acme.auth.app.AuthService;
+import org.acme.auth.domain.exception.LoginException;
+import org.acme.auth.domain.input.Login;
 import org.acme.role.RoleData;
 import org.acme.user.app.UserService;
 import org.acme.user.domain.exception.UserNotFoundException;
+import org.acme.user.domain.exception.WrongPasswordException;
+import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +33,9 @@ public class UserServiceTest {
     @Inject
     RoleData roleData;
 
+    @Inject
+    AuthService authService;
+
     @BeforeEach
     @Transactional
     public void setup() {
@@ -37,7 +45,7 @@ public class UserServiceTest {
     @AfterEach
     @Transactional
     public void clear() {
-        userData.clear();
+            userData.clear();
     }
 
     @Test
@@ -92,6 +100,27 @@ public class UserServiceTest {
     public void testDeleteThrowsException() {
         assertThrows(UserNotFoundException.class,
                 () -> userService.deleteUserByTrigramme("dsafasdf"));
+    }
+
+    @Test
+    public void testChangePassword() throws UserNotFoundException, WrongPasswordException, LoginException {
+        var user = userData.getUserOutput();
+        var password = new ChangePassword("0000", "1234");
+        var changedPassword = userService.changePassword(user.getTrigramme(), password);
+
+        assertNotNull(changedPassword);
+        assertEquals(user.getName(), changedPassword.getName());
+
+        authService.login(new Login(user.getTrigramme(), password.getNewPassword()));
+    }
+
+    @Test
+    public void testWrongPassword() throws UserNotFoundException, WrongPasswordException {
+        var user = userData.getUserOutput();
+        var password = new ChangePassword("789", "1234");
+
+        assertThrows(WrongPasswordException.class,
+                () -> userService.changePassword(user.getTrigramme(), password));
     }
 
 }

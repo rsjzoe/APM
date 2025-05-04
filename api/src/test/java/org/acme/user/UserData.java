@@ -50,6 +50,9 @@ public class UserData {
             userReadAppOnly = authService.register(
                     new Register("userReadAppOnly", "userReadAppOnly", "DSI", roleData.getReadAppOnly().getRoleName()));
         } catch (UserExistedException | UserCreatedException e) {
+            // userReadAppOnly = new UserOutput("userReadAppOnly", "userReadAppOnly", "DSI",
+            // roleData.getReadAppOnly().getRoleName());
+
         }
         try {
             userAdminToken = authService.login(new Login(userAdmin.getTrigramme(), "0000"));

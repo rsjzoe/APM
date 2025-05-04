@@ -47,9 +47,14 @@ public class RoleEntityRepository implements RoleRepository {
                 .grantType("password")
                 .build();
         RolesResource rolesResource = keycloak.realm(REALM).roles();
-        var roleRepresentation = new RoleRepresentation();
-        roleRepresentation.setName(role.getRoleName());
-        rolesResource.create(roleRepresentation);
+        // eviter une erreur si le role existe deja dans keycloack
+        try {
+            var roleRepresentation = new RoleRepresentation();
+            roleRepresentation.setName(role.getRoleName());
+            rolesResource.create(roleRepresentation);
+        } catch (Exception e) {
+        }
+
         return roleEntity.toRole();
     }
 
@@ -98,8 +103,12 @@ public class RoleEntityRepository implements RoleRepository {
         if (!usersWithRole.isEmpty()) {
             throw new RoleActif("Role is still active for some users");
         }
-        RolesResource rolesResource = keycloak.realm(REALM).roles();
-        rolesResource.deleteRole(roleName);
+        // eviter une erreur si le role n'existe pas dans keycloack
+        try {
+            RolesResource rolesResource = keycloak.realm(REALM).roles();
+            rolesResource.deleteRole(roleName);
+        } catch (Exception e) {
+        }
 
         return roleEntity.toRole();
     }

@@ -9,7 +9,6 @@ import org.acme.role.domain.port.out.RoleRepository;
 import org.acme.user.domain.UserOutput;
 import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
-import org.acme.user.domain.exception.WrongPasswordException;
 import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
@@ -186,7 +185,7 @@ public class UserKeycloak implements UserRepository {
 
     @Override
     public UserOutput changePassword(String trigramme, ChangePassword changePassword)
-            throws UserNotFoundException, WrongPasswordException {
+            throws UserNotFoundException {
         UsersResource usersResource = keycloak.realm(REALM).users();
 
         // Rechercher l'utilisateur par trigramme (en supposant que c'est stocké dans le

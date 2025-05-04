@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.acme.auth.app.AuthService;
+import org.acme.auth.domain.exception.LoginException;
+import org.acme.auth.domain.input.Login;
 import org.acme.role.RoleData;
 import org.acme.user.domain.exception.UserNotFoundException;
+import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -27,6 +31,9 @@ public class UserKeycloakTest {
 
     @Inject
     RoleData roleData;
+
+    @Inject
+    AuthService authService;
 
     @BeforeEach
     @Transactional
@@ -94,4 +101,15 @@ public class UserKeycloakTest {
                 () -> userRepository.deleteByTrigramme("dsafasdf"));
     }
 
+    @Test
+    public void testChangePassword() throws UserNotFoundException, LoginException {
+        var user = userData.getUserOutput();
+        var password = new ChangePassword("0000", "1234");
+        var changedPassword = userRepository.changePassword(user.getTrigramme(), password);
+
+        assertNotNull(changedPassword);
+        assertEquals(user.getName(), changedPassword.getName());
+
+        authService.login(new Login(user.getTrigramme(), password.getNewPassword()));
+    }
 }
