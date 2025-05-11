@@ -26,6 +26,7 @@ public class QuestionGroupEntityRepository implements QuestionGroupRepository {
             throw new QuestionGroupNotFoundException();
         }
         data.updateQuestion(updateQuestion);
+        data.persist();
         return data.toQuestionGroup();
     }
 
