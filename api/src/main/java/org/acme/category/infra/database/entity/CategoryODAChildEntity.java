@@ -39,10 +39,10 @@ public class CategoryODAChildEntity extends PanacheEntity {
     }
 
     public void update(UpdateCategoryODAChild data) {
-        if (this.name != null) {
+        if (data.getName() != null) {
             this.name = data.getName();
         }
-        if (this.categoryODAParentEntity != null) {
+        if (data.getParentId() != null) {
             this.categoryODAParentEntity = CategoryODAParentEntityHelper.entityFromId(data.getParentId());
         }
     }
