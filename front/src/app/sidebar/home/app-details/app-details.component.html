@@ -1,17 +1,45 @@
 <div class="app-detail" *ngIf="application != null">
+  <app-modal-edit-app />
+
   <div class="">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home">Application</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ application.name }}
+        </li>
+      </ol>
+    </nav>
+
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div class="d-grid gap-2">
-        <h1 class="h4 mb-0">{{ application.name }}</h1>
-        <span class="text-muted small">Informations générales sur cette application</span>
+        <div class="d-flex gap-4 align-items-center">
+          <h1 class="mb-0">{{ application.name }}</h1>
+          <button
+            class="btn btn-sm bg-info text-white edit"
+            aria-label="Modifier"
+            *ngIf="canEdit$ | async"
+            (click)="editApp(); $event.stopPropagation()"
+            data-bs-toggle="modal"
+            data-bs-target="#modalEditApp"
+            data-bs-dismiss="modal"
+          >
+            <app-icon-edit></app-icon-edit>
+          </button>
+        </div>
+        <span class="text-muted small"
+          >Informations générales sur cette application</span
+        >
       </div>
     </div>
 
     <!-- Metrics -->
     <div class="row g-4">
       <div class="col-md-4">
-        <div class="card h-100 bg-primary rounded-1 text-white border-0 shadow-sm">
+        <div
+          class="card h-100 bg-primary rounded-1 text-white border-0 shadow-sm"
+        >
           <div class="card-body p-4">
             <div class="d-flex align-items-center justify-content-between">
               <span class="">Date</span>
@@ -25,7 +53,7 @@
                 <div>
                   <span class="fw-bold h5">{{
                     formatDate(application.startDate)
-                    }}</span>
+                  }}</span>
                 </div>
                 <div>
                   <span class="small">Mise en production</span>
@@ -35,7 +63,7 @@
                 <div>
                   <span class="fw-bold h5">{{
                     formatDate(application.lastUpdate)
-                    }}</span>
+                  }}</span>
                 </div>
                 <div>
                   <span class="small">Dernière mise à jour</span>
@@ -60,7 +88,7 @@
                 <div>
                   <span class="fw-bold h3">{{
                     application.currentTechBusinessValue.businessValue
-                    }}</span>
+                  }}</span>
                 </div>
                 <div>
                   <span class="text-muted small">Valeur Commerciale</span>
@@ -70,7 +98,7 @@
                 <div>
                   <span class="fw-bold h3">{{
                     application.currentTechBusinessValue.technicalDebt
-                    }}</span>
+                  }}</span>
                 </div>
                 <div>
                   <span class="text-muted small">Dette technique</span>
@@ -93,7 +121,9 @@
             <div class="mt-3 d-flex justify-content-between">
               <div class="d-grid gap-1">
                 <div>
-                  <span class="fw-bold h3">{{ application.currentCost.costBuild }}€</span>
+                  <span class="fw-bold h3"
+                    >{{ application.currentCost.costBuild }}€</span
+                  >
                 </div>
                 <div>
                   <span class="text-muted small">Construction</span>
@@ -101,7 +131,9 @@
               </div>
               <div class="d-grid gap-1">
                 <div>
-                  <span class="fw-bold h3">{{ application.currentCost.costRun }}€</span>
+                  <span class="fw-bold h3"
+                    >{{ application.currentCost.costRun }}€</span
+                  >
                 </div>
                 <div>
                   <span class="text-muted small">Fonctionnement</span>
@@ -137,12 +169,14 @@
               <div class="d-flex" style="gap: 15rem">
                 <div class="d-grid gap-3">
                   <div class="d-flex align-items-center gap-1">
-                    <app-icon-lifecycle [ngClass]="getTimeColor(application.time)" />
+                    <app-icon-lifecycle
+                      [ngClass]="getTimeColor(application.time)"
+                    />
                     <div class="d-grid gap-1">
                       <span class="fw-bold small">TIME</span>
                       <span class="text-muted small">{{
                         application.time
-                        }}</span>
+                      }}</span>
                     </div>
                   </div>
                   <div class="d-flex align-items-center gap-1">
@@ -151,7 +185,7 @@
                       <span class="fw-bold small">Status</span>
                       <span class="text-muted small">{{
                         application.status
-                        }}</span>
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -163,7 +197,7 @@
                       <span class="fw-bold small">Total Users</span>
                       <span class="text-muted small">{{
                         application.userTotal
-                        }}</span>
+                      }}</span>
                     </div>
                   </div>
                   <div class="d-flex align-items-center gap-1">
@@ -171,7 +205,12 @@
                     <div class="d-grid gap-1">
                       <span class="fw-bold small">Département</span>
                       <span class="text-muted small">
-                        <span *ngFor="let department of application.departements; let last = last">
+                        <span
+                          *ngFor="
+                            let department of application.departements;
+                            let last = last
+                          "
+                        >
                           {{ department.name }}<span *ngIf="!last"> - </span>
                         </span>
                       </span>
@@ -199,8 +238,10 @@
 
             <div class="d-grid gap-2">
               <span class="text-muted small">Catégorie</span>
-              <span class="">{{ application.category.parentName }} -
-                {{ application.category.name }}</span>
+              <span class=""
+                >{{ application.category.parentName }} -
+                {{ application.category.name }}</span
+              >
             </div>
           </div>
         </div>
@@ -208,21 +249,47 @@
     </div>
   </div>
   <div class="rounded-1 overflow-hidden shadow-sm">
-    <ul role="tablist" aria-owns="nav-tab1 nav-tab2 nav-tab3 nav-tab4" class="nav nav-tabs d-flex"
-      id="nav-tab-with-nested-tabs">
-      <li class="nav-item flex-fill" role="presentation" (click)="setActiveTab('history')">
-        <span class="nav-link gap-1 align-items-center" [ngClass]="activeTab == 'history' ? 'active' : ''">
+    <ul
+      role="tablist"
+      aria-owns="nav-tab1 nav-tab2 nav-tab3 nav-tab4"
+      class="nav nav-tabs d-flex"
+      id="nav-tab-with-nested-tabs"
+    >
+      <li
+        class="nav-item flex-fill"
+        role="presentation"
+        (click)="setActiveTab('history')"
+      >
+        <span
+          class="nav-link gap-1 align-items-center"
+          [ngClass]="activeTab == 'history' ? 'active' : ''"
+        >
           <app-icon-history />
           <span>Historique</span>
         </span>
       </li>
-      <li class="nav-item flex-fill" role="presentation" (click)="setActiveTab('note')">
-        <span class="nav-link gap-1 align-items-end" [ngClass]="activeTab == 'note' ? 'active' : ''">
+      <li
+        class="nav-item flex-fill"
+        role="presentation"
+        (click)="setActiveTab('note')"
+      >
+        <span
+          class="nav-link gap-1 align-items-end"
+          [ngClass]="activeTab == 'note' ? 'active' : ''"
+        >
           <app-icon-note />
-          <span>Note</span></span>
+          <span>Note</span></span
+        >
       </li>
-      <li class="nav-item flex-fill" role="presentation" (click)="setActiveTab('documentation')">
-        <span class="nav-link gap-1 align-items-end" [ngClass]="activeTab == 'documentation' ? 'active' : ''">
+      <li
+        class="nav-item flex-fill"
+        role="presentation"
+        (click)="setActiveTab('documentation')"
+      >
+        <span
+          class="nav-link gap-1 align-items-end"
+          [ngClass]="activeTab == 'documentation' ? 'active' : ''"
+        >
           <app-icon-docs></app-icon-docs>
           <span>Documentation</span>
         </span>
@@ -238,16 +305,25 @@
         <app-timeline>
           <app-timeline-history *ngFor="let event of appHistory">
             <span icon class="icon p-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                class="solaris-icon si-tick" viewBox="0 0 1000 1000">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="solaris-icon si-tick"
+                viewBox="0 0 1000 1000"
+              >
                 <path
                   d="M875,240a64.568,64.568,0,0,0-108.864-47.408l-0.011-.012L383.621,565,257.594,424.648l-0.011.014a64.372,64.372,0,0,0-87.784,3.375l-25.862,26a65.23,65.23,0,0,0-4.758,86.56l-0.011.008,206.9,260,0.01-.008a64.407,64.407,0,0,0,100.953,0l0.011,0.009,413.793-520-0.011-.008A64.916,64.916,0,0,0,875,240Z"
-                  style="fill-rule: evenodd" />
+                  style="fill-rule: evenodd"
+                />
               </svg>
             </span>
             <div class="event-content">
               <ul class="description m-0 p-0">
-                <li *ngFor="let text of splitHistory(event.descriptionHistory)">{{ text }}</li>
+                <li *ngFor="let text of splitHistory(event.descriptionHistory)">
+                  {{ text }}
+                </li>
               </ul>
               <div class="event-meta">
                 <span>{{ formatDate(event.modifiedAt) }}</span>
@@ -266,7 +342,9 @@
         <p>Votre avis nous est précieux</p>
       </div>
       <div class="card-tab-content">
-        <app-rate-application [application]="application"></app-rate-application>
+        <app-rate-application
+          [application]="application"
+        ></app-rate-application>
       </div>
     </div>
 
@@ -277,9 +355,14 @@
             <h2>Documentation</h2>
             <p>Consultez la documentation de l'application.</p>
           </div>
-          <app-button text="Ajouter" data-bs-toggle="modal" data-bs-target="#modalAddDocumentation"
-            *ngIf="canAddDoc$ | async" data-bs-dismiss="modal"
-            iconPath="M850,400H600V150a50,50,0,0,0-50-50H450a50,50,0,0,0-50,50V400H150a50,50,0,0,0-50,50V550a50,50,0,0,0,50,50H400V850a50,50,0,0,0,50,50H550a50,50,0,0,0,50-50V600H850a50,50,0,0,0,50-50V450A50,50,0,0,0,850,400Z">
+          <app-button
+            text="Ajouter"
+            data-bs-toggle="modal"
+            data-bs-target="#modalAddDocumentation"
+            *ngIf="canAddDoc$ | async"
+            data-bs-dismiss="modal"
+            iconPath="M850,400H600V150a50,50,0,0,0-50-50H450a50,50,0,0,0-50,50V400H150a50,50,0,0,0-50,50V550a50,50,0,0,0,50,50H400V850a50,50,0,0,0,50,50H550a50,50,0,0,0,50-50V600H850a50,50,0,0,0,50-50V450A50,50,0,0,0,850,400Z"
+          >
           </app-button>
         </div>
       </div>

@@ -3,12 +3,14 @@ import { Classe } from '../../application/classe/classe.type';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ClasseService } from '../../application/classe/classe.service';
-import { Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
+import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
+import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
 
 @Component({
   selector: 'app-classification',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, IconDeleteComponent, IconEditComponent],
   templateUrl: './classification.component.html',
   styleUrl: './classification.component.scss',
 })
@@ -21,6 +23,7 @@ export class ClassificationComponent {
   canAddClasse$!: Observable<boolean>;
   canEditClasse$!: Observable<boolean>;
   canDeleteClasse$!: Observable<boolean>;
+  canEditOrDelete$!: Observable<boolean>;
 
   constructor(
     private classeService: ClasseService,
@@ -32,6 +35,10 @@ export class ClassificationComponent {
     this.canAddClasse$ = this.userService.canCreateService('classification');
     this.canEditClasse$ = this.userService.canEditService('classification');
     this.canDeleteClasse$ = this.userService.canDeleteService('classification');
+    this.canEditOrDelete$ = combineLatest([
+      this.canDeleteClasse$,
+      this.canEditClasse$,
+    ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
   }
 
   findAll() {
@@ -66,6 +73,10 @@ export class ClassificationComponent {
 
   startEditing(classe: Classe) {
     this.editingClasse = { ...classe };
+    if (this.editingClasse) {
+      this.newClasse = this.editingClasse;
+      window.scrollTo(0, 0);
+    }
   }
 
   updateEditingName(name: string) {
@@ -88,7 +99,7 @@ export class ClassificationComponent {
       .subscribe({
         next: () => {
           this.findAll();
-          this.editingClasse = null;
+          this.cancelEdit();
         },
         error: (error) => {
           console.error('Error updating class:', error);
@@ -98,6 +109,7 @@ export class ClassificationComponent {
 
   cancelEdit() {
     this.editingClasse = null;
+    this.newClasse = this.getEmptyClasse();
   }
 
   isEditing(id: number): boolean {
