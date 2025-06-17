@@ -1,9 +1,16 @@
-<div class="">
+<div class="role-list-container">
     <h2 class="mb-4">Liste des rôles</h2>
-    <button class="btn btn-primary">
-        <a [routerLink]="['/roles/add']" routerLinkActive="router-link-active" *ngIf="canAdd$ | async">Ajouter</a>
-    </button>
-    <div class="table-responsive">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/roles">Rôles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste</li>
+        </ol>
+    </nav>
+    <a [routerLink]="['/roles/add']" routerLinkActive="router-link-active" *ngIf="canAdd$ | async">
+        <button class="btn btn-primary">
+            Ajouter
+        </button></a>
+    <div class="table-responsive mt-3">
         <table class="table table-hover">
             <thead>
                 <tr>
