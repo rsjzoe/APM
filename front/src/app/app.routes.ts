@@ -57,7 +57,7 @@ export const routes: Routes = [
         component: LifeCycleTimeComponent,
       },
       {
-        path: 'performance',
+        path: 'questionnaire',
         component: PerformanceComponent,
         data: { action: 'canRead', serviceName: 'performance' },
         canActivate: [RoleGuard],

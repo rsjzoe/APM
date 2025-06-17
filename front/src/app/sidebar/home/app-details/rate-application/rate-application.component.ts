@@ -31,6 +31,8 @@ export class RateApplicationComponent {
   ) {}
 
   expandedGroups: boolean[] = [true];
+  expandedGroupsVm: boolean[] = [true];
+
   // Store ratings in a map: {groupId: {questionId: rating}}
   ratings: Map<number, Map<number, number>> = new Map();
 
@@ -38,8 +40,15 @@ export class RateApplicationComponent {
     return this.expandedGroups[index] || false;
   }
 
+  isGroupExpandedVm(index: number): boolean {
+    return this.expandedGroupsVm[index] || false;
+  }
+
   toggleGroup(index: number) {
     this.expandedGroups[index] = !this.expandedGroups[index];
+  }
+  toggleGroupVm(index: number) {
+    this.expandedGroupsVm[index] = !this.expandedGroupsVm[index];
   }
 
   getRatingForQuestion(groupId: number, questionId: number): number {

@@ -27,6 +27,9 @@ import { IconNoteComponent } from '../../../components/icons/icon-note/icon-note
 import { IconDocsComponent } from '../../../components/icons/icon-docs/icon-docs.component';
 import { IconDepartementComponent } from '../../../components/icons/icon-departement/icon-departement.component';
 import { Observable } from 'rxjs';
+import { IconEditComponent } from '../../../components/icons/icon-edit/icon-edit.component';
+import { ModalStateService } from '../modal-add-app/modal-state.service';
+import { ModalEditAppComponent } from '../modal-edit-app/modal-edit-app.component';
 
 @Component({
   selector: 'app-app-details',
@@ -48,6 +51,8 @@ import { Observable } from 'rxjs';
     IconNoteComponent,
     IconDocsComponent,
     IconDepartementComponent,
+    IconEditComponent,
+    ModalEditAppComponent,
   ],
   templateUrl: './app-details.component.html',
   styleUrl: './app-details.component.scss',
@@ -63,14 +68,18 @@ export class AppDetailsComponent {
   appHistory: AppHistory[] = [];
   activeTab: string = 'history';
   canAddDoc$!: Observable<boolean>;
+  canEdit$!: Observable<boolean>;
 
   constructor(
     private appService: ApplicationService,
     private activateRoute: ActivatedRoute,
     private appHistoryService: AppHistoryService,
     public userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private modalStateService: ModalStateService
+  ) {
+    modalStateService.subscribeOnsubmit(this.refresh);
+  }
 
   numberFormat = (value: number) => {
     return NumberFormat.formatDevise(value);
@@ -84,7 +93,14 @@ export class AppDetailsComponent {
     return DateFormater.format(date);
   }
 
+  refresh = () => {
+    if (!this.appId) return;
+    this.findAppById(this.appId);
+    this.findAllAppHistory(this.appId);
+  };
+
   ngOnInit() {
+    this.canEdit$ = this.userService.canEditService('application');
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.findAppById(this.appId);
     this.findAllAppHistory(this.appId);
@@ -113,6 +129,11 @@ export class AppDetailsComponent {
         console.error('Erreur lors de la récupération des tâches :', error);
       },
     });
+  };
+
+  editApp = () => {
+    if (!this.application) return;
+    this.modalStateService.editApp(this.application);
   };
 
   splitHistory(history: string) {

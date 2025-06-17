@@ -1,11 +1,12 @@
+.app-list-container {
+  padding: 20px;
+  background-color: #fff;
+}
+
 .table {
   // border: 1px solid #ccc;
   border-radius: 4px;
   overflow: hidden;
-}
-thead th {
-  background-color: #000;
-  color: white;
 }
 
 .table tbody tr:hover {

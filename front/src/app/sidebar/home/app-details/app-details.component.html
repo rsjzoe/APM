@@ -1,9 +1,27 @@
 <div class="app-detail" *ngIf="application != null">
-  <div class="">
+  <app-modal-edit-app />
+
+  <div class="mt-0">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home">Application</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ application.name }}
+        </li>
+      </ol>
+    </nav>
+
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div class="d-grid gap-2">
-        <h1 class="h4 mb-0">{{ application.name }}</h1>
+        <div class="d-flex gap-4 align-items-center">
+          <h1 class="mb-0">{{ application.name }}</h1>
+          <button class="btn btn-sm bg-info text-white edit" aria-label="Modifier" *ngIf="canEdit$ | async"
+            (click)="editApp(); $event.stopPropagation()" data-bs-toggle="modal" data-bs-target="#modalEditApp"
+            data-bs-dismiss="modal">
+            <app-icon-edit></app-icon-edit>
+          </button>
+        </div>
         <span class="text-muted small">Informations générales sur cette application</span>
       </div>
     </div>
@@ -171,7 +189,10 @@
                     <div class="d-grid gap-1">
                       <span class="fw-bold small">Département</span>
                       <span class="text-muted small">
-                        <span *ngFor="let department of application.departements; let last = last">
+                        <span *ngFor="
+                            let department of application.departements;
+                            let last = last
+                          ">
                           {{ department.name }}<span *ngIf="!last"> - </span>
                         </span>
                       </span>
@@ -247,7 +268,9 @@
             </span>
             <div class="event-content">
               <ul class="description m-0 p-0">
-                <li *ngFor="let text of splitHistory(event.descriptionHistory)">{{ text }}</li>
+                <li *ngFor="let text of splitHistory(event.descriptionHistory)">
+                  {{ text }}
+                </li>
               </ul>
               <div class="event-meta">
                 <span>{{ formatDate(event.modifiedAt) }}</span>

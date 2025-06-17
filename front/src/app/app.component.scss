@@ -8,3 +8,7 @@ body {
 .modal-backdrop.show {
   opacity: 0 !important;
 }
+
+.breadcrumb-item.active {
+  color: #ff7900;
+}

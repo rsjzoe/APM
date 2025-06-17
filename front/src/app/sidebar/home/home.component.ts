@@ -6,13 +6,13 @@ import { applications } from '../../application/data';
 import { ApplicationService } from './application.service';
 import { ModalStateService } from './modal-add-app/modal-state.service';
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
-import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
 import { Router } from '@angular/router';
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
 import { ModalEditAppComponent } from './modal-edit-app/modal-edit-app.component';
 import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
 import { UserService } from '../administration/user.service';
 import { combineLatest, map, Observable } from 'rxjs';
+import { DateFormater } from '../../lib/dateFormater';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,6 @@ import { combineLatest, map, Observable } from 'rxjs';
     ButtonComponent,
     CommonModule,
     IconDeleteComponent,
-    IconEditComponent,
     ModalConfirmComponent,
     ModalEditAppComponent,
     ModalAddAppComponent,
@@ -102,6 +101,10 @@ export class HomeComponent {
       this.canDelete$,
       this.canEdit$,
     ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
+  }
+
+  formatDate(date: Date | string) {
+    return DateFormater.format(date);
   }
 
   getStatusColor(status: Application['status']): string {

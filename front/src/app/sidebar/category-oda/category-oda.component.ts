@@ -42,6 +42,8 @@ export class CategoryOdaComponent {
   editingParentName: { [key: number]: string } = {};
   editingChildName: { [key: number]: string } = {};
   categoryIdDelete: number | null = null;
+  openIndex: number | null = null;
+  categoryIdChild: number | null = null;
 
   canAddCategory$!: Observable<boolean>;
   canEditCategory$!: Observable<boolean>;
@@ -75,6 +77,10 @@ export class CategoryOdaComponent {
     });
   }
 
+  toggleAccordion(index: number) {
+    this.openIndex = this.openIndex === index ? null : index;
+  }
+
   addParentCategory() {
     if (this.newParentName.trim()) {
       const newCategory: CreateCategoryODAParent = {
@@ -95,9 +101,20 @@ export class CategoryOdaComponent {
     this.categoryIdDelete = idCategory;
   };
 
+  saveCategoryIdChild = (idChild: number) => {
+    this.categoryIdChild = idChild;
+  };
+
   onConfirmDelete = () => {
     if (this.categoryIdDelete) {
       this.deleteParentCategory(this.categoryIdDelete);
+    }
+  };
+
+  onConfirmDeleteChild = () => {
+    console.log('ID category delete', this.categoryIdChild);
+    if (this.categoryIdChild) {
+      this.deleteChildCategory(this.categoryIdChild);
     }
   };
 
@@ -129,17 +146,10 @@ export class CategoryOdaComponent {
     }
   }
 
-  deleteChildCategory(parentId: number, childId: number) {
+  deleteChildCategory(childId: number) {
     this.categoryODAChildService.delete(childId).subscribe({
       next: () => {
-        // afaka tonga de mrefresh de ts manao anity codee ty tsony
-        for (let categorie of this.categories) {
-          if (parentId == categorie.id) {
-            categorie.childs = categorie.childs.filter(
-              (child) => child.id != childId
-            );
-          }
-        }
+        this.refresh();
       },
     });
   }
