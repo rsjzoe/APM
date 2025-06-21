@@ -31,14 +31,24 @@ public class UserService {
     }
 
     public List<UserOutput> findAllUsers() {
-        return userRepository.findAllUser();
+        return userRepository.findAllUser()
+                .stream()
+                .filter(user -> !("superadmin".equalsIgnoreCase(user.getTrigramme())
+                        || "superadminapm".equalsIgnoreCase(user.getTrigramme())))
+                .toList();
     }
 
     public UserOutput deleteUserByTrigramme(String trigramme) throws UserNotFoundException {
+        if (trigramme.equalsIgnoreCase("superadmin") || trigramme.equalsIgnoreCase("superadminapm")) {
+            throw new UserNotFoundException("Cannot");
+        }
         return userRepository.deleteByTrigramme(trigramme);
     }
 
     public UserOutput updateUserByTrigramme(String trigramme, UpdateUser userUpdate) throws UserNotFoundException {
+        if (trigramme.equalsIgnoreCase("superadmin") || trigramme.equalsIgnoreCase("superadminapm")) {
+            throw new UserNotFoundException("Cannot");
+        }
         return userRepository.updateByTrigramme(trigramme, userUpdate);
     }
 

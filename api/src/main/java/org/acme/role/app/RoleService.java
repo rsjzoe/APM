@@ -33,7 +33,10 @@ public class RoleService {
     }
 
     public List<Role> findAll() {
-        return roleRepository.findAll();
+        return roleRepository.findAll().stream()
+                .filter(role -> !("superadmin".equalsIgnoreCase(role.getRoleName())
+                        || "superadminapm".equalsIgnoreCase(role.getRoleName())))
+                .toList();
     }
 
     public HasAccessOutput hasAccess(HasAccess params) throws RoleNotFoundException {

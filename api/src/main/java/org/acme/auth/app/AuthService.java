@@ -19,15 +19,19 @@ public class AuthService {
         this.authentification = authentification;
     }
 
-    public Token login(Login login) throws LoginException{
+    public Token login(Login login) throws LoginException {
         return authentification.login(login);
     }
 
-    public UserOutput register(Register register) throws UserExistedException, UserCreatedException{
+    public UserOutput register(Register register) throws UserExistedException, UserCreatedException {
+        if (register.getTrigramme().equalsIgnoreCase("superadmin")
+                || register.getTrigramme().equalsIgnoreCase("superadminapm")) {
+            throw new UserExistedException();
+        }
         return authentification.register(register);
     }
 
-    public Token refreshToken(String token) throws LoginException,Exception{
+    public Token refreshToken(String token) throws LoginException, Exception {
         return authentification.refreshToken(token);
     }
 
