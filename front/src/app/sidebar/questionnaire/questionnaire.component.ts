@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
 
 @Component({
-  selector: 'app-performance',
+  selector: 'app-questionnaire',
   imports: [
     FormsModule,
     CommonModule,
@@ -26,11 +26,11 @@ import { UserService } from '../administration/user.service';
     IconPlusComponent,
     IconHelpComponent,
   ],
-  templateUrl: './performance.component.html',
-  styleUrl: './performance.component.scss',
+  templateUrl: './questionnaire.component.html',
+  styleUrl: './questionnaire.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class PerformanceComponent {
+export class QuestionnaireComponent {
   QuestionGroupeType = QuestionGroupeType;
   questionGroups: QuestionGroupe[] = [];
   selectedGroup: QuestionGroupe | null = null;

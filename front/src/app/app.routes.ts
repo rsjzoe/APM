@@ -5,7 +5,7 @@ import { HomeComponent } from './sidebar/home/home.component';
 import { LifeCycleTimeComponent } from './sidebar/life-cycle-time/life-cycle-time.component';
 import { AppDetailsComponent } from './sidebar/home/app-details/app-details.component';
 import { LoginComponent } from './auth/login/login.component';
-import { PerformanceComponent } from './sidebar/performance/performance.component';
+import { QuestionnaireComponent } from './sidebar/questionnaire/questionnaire.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ConnectedGuard } from './auth/connected.guard';
 import { GuestGuard } from './auth/guest.guard';
@@ -58,7 +58,7 @@ export const routes: Routes = [
       },
       {
         path: 'questionnaire',
-        component: PerformanceComponent,
+        component: QuestionnaireComponent,
         data: { action: 'canRead', serviceName: 'performance' },
         canActivate: [RoleGuard],
       },

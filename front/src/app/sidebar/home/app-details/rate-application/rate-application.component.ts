@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { CommonModule } from '@angular/common';
-import { QuestionGroupeService } from '../../../performance/service/questionGroupe.service';
+import { QuestionGroupeService } from '../../../questionnaire/service/questionGroupe.service';
 import {
   Application,
   UpdateApplication,
