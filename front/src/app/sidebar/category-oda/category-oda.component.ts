@@ -17,6 +17,7 @@ import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.co
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
 import { Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
+import { ToastService } from '../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-category-oda',
@@ -52,7 +53,8 @@ export class CategoryOdaComponent {
   constructor(
     private categoryODAParentService: CategoryODAParentService,
     private categoryODAChildService: CategoryODAChildService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) {}
 
   generateRandomColor(): string {
@@ -92,6 +94,13 @@ export class CategoryOdaComponent {
         next: (val) => {
           this.newParentName = '';
           this.categories.push(val);
+          this.toastService.success('Catégorie parent ajoutée avec succès');
+        },
+        error: (err) => {
+          this.toastService.error(
+            "Erreur lors de l'ajout de la catégorie parent"
+          );
+          console.error(err);
         },
       });
     }
@@ -122,6 +131,13 @@ export class CategoryOdaComponent {
     this.categoryODAParentService.delete(id).subscribe({
       next: () => {
         this.refresh();
+        this.toastService.success('Catégorie parent supprimée avec succès');
+      },
+      error: (err) => {
+        this.toastService.error(
+          'Erreur lors de la suppression de la catégorie parent'
+        );
+        console.error(err);
       },
     });
   }
@@ -141,6 +157,13 @@ export class CategoryOdaComponent {
               categorie.childs.push(val);
             }
           }
+          this.toastService.success('Catégorie enfant ajoutée avec succès');
+        },
+        error: (err) => {
+          this.toastService.error(
+            "Erreur lors de l'ajout de la catégorie enfant"
+          );
+          console.error(err);
         },
       });
     }
@@ -150,6 +173,13 @@ export class CategoryOdaComponent {
     this.categoryODAChildService.delete(childId).subscribe({
       next: () => {
         this.refresh();
+        this.toastService.success('Catégorie enfant supprimée avec succès');
+      },
+      error: (err) => {
+        this.toastService.error(
+          'Erreur lors de la suppression de la catégorie enfant'
+        );
+        console.error(err);
       },
     });
   }
@@ -173,6 +203,15 @@ export class CategoryOdaComponent {
           .subscribe({
             next: () => {
               this.refresh();
+              this.toastService.success(
+                'Catégorie parent modifiée avec succès'
+              );
+            },
+            error: (err) => {
+              this.toastService.error(
+                'Erreur lors de la modification de la catégorie parent'
+              );
+              console.error(err);
             },
           });
       }
@@ -202,6 +241,15 @@ export class CategoryOdaComponent {
             .subscribe({
               next: () => {
                 this.refresh();
+                this.toastService.success(
+                  'Catégorie enfant modifiée avec succès'
+                );
+              },
+              error: (err) => {
+                this.toastService.error(
+                  'Erreur lors de la modification de la catégorie enfant'
+                );
+                console.error(err);
               },
             });
         }

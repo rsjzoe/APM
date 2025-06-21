@@ -9,6 +9,7 @@ import { AuthService } from '../../auth/auth.service';
 import { UserService } from './user.service';
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
 import { combineLatest, map, Observable } from 'rxjs';
+import { ToastService } from '../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-administration',
@@ -35,7 +36,8 @@ export class AdministrationComponent {
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) {}
 
   saveTrigrammeAppDelete = (trigramme: string) => {
@@ -59,6 +61,11 @@ export class AdministrationComponent {
       .subscribe({
         next: (val) => {
           this.findAllUsers();
+          this.toastService.success('Utilisateur ajouté avec succès');
+        },
+        error: (err) => {
+          this.toastService.error("Erreur lors de l'ajout de l'utilisateur");
+          console.error(err);
         },
       });
   };
@@ -67,9 +74,13 @@ export class AdministrationComponent {
     this.userService.delete(trigramme).subscribe({
       next: () => {
         this.users = this.users.filter((user) => user.trigramme !== trigramme);
+        this.toastService.success('Utilisateur supprimé avec succès');
       },
       error: (error) => {
         console.log('erreur de la suppresssion : ' + error);
+        this.toastService.error(
+          "Erreur lors de la suppression de l'utilisateur"
+        );
       },
     });
   }
@@ -112,9 +123,13 @@ export class AdministrationComponent {
           }
           this.isEditing = null;
           this.userEditing = null;
+          this.toastService.success('Utilisateur modifié avec succès');
         },
         error: (error) => {
           console.log('erreur de la modification : ' + error);
+          this.toastService.error(
+            "Erreur lors de la modification de l'utilisateur"
+          );
         },
       });
   };

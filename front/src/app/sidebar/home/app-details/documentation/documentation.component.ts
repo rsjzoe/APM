@@ -15,6 +15,7 @@ import { IconTechniqueComponent } from '../../../../components/icons/icon-techni
 import { IconExploitationComponent } from '../../../../components/icons/icon-exploitation/icon-exploitation.component';
 import { IconFonctionnelleComponent } from '../../../../components/icons/icon-fonctionnelle/icon-fonctionnelle.component';
 import { Observable } from 'rxjs';
+import { ToastService } from '../../../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-documentation',
@@ -42,7 +43,8 @@ export class DocumentationComponent {
 
   constructor(
     private docService: DocumentationService,
-    public userService: UserService
+    public userService: UserService,
+    private toastService: ToastService
   ) {}
 
   saveIdAppDelete = (filename: string) => {
@@ -66,6 +68,11 @@ export class DocumentationComponent {
     this.docService.deleteByFileName(name).subscribe({
       next: (value) => {
         this.refresh();
+        this.toastService.success('Document supprimé avec succès');
+      },
+      error: (error) => {
+        console.log('erreur de la suppresssion : ' + error);
+        this.toastService.error('Erreur lors de la suppression du document');
       },
     });
   }

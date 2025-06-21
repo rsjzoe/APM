@@ -10,6 +10,7 @@ import {
   DocumentationType,
 } from '../../../application/documentation/documentation.type';
 import { Departement } from '../../../application/departement/departement.type';
+import { ToastService } from '../../../components/toast/service/toast.service';
 
 type Create = Omit<CreateApplication, 'documentations' | 'departementIds'> & {
   fonctionnelles: File[];
@@ -76,7 +77,10 @@ export class ModalStateService {
 
   otherDescription!: string;
 
-  constructor(private appService: ApplicationService) {
+  constructor(
+    private appService: ApplicationService,
+    private toastService: ToastService
+  ) {
     this.openAllFields();
   }
 
@@ -232,6 +236,11 @@ export class ModalStateService {
       next: (app) => {
         this.resetData();
         this.callSubscriberOnsubmit();
+        this.toastService.success('Application ajoutée avec succès');
+      },
+      error: (err) => {
+        this.toastService.error("Erreur lors de l'ajout de l'application");
+        console.error(err);
       },
     });
   }
@@ -269,6 +278,13 @@ export class ModalStateService {
       next: () => {
         this.resetData();
         this.callSubscriberOnsubmit();
+        this.toastService.success('Application modifiée avec succès');
+      },
+      error: (err) => {
+        this.toastService.error(
+          "Erreur lors de la modification de l'application"
+        );
+        console.error(err);
       },
     });
   };

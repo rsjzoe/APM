@@ -12,6 +12,7 @@ import {
   QuestionGroupeType,
 } from '../../../../application/question/question.type';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-rate-application',
@@ -27,7 +28,8 @@ export class RateApplicationComponent {
   @Input() application!: Application;
   constructor(
     private questionGroupeService: QuestionGroupeService,
-    private appService: ApplicationService
+    private appService: ApplicationService,
+    private toastService: ToastService
   ) {}
 
   expandedGroups: boolean[] = [true];
@@ -151,8 +153,15 @@ export class RateApplicationComponent {
       this.calculateWeightedAverage();
     updateApp.noteBusinessValue = businessValueAverage;
     updateApp.noteTechnicalDebt = technicalDebtAverage;
-    this.appService.update(id, updateApp).subscribe((data) => {
-      window.location.reload();
+    this.appService.update(id, updateApp).subscribe({
+      next: (data) => {
+        this.toastService.success('Application notée avec succès');
+        window.location.reload();
+      },
+      error: (error) => {
+        console.log('erreur de la modification : ' + error);
+        this.toastService.error("Erreur lors de la notation de l'application");
+      },
     });
     console.log(technicalDebtAverage, businessValueAverage);
   }

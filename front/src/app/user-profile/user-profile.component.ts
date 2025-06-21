@@ -8,6 +8,7 @@ import { IconNoteComponent } from '../components/icons/icon-note/icon-note.compo
 import { IconUserComponent } from '../components/icons/icon-user/icon-user.component';
 import { IconRoleComponent } from '../components/icons/icon-role/icon-role.component';
 import { UserService } from '../sidebar/administration/user.service';
+import { ToastService } from '../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,7 +29,10 @@ export class UserProfileComponent {
   oldPassword: string = '';
   newPassword: string = '';
 
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    private toastService: ToastService
+  ) {}
 
   showEditPassword() {
     this.isEditing = true;
@@ -48,6 +52,16 @@ export class UserProfileComponent {
           .subscribe({
             next: (response) => {
               console.log('password modifier');
+              this.toastService.success('Mot de passe modifié avec succès');
+            },
+            error: (error) => {
+              console.error(
+                'Erreur lors de la modification du mot de passe',
+                error
+              );
+              this.toastService.error(
+                'Erreur lors de la modification du mot de passe'
+              );
             },
           });
       }

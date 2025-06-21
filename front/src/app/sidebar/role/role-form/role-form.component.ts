@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ServiceDataService } from '../service/service-data.service';
 import { RoleService } from '../service/role.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-role-form',
@@ -29,7 +30,8 @@ export class RoleFormComponent {
   constructor(
     private serviceDataService: ServiceDataService,
     private createRoleService: RoleService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -69,9 +71,11 @@ export class RoleFormComponent {
     this.createRoleService.add(this.newRole).subscribe({
       next: (response) => {
         this.router.navigate(['/roles']);
+        this.toastService.success('Rôle ajouté avec succès');
       },
-      error: (error) => {
-        console.error('Error creating role:', error);
+      error: (err) => {
+        this.toastService.error("Erreur lors de l'ajout du rôle");
+        console.error(err);
       },
     });
   }

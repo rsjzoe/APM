@@ -7,6 +7,7 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
 import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
+import { ToastService } from '../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-classification',
@@ -27,7 +28,8 @@ export class ClassificationComponent {
 
   constructor(
     private classeService: ClasseService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -58,16 +60,30 @@ export class ClassificationComponent {
           name: this.newClasse.name,
           description: this.newClasse.description,
         })
-        .subscribe((classe) => {
-          this.findAll();
-          this.newClasse = this.getEmptyClasse();
+        .subscribe({
+          next: () => {
+            this.findAll();
+            this.newClasse = this.getEmptyClasse();
+            this.toastService.success('Classe ajoutée avec succès');
+          },
+          error: (err) => {
+            this.toastService.error("Erreur lors de l'ajout de la Classe");
+            console.error(err);
+          },
         });
     }
   }
 
   deleteClasse(id: number) {
-    this.classeService.delete(id).subscribe(() => {
-      this.findAll();
+    this.classeService.delete(id).subscribe({
+      next: () => {
+        this.findAll();
+        this.toastService.success('Classe supprimée avec succès');
+      },
+      error: (err) => {
+        this.toastService.error('Erreur lors de la suppression de la Classe');
+        console.error(err);
+      },
     });
   }
 
@@ -100,9 +116,13 @@ export class ClassificationComponent {
         next: () => {
           this.findAll();
           this.cancelEdit();
+            this.toastService.success('Classe modifiée avec succès');
         },
         error: (error) => {
-          console.error('Error updating class:', error);
+          console.log('erreur de la modification : ' + error);
+          this.toastService.error(
+            "Erreur lors de la modification de la Classe"
+          );
         },
       });
   }

@@ -4,6 +4,7 @@ import {
   CreateDocumentationWithoutApp,
   DocumentationType,
 } from '../../../../../application/documentation/documentation.type';
+import { ToastService } from '../../../../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-modal-add-documentation',
@@ -20,7 +21,10 @@ export class ModalAddDocumentationComponent {
   @Input()
   refresh = () => {};
 
-  constructor(private documentationService: DocumentationService) {}
+  constructor(
+    private documentationService: DocumentationService,
+    private toastService: ToastService
+  ) {}
 
   resetData() {
     this.fonctionnelles = [];
@@ -71,9 +75,11 @@ export class ModalAddDocumentationComponent {
         next: () => {
           this.resetData();
           this.refresh();
+          this.toastService.success('Document ajouté avec succès');
         },
         error: (err) => {
-          console.error('Error adding documentation', err);
+          this.toastService.error("Erreur lors de l'ajout du document");
+          console.error(err);
         },
       });
     });

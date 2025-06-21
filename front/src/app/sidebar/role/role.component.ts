@@ -6,6 +6,7 @@ import { RoleService } from './service/role.service';
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
 import { combineLatest, map, Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
+import { ToastService } from '../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-role',
@@ -23,7 +24,8 @@ export class RoleComponent {
 
   constructor(
     private roleService: RoleService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) {}
 
   saveRoleName = (roleName: string) => {
@@ -40,6 +42,13 @@ export class RoleComponent {
     this.roleService.deleteByName(name).subscribe({
       next: () => {
         this.roles = this.roles.filter((role) => role.roleName !== name);
+        this.toastService.success('Rôle supprimé avec succès');
+      },
+      error: (error) => {
+        console.log('erreur de la suppresssion : ' + error);
+        this.toastService.error(
+          "Erreur lors de la suppression du rôle"
+        );
       },
     });
   }

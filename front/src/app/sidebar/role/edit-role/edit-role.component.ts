@@ -12,6 +12,7 @@ import {
 import { ServiceDataService } from '../service/service-data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastService } from '../../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-edit-role',
@@ -32,7 +33,8 @@ export class EditRoleComponent {
     private serviceDataService: ServiceDataService,
     private activatedRoute: ActivatedRoute,
     private roleService: RoleService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   private initializePermissions() {
@@ -100,9 +102,11 @@ export class EditRoleComponent {
       next: (response) => {
         this.router.navigate(['/roles']);
         this.roleName = null;
+        this.toastService.success('Rôle modifié avec succès');
       },
       error: (error) => {
-        console.error('Error updating role:', error);
+        console.log('erreur de la modification : ' + error);
+        this.toastService.error('Erreur lors de la modification du rôle');
       },
     });
   }
