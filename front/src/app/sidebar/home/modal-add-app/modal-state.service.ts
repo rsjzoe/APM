@@ -10,7 +10,6 @@ import {
   DocumentationType,
 } from '../../../application/documentation/documentation.type';
 import { Departement } from '../../../application/departement/departement.type';
-import * as bootstrap from 'bootstrap';
 
 type Create = Omit<CreateApplication, 'documentations' | 'departementIds'> & {
   fonctionnelles: File[];
@@ -233,9 +232,6 @@ export class ModalStateService {
       next: (app) => {
         this.resetData();
         this.callSubscriberOnsubmit();
-        const toastEl = document.getElementById('liveToast')!;
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
       },
     });
   }

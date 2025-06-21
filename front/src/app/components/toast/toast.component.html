@@ -1,0 +1,37 @@
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div
+    id="liveToast"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex align-items-center">
+      <div class="toast-body">
+        <app-icon-success
+          *ngIf="toastService.getToastType() === 'success'"
+          class="text-success"
+        />
+        <app-icon-error
+          *ngIf="toastService.getToastType() === 'error'"
+          class="text-danger"
+        />
+        <app-icon-info
+          *ngIf="toastService.getToastType() === 'info'"
+          class="text-info"
+        />
+        {{ toastService.getMessage() }}
+      </div>
+      <button
+        type="button"
+        class="btn-close ms-auto"
+        data-bs-dismiss="toast"
+        data-bs-toggle="tooltip"
+        data-bs-placement="bottom"
+        data-bs-title="Close"
+      >
+        <span class="visually-hidden">Close</span>
+      </button>
+    </div>
+  </div>
+</div>
