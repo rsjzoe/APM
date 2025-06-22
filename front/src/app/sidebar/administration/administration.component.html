@@ -68,6 +68,8 @@
         </tr>
       </tbody>
     </table>
+    <div class="text-center" *ngIf="users.length === 0">
+      <p>Aucun utilisateur trouvé</p>
   </div>
   <app-modal-confirm [onConfirm]="onConfirmDelete"></app-modal-confirm>
 
