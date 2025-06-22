@@ -15,6 +15,7 @@ import { IconPlusComponent } from '../../components/icons/icon-plus/icon-plus.co
 import { IconHelpComponent } from '../../components/icons/icon-help/icon-help.component';
 import { Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
+import { ToastService } from '../../components/toast/service/toast.service';
 
 @Component({
   selector: 'app-questionnaire',
@@ -45,7 +46,8 @@ export class QuestionnaireComponent {
   constructor(
     private questionGroupeService: QuestionGroupeService,
     private questionService: QuestionService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) {}
 
   toggleAccordion(index: number) {
@@ -195,6 +197,13 @@ export class QuestionnaireComponent {
         next: (newGroup) => {
           this.findAll();
           this.selectedGroup = newGroup;
+          this.toastService.success('Groupe de questions ajoutée avec succès');
+        },
+        error: (err) => {
+          this.toastService.error(
+            "Erreur lors de l'ajout du groupe de questions"
+          );
+          console.error(err);
         },
       });
   };
@@ -203,6 +212,13 @@ export class QuestionnaireComponent {
     this.questionGroupeService.delete(id).subscribe({
       next: () => {
         this.findAll();
+        this.toastService.success('Groupe de questions supprimée avec succès');
+      },
+      error: (err) => {
+        this.toastService.error(
+          'Erreur lors de la suppression du groupe de questions"'
+        );
+        console.error(err);
       },
     });
   };
@@ -223,6 +239,13 @@ export class QuestionnaireComponent {
       .subscribe({
         next: () => {
           this.findAll();
+          this.toastService.success('Groupe de questions modifiée avec succès');
+        },
+        error: (err) => {
+          this.toastService.error(
+            'Erreur lors de la modification du groupe de questions"'
+          );
+          console.error(err);
         },
       });
   };
@@ -246,6 +269,11 @@ export class QuestionnaireComponent {
         next: (newQuestion) => {
           this.findAll();
           this.selectedGroup?.questions.push(newQuestion);
+          this.toastService.success('Question ajoutée avec succès');
+        },
+        error: (err) => {
+          this.toastService.error("Erreur lors de l'ajout de la question");
+          console.error(err);
         },
       });
   };
@@ -271,6 +299,13 @@ export class QuestionnaireComponent {
               }
             }
           }
+          this.toastService.success('Question modifiée avec succès');
+        },
+        error: (err) => {
+          this.toastService.error(
+            'Erreur lors de la modification de la question'
+          );
+          console.error(err);
         },
       });
   };
@@ -284,6 +319,13 @@ export class QuestionnaireComponent {
             (q) => q.id != id
           );
         }
+        this.toastService.success('Question supprimée avec succès');
+      },
+      error: (err) => {
+        this.toastService.error(
+          'Erreur lors de la suppression de la catégorie Question'
+        );
+        console.error(err);
       },
     });
   };
