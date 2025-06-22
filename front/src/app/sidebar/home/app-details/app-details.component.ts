@@ -116,6 +116,9 @@ export class AppDetailsComponent {
           this.application = val;
         }
       },
+      error: () => {
+        this.router.navigate(['/404']);
+      },
     });
   }
 
