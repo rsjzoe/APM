@@ -60,7 +60,7 @@ public class DocumentationController implements DocumentationRest {
             String token = authHeader.substring("Bearer ".length());
             var doc = new CreateDocumentationFile(new FileInput(file.uploadedFile(), file.fileName()), type,
                     applicationId);
-            return documentationService.createDocumentation(doc, token);
+            return documentationService.createDocumentation(doc, token, true);
         } catch (IOException e) {
             throw new ServerErrorException(500);
         } catch (FileNotFound e) {

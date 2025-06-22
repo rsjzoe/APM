@@ -41,7 +41,7 @@ public class DocumentationService {
     }
 
     @Transactional
-    public Documentation createDocumentation(CreateDocumentationFile input, String token)
+    public Documentation createDocumentation(CreateDocumentationFile input, String token, Boolean createHistory)
             throws IOException, FileNotFound, ApplicationNotFoundException, VerificationTokenException,
             UserNotFoundException {
         StorageFile storageFile = storage.save(input.getFileInput());
@@ -50,9 +50,11 @@ public class DocumentationService {
         var created = documentationRepository.createDocumentation(createDocumentation);
 
         var app = applicationService.findById(input.getApplicationId());
-        var createHistory = new CreateApplicationHistoryService(app, token,
-                "Ajout de la documentation : '" + created.getName() + "'' - " + created.getType());
-        applicationHistoryService.create(createHistory);
+        if (createHistory) {
+            var createAppHistory = new CreateApplicationHistoryService(app, token,
+                    "Ajout de la documentation : '" + created.getName() + "'' - " + created.getType());
+            applicationHistoryService.create(createAppHistory);
+        }
 
         return created;
     }
@@ -65,7 +67,7 @@ public class DocumentationService {
 
         var app = applicationService.findById(deleted.getApplicationId());
         var createHistory = new CreateApplicationHistoryService(app, token,
-            "Suppression de la documentation : '" + deleted.getName() + "' - " + deleted.getType());
+                "Suppression de la documentation : '" + deleted.getName() + "' - " + deleted.getType());
         applicationHistoryService.create(createHistory);
 
         return deleted;

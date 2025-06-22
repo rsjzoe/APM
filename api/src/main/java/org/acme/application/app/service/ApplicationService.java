@@ -127,7 +127,7 @@ public class ApplicationService {
                 documentation -> {
                     try {
                         documentationService.createDocumentation(new CreateDocumentationFile(
-                                documentation.getFileInput(), documentation.getType(), created.getId()), token);
+                                documentation.getFileInput(), documentation.getType(), created.getId()), token, false);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
