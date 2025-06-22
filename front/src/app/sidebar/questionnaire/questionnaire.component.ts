@@ -39,12 +39,35 @@ export class QuestionnaireComponent {
   canAdd$!: Observable<boolean>;
   canEdit$!: Observable<boolean>;
   canDelete$!: Observable<boolean>;
+  groupedByType: GroupedByType[] = [];
+  openedGroupIndex: number | null = null;
 
   constructor(
     private questionGroupeService: QuestionGroupeService,
     private questionService: QuestionService,
     private userService: UserService
   ) {}
+
+  toggleAccordion(index: number) {
+    this.openedGroupIndex = this.openedGroupIndex === index ? null : index;
+  }
+
+  getQuestionsGroup(): GroupedByType[] {
+    return [
+      {
+        name: 'Valeur métier',
+        data: this.questionGroups.filter(
+          (group) => group.type === QuestionGroupeType.businessValue
+        ),
+      },
+      {
+        name: 'Dette technique',
+        data: this.questionGroups.filter(
+          (group) => group.type === QuestionGroupeType.technicalDebt
+        ),
+      },
+    ];
+  }
 
   handleSelectGroup(group: QuestionGroupe): void {
     this.selectedGroup = group;
@@ -208,6 +231,7 @@ export class QuestionnaireComponent {
     this.questionGroupeService.findAll().subscribe({
       next: (questions) => {
         this.questionGroups = questions;
+        this.groupedByType = this.getQuestionsGroup();
       },
     });
   };
@@ -271,3 +295,8 @@ export class QuestionnaireComponent {
     this.findAll();
   }
 }
+
+type GroupedByType = {
+  name: 'Valeur métier' | 'Dette technique';
+  data: QuestionGroupe[];
+};

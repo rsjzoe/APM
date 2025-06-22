@@ -32,8 +32,8 @@ export class RateApplicationComponent {
     private toastService: ToastService
   ) {}
 
-  expandedGroups: boolean[] = [true];
-  expandedGroupsVm: boolean[] = [true];
+  expandedGroups: boolean[] = [];
+  expandedGroupsVm: boolean[] = [];
 
   // Store ratings in a map: {groupId: {questionId: rating}}
   ratings: Map<number, Map<number, number>> = new Map();
