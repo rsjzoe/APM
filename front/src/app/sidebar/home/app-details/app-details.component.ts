@@ -51,7 +51,6 @@ import { ModalEditAppComponent } from '../modal-edit-app/modal-edit-app.componen
     IconNoteComponent,
     IconDocsComponent,
     IconDepartementComponent,
-    IconEditComponent,
     ModalEditAppComponent,
   ],
   templateUrl: './app-details.component.html',

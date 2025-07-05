@@ -6,76 +6,46 @@
     <div class="w-100 p-3 rounded-1" style="background-color: #f8f9fa">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="h4">Groupe de Questions</h4>
-        <button
-          class="btn btn-primary"
-          (click)="handleAddNewGroup()"
-          *ngIf="canAdd$ | async"
-        >
+        <button class="btn btn-primary" (click)="handleAddNewGroup()" *ngIf="canAdd$ | async">
           Ajouter Groupe
         </button>
       </div>
 
       <div class="groups-list">
         <div class="accordion" id="accordionQuestionnaire">
-          <div
-            class="accordion-item"
-            *ngFor="let group of groupedByType; let i = index"
-          >
+          <div class="accordion-item" *ngFor="let group of groupedByType; let i = index">
             <div class="accordion-header">
-              <button
-                class="accordion-button"
-                type="button"
-                [attr.data-bs-target]="'#collapse' + i"
-                [class.collapsed]="openedGroupIndex !== i"
-                (click)="toggleAccordion(i)"
-                [attr.aria-expanded]="openedGroupIndex === i"
-              >
+              <button class="accordion-button fs-5 py-3" type="button" [attr.data-bs-target]="'#collapse' + i"
+                [class.collapsed]="openedGroupIndex !== i" (click)="toggleAccordion(i)"
+                [attr.aria-expanded]="openedGroupIndex === i">
                 {{ group.name }}
               </button>
             </div>
-            <div
-              [id]="'collapse' + i"
-              class="accordion-collapse collapse"
-              [class.show]="openedGroupIndex === i"
-            >
+            <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="openedGroupIndex === i">
               <div class="accordion-body">
-                <div
-                  *ngFor="let questionGroup of group.data"
-                  [class.selected-group]="
+                <div *ngFor="let questionGroup of group.data" [class.selected-group]="
                     selectedGroup?.id === questionGroup.id
-                  "
-                  class="group-card p-3 mb-3 rounded cursor-pointer"
+                  " class="group-card p-3 mb-3 rounded cursor-pointer"
                   [style.borderLeft]="'4px solid ' + questionGroup.borderColor"
-                  (click)="handleSelectGroup(questionGroup)"
-                >
+                  (click)="handleSelectGroup(questionGroup)">
                   <div class="d-flex justify-content-between">
                     <div>
                       <h3 class="h6 mb-2">{{ questionGroup.text }}</h3>
                       <div class="d-flex align-items-center gap-2">
-                        <small class="text-muteds small"
-                          >Coeff: {{ questionGroup.coeff }}</small
-                        >
+                        <small class="text-muteds small">Coeff: {{ questionGroup.coeff }}</small>
                       </div>
                     </div>
                     <div>
-                      <button
-                        class="btn btn-link btn-sm"
-                        (click)="
+                      <button class="btn btn-link btn-sm" (click)="
                           $event.stopPropagation();
                           handleEditGroup(questionGroup)
-                        "
-                        *ngIf="canEdit$ | async"
-                      >
+                        " *ngIf="canEdit$ | async">
                         <app-icon-edit />
                       </button>
-                      <button
-                        class="btn btn-link btn-sm text-danger"
-                        (click)="
+                      <button class="btn btn-link btn-sm text-danger" (click)="
                           $event.stopPropagation();
                           handleDeleteGroup(questionGroup.id)
-                        "
-                        *ngIf="canDelete$ | async"
-                      >
+                        " *ngIf="canDelete$ | async">
                         <app-icon-delete />
                       </button>
                     </div>
@@ -100,43 +70,23 @@
       <ng-container *ngIf="selectedGroup && !editingGroup">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h2 class="h4">Questions pour "{{ selectedGroup.text }}"</h2>
-          <button
-            class="btn btn-primary"
-            (click)="handleAddNewQuestion()"
-            *ngIf="canAdd$ | async"
-          >
+          <button class="btn btn-primary" (click)="handleAddNewQuestion()" *ngIf="canAdd$ | async">
             <app-icon-plus /> Ajouter Question
           </button>
         </div>
 
         <div class="questions-list">
-          <div
-            *ngFor="let question of selectedGroup.questions"
-            class="question-card"
-          >
-            <ng-container
-              *ngIf="editingQuestion?.id === question.id; else displayQuestion"
-            >
+          <div *ngFor="let question of selectedGroup.questions" class="question-card">
+            <ng-container *ngIf="editingQuestion?.id === question.id; else displayQuestion">
               <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  [ngModel]="editingQuestion?.text"
-                  (ngModelChange)="updateEditingQuestionText($event)"
-                  placeholder="Question text"
-                />
+                <input type="text" class="form-control" [ngModel]="editingQuestion?.text"
+                  (ngModelChange)="updateEditingQuestionText($event)" placeholder="Question text" />
               </div>
               <div class="d-flex justify-content-end gap-2">
-                <button
-                  class="btn btn-outline-secondary btn-sm"
-                  (click)="handleCancelEditQuestion()"
-                >
+                <button class="btn btn-outline-secondary btn-sm" (click)="handleCancelEditQuestion()">
                   Annuler
                 </button>
-                <button
-                  class="btn btn-primary btn-sm"
-                  (click)="handleSaveQuestion()"
-                >
+                <button class="btn btn-primary btn-sm" (click)="handleSaveQuestion()">
                   Enregistrer
                 </button>
               </div>
@@ -146,18 +96,11 @@
               <div class="d-flex justify-content-between align-items-start">
                 <p class="mb-0">{{ question.text }}</p>
                 <div>
-                  <button
-                    class="btn btn-link btn-sm"
-                    (click)="handleEditQuestion(question)"
-                    *ngIf="canEdit$ | async"
-                  >
+                  <button class="btn btn-link btn-sm" (click)="handleEditQuestion(question)" *ngIf="canEdit$ | async">
                     <app-icon-edit />
                   </button>
-                  <button
-                    class="btn btn-link btn-sm text-danger"
-                    (click)="handleDeleteQuestion(question.id)"
-                    *ngIf="canDelete$ | async"
-                  >
+                  <button class="btn btn-link btn-sm text-danger" (click)="handleDeleteQuestion(question.id)"
+                    *ngIf="canDelete$ | async">
                     <app-icon-delete />
                   </button>
                 </div>
@@ -167,34 +110,20 @@
 
           <div *ngIf="editingQuestion?.id === 0" class="question-card">
             <div class="mb-3">
-              <input
-                type="text"
-                class="form-control"
-                [ngModel]="editingQuestion?.text"
-                (ngModelChange)="updateEditingQuestionText($event)"
-                placeholder="nouvelle question"
-              />
+              <input type="text" class="form-control" [ngModel]="editingQuestion?.text"
+                (ngModelChange)="updateEditingQuestionText($event)" placeholder="nouvelle question" />
             </div>
             <div class="d-flex justify-content-end gap-2">
-              <button
-                class="btn btn-outline-secondary btn-sm"
-                (click)="handleCancelEditQuestion()"
-              >
+              <button class="btn btn-outline-secondary btn-sm" (click)="handleCancelEditQuestion()">
                 Annuler
               </button>
-              <button
-                class="btn btn-primary btn-sm"
-                (click)="handleSaveQuestion()"
-              >
+              <button class="btn btn-primary btn-sm" (click)="handleSaveQuestion()">
                 Enregistrer
               </button>
             </div>
           </div>
 
-          <div
-            *ngIf="selectedGroup.questions.length === 0 && !editingQuestion"
-            class="empty-state"
-          >
+          <div *ngIf="selectedGroup.questions.length === 0 && !editingQuestion" class="empty-state">
             <p>
               Aucune question dans ce groupe pour le moment. Ajoutez votre
               première question !
@@ -213,12 +142,7 @@
           <div class="card-body">
             <div class="mb-3">
               <label class="form-label">Nom de groupe </label>
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="editingGroup.text"
-                placeholder="Nom de groupe"
-              />
+              <input type="text" class="form-control" [(ngModel)]="editingGroup.text" placeholder="Nom de groupe" />
             </div>
 
             <div class="mb-3">
@@ -235,35 +159,19 @@
 
             <div class="mb-3">
               <div class="d-flex align-items-center gap-4">
-                <label class="form-label mb-0"
-                  >Importance <span class="text-muted">(0 à 4)</span></label
-                >
+                <label class="form-label mb-0">Importance <span class="text-muted">(0 à 4)</span></label>
                 <div class="tooltip-container">
                   <!-- <app-icon-help /> -->
-                  <app-icon-help
-                    class="bi bi-info-circle info-icon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="right"
-                    data-bs-html="true"
-                    title="0 : pas mal<br>1 : un peu moche<br>2 : irrelevant<br>3 : très bien"
-                  >
+                  <app-icon-help class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right"
+                    data-bs-html="true" title="0 : pas mal<br>1 : un peu moche<br>2 : irrelevant<br>3 : très bien">
                   </app-icon-help>
                 </div>
               </div>
-              <input
-                type="number"
-                class="form-control"
-                [(ngModel)]="editingGroup.coeff"
-                step="0.1"
-                min="0"
-              />
+              <input type="number" class="form-control" [(ngModel)]="editingGroup.coeff" step="0.1" min="0" />
             </div>
 
             <div class="d-flex justify-content-end gap-2">
-              <button
-                class="btn btn-outline-secondary"
-                (click)="handleCancelEditGroup()"
-              >
+              <button class="btn btn-outline-secondary" (click)="handleCancelEditGroup()">
                 Annuler
               </button>
               <button class="btn btn-primary" (click)="handleSaveGroup()">
