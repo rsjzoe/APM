@@ -6,14 +6,16 @@ import { Departement } from '../../../application/departement/departement.type';
 import { DepartementService } from '../../../application/departement/departement.service';
 import { RoleService } from '../../role/service/role.service';
 import { Role } from '../../../application/role/role.type';
+import { ModalComponent } from '../../../components/modal/modal.component';
 
 @Component({
   selector: 'app-user-modal',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalComponent],
   templateUrl: './user-modal.component.html',
   styleUrl: './user-modal.component.scss',
 })
 export class UserModalComponent {
+  @Input() isModalOpen = false;
   @Input() isEditing: string | null = null;
   newUserName = '';
   newUserTrigramme = '';
@@ -35,6 +37,7 @@ export class UserModalComponent {
     departement: string,
     role: string
   ) => {};
+  @Input() setIsModalOpen = (value: boolean) => {};
 
   constructor(
     private departementService: DepartementService,
@@ -94,14 +97,17 @@ export class UserModalComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const currentUserEditing: User | null = changes['userEditing'].currentValue;
-    if (currentUserEditing == null) {
-      return;
+    if (changes['userEditing']) {
+      const currentUserEditing: User | null =
+        changes['userEditing'].currentValue;
+      if (currentUserEditing == null) {
+        return;
+      }
+      this.newUserName = currentUserEditing.name;
+      this.newUserTrigramme = currentUserEditing.trigramme;
+      this.newUserDepartement = currentUserEditing.departement;
+      this.newUserRole = currentUserEditing.role;
     }
-    this.newUserName = currentUserEditing.name;
-    this.newUserTrigramme = currentUserEditing.trigramme;
-    this.newUserDepartement = currentUserEditing.departement;
-    this.newUserRole = currentUserEditing.role;
   }
   ngOnInit() {
     this.findAllDepartement();

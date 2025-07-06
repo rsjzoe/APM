@@ -33,6 +33,7 @@ export class AdministrationComponent {
   canEdit$!: Observable<boolean>;
   canDelete$!: Observable<boolean>;
   canEditOrDelete$!: Observable<boolean>;
+  isModalOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -61,6 +62,7 @@ export class AdministrationComponent {
       .subscribe({
         next: (val) => {
           this.findAllUsers();
+          this.setIsModalOpen(false);
           this.toastService.success('Utilisateur ajouté avec succès');
         },
         error: (err) => {
@@ -123,6 +125,7 @@ export class AdministrationComponent {
           }
           this.isEditing = null;
           this.userEditing = null;
+          this.setIsModalOpen(false);
           this.toastService.success('Utilisateur modifié avec succès');
         },
         error: (error) => {
@@ -136,6 +139,10 @@ export class AdministrationComponent {
 
   refresh = () => {
     this.findAllUsers();
+  };
+
+  setIsModalOpen = (value: boolean) => {
+    this.isModalOpen = value;
   };
 
   ngOnInit() {

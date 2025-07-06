@@ -1,37 +1,70 @@
-<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
+<app-modal [isOpen]="isModalOpen">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title h5" id="exampleModalLabel">
           Nouveau Utilisateur
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip"
-          data-bs-placement="bottom" data-bs-title="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          data-bs-title="Close"
+          (click)="setIsModalOpen(false)"
+        ></button>
       </div>
       <div class="modal-body">
         <div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Nom </label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newUserName" name="name" />
+            <input
+              type="text"
+              class="form-control"
+              id="recipient-name"
+              [(ngModel)]="newUserName"
+              name="name"
+            />
           </div>
           <div class="mb-3">
             <label for="trigramme" class="col-form-label">Trigramme</label>
-            <input type="text" class="form-control" [(ngModel)]="newUserTrigramme" name="trigramme" id="trigramme" />
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newUserTrigramme"
+              name="trigramme"
+              id="trigramme"
+            />
           </div>
 
           <div class="mb-3">
             <label for="userTeam" class="form-label">Département</label>
-            <select class="form-select" id="category" [(ngModel)]="newUserDepartement" required>
+            <select
+              class="form-select"
+              id="category"
+              [(ngModel)]="newUserDepartement"
+              required
+            >
               <option value="">Sélectionner une équipe</option>
-              <option *ngFor="let departement of departements" [value]="departement.name">
+              <option
+                *ngFor="let departement of departements"
+                [value]="departement.name"
+              >
                 {{ departement.name }}
               </option>
             </select>
           </div>
           <div class="mb-3">
-            <label class="col-form-label" for="inputGroupSelect01">Rôle de l'utilisateur</label>
-            <select [(ngModel)]="newUserRole" [ngModelOptions]="{ standalone: true }" class="form-select"
-              id="inputGroupSelect01">
+            <label class="col-form-label" for="inputGroupSelect01"
+              >Rôle de l'utilisateur</label
+            >
+            <select
+              [(ngModel)]="newUserRole"
+              [ngModelOptions]="{ standalone: true }"
+              class="form-select"
+              id="inputGroupSelect01"
+            >
               <option *ngFor="let role of roles" [value]="role.roleName">
                 {{ role.roleName }}
               </option>
@@ -40,16 +73,33 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-dismiss="modal"
+          (click)="setIsModalOpen(false)"
+        >
           Annuler
         </button>
-        <button type="button" class="btn btn-primary" (click)="add()" data-bs-dismiss="modal" *ngIf="!isEditing">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="add()"
+          data-bs-dismiss="modal"
+          *ngIf="!isEditing"
+        >
           Ajouter
         </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="update()" *ngIf="isEditing">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="update()"
+          *ngIf="isEditing"
+        >
           Mettre à jour
         </button>
       </div>
     </div>
   </div>
-</div>
+</app-modal>
