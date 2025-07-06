@@ -4,6 +4,7 @@ import { AccordionGeneralComponent } from './accordion-general/accordion-general
 import { AccordionValeurCoutComponent } from './accordion-valeur-cout/accordion-valeur-cout.component';
 import { AccordionDateStatusComponent } from './accordion-date-status/accordion-date-status.component';
 import { AccordionOtherComponent } from "./accordion-other/accordion-other.component";
+import { ModalComponent } from "../../../components/modal/modal.component";
 
 @Component({
   selector: 'app-modal-edit-app',
@@ -11,7 +12,8 @@ import { AccordionOtherComponent } from "./accordion-other/accordion-other.compo
     AccordionGeneralComponent,
     AccordionValeurCoutComponent,
     AccordionDateStatusComponent,
-    AccordionOtherComponent
+    AccordionOtherComponent,
+    ModalComponent
 ],
   templateUrl: './modal-edit-app.component.html',
   styleUrl: './modal-edit-app.component.scss',
