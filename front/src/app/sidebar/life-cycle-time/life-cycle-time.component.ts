@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataset } from 'chart.js';
+import { ChartOptions, ChartType, ChartDataset, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { timeColor } from './color';
 import { Application } from '../../application/app.type';
@@ -106,8 +106,10 @@ export class LifeCycleTimeComponent {
     },
   };
 
-  public bubbleChartType: ChartType = 'bubble';
-  public bubbleChartData: ChartDataset<'bubble'>[] = this.generateDataSet();
+  public bubbleChartData: ChartDataset<'bubble'>[] =
+    this.generateDataSet().bubbleChartData;
+  public doughnutChartData: ChartData<'doughnut'> =
+    this.generateDataSet().doughnutChartData;
 
   generateDataSet() {
     let dataInvest = [];
@@ -120,7 +122,7 @@ export class LifeCycleTimeComponent {
     const maxUserTotal = Math.max(...userTotals);
 
     for (let app of this.apps) {
-      let normalizedR = 0;
+      let normalizedR = 10;
       if (maxUserTotal > minUserTotal) {
         normalizedR =
           ((app.userTotal - minUserTotal) * 30) /
@@ -166,7 +168,29 @@ export class LifeCycleTimeComponent {
         backgroundColor: timeColor.eliminate,
       },
     ];
-    return bubbleChartData;
+
+    const totalApps = this.apps.length;
+
+    const doughnutChartData: ChartData<'doughnut'> = {
+      labels: ['Tolerate', 'Invest', 'Migrate', 'Invest'],
+      datasets: [
+        {
+          data: [
+            (dataTolerate.length / totalApps) * 100,
+            (dataInvest.length / totalApps) * 100,
+            (dataMigrate.length / totalApps) * 100,
+            (dataEliminate.length / totalApps) * 100,
+          ],
+          backgroundColor: [
+            timeColor.tolerate,
+            timeColor.invest,
+            timeColor.migrate,
+            timeColor.eliminate,
+          ],
+        },
+      ],
+    };
+    return { bubbleChartData, doughnutChartData };
   }
 
   private bubbleDataMap: Map<string, Application> = this.appsToMap();
@@ -205,7 +229,9 @@ export class LifeCycleTimeComponent {
         console.log(data);
 
         this.apps = data;
-        this.bubbleChartData = this.generateDataSet();
+        const { bubbleChartData, doughnutChartData } = this.generateDataSet();
+        this.bubbleChartData = bubbleChartData;
+        this.doughnutChartData = doughnutChartData;
         console.log(this.bubbleChartData);
 
         this.bubbleDataMap = this.appsToMap();

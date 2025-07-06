@@ -1,16 +1,35 @@
 <div style="position: relative">
-  <canvas
-    baseChart
-    [datasets]="bubbleChartData"
-    [options]="bubbleChartOptions"
-    [type]="'bubble'"
-  ></canvas>
+  <div class="d-grid gap-2">
+    <div>
+      <h3>Pourcentage</h3>
+      <div style="max-height: 200px">
+        <canvas
+          baseChart
+          [data]="doughnutChartData"
+          [type]="'doughnut'"
+        ></canvas>
+      </div>
+    </div>
+    <div class="mt-2">
+      <h3>Graphe</h3>
+      <div class="w-100">
+        <canvas
+          baseChart
+          [datasets]="bubbleChartData"
+          [options]="bubbleChartOptions"
+          [type]="'bubble'"
+        ></canvas>
+      </div>
+    </div>
+  </div>
   <div id="bubble-info" class="bubble-info">
     <p><span class="fw-bold">Application: </span><span id="app-name"></span></p>
     <p>
       <span class="fw-bold">Valeur Métier: </span> <span id="app-value"></span>
     </p>
-    <p><span class="fw-bold">Dette Technique: </span> <span id="app-cost"></span></p>
+    <p>
+      <span class="fw-bold">Dette Technique: </span> <span id="app-cost"></span>
+    </p>
     <p>
       <span class="fw-bold">Type: </span>
       <span id="app-type" class="fw-bold"></span>
