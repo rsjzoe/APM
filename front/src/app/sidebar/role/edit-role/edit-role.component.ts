@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RoleFormComponent } from '../role-form/role-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoleService } from '../service/role.service';
 import {
