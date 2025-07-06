@@ -48,6 +48,7 @@ export class ModalStateService {
   appEditing: Application | null = null;
   subscribersOnsubmit: (() => void)[] = [];
   isModalOpen = false;
+  errorMessage = '';
 
   // pour les checkbox
   openFields!: FieldState;
@@ -110,8 +111,9 @@ export class ModalStateService {
     };
     this.appEditing = null;
     this.openAllFields();
-    this.closeModal()
+    this.closeModal();
     this.otherDescription = undefined!;
+    this.errorMessage = '';
   };
 
   setFieldsState = (value: boolean) => {
@@ -178,13 +180,14 @@ export class ModalStateService {
       fonctionnelles: [],
       techniques: [],
     };
-    this.openModal()
+    this.openModal();
     this.hideAllFields();
   };
 
   submit = () => {
     console.log('submit');
     console.log(this.createApplication);
+    this.errorMessage = ""
 
     if (this.appEditing == null) {
       this.save();
@@ -289,7 +292,7 @@ export class ModalStateService {
       next: () => {
         this.resetData();
         this.callSubscriberOnsubmit();
-        this.closeModal()
+        this.closeModal();
         this.toastService.success('Application modifiée avec succès');
       },
       error: (err) => {
