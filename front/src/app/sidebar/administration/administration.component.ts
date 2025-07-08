@@ -101,6 +101,7 @@ export class AdministrationComponent {
   editeUser(user: User) {
     this.isEditing = user.trigramme;
     this.userEditing = user;
+    this.setIsModalOpen(true);
   }
 
   updateUser = (
