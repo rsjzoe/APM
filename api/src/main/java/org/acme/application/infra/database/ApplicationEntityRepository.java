@@ -66,4 +66,14 @@ public class ApplicationEntityRepository implements ApplicationRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public ApplicationOutput restore(Long id) throws ApplicationNotFoundException {
+        ApplicationEntity data = ApplicationEntity.findById(id);
+        if (data == null) {
+            throw new ApplicationNotFoundException();
+        }
+        data.setDeleted(false);
+        data.persist();
+        return data.toApplicationOutput();
+    }
 }

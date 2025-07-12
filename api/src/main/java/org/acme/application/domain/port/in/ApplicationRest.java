@@ -21,4 +21,5 @@ public interface ApplicationRest {
 
     List<ApplicationOutput> deletedApplication();
 
+    ApplicationOutput restore(Long id, String authHeader);
 }

@@ -31,6 +31,8 @@ export type Application = {
   techBusinessValues: TechBusinessValue[];
   isDeleted: boolean;
   documentations: Documentation[];
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Time = 'tolerate' | 'invest' | 'migrate' | 'eliminate';
@@ -70,7 +72,7 @@ export type UpdateApplication = Partial<{
 
 export type AppHistory = Omit<
   Application,
-  'costs' | 'techBusinessValues' | 'documentations'
+  'costs' | 'techBusinessValues' | 'documentations' | 'createdAt' | 'updatedAt'
 > & {
   modifiedAt: Date;
   modifiedBy: string;

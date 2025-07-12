@@ -206,5 +206,14 @@ public class ApplicationService {
 
     public List<ApplicationOutput> deletedApplication() {
         return applicationRepository.deletedApplication();
-    };
+    }
+
+    public ApplicationOutput restore(Long id, String token)
+            throws ApplicationNotFoundException, VerificationTokenException, UserNotFoundException {
+        ApplicationOutput restored = applicationRepository.restore(id);
+        var app = findById(id);
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
+        applicationHistoryService.create(data);
+        return restored;
+    }
 }

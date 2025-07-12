@@ -34,6 +34,8 @@ public class ApplicationOutput extends ApplicationBase {
     protected List<TechBusinessValueOutput> techBusinessValues;
     protected Time time;
     protected boolean isDeleted;
+    public LocalDateTime createdAt;
+    public LocalDateTime updatedAt;
 
     public ApplicationOutput(Long id, String name, String description,
             CategoryODAChildOutput category, LocalDateTime startDate,
@@ -41,7 +43,8 @@ public class ApplicationOutput extends ApplicationBase {
             double noteTechnicalDebt, List<Departement> departements,
             ClasseOutput classe, CostOutput currentCost, TechBusinessValueOutput currentTechBusinessValue,
             List<CostOutput> costs,
-            List<TechBusinessValueOutput> techBusinessValues, boolean isDeleted) {
+            List<TechBusinessValueOutput> techBusinessValues, boolean isDeleted, LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
         super(name, description, startDate,
                 lastUpdate, status, userTotal);
         this.id = id;
@@ -56,6 +59,8 @@ public class ApplicationOutput extends ApplicationBase {
         this.techBusinessValues = techBusinessValues;
         this.time = time;
         this.isDeleted = isDeleted;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     @Override

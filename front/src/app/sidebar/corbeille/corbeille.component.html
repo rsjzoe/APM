@@ -1,1 +1,30 @@
-<p>corbeille work</p>
+<div class="main-content">
+  <div class="trash-list-container">
+    <h2>Applications supprimées</h2>
+    <div *ngIf="loading">Chargement...</div>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+    <table class="table" *ngIf="deletedApps.length">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Date de suppression</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of deletedApps">
+          <td>{{ app.name }}</td>
+          <td>{{ formatDate(app.updatedAt) }}</td>
+          <td>
+            <button class="btn btn-success btn-sm" (click)="restoreApp(app.id)">
+              Restaurer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!loading && !deletedApps.length">
+      Aucune application supprimée.
+    </div>
+  </div>
+</div>

@@ -33,6 +33,8 @@ public class Application extends ApplicationBase {
   protected List<Documentation> documentations;
   protected Time time;
   protected boolean isDeleted;
+  public LocalDateTime createdAt;
+  public LocalDateTime updatedAt;
 
   public Application(Long id, String name, String description,
       CategoryODAChild category, LocalDateTime startDate,
@@ -40,7 +42,7 @@ public class Application extends ApplicationBase {
       double noteTechnicalDebt,
       Classe classe, Cost currentCost, TechBusinessValue currentTechBusinessValue, List<Cost> costs,
       List<TechBusinessValue> techBusinessValues, List<Documentation> documentations, Time time,
-      boolean isDeleted) {
+      boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
     super(name, description, startDate,
         lastUpdate, status, userTotal);
     this.id = id;
@@ -56,6 +58,8 @@ public class Application extends ApplicationBase {
     this.documentations = documentations;
     this.time = time;
     this.isDeleted = isDeleted;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
 }

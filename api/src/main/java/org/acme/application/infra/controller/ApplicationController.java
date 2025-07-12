@@ -174,4 +174,22 @@ public class ApplicationController implements ApplicationRest {
         return applicationService.deletedApplication();
     }
 
+    @Override
+    @PUT
+    @Transactional
+    @Path("/restore/{id}")
+    @RoleAllowedCustom({ "admin" })
+    public ApplicationOutput restore(@PathParam("id") Long id, @HeaderParam("Authorization") String authHeader) {
+        String token = authHeader.substring("Bearer ".length());
+        try {
+            return applicationService.restore(id, token);
+        } catch (ApplicationNotFoundException e) {
+            throw new NotFoundException();
+        } catch (VerificationTokenException e) {
+            throw new UnauthorizedException();
+        } catch (UserNotFoundException e) {
+            throw new NotFoundException();
+        }
+    }
+
 }

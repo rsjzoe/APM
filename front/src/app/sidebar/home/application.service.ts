@@ -38,8 +38,17 @@ export class ApplicationService {
     return this.http.post<Application>(this.apiUrl, formData);
   }
 
+
   delete(id: number) {
     return this.http.delete<Application>(`${this.apiUrl}/${id}`);
+  }
+
+  restore(id: number) {
+    return this.http.put<Application>(`${this.apiUrl}/restore/${id}`, {});
+  }
+
+  findAllDeleted() {
+    return this.http.get<Application[]>(`${this.apiUrl}/deleted/list`);
   }
 
   update(id: number, application: UpdateApplication) {

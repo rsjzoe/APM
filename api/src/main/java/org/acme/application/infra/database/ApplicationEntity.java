@@ -28,6 +28,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -60,6 +62,8 @@ public class ApplicationEntity extends PanacheEntity {
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TechBusinessValueEntity> techBusinessValueEntity = new ArrayList<>();
     private boolean isDeleted;
+    public LocalDateTime createdAt = LocalDateTime.now();
+    public LocalDateTime updatedAt = LocalDateTime.now();
 
     public ApplicationEntity(CreateApplicationRepositoryInput app) {
         this.name = app.getName();
@@ -112,7 +116,7 @@ public class ApplicationEntity extends PanacheEntity {
                 latestTech,
                 costEntity.stream().map(CostEntity::toCostOutput).toList(),
                 techBusinessValueEntity.stream().map(TechBusinessValueEntity::toTechBusinessValueOutput).toList(),
-                isDeleted);
+                isDeleted, createdAt, updatedAt);
     }
 
     public ApplicationEntity updateData(UpdateApplicationRepositoryInput app) {
@@ -155,6 +159,17 @@ public class ApplicationEntity extends PanacheEntity {
             this.classe = ClasseEntity.findById(app.getClasseId());
         }
         return this;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 
 }

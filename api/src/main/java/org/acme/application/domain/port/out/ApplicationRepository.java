@@ -21,4 +21,6 @@ public interface ApplicationRepository {
     ApplicationOutput delete(Long id) throws ApplicationNotFoundException;
 
     List<ApplicationOutput> deletedApplication();
+
+    ApplicationOutput restore(Long id) throws ApplicationNotFoundException;
 }
