@@ -203,7 +203,7 @@ export class LifeCycleTimeComponent {
     const maxUserTotal = Math.max(...userTotals);
 
     for (let element of this.apps) {
-      let normalizedR = 0;
+      let normalizedR = 10;
       if (maxUserTotal > minUserTotal) {
         normalizedR =
           ((element.userTotal - minUserTotal) * 30) /
