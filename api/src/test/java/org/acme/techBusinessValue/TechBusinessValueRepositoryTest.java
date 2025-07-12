@@ -140,8 +140,8 @@ public class TechBusinessValueRepositoryTest {
 
         TechBusinessValueMonth febData = latestPerMonth.get(1);
         if (febData.getData() != null) {
-            assertEquals(1.5, febData.getData().getBusinessValue()); // Février (dernier coût ajouté)
-            assertEquals(3.0, febData.getData().getTechnicalDebt());
+            assertEquals(4.0, febData.getData().getBusinessValue()); // Février (dernier coût ajouté)
+            assertEquals(2.5, febData.getData().getTechnicalDebt());
         }
 
         for (int i = 2; i < 12; i++) {

@@ -169,12 +169,13 @@ public class CostControllerTest {
     @TestTransaction
     public void testLatestCostPerMonth() {
         var accessToken = userData.getUserAdminToken().getAccessToken();
+        int currentYear = LocalDateTime.now().getYear();
 
         given()
                 .pathParam("appId", applicationData.getApplication1().id)
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .get("/cost/latest-per-month/{appId}")
+                .get("/cost/latest-per-month/{appId}?year=" + currentYear)
                 .then()
                 .statusCode(200)
                 .body("size()", is(12)) // un par mois
