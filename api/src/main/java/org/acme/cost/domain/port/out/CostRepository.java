@@ -13,6 +13,6 @@ public interface CostRepository {
 
     CostOutput update(Long idCost, Long appId);
 
-    List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId);
+    List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId, int year);
 
 }

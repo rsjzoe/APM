@@ -18,6 +18,8 @@ import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
+
 import java.util.List;
 
 @Path("/cost")
@@ -52,7 +54,7 @@ public class CostController implements CostRest {
     @GET
     @Path("/latest-per-month/{appId}")
     @RoleAllowedCustom({ "admin", "editor", "visitor" })
-    public List<CostOutputMonth> findCostLatestPerMonthByAppId(@PathParam("appId") Long appId) {
-        return costService.findCostLatestPerMonthByAppId(appId);
+    public List<CostOutputMonth> findCostLatestPerMonthByAppId(@PathParam("appId") Long appId, @QueryParam("year") int year) {
+        return costService.findCostLatestPerMonthByAppId(appId, year);
     }
 }

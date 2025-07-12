@@ -165,8 +165,9 @@ public class TechBusinessValueSericeTest {
         techBusinessValue2.setApplication(applicationData.getApplication1());
         techBusinessValue2.persist();
 
+        int currentYear = LocalDateTime.now().getYear();
         List<TechBusinessValueMonth> latestPerMonth = techBusinessValueService
-                .findTechBusinessValueLatestPerMonthByAppId(applicationData.getApplication1().id);
+                .findTechBusinessValueLatestPerMonthByAppId(applicationData.getApplication1().id, currentYear);
 
         assertFalse(latestPerMonth.isEmpty());
     }

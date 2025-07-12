@@ -16,12 +16,22 @@
     </ol>
   </div>
   <div class="chart-container" *ngIf="activeTab == 'techBusiness'">
-    <h6>Valeur Métier et Dette Technique</h6>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <h6 style="margin: 0;">Valeur Métier et Dette Technique</h6>
+      <select [(ngModel)]="selectedYear" (change)="onYearChange()">
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </div>
     <p *ngIf="loading">chargement...</p>
     <canvas #chartCanvasTechBusiness></canvas>
   </div><br>
   <div class="chart-container" *ngIf="activeTab == 'cost'">
-    <h6>Coût de Construction et d'Exploitation</h6>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <h6 style="margin: 0;">Coût de Construction et d'Exploitation</h6>
+      <select [(ngModel)]="selectedYear" (change)="onYearChange()">
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </div>
     <p *ngIf="loading">chargement...</p>
     <canvas #chartCanvasCost></canvas>
   </div>

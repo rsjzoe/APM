@@ -44,9 +44,11 @@ public class CostEntityRepository implements CostRepository {
     }
 
     @Override
-    public List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId) {
+    public List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId, int year) {
+        LocalDateTime startOfYear = LocalDateTime.of(year, 1, 1, 0, 0);
+        LocalDateTime endOfYear = LocalDateTime.of(year, 12, 31, 23, 59, 59);
         PanacheQuery<CostEntity> data = CostEntity
-                .find("application.id = ?1 and createdAt >= ?2", appId, LocalDateTime.now().withDayOfYear(1));
+                .find("application.id = ?1 and createdAt >= ?2 and createdAt <= ?3", appId, startOfYear, endOfYear);
 
         Map<Month, CostOutput> latestPerMonth = data
                 .stream()

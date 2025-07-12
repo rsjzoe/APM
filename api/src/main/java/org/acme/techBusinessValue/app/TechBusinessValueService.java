@@ -41,7 +41,7 @@ public class TechBusinessValueService {
         return techBusinessValueRepository.update(idTech, appId);
     }
 
-    public List<TechBusinessValueMonth> findTechBusinessValueLatestPerMonthByAppId(Long appId) {
-        return techBusinessValueRepository.findTechBusinessValueLatestPerMonthByAppId(appId);
+    public List<TechBusinessValueMonth> findTechBusinessValueLatestPerMonthByAppId(Long appId, int year) {
+        return techBusinessValueRepository.findTechBusinessValueLatestPerMonthByAppId(appId, year);
     }
 }

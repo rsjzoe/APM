@@ -9,9 +9,9 @@ export class CostService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/cost';
 
-  findCostLatestPerMonthByAppId(appId: number) {
+  findCostLatestPerMonthByAppId(appId: number, year: number) {
     return this.http.get<CostMonth[]>(
-      `${this.apiUrl}/latest-per-month/${appId}`
+      `${this.apiUrl}/latest-per-month/${appId}?year=${year}`
     );
   }
 }

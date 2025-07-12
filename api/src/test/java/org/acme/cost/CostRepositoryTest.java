@@ -121,7 +121,7 @@ public class CostRepositoryTest {
         costFebLater.setApplication(app);
         costFebLater.persist();
 
-        List<CostOutputMonth> latestPerMonth = costRepository.findCostLatestPerMonthByAppId(app.id);
+        List<CostOutputMonth> latestPerMonth = costRepository.findCostLatestPerMonthByAppId(app.id, 2024);
 
         assertNotNull(latestPerMonth);
         assertEquals(12, latestPerMonth.size()); // 12 mois dans l'année

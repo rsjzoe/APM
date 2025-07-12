@@ -11,6 +11,6 @@ public interface CostRest {
 
     CostOutput createCost(CreateCostInput cost);
 
-    List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId);
+    List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId, int year);
 
 }

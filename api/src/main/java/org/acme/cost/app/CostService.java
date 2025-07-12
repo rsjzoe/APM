@@ -39,7 +39,7 @@ public class CostService {
         return costRepository.update(idCost, appId);
     }
 
-    public List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId) {
-        return costRepository.findCostLatestPerMonthByAppId(appId);
+    public List<CostOutputMonth> findCostLatestPerMonthByAppId(Long appId, int year) {
+        return costRepository.findCostLatestPerMonthByAppId(appId, year);
     }
 }

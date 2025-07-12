@@ -127,7 +127,7 @@ public class TechBusinessValueRepositoryTest {
         techBusinessValueFebLater.setApplication(app);
         techBusinessValueFebLater.persist();
 
-        List<TechBusinessValueMonth> latestPerMonth = repository.findTechBusinessValueLatestPerMonthByAppId(app.id);
+        List<TechBusinessValueMonth> latestPerMonth = repository.findTechBusinessValueLatestPerMonthByAppId(app.id, 2024);
 
         assertNotNull(latestPerMonth);
         assertEquals(12, latestPerMonth.size()); // 12 mois dans l'année

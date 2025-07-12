@@ -11,14 +11,17 @@ import { CommonModule } from '@angular/common';
 import { TechBusinessValueMonth } from '../../../../application/tech-business-value/techBusinessValue.type';
 import { CostService } from '../../../../application/cost/cost.service';
 import { TechBusinessValueService } from '../../../../application/tech-business-value/tech-business-value.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+  years: number[] = [];
+  selectedYear: number = new Date().getFullYear();
   @Input() route!: string;
   @ViewChild('chartCanvasTechBusiness')
   chartCanvasTechBusiness!: ElementRef<HTMLCanvasElement>;
@@ -81,7 +84,7 @@ export class DashboardComponent {
 
   findAllCostsMonth() {
     if (this.appId == null) return;
-    this.costService.findCostLatestPerMonthByAppId(this.appId).subscribe({
+    this.costService.findCostLatestPerMonthByAppId(this.appId, this.selectedYear).subscribe({
       next: (data) => {
         this.costsMonth = data;
         this.chartDataCost = this.generateChartCostData(data);
@@ -95,7 +98,7 @@ export class DashboardComponent {
   findAllTechBusinessValueMonth() {
     if (this.appId == null) return;
     this.techBusinessValueService
-      .findTechBusinessValueLatestPerMonthByAppId(this.appId)
+      .findTechBusinessValueLatestPerMonthByAppId(this.appId, this.selectedYear)
       .subscribe({
         next: (data) => {
           this.techBusinessValueMonth = data;
@@ -127,12 +130,25 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
+    const currentYear = new Date().getFullYear();
+    this.years = Array.from({ length: 6 }, (_, i) => currentYear - i);
+    this.selectedYear = currentYear;
+    this.findAllCostsMonth();
+    this.findAllTechBusinessValueMonth();
+    this.initChart();
+  }
+
+  onYearChange() {
     this.findAllCostsMonth();
     this.findAllTechBusinessValueMonth();
     this.initChart();
   }
 
   initChartTechBusiness() {
+    if (this.chartTechBusiness) {
+      this.chartTechBusiness.destroy();
+      this.chartTechBusiness = null;
+    }
     if (this.chartCanvasTechBusiness) {
       const ctx = this.chartCanvasTechBusiness.nativeElement.getContext('2d');
       if (ctx) {
@@ -272,6 +288,10 @@ export class DashboardComponent {
   }
 
   initChartCost() {
+    if (this.chartCost) {
+      this.chartCost.destroy();
+      this.chartCost = null;
+    }
     if (this.chartCanvasCost) {
       const ctx = this.chartCanvasCost.nativeElement.getContext('2d');
       if (ctx) {
@@ -403,7 +423,7 @@ export class DashboardComponent {
           },
         };
 
-        this.chartTechBusiness = new Chart(ctx, config);
+        this.chartCost = new Chart(ctx, config);
       }
     }
   }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface TechBusinessValueRest {
     List<TechBusinessValueOutput> findTechBusinessValueByAppId(Long appId);
 
-    List<TechBusinessValueMonth> findTechBusinessValueLatestPerMonthByAppId(Long appId);
+    List<TechBusinessValueMonth> findTechBusinessValueLatestPerMonthByAppId(Long appId, int year);
 
     TechBusinessValueOutput createTechBusinessValue(CreateTechBusinessValue techBusinessValue);
 

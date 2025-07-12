@@ -9,9 +9,9 @@ export class TechBusinessValueService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/techBusinessvalue';
 
-  findTechBusinessValueLatestPerMonthByAppId(appId: number) {
+  findTechBusinessValueLatestPerMonthByAppId(appId: number, year: number) {
     return this.http.get<TechBusinessValueMonth[]>(
-      `${this.apiUrl}/latest-per-month/${appId}`
+      `${this.apiUrl}/latest-per-month/${appId}?year=${year}`
     );
   }
 }

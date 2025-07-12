@@ -158,8 +158,9 @@ public class CostServiceTest {
         cost2.setApplication(applicationData.getApplication1());
         cost2.persist();
 
+        int currentYear = LocalDateTime.now().getYear();
         List<CostOutputMonth> latestPerMonth = costService
-                .findCostLatestPerMonthByAppId(applicationData.getApplication1().id);
+            .findCostLatestPerMonthByAppId(applicationData.getApplication1().id, currentYear);
 
         assertFalse(latestPerMonth.isEmpty());
     }
