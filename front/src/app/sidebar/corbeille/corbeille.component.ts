@@ -3,6 +3,8 @@ import { Application } from '../../application/app.type';
 import { ApplicationService } from '../home/application.service';
 import { CommonModule } from '@angular/common';
 import { DateFormater } from '../../lib/dateFormater';
+import { Observable } from 'rxjs';
+import { UserService } from '../administration/user.service';
 
 @Component({
   selector: 'app-corbeille',
@@ -14,11 +16,16 @@ export class CorbeilleComponent {
   deletedApps: Application[] = [];
   loading = false;
   error: string | null = null;
+  canEdit$!: Observable<boolean>;
 
-  constructor(private appService: ApplicationService) {}
+  constructor(
+    private appService: ApplicationService,
+    public userService: UserService
+  ) {}
 
   ngOnInit() {
     this.fetchDeletedApps();
+    this.canEdit$ = this.userService.canEditService('application');
   }
 
   fetchDeletedApps() {
