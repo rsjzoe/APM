@@ -16,21 +16,32 @@
     </ol>
   </div>
   <div class="chart-container" *ngIf="activeTab == 'techBusiness'">
-    <div style="display: flex; align-items: center; gap: 1rem;">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
       <h6 style="margin: 0;">Valeur Métier et Dette Technique</h6>
-      <select [(ngModel)]="selectedYear" (change)="onYearChange()">
+      <!-- <select [(ngModel)]="selectedYear" (change)="onYearChange()">
         <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-      </select>
+      </select> -->
+      <div class="input-group" style="width: 10%;">
+        <select class="form-select" [(ngModel)]="selectedYear" (change)="onYearChange()" id="inputGroupSelect05">
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+
+        </select>
+      </div>
     </div>
     <p *ngIf="loading">chargement...</p>
     <canvas #chartCanvasTechBusiness></canvas>
   </div><br>
   <div class="chart-container" *ngIf="activeTab == 'cost'">
-    <div style="display: flex; align-items: center; gap: 1rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
       <h6 style="margin: 0;">Coût de Construction et d'Exploitation</h6>
-      <select [(ngModel)]="selectedYear" (change)="onYearChange()">
-        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-      </select>
+
+
+      <div class="input-group" style="width: 10%;">
+        <select class="form-select" [(ngModel)]="selectedYear" (change)="onYearChange()" id="inputGroupSelect05">
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+
+        </select>
+      </div>
     </div>
     <p *ngIf="loading">chargement...</p>
     <canvas #chartCanvasCost></canvas>
