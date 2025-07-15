@@ -212,7 +212,7 @@ public class ApplicationService {
             throws ApplicationNotFoundException, VerificationTokenException, UserNotFoundException {
         ApplicationOutput restored = applicationRepository.restore(id);
         var app = findById(id);
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token, "L'application a été restaurée.");
         applicationHistoryService.create(data);
         return restored;
     }

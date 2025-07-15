@@ -21,10 +21,6 @@ public class GenerateDescription implements GenerateDescriptionHistory {
             return "L'application a été supprimée.";
         }
 
-        if (!app.isDeleted()) {
-            return "L'application a été restaurée.";
-        }
-
         if (otherDescription != null && !otherDescription.isEmpty()) {
             description.append("- ").append(otherDescription).append("\n");
         }
