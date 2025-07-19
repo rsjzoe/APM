@@ -172,7 +172,7 @@ export class LifeCycleTimeComponent {
     const totalApps = this.apps.length;
 
     const doughnutChartData: ChartData<'doughnut'> = {
-      labels: ['Tolerate', 'Invest', 'Migrate', 'Invest'],
+      labels: ['Tolerate', 'Invest', 'Migrate', 'Eliminate'],
       datasets: [
         {
           data: [
