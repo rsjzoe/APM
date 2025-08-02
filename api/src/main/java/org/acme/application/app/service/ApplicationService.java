@@ -15,6 +15,7 @@ import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
+import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.category.app.CategoryODAChildService;
 import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.classe.app.ClasseService;
@@ -65,9 +66,9 @@ public class ApplicationService {
     @Inject
     DepartementService departementService;
 
-    public List<ApplicationOutput> listAll() {
-        return applicationRepository.listAll();
-    };
+    public List<ApplicationOutput> listAll(ApplicationQuery query) {
+        return applicationRepository.listAll(query);
+    }
 
     public ApplicationOutput findById(Long id) throws ApplicationNotFoundException {
         return applicationRepository.findById(id);
@@ -212,7 +213,8 @@ public class ApplicationService {
             throws ApplicationNotFoundException, VerificationTokenException, UserNotFoundException {
         ApplicationOutput restored = applicationRepository.restore(id);
         var app = findById(id);
-        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token, "L'application a été restaurée.");
+        CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token,
+                "L'application a été restaurée.");
         applicationHistoryService.create(data);
         return restored;
     }

@@ -11,6 +11,7 @@ import org.acme.application.ApplicationData;
 import org.acme.application.app.service.ApplicationService;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationHistoryEntity;
 import org.acme.category.infra.database.entity.CategoryODAChildEntity;
@@ -78,7 +79,7 @@ public class ApplicationServiceTest {
     @Test
     @TestTransaction
     public void testListAllApplications() {
-        List<ApplicationOutput> applications = applicationService.listAll();
+        List<ApplicationOutput> applications = applicationService.listAll(new ApplicationQuery());
         assertNotNull(applications);
         assertTrue(applications.size() > 0);
     }

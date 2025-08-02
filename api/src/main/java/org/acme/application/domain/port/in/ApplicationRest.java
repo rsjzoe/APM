@@ -5,10 +5,11 @@ import java.util.List;
 import org.acme.application.domain.input.CreateApplicationRest;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.domain.query.ApplicationQuery;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 public interface ApplicationRest {
-    List<ApplicationOutput> listAll();
+    List<ApplicationOutput> listAll(ApplicationQuery query);
 
     ApplicationOutput findById(Long id);
 

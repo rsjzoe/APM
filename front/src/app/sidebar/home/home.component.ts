@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Application } from '../../application/app.type';
+import { Application, ApplicationQuery } from '../../application/app.type';
 import { applications } from '../../application/data';
 import { ApplicationService } from './application.service';
 import { ModalStateService } from './modal-add-app/modal-state.service';
@@ -23,6 +24,7 @@ import { DateFormater } from '../../lib/dateFormater';
     ModalConfirmComponent,
     ModalEditAppComponent,
     ModalAddAppComponent,
+    FormsModule,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -35,6 +37,9 @@ export class HomeComponent {
   canDelete$!: Observable<boolean>;
   canEditOrDelete$!: Observable<boolean>;
 
+  years: number[] = [];
+  query: ApplicationQuery = { year: null };
+
   constructor(
     private appService: ApplicationService,
     private modalStateService: ModalStateService,
@@ -42,6 +47,16 @@ export class HomeComponent {
     private router: Router
   ) {
     modalStateService.subscribeOnsubmit(this.refresh);
+    this.years = this.getYearsList();
+  }
+
+  getYearsList(): number[] {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 10 }, (_, i) => currentYear - i);
+  }
+
+  onYearChange(e: unknown) {
+    this.findAll();
   }
 
   saveIdAppDelete = (id: number) => {
@@ -63,7 +78,7 @@ export class HomeComponent {
   };
 
   findAll = () => {
-    this.appService.findAll().subscribe({
+    this.appService.findAll(this.query).subscribe({
       next: (data) => {
         this.apps = data;
       },

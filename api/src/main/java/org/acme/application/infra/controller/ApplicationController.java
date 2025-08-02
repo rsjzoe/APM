@@ -11,6 +11,7 @@ import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
+import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.cost.domain.exception.InvalidCostException;
@@ -31,6 +32,7 @@ import io.quarkus.security.UnauthorizedException;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -52,8 +54,8 @@ public class ApplicationController implements ApplicationRest {
     @GET
     @Override
     @RoleAllowedCustom({ "admin", "editor", "visitor" })
-    public List<ApplicationOutput> listAll() {
-        return applicationService.listAll();
+    public List<ApplicationOutput> listAll(@BeanParam ApplicationQuery query) {
+        return applicationService.listAll(query);
     }
 
     @GET

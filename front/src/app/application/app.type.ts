@@ -79,3 +79,7 @@ export type AppHistory = Omit<
   appId: number;
   descriptionHistory: string;
 };
+
+export type ApplicationQuery = {
+  year?: number | null;
+};

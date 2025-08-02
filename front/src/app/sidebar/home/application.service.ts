@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
   Application,
+  ApplicationQuery,
   CreateApplication,
   UpdateApplication,
 } from '../../application/app.type';
-
 import { UserService } from '../administration/user.service';
 
 @Injectable({
@@ -17,8 +17,14 @@ export class ApplicationService {
 
   constructor(private userService: UserService) {}
 
-  findAll() {
-    return this.http.get<Application[]>(this.apiUrl);
+  findAll(query: ApplicationQuery = {}) {
+    const searchParams = new URLSearchParams();
+    if (query.year) {
+      searchParams.set('year', query.year.toString());
+    }
+    return this.http.get<Application[]>(
+      `${this.apiUrl}?${searchParams.toString()}`
+    );
   }
 
   add(application: CreateApplication) {
@@ -37,7 +43,6 @@ export class ApplicationService {
 
     return this.http.post<Application>(this.apiUrl, formData);
   }
-
 
   delete(id: number) {
     return this.http.delete<Application>(`${this.apiUrl}/${id}`);

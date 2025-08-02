@@ -11,6 +11,7 @@ import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationEntityRepository;
 import org.acme.application.infra.database.ApplicationHistoryEntity;
@@ -80,7 +81,7 @@ public class ApplicationRepositoryTest {
     @Test
     @TestTransaction
     public void testListAllApplications() {
-        List<ApplicationOutput> applications = repository.listAll();
+        List<ApplicationOutput> applications = repository.listAll(new ApplicationQuery());
         assertNotNull(applications);
         assertTrue(applications.size() > 0);
     }

@@ -8,14 +8,22 @@ import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
+import org.acme.application.domain.query.ApplicationQuery;
 
 public class ApplicationEntityRepository implements ApplicationRepository {
 
     @Override
-    public List<ApplicationOutput> listAll() {
+    public List<ApplicationOutput> listAll(ApplicationQuery query) {
         List<ApplicationEntity> data = ApplicationEntity.list("isDeleted", false);
+        if (query != null && query.getYear() != null) {
+            return data.stream()
+                    .filter(entity -> entity.getStartDate() != null
+                            && entity.getStartDate().getYear() == query.getYear())
+                    .map(entity -> entity.toApplicationOutput())
+                    .collect(Collectors.toList());
+        }
         return data.stream()
-                .map(entity -> (entity).toApplicationOutput())
+                .map(entity -> entity.toApplicationOutput())
                 .collect(Collectors.toList());
     }
 
