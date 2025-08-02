@@ -58,23 +58,17 @@
               {{ year }}
             </option>
           </select>
-          <div>
-            <div class="input-group input-dropdown">
-              <button
-                class="btn btn-dropdown dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                style="height: 44px"
-              >
-                Département
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Classe</a></li>
-                <li><a class="dropdown-item">Catégorie</a></li>
-              </ul>
-            </div>
-          </div>
+          <select
+            class="form-select"
+            style="width: 180px; height: 44px"
+            [(ngModel)]="query.departementId"
+            (change)="onDepartementChange($event)"
+          >
+            <option [ngValue]="null" selected>Tous les départements</option>
+            <option *ngFor="let dep of departements" [ngValue]="dep.id">
+              {{ dep.name }}
+            </option>
+          </select>
           <div (click)="onClickAdd()" *ngIf="canAddApp$ | async">
             <app-button
               text="Ajouter"

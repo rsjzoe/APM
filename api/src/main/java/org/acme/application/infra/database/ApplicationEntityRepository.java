@@ -9,6 +9,7 @@ import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 import org.acme.application.domain.query.ApplicationQuery;
+import org.acme.departement.infra.database.DepartementEntity;
 
 public class ApplicationEntityRepository implements ApplicationRepository {
 
@@ -19,6 +20,7 @@ public class ApplicationEntityRepository implements ApplicationRepository {
         params.add(false);
 
         int paramIndex = 2;
+        System.out.println(query);
         if (query != null) {
             if (query.getYear() != null) {
                 jpql.append(" and EXTRACT(YEAR FROM startDate) = ?" + paramIndex);
@@ -26,11 +28,18 @@ public class ApplicationEntityRepository implements ApplicationRepository {
                 paramIndex++;
             }
             if (query.getSearch() != null && !query.getSearch().isBlank()) {
-                jpql.append(" and (LOWER(name) LIKE ?" + paramIndex + " OR LOWER(description) LIKE ?" + (paramIndex + 1) + ")");
+                jpql.append(" and (LOWER(name) LIKE ?" + paramIndex + " OR LOWER(description) LIKE ?" + (paramIndex + 1)
+                        + ")");
                 String like = "%" + query.getSearch().toLowerCase() + "%";
                 params.add(like);
                 params.add(like);
                 paramIndex += 2;
+            }
+            if (query.getDepartementId() != null) {
+                jpql.append(" and ?" + paramIndex + " MEMBER OF departements");
+                DepartementEntity depEntity = DepartementEntity.findById(query.getDepartementId());
+                params.add(depEntity);
+                paramIndex++;
             }
         }
 

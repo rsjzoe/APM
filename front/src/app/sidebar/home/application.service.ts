@@ -25,6 +25,9 @@ export class ApplicationService {
     if (query.search) {
       searchParams.set('search', query.search);
     }
+    if (query.departementId) {
+      searchParams.set('departementId', query.departementId.toString());
+    }
     return this.http.get<Application[]>(
       `${this.apiUrl}?${searchParams.toString()}`
     );

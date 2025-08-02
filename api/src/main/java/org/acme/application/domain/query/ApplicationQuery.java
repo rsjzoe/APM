@@ -15,4 +15,6 @@ public class ApplicationQuery {
     private Integer year;
     @QueryParam("search")
     private String search;
+    @QueryParam("departementId")
+    private Long departementId;
 }

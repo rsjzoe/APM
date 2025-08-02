@@ -83,4 +83,5 @@ export type AppHistory = Omit<
 export type ApplicationQuery = {
   year?: number | null;
   search?: string;
+  departementId?: number | null;
 };

@@ -3,6 +3,8 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Application, ApplicationQuery } from '../../application/app.type';
+import { DepartementService } from '../../application/departement/departement.service';
+import { Departement } from '../../application/departement/departement.type';
 import { applications } from '../../application/data';
 import { ApplicationService } from './application.service';
 import { ModalStateService } from './modal-add-app/modal-state.service';
@@ -30,6 +32,7 @@ import { DateFormater } from '../../lib/dateFormater';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  departements: Departement[] = [];
   apps = applications;
   appIdDelete: number | null = null;
   canAddApp$!: Observable<boolean>;
@@ -38,13 +41,14 @@ export class HomeComponent {
   canEditOrDelete$!: Observable<boolean>;
 
   years: number[] = [];
-  query: ApplicationQuery = { year: null };
+  query: ApplicationQuery = { year: null, departementId: null };
 
   constructor(
     private appService: ApplicationService,
     private modalStateService: ModalStateService,
     public userService: UserService,
-    private router: Router
+    private router: Router,
+    private departementService: DepartementService
   ) {
     modalStateService.subscribeOnsubmit(this.refresh);
     this.years = this.getYearsList();
@@ -60,6 +64,10 @@ export class HomeComponent {
   }
 
   onSearchChange() {
+    this.findAll();
+  }
+
+  onDepartementChange(e: unknown) {
     this.findAll();
   }
 
@@ -120,6 +128,11 @@ export class HomeComponent {
       this.canDelete$,
       this.canEdit$,
     ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
+    this.departementService.findAll().subscribe({
+      next: (data) => {
+        this.departements = data;
+      },
+    });
   }
 
   formatDate(date: Date | string) {
