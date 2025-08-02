@@ -84,4 +84,14 @@ export type ApplicationQuery = {
   year?: number | null;
   search?: string;
   departementId?: number | null;
+  page?: number;
+  size?: number;
+};
+
+export type PaginationOutput<T> = {
+  items: T[];
+  totalItems: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
 };

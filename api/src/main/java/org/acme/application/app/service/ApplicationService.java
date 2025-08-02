@@ -14,6 +14,7 @@ import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.model.Status;
 import org.acme.application.domain.model.Time;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.domain.output.PaginationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.category.app.CategoryODAChildService;
@@ -66,7 +67,7 @@ public class ApplicationService {
     @Inject
     DepartementService departementService;
 
-    public List<ApplicationOutput> listAll(ApplicationQuery query) {
+    public PaginationOutput<ApplicationOutput> listAll(ApplicationQuery query) {
         return applicationRepository.listAll(query);
     }
 

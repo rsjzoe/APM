@@ -4,6 +4,7 @@ import {
   Application,
   ApplicationQuery,
   CreateApplication,
+  PaginationOutput,
   UpdateApplication,
 } from '../../application/app.type';
 import { UserService } from '../administration/user.service';
@@ -28,7 +29,11 @@ export class ApplicationService {
     if (query.departementId) {
       searchParams.set('departementId', query.departementId.toString());
     }
-    return this.http.get<Application[]>(
+    if (query.page && query.size) {
+      searchParams.set('page', query.page.toString());
+      searchParams.set('size', query.size.toString());
+    }
+    return this.http.get<PaginationOutput<Application>>(
       `${this.apiUrl}?${searchParams.toString()}`
     );
   }

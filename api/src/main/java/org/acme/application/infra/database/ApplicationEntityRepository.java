@@ -7,6 +7,7 @@ import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
 import org.acme.application.domain.input.UpdateApplicationRepositoryInput;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.domain.output.PaginationOutput;
 import org.acme.application.domain.port.out.ApplicationRepository;
 import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.departement.infra.database.DepartementEntity;
@@ -14,13 +15,12 @@ import org.acme.departement.infra.database.DepartementEntity;
 public class ApplicationEntityRepository implements ApplicationRepository {
 
     @Override
-    public List<ApplicationOutput> listAll(ApplicationQuery query) {
+    public PaginationOutput<ApplicationOutput> listAll(ApplicationQuery query) {
         StringBuilder jpql = new StringBuilder("isDeleted = ?1");
         java.util.List<Object> params = new java.util.ArrayList<>();
         params.add(false);
 
         int paramIndex = 2;
-        System.out.println(query);
         if (query != null) {
             if (query.getYear() != null) {
                 jpql.append(" and EXTRACT(YEAR FROM startDate) = ?" + paramIndex);
@@ -43,10 +43,17 @@ public class ApplicationEntityRepository implements ApplicationRepository {
             }
         }
 
-        List<ApplicationEntity> data = ApplicationEntity.list(jpql.toString(), params.toArray());
-        return data.stream()
+        int page = query != null && query.getPage() != null ? query.getPage() : 1;
+        int size = query != null && query.getSize() != null ? query.getSize() : 9999;
+        long total = ApplicationEntity.count(jpql.toString(), params.toArray());
+        List<ApplicationEntity> data = ApplicationEntity.find(jpql.toString(), params.toArray())
+                .page(page - 1, size)
+                .list();
+        List<ApplicationOutput> items = data.stream()
                 .map(entity -> entity.toApplicationOutput())
                 .collect(Collectors.toList());
+        int totalPages = (int) Math.ceil((double) total / size);
+        return new PaginationOutput<>(items, total, totalPages, page, size);
     }
 
     @Override

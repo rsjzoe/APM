@@ -11,6 +11,7 @@ import org.acme.application.ApplicationData;
 import org.acme.application.app.service.ApplicationService;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.domain.output.PaginationOutput;
 import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.application.infra.database.ApplicationEntity;
 import org.acme.application.infra.database.ApplicationHistoryEntity;
@@ -79,9 +80,9 @@ public class ApplicationServiceTest {
     @Test
     @TestTransaction
     public void testListAllApplications() {
-        List<ApplicationOutput> applications = applicationService.listAll(new ApplicationQuery());
-        assertNotNull(applications);
-        assertTrue(applications.size() > 0);
+        PaginationOutput<ApplicationOutput> applications = applicationService.listAll(new ApplicationQuery());
+        assertNotNull(applications.getItems());
+        assertTrue(applications.getItems().size() > 0);
     }
 
     @Test

@@ -17,4 +17,13 @@ public class ApplicationQuery {
     private String search;
     @QueryParam("departementId")
     private Long departementId;
+    @QueryParam("page")
+    private Integer page = 1;
+    @QueryParam("size")
+    private Integer size = 25;
+    
+    public Integer getPage() { return page; }
+    public void setPage(Integer page) { this.page = page; }
+    public Integer getSize() { return size; }
+    public void setSize(Integer size) { this.size = size; }
 }

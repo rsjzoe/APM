@@ -10,6 +10,7 @@ import org.acme.application.domain.input.CreateApplicationRest;
 import org.acme.application.domain.input.CreateApplicationServiceInput;
 import org.acme.application.domain.input.UpdateApplicationServiceInput;
 import org.acme.application.domain.output.ApplicationOutput;
+import org.acme.application.domain.output.PaginationOutput;
 import org.acme.application.domain.port.in.ApplicationRest;
 import org.acme.application.domain.query.ApplicationQuery;
 import org.acme.category.domain.exception.CategoryODAChildNotFoundException;
@@ -54,7 +55,8 @@ public class ApplicationController implements ApplicationRest {
     @GET
     @Override
     @RoleAllowedCustom({ "admin", "editor", "visitor" })
-    public List<ApplicationOutput> listAll(@BeanParam ApplicationQuery query) {
+    public PaginationOutput<org.acme.application.domain.output.ApplicationOutput> listAll(
+            @BeanParam ApplicationQuery query) {
         return applicationService.listAll(query);
     }
 

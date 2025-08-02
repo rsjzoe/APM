@@ -1,6 +1,7 @@
 package org.acme.application.domain.port.out;
 
 import java.util.List;
+import org.acme.application.domain.output.PaginationOutput;
 
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.input.CreateApplicationRepositoryInput;
@@ -10,7 +11,7 @@ import org.acme.application.domain.query.ApplicationQuery;
 
 //afahana mifandray am domain 
 public interface ApplicationRepository {
-    List<ApplicationOutput> listAll(ApplicationQuery query);
+    PaginationOutput<ApplicationOutput> listAll(ApplicationQuery query);
 
     ApplicationOutput findById(Long id) throws ApplicationNotFoundException;
 

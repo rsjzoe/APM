@@ -228,7 +228,7 @@ export class LifeCycleTimeComponent {
       next: (data) => {
         console.log(data);
 
-        this.apps = data;
+        this.apps = data.items;
         const { bubbleChartData, doughnutChartData } = this.generateDataSet();
         this.bubbleChartData = bubbleChartData;
         this.doughnutChartData = doughnutChartData;

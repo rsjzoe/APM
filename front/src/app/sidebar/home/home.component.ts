@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Application, ApplicationQuery } from '../../application/app.type';
+import {
+  Application,
+  ApplicationQuery,
+  PaginationOutput,
+} from '../../application/app.type';
 import { DepartementService } from '../../application/departement/departement.service';
 import { Departement } from '../../application/departement/departement.type';
-import { applications } from '../../application/data';
 import { ApplicationService } from './application.service';
 import { ModalStateService } from './modal-add-app/modal-state.service';
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
@@ -33,7 +36,13 @@ import { DateFormater } from '../../lib/dateFormater';
 })
 export class HomeComponent {
   departements: Departement[] = [];
-  apps = applications;
+  apps: PaginationOutput<Application> = {
+    items: [],
+    totalPages: 1,
+    currentPage: 1,
+    totalItems: 0,
+    pageSize: 0,
+  };
   appIdDelete: number | null = null;
   canAddApp$!: Observable<boolean>;
   canEdit$!: Observable<boolean>;
@@ -41,7 +50,12 @@ export class HomeComponent {
   canEditOrDelete$!: Observable<boolean>;
 
   years: number[] = [];
-  query: ApplicationQuery = { year: null, departementId: null };
+  query: ApplicationQuery = {
+    year: null,
+    departementId: null,
+    page: 1,
+    size: 3,
+  };
 
   constructor(
     private appService: ApplicationService,
@@ -100,10 +114,24 @@ export class HomeComponent {
     });
   };
 
+  goToPrevPage() {
+    if (this.apps.currentPage > 1) {
+      this.query.page = this.apps.currentPage - 1;
+      this.findAll();
+    }
+  }
+
+  goToNextPage() {
+    if (this.apps.currentPage < this.apps.totalPages) {
+      this.query.page = this.apps.currentPage + 1;
+      this.findAll();
+    }
+  }
+
   deleteById = (id: number) => {
     this.appService.delete(id).subscribe({
       next: () => {
-        this.apps = this.apps.filter((app) => app.id !== id);
+        this.findAll();
       },
       error: (error) => {
         console.log('erreur de la suppresssion : ' + error);
