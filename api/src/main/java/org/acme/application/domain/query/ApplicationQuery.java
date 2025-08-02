@@ -13,5 +13,6 @@ import lombok.NoArgsConstructor;
 public class ApplicationQuery {
     @QueryParam("year")
     private Integer year;
-
+    @QueryParam("search")
+    private String search;
 }

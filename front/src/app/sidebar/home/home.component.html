@@ -22,9 +22,12 @@
                 <input
                   class="input-search form-control ps-5"
                   type="search"
-                  placeholder="Search..."
+                  placeholder="Rechercher..."
                   aria-label="Search"
                   style="background-color: transparent !important; height: 44px"
+                  [(ngModel)]="query.search"
+                  (ngModelChange)="onSearchChange()"
+                  [ngModelOptions]="{ standalone: true }"
                 />
                 <svg
                   class="position-absolute top-50 start-0 translate-middle-y ms-2"

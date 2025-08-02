@@ -22,6 +22,9 @@ export class ApplicationService {
     if (query.year) {
       searchParams.set('year', query.year.toString());
     }
+    if (query.search) {
+      searchParams.set('search', query.search);
+    }
     return this.http.get<Application[]>(
       `${this.apiUrl}?${searchParams.toString()}`
     );

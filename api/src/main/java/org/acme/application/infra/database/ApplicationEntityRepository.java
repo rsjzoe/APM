@@ -14,14 +14,27 @@ public class ApplicationEntityRepository implements ApplicationRepository {
 
     @Override
     public List<ApplicationOutput> listAll(ApplicationQuery query) {
-        List<ApplicationEntity> data = ApplicationEntity.list("isDeleted", false);
-        if (query != null && query.getYear() != null) {
-            return data.stream()
-                    .filter(entity -> entity.getStartDate() != null
-                            && entity.getStartDate().getYear() == query.getYear())
-                    .map(entity -> entity.toApplicationOutput())
-                    .collect(Collectors.toList());
+        StringBuilder jpql = new StringBuilder("isDeleted = ?1");
+        java.util.List<Object> params = new java.util.ArrayList<>();
+        params.add(false);
+
+        int paramIndex = 2;
+        if (query != null) {
+            if (query.getYear() != null) {
+                jpql.append(" and EXTRACT(YEAR FROM startDate) = ?" + paramIndex);
+                params.add(query.getYear());
+                paramIndex++;
+            }
+            if (query.getSearch() != null && !query.getSearch().isBlank()) {
+                jpql.append(" and (LOWER(name) LIKE ?" + paramIndex + " OR LOWER(description) LIKE ?" + (paramIndex + 1) + ")");
+                String like = "%" + query.getSearch().toLowerCase() + "%";
+                params.add(like);
+                params.add(like);
+                paramIndex += 2;
+            }
         }
+
+        List<ApplicationEntity> data = ApplicationEntity.list(jpql.toString(), params.toArray());
         return data.stream()
                 .map(entity -> entity.toApplicationOutput())
                 .collect(Collectors.toList());

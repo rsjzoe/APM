@@ -59,6 +59,10 @@ export class HomeComponent {
     this.findAll();
   }
 
+  onSearchChange() {
+    this.findAll();
+  }
+
   saveIdAppDelete = (id: number) => {
     this.appIdDelete = id;
   };
