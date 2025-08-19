@@ -1,5 +1,5 @@
-<div class="py-4">
-  <h3 class="display-4 h3 mb-4">Gestionnaire de Questions</h3>
+<div class="p-4 rounded-2 bg-white">
+  <h3 class="display-4 h3 mb-4 text-primary">Gestionnaire de Questions</h3>
 
   <div class="d-flex gap-4">
     <!-- Left Column - Question Groups -->
@@ -13,13 +13,17 @@
 
       <div class="groups-list">
         <div class="accordion" id="accordionQuestionnaire">
-          <div class="accordion-item" *ngFor="let group of groupedByType; let i = index">
+          <div class="accordion-item" style="border: none !important;"
+            *ngFor="let group of groupedByType; let i = index">
             <div class="accordion-header">
-              <button class="accordion-button fs-5 py-3" type="button" [attr.data-bs-target]="'#collapse' + i"
-                [class.collapsed]="openedGroupIndex !== i" (click)="toggleAccordion(i)"
-                [attr.aria-expanded]="openedGroupIndex === i">
+              <button class="accordion-button fs-5 py-3 group-header-btn"
+                style="margin-bottom: 10px; border-radius: 10px; padding-right: 12px; border: none !important; border-top: none !important; padding-left: 12px; color: white; background: transparent;"
+                type="button" [attr.data-bs-target]="'#collapse' + i" [class.collapsed]="openedGroupIndex !== i"
+                (click)="toggleAccordion(i)" [attr.aria-expanded]="openedGroupIndex === i"
+                [style.background]="group.name === 'Valeur métier' ? '#6e4aa7' : '#000000'">
                 {{ group.name }}
               </button>
+
             </div>
             <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="openedGroupIndex === i">
               <div class="accordion-body">
@@ -69,7 +73,8 @@
     <div class="w-100 p-3 rounded-1" style="background: #f8f9fa">
       <ng-container *ngIf="selectedGroup && !editingGroup">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h2 class="h4">Questions pour "{{ selectedGroup.text }}"</h2>
+          <h2 class="h4">Questions pour <span class="fs-6" style="font-weight: 100;">"{{ selectedGroup.text }}"</span>
+          </h2>
           <button class="btn btn-primary" (click)="handleAddNewQuestion()" *ngIf="canAdd$ | async">
             <app-icon-plus /> Ajouter Question
           </button>
