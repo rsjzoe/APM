@@ -3,6 +3,7 @@ package org.acme.application.app.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.acme.SocketIOServerProvider;
 import org.acme.application.app.usecase.CalculateTime;
 import org.acme.application.domain.exception.ApplicationNotFoundException;
 import org.acme.application.domain.exception.InvalidApplicationException;
@@ -66,6 +67,9 @@ public class ApplicationService {
 
     @Inject
     DepartementService departementService;
+
+    @Inject
+    SocketIOServerProvider socketio;
 
     public PaginationOutput<ApplicationOutput> listAll(ApplicationQuery query) {
         return applicationRepository.listAll(query);
@@ -139,7 +143,7 @@ public class ApplicationService {
         var app = findById(created.getId());
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
         applicationHistoryService.create(data);
-
+        socketio.sendEvent("refetch_app");
         return created;
     };
 
@@ -194,6 +198,9 @@ public class ApplicationService {
         applicationHistoryService.create(data);
         // maka anlay app updated miarakam curreent cost any vaovao
         ApplicationOutput appFound = findById(id);
+
+        //
+        socketio.sendEvent("refetch_app");
         return appFound;
     };
 
@@ -203,6 +210,8 @@ public class ApplicationService {
         var app = findById(id);
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token);
         applicationHistoryService.create(data);
+        socketio.sendEvent("refetch_app");
+
         return deleted;
     };
 
@@ -217,6 +226,7 @@ public class ApplicationService {
         CreateApplicationHistoryService data = new CreateApplicationHistoryService(app, token,
                 "L'application a été restaurée.");
         applicationHistoryService.create(data);
+        socketio.sendEvent("refetch_app");
         return restored;
     }
 }

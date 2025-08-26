@@ -16,6 +16,7 @@ import { IconHelpComponent } from '../../components/icons/icon-help/icon-help.co
 import { Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
 import { ToastService } from '../../components/toast/service/toast.service';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-questionnaire',
@@ -47,8 +48,13 @@ export class QuestionnaireComponent {
     private questionGroupeService: QuestionGroupeService,
     private questionService: QuestionService,
     private userService: UserService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private socketService: SocketService
+  ) {
+    this.socketService.onEvent('refetch_question', () => {
+      this.init();
+    });
+  }
 
   toggleAccordion(index: number) {
     this.openedGroupIndex = this.openedGroupIndex === index ? null : index;
@@ -330,11 +336,15 @@ export class QuestionnaireComponent {
     });
   };
 
-  ngOnInit() {
+  init() {
     this.canAdd$ = this.userService.canCreateService('performance');
     this.canEdit$ = this.userService.canEditService('performance');
     this.canDelete$ = this.userService.canDeleteService('performance');
     this.findAll();
+  }
+
+  ngOnInit() {
+    this.init();
   }
 }
 

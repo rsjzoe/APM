@@ -19,6 +19,7 @@ import { ModalAddAppComponent } from './modal-add-app/modal-add-app.component';
 import { UserService } from '../administration/user.service';
 import { combineLatest, map, Observable } from 'rxjs';
 import { DateFormater } from '../../lib/dateFormater';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-home',
@@ -62,8 +63,13 @@ export class HomeComponent {
     private modalStateService: ModalStateService,
     public userService: UserService,
     private router: Router,
-    private departementService: DepartementService
+    private departementService: DepartementService,
+    private socketService: SocketService
   ) {
+    this.socketService.onEvent('refetch_app', () => {
+      // find application
+      this.init();
+    });
     modalStateService.subscribeOnsubmit(this.refresh);
     this.years = this.getYearsList();
   }
@@ -147,7 +153,7 @@ export class HomeComponent {
     this.findAll();
   };
 
-  ngOnInit() {
+  init() {
     this.findAll();
     this.canAddApp$ = this.userService.canCreateService('application');
     this.canEdit$ = this.userService.canEditService('application');
@@ -161,6 +167,10 @@ export class HomeComponent {
         this.departements = data;
       },
     });
+  }
+
+  ngOnInit() {
+    this.init();
   }
 
   formatDate(date: Date | string) {

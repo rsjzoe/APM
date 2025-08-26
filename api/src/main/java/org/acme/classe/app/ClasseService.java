@@ -2,6 +2,7 @@ package org.acme.classe.app;
 
 import java.util.List;
 
+import org.acme.SocketIOServerProvider;
 import org.acme.classe.domain.exception.ClasseNotFoundException;
 import org.acme.classe.domain.input.CreateClasseInput;
 import org.acme.classe.domain.input.UpdateClasse;
@@ -17,6 +18,9 @@ public class ClasseService {
     @Inject
     ClasseRepository classeRepository;
 
+    @Inject
+    SocketIOServerProvider socketio;
+
     public ClasseService(ClasseRepository classeRepository) {
         this.classeRepository = classeRepository;
     }
@@ -27,12 +31,16 @@ public class ClasseService {
 
     @Transactional
     public ClasseOutput create(CreateClasseInput classe) {
-        return classeRepository.create(classe);
+        var created = classeRepository.create(classe);
+        socketio.sendEvent("refetch_classe");
+        return created;
     }
 
     @Transactional
     public ClasseOutput update(Long id, UpdateClasse classe) throws ClasseNotFoundException {
-        return classeRepository.update(id, classe);
+        var updated = classeRepository.update(id, classe);
+        socketio.sendEvent("refetch_classe");
+        return updated;
     }
 
     @Transactional
@@ -42,7 +50,9 @@ public class ClasseService {
 
     @Transactional
     public ClasseOutput deleteById(Long id) throws ClasseNotFoundException {
-        return classeRepository.deleteById(id);
+        var deleted = classeRepository.deleteById(id);
+        socketio.sendEvent("refetch_classe");
+        return deleted;
     }
 
 }

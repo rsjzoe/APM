@@ -1,5 +1,6 @@
 package org.acme.auth.app;
 
+import org.acme.SocketIOServerProvider;
 import org.acme.auth.domain.Token;
 import org.acme.auth.domain.exception.LoginException;
 import org.acme.auth.domain.exception.UserCreatedException;
@@ -10,10 +11,13 @@ import org.acme.auth.domain.port.out.Authentification;
 import org.acme.user.domain.UserOutput;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class AuthService {
     private final Authentification authentification;
+    @Inject
+    SocketIOServerProvider socketio;
 
     public AuthService(Authentification authentification) {
         this.authentification = authentification;
@@ -28,7 +32,9 @@ public class AuthService {
                 || register.getTrigramme().equalsIgnoreCase("superadminapm")) {
             throw new UserExistedException();
         }
-        return authentification.register(register);
+        var newUser = authentification.register(register);
+        socketio.sendEvent("refetch_users");
+        return newUser;
     }
 
     public Token refreshToken(String token) throws LoginException, Exception {

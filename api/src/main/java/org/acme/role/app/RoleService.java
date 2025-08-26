@@ -2,6 +2,7 @@ package org.acme.role.app;
 
 import java.util.List;
 
+import org.acme.SocketIOServerProvider;
 import org.acme.role.domain.exception.ConflitRoleException;
 import org.acme.role.domain.exception.RoleActif;
 import org.acme.role.domain.exception.RoleNotFoundException;
@@ -20,6 +21,9 @@ public class RoleService {
     @Inject
     RoleRepository roleRepository;
 
+    @Inject
+    SocketIOServerProvider socketio;
+
     public Role createRole(CreateRole role) throws ConflitRoleException {
         try {
             roleRepository.findRoleByName(role.getRoleName());
@@ -27,7 +31,9 @@ public class RoleService {
 
         } catch (RoleNotFoundException e) {
             role.correctRole();
-            return roleRepository.createRole(role);
+            var created = roleRepository.createRole(role);
+            socketio.sendEvent("refetch_role");
+            return created;
         }
 
     }
@@ -72,11 +78,15 @@ public class RoleService {
     }
 
     public Role deleteByName(String roleName) throws RoleNotFoundException, RoleActif {
-        return roleRepository.deleteByName(roleName);
+        var deleted = roleRepository.deleteByName(roleName);
+        socketio.sendEvent("refetch_role");
+        return deleted;
     }
 
     public Role updateRole(Long id, UpdateRole role) throws RoleNotFoundException {
         role.correctRole();
-        return roleRepository.updateRole(id, role);
+        var updated = roleRepository.updateRole(id, role);
+        socketio.sendEvent("refetch_role");
+        return updated;
     }
 }

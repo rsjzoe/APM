@@ -5,6 +5,7 @@ import { timeColor } from './color';
 import { Application } from '../../application/app.type';
 import { applications } from '../../application/data';
 import { ApplicationService } from '../home/application.service';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-life-cycle-time',
@@ -15,7 +16,14 @@ import { ApplicationService } from '../home/application.service';
 export class LifeCycleTimeComponent {
   public apps: Application[] = applications;
 
-  constructor(private appService: ApplicationService) {}
+  constructor(
+    private appService: ApplicationService,
+    private socketService: SocketService
+  ) {
+    this.socketService.onEvent('refetch_app', () => {
+      this.init();
+    });
+  }
 
   public bubbleChartOptions: ChartOptions = {
     responsive: true,
@@ -242,7 +250,11 @@ export class LifeCycleTimeComponent {
     });
   };
 
-  ngOnInit() {
+  init() {
     this.findAllApplication();
+  }
+
+  ngOnInit() {
+    this.init();
   }
 }

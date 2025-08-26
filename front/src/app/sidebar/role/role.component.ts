@@ -7,6 +7,7 @@ import { ModalConfirmComponent } from '../../components/modal-confirm/modal-conf
 import { combineLatest, map, Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
 import { ToastService } from '../../components/toast/service/toast.service';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-role',
@@ -25,8 +26,13 @@ export class RoleComponent {
   constructor(
     private roleService: RoleService,
     private userService: UserService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private socketService: SocketService
+  ) {
+    this.socketService.onEvent('refetch_role', () => {
+      this.init();
+    });
+  }
 
   saveRoleName = (roleName: string) => {
     this.roleName = roleName;
@@ -46,9 +52,7 @@ export class RoleComponent {
       },
       error: (error) => {
         console.log('erreur de la suppresssion : ' + error);
-        this.toastService.error(
-          "Erreur lors de la suppression du rôle"
-        );
+        this.toastService.error('Erreur lors de la suppression du rôle');
       },
     });
   }
@@ -59,7 +63,7 @@ export class RoleComponent {
     });
   }
 
-  ngOnInit() {
+  init() {
     this.canAdd$ = this.userService.canCreateService('roles');
     this.canEdit$ = this.userService.canEditService('roles');
     this.canDelete$ = this.userService.canDeleteService('roles');
@@ -68,5 +72,9 @@ export class RoleComponent {
       this.canEdit$,
     ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
     this.findAll();
+  }
+
+  ngOnInit() {
+    this.init();
   }
 }

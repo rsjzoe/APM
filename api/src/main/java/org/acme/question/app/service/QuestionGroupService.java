@@ -2,6 +2,7 @@ package org.acme.question.app.service;
 
 import java.util.List;
 
+import org.acme.SocketIOServerProvider;
 import org.acme.question.domain.exception.QuestionGroupNotFoundException;
 import org.acme.question.domain.input.CreateQuestionGroup;
 import org.acme.question.domain.input.UpdateQuestionGroup;
@@ -17,14 +18,21 @@ public class QuestionGroupService {
     @Inject
     QuestionGroupRepository questionGroupRepository;
 
+    @Inject
+    SocketIOServerProvider socketio;
+
     @Transactional
     public QuestionGroup save(CreateQuestionGroup newQuestion) {
-        return questionGroupRepository.save(newQuestion);
+        var created = questionGroupRepository.save(newQuestion);
+        socketio.sendEvent("refetch_question");
+        return created;
     }
 
     @Transactional
     public QuestionGroup update(Long id, UpdateQuestionGroup question) throws QuestionGroupNotFoundException {
-        return questionGroupRepository.update(id, question);
+        var updated = questionGroupRepository.update(id, question);
+        socketio.sendEvent("refetch_question");
+        return updated;
     }
 
     @Transactional
@@ -34,7 +42,9 @@ public class QuestionGroupService {
 
     @Transactional
     public QuestionGroup deleteById(Long id) throws QuestionGroupNotFoundException {
-        return questionGroupRepository.deleteById(id);
+        var deleted = questionGroupRepository.deleteById(id);
+        socketio.sendEvent("refetch_question");
+        return deleted;
     }
 
     public List<QuestionGroup> findAll() {

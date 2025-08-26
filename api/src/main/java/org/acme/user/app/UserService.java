@@ -2,6 +2,7 @@ package org.acme.user.app;
 
 import java.util.List;
 
+import org.acme.SocketIOServerProvider;
 import org.acme.auth.app.AuthService;
 import org.acme.auth.domain.exception.LoginException;
 import org.acme.auth.domain.input.Login;
@@ -21,6 +22,9 @@ public class UserService {
     UserRepository userRepository;
     @Inject
     AuthService authService;
+
+    @Inject
+    SocketIOServerProvider socketio;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -42,21 +46,27 @@ public class UserService {
         if (trigramme.equalsIgnoreCase("superadmin") || trigramme.equalsIgnoreCase("superadminapm")) {
             throw new UserNotFoundException("Cannot");
         }
-        return userRepository.deleteByTrigramme(trigramme);
+        var deleted = userRepository.deleteByTrigramme(trigramme);
+        socketio.sendEvent("refetch_users");
+        return deleted;
     }
 
     public UserOutput updateUserByTrigramme(String trigramme, UpdateUser userUpdate) throws UserNotFoundException {
         if (trigramme.equalsIgnoreCase("superadmin") || trigramme.equalsIgnoreCase("superadminapm")) {
             throw new UserNotFoundException("Cannot");
         }
-        return userRepository.updateByTrigramme(trigramme, userUpdate);
+        var updated = userRepository.updateByTrigramme(trigramme, userUpdate);
+        socketio.sendEvent("refetch_users");
+        return updated;
     }
 
     public UserOutput changePassword(String trigramme, ChangePassword password)
             throws UserNotFoundException, WrongPasswordException {
         try {
             authService.login(new Login(trigramme, password.getOldPassword()));
-            return userRepository.changePassword(trigramme, password);
+            var updated = userRepository.changePassword(trigramme, password);
+            socketio.sendEvent("refetch_users");
+            return updated;
         } catch (LoginException e) {
             throw new WrongPasswordException("Wrong password");
         }

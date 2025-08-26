@@ -2,6 +2,7 @@ package org.acme.question.app.service;
 
 import java.util.List;
 
+import org.acme.SocketIOServerProvider;
 import org.acme.question.domain.exception.QuestionNotFoundException;
 import org.acme.question.domain.input.CreateQuestion;
 import org.acme.question.domain.input.UpdateQuestion;
@@ -17,14 +18,21 @@ public class QuestionService {
     @Inject
     QuestionRepository questionRepository;
 
+    @Inject
+    SocketIOServerProvider socketio;
+
     @Transactional
     public Question save(CreateQuestion newQuestion) {
-        return questionRepository.save(newQuestion);
+        var created = questionRepository.save(newQuestion);
+        socketio.sendEvent("refetch_question");
+        return created;
     }
 
     @Transactional
     public Question update(Long id, UpdateQuestion question) throws QuestionNotFoundException {
-        return questionRepository.update(id, question);
+        var updated = questionRepository.update(id, question);
+        socketio.sendEvent("refetch_question");
+        return updated;
     }
 
     @Transactional
@@ -34,7 +42,9 @@ public class QuestionService {
 
     @Transactional
     public Question deleteById(Long id) throws QuestionNotFoundException {
-        return questionRepository.deleteById(id);
+        var deleted = questionRepository.deleteById(id);
+        socketio.sendEvent("refetch_question");
+        return deleted;
     }
 
     public List<Question> findAll() {

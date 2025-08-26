@@ -27,9 +27,9 @@ import { IconNoteComponent } from '../../../components/icons/icon-note/icon-note
 import { IconDocsComponent } from '../../../components/icons/icon-docs/icon-docs.component';
 import { IconDepartementComponent } from '../../../components/icons/icon-departement/icon-departement.component';
 import { Observable } from 'rxjs';
-import { IconEditComponent } from '../../../components/icons/icon-edit/icon-edit.component';
 import { ModalStateService } from '../modal-add-app/modal-state.service';
 import { ModalEditAppComponent } from '../modal-edit-app/modal-edit-app.component';
+import { SocketService } from '../../../socket.service';
 
 @Component({
   selector: 'app-app-details',
@@ -75,9 +75,14 @@ export class AppDetailsComponent {
     private appHistoryService: AppHistoryService,
     public userService: UserService,
     private router: Router,
-    private modalStateService: ModalStateService
+    private modalStateService: ModalStateService,
+    private socketService: SocketService
   ) {
     modalStateService.subscribeOnsubmit(this.refresh);
+    this.socketService.onEvent('refetch_app', () => {
+      // find application
+      this.init();
+    });
   }
 
   numberFormat = (value: number) => {
@@ -98,12 +103,16 @@ export class AppDetailsComponent {
     this.findAllAppHistory(this.appId);
   };
 
-  ngOnInit() {
+  init() {
     this.canEdit$ = this.userService.canEditService('application');
     this.appId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.findAppById(this.appId);
     this.findAllAppHistory(this.appId);
     this.canAddDoc$ = this.userService.canCreateService('documentation');
+  }
+
+  ngOnInit() {
+    this.init();
   }
 
   findAppById(id: number) {

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DateFormater } from '../../lib/dateFormater';
 import { Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-corbeille',
@@ -20,12 +21,21 @@ export class CorbeilleComponent {
 
   constructor(
     private appService: ApplicationService,
-    public userService: UserService
-  ) {}
+    public userService: UserService,
+    private socketService: SocketService
+  ) {
+    this.socketService.onEvent('refetch_app', () => {
+      this.init();
+    });
+  }
 
-  ngOnInit() {
+  init() {
     this.fetchDeletedApps();
     this.canEdit$ = this.userService.canEditService('application');
+  }
+
+  ngOnInit() {
+    this.init();
   }
 
   fetchDeletedApps() {

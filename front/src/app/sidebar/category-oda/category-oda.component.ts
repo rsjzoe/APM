@@ -18,6 +18,7 @@ import { ModalConfirmComponent } from '../../components/modal-confirm/modal-conf
 import { Observable } from 'rxjs';
 import { UserService } from '../administration/user.service';
 import { ToastService } from '../../components/toast/service/toast.service';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-category-oda',
@@ -54,8 +55,13 @@ export class CategoryOdaComponent {
     private categoryODAParentService: CategoryODAParentService,
     private categoryODAChildService: CategoryODAChildService,
     private userService: UserService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private socketService: SocketService
+  ) {
+    this.socketService.onEvent('refetch_category', () => {
+      this.init();
+    });
+  }
 
   generateRandomColor(): string {
     const colors = [
@@ -70,13 +76,17 @@ export class CategoryOdaComponent {
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
-  ngOnInit() {
+  init() {
     this.canAddCategory$ = this.userService.canCreateService('category');
     this.canEditCategory$ = this.userService.canEditService('category');
     this.canDeleteCategory$ = this.userService.canDeleteService('category');
     this.categoryODAParentService.findAll().subscribe((categories) => {
       this.categories = categories;
     });
+  }
+
+  ngOnInit() {
+    this.init();
   }
 
   toggleAccordion(index: number) {

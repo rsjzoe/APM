@@ -8,6 +8,7 @@ import { UserService } from '../administration/user.service';
 import { IconDeleteComponent } from '../../components/icons/icon-delete/icon-delete.component';
 import { IconEditComponent } from '../../components/icons/icon-edit/icon-edit.component';
 import { ToastService } from '../../components/toast/service/toast.service';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-classification',
@@ -29,10 +30,15 @@ export class ClassificationComponent {
   constructor(
     private classeService: ClasseService,
     private userService: UserService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private socketService: SocketService
+  ) {
+    this.socketService.onEvent('refetch_classe', () => {
+      this.init();
+    });
+  }
 
-  ngOnInit() {
+  init() {
     this.findAll();
     this.canAddClasse$ = this.userService.canCreateService('classification');
     this.canEditClasse$ = this.userService.canEditService('classification');
@@ -41,6 +47,10 @@ export class ClassificationComponent {
       this.canDeleteClasse$,
       this.canEditClasse$,
     ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
+  }
+
+  ngOnInit() {
+    this.init();
   }
 
   findAll() {
@@ -116,12 +126,12 @@ export class ClassificationComponent {
         next: () => {
           this.findAll();
           this.cancelEdit();
-            this.toastService.success('Classe modifiée avec succès');
+          this.toastService.success('Classe modifiée avec succès');
         },
         error: (error) => {
           console.log('erreur de la modification : ' + error);
           this.toastService.error(
-            "Erreur lors de la modification de la Classe"
+            'Erreur lors de la modification de la Classe'
           );
         },
       });

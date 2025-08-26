@@ -10,6 +10,7 @@ import { UserService } from './user.service';
 import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
 import { combineLatest, map, Observable } from 'rxjs';
 import { ToastService } from '../../components/toast/service/toast.service';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-administration',
@@ -38,8 +39,13 @@ export class AdministrationComponent {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private socketService: SocketService
+  ) {
+    this.socketService.onEvent('refetch_users', () => {
+      this.init();
+    });
+  }
 
   saveTrigrammeAppDelete = (trigramme: string) => {
     this.appTrigrammeDelete = trigramme;
@@ -146,7 +152,7 @@ export class AdministrationComponent {
     this.isModalOpen = value;
   };
 
-  ngOnInit() {
+  init() {
     this.canAdd$ = this.userService.canCreateService('admin');
     this.canEdit$ = this.userService.canEditService('admin');
     this.canDelete$ = this.userService.canDeleteService('admin');
@@ -155,5 +161,9 @@ export class AdministrationComponent {
       this.canEdit$,
     ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
     this.refresh();
+  }
+
+  ngOnInit() {
+    this.init();
   }
 }
