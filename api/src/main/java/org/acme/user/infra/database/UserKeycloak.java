@@ -12,6 +12,7 @@ import org.acme.user.domain.exception.VerificationTokenException;
 import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
+import org.acme.user.domain.query.UserQuery;
 import org.keycloak.TokenVerifier;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
@@ -73,17 +74,46 @@ public class UserKeycloak implements UserRepository {
     }
 
     @Override
-    public List<UserOutput> findAllUser() {
+    public List<UserOutput> findAllUser(UserQuery query) {
         UsersResource usersResource = keycloak.realm(REALM).users();
+        List<UserRepresentation> userList = usersResource.list();
 
-        List<UserOutput> users = usersResource.list().stream()
-                .map(user -> {
-                    return userRepresentationToOutput(user);
-                })
+        // Filtrer par 'search' (nom, prénom, username)
+        if (query.getSearch() != null && !query.getSearch().isEmpty()) {
+            String searchLower = query.getSearch().toLowerCase();
+            userList = userList.stream()
+                    .filter(user -> {
+                        return (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(searchLower))
+                                ||
+                                (user.getLastName() != null && user.getLastName().toLowerCase().contains(searchLower))
+                                ||
+                                (user.getUsername() != null && user.getUsername().toLowerCase().contains(searchLower));
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        // Filtrer par 'role'
+        if (query.getRole() != null && !query.getRole().isEmpty()) {
+            String roleLower = query.getRole().toLowerCase();
+            userList = userList.stream()
+                    .filter(user -> {
+                        List<String> roles = usersResource.get(user.getId())
+                                .roles()
+                                .realmLevel()
+                                .listAll()
+                                .stream()
+                                .map(role -> role.getName().toLowerCase())
+                                .collect(Collectors.toList());
+                        return roles.contains(roleLower);
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        List<UserOutput> users = userList.stream()
+                .map(this::userRepresentationToOutput)
                 .collect(Collectors.toList());
 
         return users;
-
     }
 
     public UserRepresentation findByTrigramme(String trigramme) throws UserNotFoundException {

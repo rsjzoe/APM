@@ -11,6 +11,8 @@ import { ModalConfirmComponent } from '../../components/modal-confirm/modal-conf
 import { combineLatest, map, Observable } from 'rxjs';
 import { ToastService } from '../../components/toast/service/toast.service';
 import { SocketService } from '../../socket.service';
+import { Role } from '../../application/role/role.type';
+import { RoleService } from '../role/service/role.service';
 
 @Component({
   selector: 'app-administration',
@@ -27,6 +29,7 @@ import { SocketService } from '../../socket.service';
 })
 export class AdministrationComponent {
   users: User[] = [];
+  roles: Role[] = [];
   isEditing: string | null = null;
   userEditing: User | null = null;
   appTrigrammeDelete: string | null = null;
@@ -36,15 +39,27 @@ export class AdministrationComponent {
   canEditOrDelete$!: Observable<boolean>;
   isModalOpen = false;
 
+  searchText: string = '';
+  selectedRole: string = '';
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private toastService: ToastService,
+    private roleService: RoleService,
     private socketService: SocketService
   ) {
     this.socketService.onEvent('refetch_users', () => {
       this.init();
     });
+  }
+
+  onSearchChange() {
+    this.findAllUsers();
+  }
+
+  onRoleFilterChange() {
+    this.findAllUsers();
   }
 
   saveTrigrammeAppDelete = (trigramme: string) => {
@@ -93,15 +108,20 @@ export class AdministrationComponent {
     });
   }
 
-  findAllUsers = () => {
-    this.userService.findAll().subscribe({
-      next: (data) => {
-        this.users = data;
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des tâches :', error);
-      },
-    });
+  findAllUsers = () => {    
+    this.userService
+      .findAll({ role: this.selectedRole, search: this.searchText })
+      .subscribe({
+        next: (data) => {
+          this.users = data;
+        },
+        error: (error) => {
+          console.error(
+            'Erreur lors de la récupération des utilisateurs :',
+            error
+          );
+        },
+      });
   };
 
   editeUser(user: User) {
@@ -152,6 +172,12 @@ export class AdministrationComponent {
     this.isModalOpen = value;
   };
 
+  findAllRole() {
+    this.roleService.findAll().subscribe((roles) => {
+      this.roles = roles;
+    });
+  }
+
   init() {
     this.canAdd$ = this.userService.canCreateService('admin');
     this.canEdit$ = this.userService.canEditService('admin');
@@ -161,6 +187,7 @@ export class AdministrationComponent {
       this.canEdit$,
     ]).pipe(map(([canDelete, canEdit]) => canDelete || canEdit));
     this.refresh();
+    this.findAllRole();
   }
 
   ngOnInit() {

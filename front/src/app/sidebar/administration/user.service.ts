@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ChangePassword, User } from './user.type';
+import { ChangePassword, User, UserQuery } from './user.type';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { RoleService } from '../role/service/role.service';
 import { ActionType, ServiceName } from '../../application/role/role.type';
@@ -90,8 +90,15 @@ export class UserService {
     return this.http.delete<User>(`${this.API_URL}/${trigramme}`);
   }
 
-  findAll() {
-    return this.http.get<User[]>(`${this.API_URL}`);
+  findAll(query: UserQuery = {}) {
+    const searchParams = new URLSearchParams();
+    if (query.role) {
+      searchParams.set('role', query.role);
+    }
+    if (query.search) {
+      searchParams.set('search', query.search);
+    }
+    return this.http.get<User[]>(`${this.API_URL}?${searchParams.toString()}`);
   }
 
   update(trigramme: string, user: User) {

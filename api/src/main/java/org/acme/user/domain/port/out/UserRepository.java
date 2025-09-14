@@ -7,11 +7,12 @@ import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.exception.VerificationTokenException;
 import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
+import org.acme.user.domain.query.UserQuery;
 
 public interface UserRepository {
     UserOutput me(String token) throws VerificationTokenException, UserNotFoundException;
 
-    List<UserOutput> findAllUser();
+    List<UserOutput> findAllUser(UserQuery query);
 
     UserOutput deleteByTrigramme(String trigramme) throws UserNotFoundException;
 

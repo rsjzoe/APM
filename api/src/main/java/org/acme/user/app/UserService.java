@@ -13,6 +13,7 @@ import org.acme.user.domain.exception.WrongPasswordException;
 import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
+import org.acme.user.domain.query.UserQuery;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -34,8 +35,8 @@ public class UserService {
         return userRepository.me(token);
     }
 
-    public List<UserOutput> findAllUsers() {
-        return userRepository.findAllUser()
+    public List<UserOutput> findAllUsers(UserQuery query) {
+        return userRepository.findAllUser(query)
                 .stream()
                 .filter(user -> !("superadmin".equalsIgnoreCase(user.getTrigramme())
                         || "superadminapm".equalsIgnoreCase(user.getTrigramme())))

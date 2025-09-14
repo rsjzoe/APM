@@ -13,6 +13,7 @@ import org.acme.user.domain.exception.UserNotFoundException;
 import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.out.UserRepository;
+import org.acme.user.domain.query.UserQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ public class UserKeycloakTest {
 
     @Test
     public void testFindAll() {
-        var users = userRepository.findAllUser();
+        var users = userRepository.findAllUser(new UserQuery());
 
         assertNotNull(users);
         assertTrue(users.size() > 0);

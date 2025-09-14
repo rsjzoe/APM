@@ -13,19 +13,19 @@
       </div>
     </div>
 
-    <div class="input-group mb-3 input-dropdown d-flex justify-content-end">
-      <button
-        class="btn btn-dropdown dropdown-toggle"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        Filtrer
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item">utilisateur</a></li>
-        <li><a class="dropdown-item">administration</a></li>
-      </ul>
+    <div class="input-group mb-3 d-flex justify-content-end" style="gap: 10px;">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Rechercher par nom ou trigramme..."
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearchChange()"
+        style="max-width: 250px;"
+      />
+      <select class="form-select" [(ngModel)]="selectedRole" (change)="onRoleFilterChange()" style="max-width: 180px;">
+        <option value="">Tous les rôles</option>
+        <option *ngFor="let role of roles" [value]="role.roleName">{{ role.roleName }}</option>
+      </select>
     </div>
   </div>
 
@@ -121,22 +121,5 @@
     </div>
     <app-modal-confirm [onConfirm]="onConfirmDelete"></app-modal-confirm>
 
-    <nav
-      aria-label="Page navigation "
-      class="position-relative"
-      style="top: 80px"
-    >
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link">Prev</a>
-        </li>
-        <li class="page-item"><a class="page-link">1</a></li>
-        <li class="page-item active"><a class="page-link">2</a></li>
-        <li class="page-item"><a class="page-link">3</a></li>
-        <li class="page-item">
-          <a class="page-link">Next</a>
-        </li>
-      </ul>
-    </nav>
   </div>
 </div>

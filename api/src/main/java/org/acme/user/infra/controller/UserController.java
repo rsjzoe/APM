@@ -10,10 +10,12 @@ import org.acme.user.domain.exception.WrongPasswordException;
 import org.acme.user.domain.input.ChangePassword;
 import org.acme.user.domain.input.UpdateUser;
 import org.acme.user.domain.port.in.UserRest;
+import org.acme.user.domain.query.UserQuery;
 
 import io.quarkus.security.Authenticated;
 import io.quarkus.security.UnauthorizedException;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -46,8 +48,8 @@ public class UserController implements UserRest {
 
     @Override
     @GET
-    public List<UserOutput> findAllUser() {
-        return userService.findAllUsers();
+    public List<UserOutput> findAllUser(@BeanParam UserQuery query) {
+        return userService.findAllUsers(query);
     }
 
     @Override
