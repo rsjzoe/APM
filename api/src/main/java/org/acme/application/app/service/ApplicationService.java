@@ -154,7 +154,9 @@ public class ApplicationService {
             VerificationTokenException, UserNotFoundException {
 
         Time time = null;
-        if (updateApplication.getTechBusinessValueWithoutApp() != null) {
+        if (updateApplication.getTechBusinessValueWithoutApp() != null
+                && updateApplication.getTechBusinessValueWithoutApp().getBusinessValue() > 0
+                && updateApplication.getTechBusinessValueWithoutApp().getTechnicalDebt() > 0) {
             time = calculateTime.calcul(updateApplication.getTechBusinessValueWithoutApp().getBusinessValue(),
                     updateApplication.getTechBusinessValueWithoutApp().getTechnicalDebt());
 
