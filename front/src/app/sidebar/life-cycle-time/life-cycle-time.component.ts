@@ -139,8 +139,14 @@ export class LifeCycleTimeComponent {
       }
 
       const item = {
-        x: app.currentTechBusinessValue.businessValue,
-        y: app.currentTechBusinessValue.technicalDebt,
+        x:
+          app.currentTechBusinessValue.businessValue ||
+          app.noteBusinessValue ||
+          0,
+        y:
+          app.currentTechBusinessValue.technicalDebt ||
+          app.noteTechnicalDebt ||
+          0,
         r: normalizedR,
       };
 
@@ -221,8 +227,14 @@ export class LifeCycleTimeComponent {
 
       rep2.set(
         JSON.stringify({
-          x: element.currentTechBusinessValue.businessValue,
-          y: element.currentTechBusinessValue.technicalDebt,
+          x:
+            element.currentTechBusinessValue.businessValue ||
+            element.noteBusinessValue ||
+            0,
+          y:
+            element.currentTechBusinessValue.technicalDebt ||
+            element.noteBusinessValue ||
+            0,
           r: normalizedR,
         }),
         element
